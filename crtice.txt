@@ -1,0 +1,3 @@
+Vina - entitet za route
+Sir - sekundarno 
+
