@@ -13,6 +13,8 @@ function App() {
       <Izbornik />
 
       
+      <hr />
+      &copy; Tankred
     </Container>
   )
 }
