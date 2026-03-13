@@ -1,6 +1,8 @@
-export const IME_APLIKACIJE='WineAndCheesePairingApp'
+export const IME_APLIKACIJE='Wine & Cheese Pairing App'
 
 export const RouteNames = {
     HOME: '/',
-    SIREVI: '/'
+    VINA: '/vina',
+    SIREVI: '/sirevi',
+    UPARIVANJE: '/uparivanje'
 }

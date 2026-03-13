@@ -15,15 +15,21 @@ export default function Izbornik() {
           <Nav className="me-auto">
             <Nav.Link
              onClick={()=>navigate(RouteNames.HOME)}>
-              Vina</Nav.Link>
+              Početna</Nav.Link>
+
+            <Nav.Link
+             onClick={()=>navigate(RouteNames.VINA)}>
+              Vina 🍷</Nav.Link>
               
             <Nav.Link
              onClick={()=>navigate(RouteNames.SIREVI)}
-              >Sirevi</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              >Sirevi 🧀</Nav.Link>
 
-            </NavDropdown>
+            <Nav.Link
+             onClick={()=>navigate(RouteNames.UPARIVANJE)}
+              >Uparivanje 🍷🧀</Nav.Link>
+           
+            
           </Nav>
         </Navbar.Collapse>
       </Container>
