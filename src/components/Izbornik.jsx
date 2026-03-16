@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { IME_APLIKACIJE } from "../constants";
+import { IME_APLIKACIJE, RouteNames } from "../constants";
 import { useNavigate } from "react-router-dom";
 
 export default function Izbornik() {
@@ -17,13 +17,17 @@ export default function Izbornik() {
              onClick={()=>navigate(RouteNames.HOME)}>
               Početna</Nav.Link>
 
-            <Nav.Link
-             onClick={()=>navigate(RouteNames.VINA)}>
-              Vina 🍷</Nav.Link>
-              
-            <Nav.Link
-             onClick={()=>navigate(RouteNames.SIREVI)}
-              >Sirevi 🧀</Nav.Link>
+            <NavDropdown title="Vina🍷" id="basic-nav-dropdown">
+                <NavDropdown.Item
+                onClick={()=>navigate(RouteNames.VINA_PREGLED)}
+                >VinaPregled</NavDropdown.Item>                                
+                </NavDropdown>
+
+            <NavDropdown title="Sirevi🧀" id="basic-nav-dropdown">
+                <NavDropdown.Item
+             onClick={()=>navigate(RouteNames.SIREVI_PREGLED)}
+              >SireviPregled</NavDropdown.Item>
+              </NavDropdown>
 
             <Nav.Link
              onClick={()=>navigate(RouteNames.UPARIVANJE)}

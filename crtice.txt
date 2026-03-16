@@ -1,3 +1,7 @@
 Vina - entitet za route
 Sir - sekundarno 
 
+index, instalacija - json(dependencies), browser(dodati), constants, Izbornik, vite aktivacija...
+App route... i tu stop
+
+vino i vino pregled poddirektoriji
