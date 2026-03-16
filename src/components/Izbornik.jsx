@@ -20,13 +20,13 @@ export default function Izbornik() {
             <NavDropdown title="Vina🍷" id="basic-nav-dropdown">
                 <NavDropdown.Item
                 onClick={()=>navigate(RouteNames.VINA_PREGLED)}
-                >VinaPregled</NavDropdown.Item>                                
+                >Pregled vina</NavDropdown.Item>                                
                 </NavDropdown>
 
             <NavDropdown title="Sirevi🧀" id="basic-nav-dropdown">
                 <NavDropdown.Item
              onClick={()=>navigate(RouteNames.SIREVI_PREGLED)}
-              >SireviPregled</NavDropdown.Item>
+              >Pregled sireva</NavDropdown.Item>
               </NavDropdown>
 
             <Nav.Link
