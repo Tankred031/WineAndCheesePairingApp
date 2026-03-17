@@ -2,11 +2,11 @@ import { vina } from "./VinaPopis";
 
 
 async function get() {
-    return {data: vina}
-    
+    return { data: vina }
+
 }
 
 
-export default{
+export default {
     get
 }

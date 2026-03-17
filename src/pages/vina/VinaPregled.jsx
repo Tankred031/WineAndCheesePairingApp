@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react"
 import VinaService from "../../services/vina/VinaService"
 
-export default function VinaPregled(){
-    
+export default function VinaPregled() {
+
     const [vina, setVina] = useState([])
-    
-    useEffect(()=> {
+
+    useEffect(() => {
         ucitajVina()
-    },[])
+    }, [])
 
     async function ucitajVina() {
-        await VinaService.get().then((odgovor)=>{
+        await VinaService.get().then((odgovor) => {
             setVina(odgovor.data)
-    })
-        
+        })
+
     }
-    
-    return(
+
+    return (
         <>
-        <ul>
-            {vina && vina.map((vina)=>(
-                <li>{vina.naziv}</li>
-            ))}
-        </ul>
+            <ul>
+                {vina && vina.map((vina) => (
+                    <li>{vina.naziv}</li>
+                ))}
+            </ul>
         </>
     )
 }
