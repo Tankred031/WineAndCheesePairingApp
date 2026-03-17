@@ -14,26 +14,26 @@ export default function Izbornik() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link
-             onClick={()=>navigate(RouteNames.HOME)}>
+              onClick={() => navigate(RouteNames.HOME)}>
               Početna</Nav.Link>
 
             <NavDropdown title="Vina🍷" id="basic-nav-dropdown">
-                <NavDropdown.Item
-                onClick={()=>navigate(RouteNames.VINA_PREGLED)}
-                >Pregled vina</NavDropdown.Item>                                
-                </NavDropdown>
+              <NavDropdown.Item
+                onClick={() => navigate(RouteNames.VINA_PREGLED)}
+              >Pregled vina</NavDropdown.Item>
+            </NavDropdown>
 
             <NavDropdown title="Sirevi🧀" id="basic-nav-dropdown">
-                <NavDropdown.Item
-             onClick={()=>navigate(RouteNames.SIREVI_PREGLED)}
+              <NavDropdown.Item
+                onClick={() => navigate(RouteNames.SIREVI_PREGLED)}
               >Pregled sireva</NavDropdown.Item>
-              </NavDropdown>
+            </NavDropdown>
 
             <Nav.Link
-             onClick={()=>navigate(RouteNames.UPARIVANJE)}
-              >Uparivanje 🍷🧀</Nav.Link>
-           
-            
+              onClick={() => navigate(RouteNames.UPARIVANJE)}
+            >Uparivanje 🍷🧀</Nav.Link>
+
+
           </Nav>
         </Navbar.Collapse>
       </Container>
