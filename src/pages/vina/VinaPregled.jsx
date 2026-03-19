@@ -24,14 +24,15 @@ export default function VinaPregled() {
                     <tr>
                         <th>Naziv</th>
                         <th>Tip</th>
-                        <th>Drzava</th>
+                        <th>Država</th>
                         <th>Regija</th>
-                        <th>Jacina</th>
+                        <th>Jačina</th>
                         <th>Temperatura</th>
-                        <th>Slatkoca</th>
+                        <th>Slatkoća</th>
                         <th>Arome</th>
                         <th>Tijelo</th>
                         <th>Alkohol</th>
+                        <th>Akcija</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +48,7 @@ export default function VinaPregled() {
                         <td>{vina.arome}</td>
                         <td>{vina.tijelo}</td>
                         <td>{vina.alkohol}</td>
+                        <td></td>
                     </tr>
                 ))}
                 </tbody>
