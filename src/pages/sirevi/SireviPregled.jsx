@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import SireviService from "../../services/sirevi/SireviService"
+import { Table } from "react-bootstrap"
 
 export default function SireviPregled() {
 
@@ -17,11 +18,9 @@ export default function SireviPregled() {
 
     return (
         <>
-            <ul>
-                {sirevi && sirevi.map((sirevi) => (
-                    <li>{sirevi.naziv}</li>
-                ))}
-            </ul>
+            <Table>
+                
+            </Table>
         </>
     )
 }
