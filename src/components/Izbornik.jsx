@@ -17,13 +17,13 @@ export default function Izbornik() {
               onClick={() => navigate(RouteNames.HOME)}>
               Početna</Nav.Link>
 
-            <NavDropdown title="Vina🍷" id="basic-nav-dropdown">
+            <NavDropdown title="🍷Vina" id="basic-nav-dropdown">
               <NavDropdown.Item
                 onClick={() => navigate(RouteNames.VINA_PREGLED)}
               >Pregled vina</NavDropdown.Item>
             </NavDropdown>
 
-            <NavDropdown title="Sirevi🧀" id="basic-nav-dropdown">
+            <NavDropdown title="🧀Sirevi" id="basic-nav-dropdown">
               <NavDropdown.Item
                 onClick={() => navigate(RouteNames.SIREVI_PREGLED)}
               >Pregled sireva</NavDropdown.Item>
@@ -31,7 +31,7 @@ export default function Izbornik() {
 
             <Nav.Link
               onClick={() => navigate(RouteNames.UPARIVANJE)}
-            >Uparivanje 🍷🧀</Nav.Link>
+            >🍷🧀Uparivanje</Nav.Link>
 
 
           </Nav>
