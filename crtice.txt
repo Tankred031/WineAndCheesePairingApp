@@ -5,3 +5,4 @@ index, instalacija - json(dependencies), browser(dodati), constants, Izbornik, v
 App route... i tu stop
 
 vino i vino pregled poddirektoriji možda statistika meni tu
+provjeriti jel instalirano - doma: react-number-format + react-icons
