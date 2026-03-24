@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import VinaService from "../../services/vina/VinaService"
 import { Table } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import { RouteNames } from "../../constants"
 
 export default function VinaPregled() {
 
@@ -19,6 +21,9 @@ export default function VinaPregled() {
 
     return (
         <>
+            <Link to={RouteNames.VINO_NOVO} className="btn btn-success w-100 mb-3 mt-3">
+                Dodavanje novog vina
+            </Link>
             <Table>
                 <thead>
                     <tr>
@@ -37,7 +42,7 @@ export default function VinaPregled() {
                 </thead>
                 <tbody>
                     {vina && vina.map((vina)=>(   
-                    <tr>
+                    <tr key={smjer.id}>
                         <td>{vina.naziv}</td>
                         <td>{vina.tip}</td>                            
                         <td>{vina.drzava}</td>

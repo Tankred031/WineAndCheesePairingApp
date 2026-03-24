@@ -8,6 +8,9 @@ import Uparivanje from './pages/Uparivanje'
 import { RouteNames } from './constants'
 import VinaPregled from './pages/vina/VinaPregled'
 import SireviPregled from './pages/sirevi/SireviPregled'
+import VinoNovo from './pages/vina/VinoNovo'
+import SirNovi from './pages/sirevi/SirNovi'
+
 
 function App() {
 
@@ -21,6 +24,8 @@ function App() {
         <Route path={RouteNames.VINA_PREGLED} element={<VinaPregled />} />
         <Route path={RouteNames.SIREVI_PREGLED} element={<SireviPregled />} />
         <Route path={RouteNames.UPARIVANJE} element={<Uparivanje />} />
+        <Route path={RouteNames.VINO_NOVO} element={<VinoNovo />} />
+        <Route path={RouteNames.SIR_NOVI} element={<SirNovi />} />
       </Routes>
       <hr />
       &copy; Tankred
