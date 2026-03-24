@@ -21,7 +21,7 @@ export default function VinaPregled() {
 
     return (
         <>
-            <Link to={RouteNames.VINO_NOVO} className="btn btn-success w-100 mb-3 mt-3">
+            <Link to={RouteNames.VINA_NOVO} className="btn btn-success w-100 mb-3 mt-3">
                 Dodavanje novog vina
             </Link>
             <Table>
@@ -42,7 +42,7 @@ export default function VinaPregled() {
                 </thead>
                 <tbody>
                     {vina && vina.map((vina)=>(   
-                    <tr key={smjer.id}>
+                    <tr key={vina.id}>
                         <td>{vina.naziv}</td>
                         <td>{vina.tip}</td>                            
                         <td>{vina.drzava}</td>

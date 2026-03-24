@@ -5,13 +5,13 @@ async function get() {
     return { data: vina }
 }
 
-async function dodaj(vino) {
+async function dodaj(vina) {
     if(vina.length > 0) {
-        vino.id = vina[vina.length -1].id +1
+        vina.id = vina[vina.length -1].id +1
     }else{
-        vino.id = 1
+        vina.id = 1
     }
-    vina.push(vino)
+    vina.push(vina)
 }
 
 export default {

@@ -8,8 +8,8 @@ export default function VinoNovo() {
 
     const navigate = useNavigate()
 
-    async function dodaj(vino) {
-        await VinaService.dodaj(vino).then(() => {
+    async function dodaj(vina) {
+        await VinaService.dodaj(vina).then(() => {
             navigate(RouteNames.VINA)
         })        
     }
