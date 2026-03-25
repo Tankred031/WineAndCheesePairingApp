@@ -4,19 +4,18 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import VinaService from "../../services/vina/VinaService";
 
 
-export default function VinoNovo() {
+export default function VinaNovi() {
 
     const navigate = useNavigate()
 
-    async function dodaj(vina) {
-        await VinaService.dodaj(vina).then(() => {
+    async function dodaj(vino) {
+        await VinaService.dodaj(vino).then(() => {
             navigate(RouteNames.VINA)
         })        
     }
 
-    function odradiSumbit(e){
+    function odradiSubmit(e){
         e.preventDefault()
-
         const podaci = new FormData(e.target)
         dodaj({
             naziv: podaci.get('naziv'),
@@ -49,7 +48,7 @@ export default function VinoNovo() {
 
                 <Form.Group controlId="regija">
                     <Form.Label>Regija</Form.Label>
-                    <Form.Control type="text" name="regija" />
+                    <Form.Control type="text" name="regija" required />
                 </Form.Group>
 
                 <Form.Group controlId="jacina">
@@ -59,7 +58,7 @@ export default function VinoNovo() {
 
                 <Form.Group controlId="temperatura">
                     <Form.Label>Temperatura</Form.Label>
-                    <Form.Control type="number" name="temperatura" step={1} />
+                    <Form.Control type="number" name="temperatura" required step={1} />
                 </Form.Group>
 
                 <Form.Group controlId="slatkoca">
@@ -69,12 +68,12 @@ export default function VinoNovo() {
 
                 <Form.Group controlId="arome">
                     <Form.Label>Arome</Form.Label>
-                    <Form.Control type="text" name="arome" />
+                    <Form.Control type="text" name="arome" required />
                 </Form.Group>
 
                 <Form.Group controlId="tijelo">
                     <Form.Label>Tijelo</Form.Label>
-                    <Form.Control type="text" name="tijelo"  />
+                    <Form.Control type="text" name="tijelo" required />
                 </Form.Group>
 
                 <Form.Group controlId="alkohol">

@@ -8,8 +8,8 @@ import Uparivanje from './pages/Uparivanje'
 import { RouteNames } from './constants'
 import VinaPregled from './pages/vina/VinaPregled'
 import SireviPregled from './pages/sirevi/SireviPregled'
-import VinaNovo from './pages/vina/VinaNovo'
-import SireviNovo from './pages/sirevi/SireviNovo'
+import VinaNovi from './pages/vina/VinaNovi'
+import SireviNovi from './pages/sirevi/SireviNovi'
 
 
 function App() {
@@ -24,8 +24,8 @@ function App() {
         <Route path={RouteNames.VINA_PREGLED} element={<VinaPregled />} />
         <Route path={RouteNames.SIREVI_PREGLED} element={<SireviPregled />} />
         <Route path={RouteNames.UPARIVANJE} element={<Uparivanje />} />
-        <Route path={RouteNames.VINA_NOVO} element={<VinaNovo />} />
-        <Route path={RouteNames.SIREVI_NOVO} element={<SireviNovo />} />
+        <Route path={RouteNames.VINA_NOVI} element={<VinaNovi />} />
+        <Route path={RouteNames.SIREVI_NOVI} element={<SireviNovi />} />
       </Routes>
       <hr />
       &copy; Tankred

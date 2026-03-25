@@ -5,6 +5,6 @@ export const RouteNames = {
     VINA_PREGLED: '/vinapregled',
     SIREVI_PREGLED: '/sirevipregled',
     UPARIVANJE: '/uparivanje',
-    VINA_NOVO: '/vinanovo'
-    SIREVI_NOVO: '/sirevinovo'
+    VINA_NOVI: '/vina/novi',
+    SIREVI_NOVI: '/sirevi/novi'
 }

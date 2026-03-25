@@ -3,6 +3,7 @@ import VinaService from "../../services/vina/VinaService"
 import { Table } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { RouteNames } from "../../constants"
+import { NumericFormat } from "react-number-format"
 
 export default function VinaPregled() {
 
@@ -21,7 +22,7 @@ export default function VinaPregled() {
 
     return (
         <>
-            <Link to={RouteNames.VINA_NOVO} className="btn btn-success w-100 mb-3 mt-3">
+            <Link to={RouteNames.VINA_NOVI} className="btn btn-success w-100 mb-3 mt-3">
                 Dodavanje novog vina
             </Link>
             <Table>
@@ -41,21 +42,41 @@ export default function VinaPregled() {
                     </tr>
                 </thead>
                 <tbody>
-                    {vina && vina.map((vina)=>(   
-                    <tr key={vina.id}>
-                        <td>{vina.naziv}</td>
-                        <td>{vina.tip}</td>                            
-                        <td>{vina.drzava}</td>
-                        <td>{vina.regija}</td>
-                        <td>{vina.jacina}</td>
-                        <td>{vina.temperatura}</td>
-                        <td>{vina.slatkoca}</td>
-                        <td>{vina.arome}</td>
-                        <td>{vina.tijelo}</td>
-                        <td>{vina.alkohol}</td>
-                        <td></td>
-                    </tr>
-                ))}
+                    {vina && vina.map((vina) => (
+                        <tr key={vina.id}>
+                            <td>{vina.naziv}</td>
+                            <td>{vina.tip}</td>
+                            <td>{vina.drzava}</td>
+                            <td>{vina.regija}</td>
+                            <td>{vina.jacina}</td>
+                            <td>
+                                <NumericFormat
+                                    value={vina.temperatura}
+                                    displayType={'text'}
+                                    thousandSeparator='.'
+                                    decimalSeparator=','
+                                    suffix={' °C'}
+                                    decimalScale={0}
+                                    fixedDecimalScale
+                                />
+                            </td>
+                            <td>{vina.slatkoca}</td>
+                            <td>{vina.arome}</td>
+                            <td>{vina.tijelo}</td>
+                            <td>
+                                <NumericFormat
+                                    value={vina.alkohol}
+                                    displayType={'text'}
+                                    thousandSeparator='.'
+                                    decimalSeparator=','
+                                    suffix={' %'}
+                                    decimalScale={1}
+                                    fixedDecimalScale
+                                />
+                            </td>
+                            <td></td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </>

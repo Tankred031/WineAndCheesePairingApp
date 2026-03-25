@@ -6,8 +6,8 @@ async function get() {
 }
 
 async function dodaj(sir) {
-    if(sirevi.length > 0) {
-        sir.id = sirevi[sirevi.length -1].id +1
+    if(sirevi.length>0) {
+        sir.id = sirevi[sirevi.length-1].id+1
     }else{
         sir.id = 1
     }

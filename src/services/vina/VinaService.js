@@ -2,19 +2,19 @@ import { vina } from "./VinaPopis";
 
 
 async function get() {
-    return { data: vina }
+    return {data: vina}
 }
 
-async function dodaj(vina) {
-    if(vina.length > 0) {
-        vina.id = vina[vina.length -1].id +1
+async function dodaj(vino) {
+    if(vina.length>0) {
+        vino.id = vina[vina.length-1].id+1
     }else{
-        vina.id = 1
+        vino.id = 1
     }
-    vina.push(vina)
+    vina.push(vino)
 }
 
-export default {
+export default{
     get, 
     dodaj
 }
