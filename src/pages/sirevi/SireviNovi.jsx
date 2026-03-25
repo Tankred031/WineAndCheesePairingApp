@@ -9,7 +9,7 @@ export default function SireviNovi() {
 
     async function dodaj(sir) {
         await SireviService.dodaj(sir).then(() => {
-            navigate(RouteNames.SIREVI)
+            navigate(RouteNames.SIREVI_PREGLED)
         })        
     }
 
@@ -19,6 +19,7 @@ export default function SireviNovi() {
         dodaj({
             naziv: podaci.get('naziv'),
             tip: podaci.get('tip'),
+            vrsta: podaci.get('vrsta'),
             zrenje: podaci.get('zrenje'),            
             regija: podaci.get('regija'),
             intezitet: podaci.get('intezitet'),
@@ -40,9 +41,19 @@ export default function SireviNovi() {
                     <Form.Control type="text" name="naziv" required />
                 </Form.Group>
 
-                <Form.Group controlId="tip">
+                 <Form.Group controlId="tip">
                     <Form.Label>Tip</Form.Label>
-                    <Form.Control type="text" name="tip" required />
+                    <Form.Control type="text" name="zrenje" required />
+                </Form.Group>
+
+                <Form.Group controlId="vrsta">
+                    <Form.Label>Vrsta</Form.Label>
+                    <Form.Select name="vrsta" required>
+                        <option value="kravlji">kravlji</option>
+                        <option value="ovčji">ovčji</option>
+                        <option value="kozji">kozji</option>
+                        <option value="mješoviti">mješoviti</option>
+                    </Form.Select>
                 </Form.Group>
 
                 <Form.Group controlId="zrenje">
@@ -62,7 +73,11 @@ export default function SireviNovi() {
 
                 <Form.Group controlId="masnoce">
                     <Form.Label>Masnoce</Form.Label>
-                    <Form.Control type="text" name="masnoce" required />
+                    <Form.Select name="masnoce" required>
+                        <option value="visoke">visoke</option>
+                        <option value="srednje">srednje</option>
+                        <option value="niske">niske</option>
+                        </Form.Select>
                 </Form.Group>
 
                 <Form.Group controlId="tekstura">
@@ -79,7 +94,7 @@ export default function SireviNovi() {
 
                 <Row>
                     <Col>
-                        <Link to={RouteNames.SIREVI} className="btn btn-danger w-100">
+                        <Link to={RouteNames.SIREVI_PREGLED} className="btn btn-danger w-100">
                         Odustani
                         </Link>
                     </Col>

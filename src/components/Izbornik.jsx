@@ -27,6 +27,9 @@ export default function Izbornik() {
               <NavDropdown.Item
                 onClick={() => navigate(RouteNames.SIREVI_PREGLED)}
               >Pregled sireva</NavDropdown.Item>
+               <NavDropdown.Item
+                onClick={() => navigate(RouteNames.SIREVI_NOVI)}
+              >Dodavanje sireva</NavDropdown.Item>
             </NavDropdown>
 
             <Nav.Link

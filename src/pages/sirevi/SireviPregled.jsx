@@ -20,9 +20,7 @@ export default function SireviPregled() {
 
     return (
         <>
-            <Link to={RouteNames.SIREVI_NOVI} className="btn btn-success w-100 mb-3 mt-3">
-                Dodavanje novog sira
-            </Link>
+        <div className="mt-4">    
             <Table>
                 <thead>
                     <tr>
@@ -55,6 +53,7 @@ export default function SireviPregled() {
                 ))}
                 </tbody>
             </Table>
+            </div>
         </>
     )
 }

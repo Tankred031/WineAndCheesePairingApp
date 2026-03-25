@@ -276,129 +276,9 @@ export const vina = [
         alkohol: '11.5-12.5%'
     },
     {
-        id: 24,
-        naziv: 'Shiraz',
-        tip: 'crveno',
-        regija: 'Barossa Valley',
-        jacina: 'jako',
-        temperatura: '16-18°C',
-        slatkoca: 'suho',
-        arome: 'kupina, papar, čokolada',
-        tijelo: 'puno',
-        alkohol: '14-15.5%'
-    },
-    {
-        id: 25,
-        naziv: 'Petite Sirah',
-        tip: 'crveno',
-        regija: 'California',
-        jacina: 'jako',
-        temperatura: '16-18°C',
-        slatkoca: 'suho',
-        arome: 'borovnica, papar, tamno voće',
-        tijelo: 'puno',
-        alkohol: '13.5-15%'
-    },
-    {
-        id: 26,
-        naziv: 'Carmenere',
-        tip: 'crveno',
-        regija: 'Central Valley',
-        jacina: 'srednje-jako',
-        temperatura: '16-18°C',
-        slatkoca: 'suho',
-        arome: 'paprika, šljiva, začini',
-        tijelo: 'srednje',
-        alkohol: '13-14.5%'
-    },
-    {
-        id: 27,
-        naziv: 'Primitivo',
-        tip: 'crveno',
-        regija: 'Puglia',
-        jacina: 'jako',
-        temperatura: '16-18°C',
-        slatkoca: 'polusuho',
-        arome: 'šljiva, džem, začini',
-        tijelo: 'puno',
-        alkohol: '14-16%'
-    },
-    {
-        id: 28,
-        naziv: 'Montepulciano',
-        tip: 'crveno',
-        regija: 'Abruzzo',
-        jacina: 'srednje',
-        temperatura: '16-18°C',
-        slatkoca: 'suho',
-        arome: 'trešnja, začini',
-        tijelo: 'srednje',
-        alkohol: '12.5-14%'
-    },
-    {
-        id: 29,
-        naziv: 'Soave',
-        tip: 'bijelo',
-        regija: 'Veneto',
-        jacina: 'lagano',
-        temperatura: '8-10°C',
-        slatkoca: 'suho',
-        arome: 'jabuka, cvjetno',
-        tijelo: 'lagano',
-        alkohol: '11-12.5%'
-    },
-    {
-        id: 30,
-        naziv: 'Greco di Tufo',
-        tip: 'bijelo',
-        regija: 'Campania',
-        jacina: 'srednje',
-        temperatura: '10-12°C',
-        slatkoca: 'suho',
-        arome: 'kruška, mineralno',
-        tijelo: 'srednje',
-        alkohol: '12-13.5%'
-    },
-    {
-        id: 31,
-        naziv: 'Chenin Blanc',
-        tip: 'bijelo',
-        regija: 'Loire',
-        jacina: 'srednje',
-        temperatura: '8-10°C',
-        slatkoca: 'poluslatko',
-        arome: 'jabuka, med, cvjetno',
-        tijelo: 'srednje',
-        alkohol: '11-13.5%'
-    },
-    {
-        id: 32,
-        naziv: 'Semillon',
-        tip: 'bijelo',
-        regija: 'Bordeaux',
-        jacina: 'srednje',
-        temperatura: '10-12°C',
-        slatkoca: 'suho',
-        arome: 'limun, vosak, med',
-        tijelo: 'srednje',
-        alkohol: '11.5-13.5%'
-    },
-    {
-        id: 33,
-        naziv: 'Tokaji',
-        tip: 'bijelo',
-        regija: 'Tokaj',
-        jacina: 'srednje',
-        temperatura: '10-12°C',
-        slatkoca: 'slatko',
-        arome: 'med, marelica, cvjetno',
-        tijelo: 'puno',
-        alkohol: '11-13%'
-    },
-    {
         id: 34,
         naziv: 'Porto',
-        tip: 'fortificirano',
+        tip: 'desertno',
         regija: 'Douro',
         jacina: 'jako',
         temperatura: '12-16°C',
@@ -410,7 +290,7 @@ export const vina = [
     {
         id: 35,
         naziv: 'Sherry',
-        tip: 'fortificirano',
+        tip: 'desertno',
         regija: 'Jerez',
         jacina: 'srednje-jako',
         temperatura: '8-14°C',
@@ -422,7 +302,19 @@ export const vina = [
     {
         id: 36,
         naziv: 'Madeira',
-        tip: 'fortificirano',
+        tip: 'desertno',
+        regija: 'Madeira',
+        jacina: 'jako',
+        temperatura: '14-16°C',
+        slatkoca: 'slatko',
+        arome: 'karamela, orašasto',
+        tijelo: 'puno',
+        alkohol: '17-20%'
+    },
+    {
+        id: 36,
+        naziv: 'Madeira',
+        tip: 'desertno',
         regija: 'Madeira',
         jacina: 'jako',
         temperatura: '14-16°C',
@@ -732,4 +624,4 @@ export const vina = [
         tijelo: 'lagano',
         alkohol: '10-12%'
     }
-];
+]

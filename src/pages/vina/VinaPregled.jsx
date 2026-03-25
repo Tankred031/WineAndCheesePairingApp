@@ -30,7 +30,6 @@ export default function VinaPregled() {
                     <tr>
                         <th>Naziv</th>
                         <th>Tip</th>
-                        <th>Država</th>
                         <th>Regija</th>
                         <th>Jačina</th>
                         <th>Temperatura</th>
@@ -46,34 +45,13 @@ export default function VinaPregled() {
                         <tr key={vina.id}>
                             <td>{vina.naziv}</td>
                             <td>{vina.tip}</td>
-                            <td>{vina.drzava}</td>
                             <td>{vina.regija}</td>
                             <td>{vina.jacina}</td>
-                            <td>
-                                <NumericFormat
-                                    value={vina.temperatura}
-                                    displayType={'text'}
-                                    thousandSeparator='.'
-                                    decimalSeparator=','
-                                    suffix={' °C'}
-                                    decimalScale={0}
-                                    fixedDecimalScale
-                                />
-                            </td>
+                            <td>{vina.temperatura}</td>
                             <td>{vina.slatkoca}</td>
                             <td>{vina.arome}</td>
                             <td>{vina.tijelo}</td>
-                            <td>
-                                <NumericFormat
-                                    value={vina.alkohol}
-                                    displayType={'text'}
-                                    thousandSeparator='.'
-                                    decimalSeparator=','
-                                    suffix={' %'}
-                                    decimalScale={1}
-                                    fixedDecimalScale
-                                />
-                            </td>
+                            <td>{vina.alkohol}</td>                            
                             <td></td>
                         </tr>
                     ))}

@@ -2,31 +2,32 @@ import { Link, useNavigate } from "react-router-dom";
 import { RouteNames } from "../../constants";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import VinaService from "../../services/vina/VinaService";
+import { useState } from "react";
 
 
 export default function VinaNovi() {
 
     const navigate = useNavigate()
-
+    
     async function dodaj(vino) {
         await VinaService.dodaj(vino).then(() => {
             navigate(RouteNames.VINA_PREGLED)
-        })        
+        })
     }
 
-    function odradiSubmit(e){
+    function odradiSubmit(e) {
         e.preventDefault()
         const podaci = new FormData(e.target)
         dodaj({
             naziv: podaci.get('naziv'),
             tip: podaci.get('tip'),
             regija: podaci.get('regija'),
-            jacina: podaci.get('srednje'),
-            temperatura: parseInt(podaci.get('temperatura')),
+            jacina: podaci.get('jacina'),
+            temperatura: podaci.get('temperatura'),
             slatkoca: podaci.get('slatkoca'),
-            arome: podaci.get ('arome'),
-            tijelo: podaci.get ('tijelo'),
-            alkohol: parseInt(podaci.get('alkohol'))
+            arome: podaci.get('arome'),
+            tijelo: podaci.get('tijelo'),
+            alkohol: podaci.get('alkohol')
         })
     }
 
@@ -43,7 +44,13 @@ export default function VinaNovi() {
 
                 <Form.Group controlId="tip">
                     <Form.Label>Tip</Form.Label>
-                    <Form.Control type="text" name="tip" required />
+                    <Form.Select name="tip" required>
+                        <option value="crveno">crveno</option>
+                        <option value="bijelo">bijelo</option>
+                        <option value="pjenušavo">pjenušavo</option>
+                        <option value="desertno">desertno</option>
+                        <option value="rose">rose</option>
+                    </Form.Select>
                 </Form.Group>
 
                 <Form.Group controlId="regija">
@@ -63,7 +70,12 @@ export default function VinaNovi() {
 
                 <Form.Group controlId="slatkoca">
                     <Form.Label>Slatkoća</Form.Label>
-                    <Form.Control type="text" name="slatkoca" required />
+                    <Form.Select name="slatkoca" required>
+                        <option value="suho">suho</option>
+                        <option value="polusuho">polusuho</option>
+                        <option value="poluslatko">poluslatko</option>
+                        <option value="slatko">slatko</option>
+                    </Form.Select>
                 </Form.Group>
 
                 <Form.Group controlId="arome">
@@ -78,15 +90,15 @@ export default function VinaNovi() {
 
                 <Form.Group controlId="alkohol">
                     <Form.Label>Alkohol</Form.Label>
-                    <Form.Control type="number" name="alkohol" required step={1} />
+                     <Form.Control type="text" name="alkohol" required />
                 </Form.Group>
 
-<hr style={{marginTop: '50px', border: '0'}} />
+                <hr style={{ marginTop: '50px', border: '0' }} />
 
                 <Row>
                     <Col>
                         <Link to={RouteNames.VINA_PREGLED} className="btn btn-danger w-100">
-                        Odustani 
+                            Odustani
                         </Link>
                     </Col>
                     <Col>
