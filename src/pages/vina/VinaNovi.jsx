@@ -10,7 +10,7 @@ export default function VinaNovi() {
 
     async function dodaj(vino) {
         await VinaService.dodaj(vino).then(() => {
-            navigate(RouteNames.VINA)
+            navigate(RouteNames.VINA_PREGLED)
         })        
     }
 
@@ -85,7 +85,7 @@ export default function VinaNovi() {
 
                 <Row>
                     <Col>
-                        <Link to={RouteNames.VINA} className="btn btn-danger w-100">
+                        <Link to={RouteNames.VINA_PREGLED} className="btn btn-danger w-100">
                         Odustani 
                         </Link>
                     </Col>
