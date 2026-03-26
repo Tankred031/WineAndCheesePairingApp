@@ -32,7 +32,7 @@ function App() {
         <Route path={RouteNames.SIREVI_PROMJENA} element={<SireviPromjena />} />
       </Routes>
       <hr />
-      &copy; Wine and Cheese Pairing App
+      <p className='footer'>&copy; Wine and Cheese Pairing App</p>
     </Container>
   )
 }
