@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import VinaService from "../../services/vina/VinaService"
-import { Table } from "react-bootstrap"
+import { Button, Table } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { RouteNames } from "../../constants"
 
@@ -52,7 +52,11 @@ export default function VinaPregled() {
                             <td>{vina.arome}</td>
                             <td>{vina.tijelo}</td>
                             <td>{vina.alkohol}</td>                            
-                            <td></td>
+                            <td>
+                                <Button onClick={()=>{navigate(`/vina/${vina.id}`)}} variant="warning">
+                                    Promjena
+                                </Button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

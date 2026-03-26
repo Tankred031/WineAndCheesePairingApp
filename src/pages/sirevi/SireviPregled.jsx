@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import SireviService from "../../services/sirevi/SireviService"
-import { Table } from "react-bootstrap"
+import { Button, Table } from "react-bootstrap"
 
 
 export default function SireviPregled() {
@@ -47,7 +47,11 @@ export default function SireviPregled() {
                         <td>{sirevi.masnoce}</td>
                         <td>{sirevi.tekstura}</td>
                         <td>{sirevi.okus}</td>
-                        <td></td>
+                        <td>
+                            <Button onClick={()=>{navigate(`/sirevi/${sirevi.id}`)}} variant="warning">
+                                Promjena
+                            </Button>
+                        </td>
                     </tr>
                 ))}
                 </tbody>
