@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import SireviService from "../../services/sirevi/SireviService"
 import { Table } from "react-bootstrap"
-import { Link } from "react-router-dom"
-import { RouteNames } from "../../constants"
+
 
 export default function SireviPregled() {
 

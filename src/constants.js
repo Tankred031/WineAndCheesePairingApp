@@ -6,5 +6,7 @@ export const RouteNames = {
     SIREVI_PREGLED: '/sirevipregled',
     UPARIVANJE: '/uparivanje',
     VINA_NOVI: '/vina/novi',
-    SIREVI_NOVI: '/sirevi/novi'
+    SIREVI_NOVI: '/sirevi/novi',
+    VINA_PROMJENA: '/vina/:id',
+    SIREVI_PROMJENA: '/sirevi/:id'
 }

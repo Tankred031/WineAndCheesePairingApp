@@ -3,7 +3,7 @@ import VinaService from "../../services/vina/VinaService"
 import { Table } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { RouteNames } from "../../constants"
-import { NumericFormat } from "react-number-format"
+
 
 export default function VinaPregled() {
 

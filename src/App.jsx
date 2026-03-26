@@ -10,7 +10,8 @@ import VinaPregled from './pages/vina/VinaPregled'
 import SireviPregled from './pages/sirevi/SireviPregled'
 import VinaNovi from './pages/vina/VinaNovi'
 import SireviNovi from './pages/sirevi/SireviNovi'
-
+import VinaPromjena from './pages/vina/VinaPromjena'
+import SireviPromjena from '.pages/sirevi/SireviPromjena'
 
 function App() {
 
@@ -26,9 +27,11 @@ function App() {
         <Route path={RouteNames.UPARIVANJE} element={<Uparivanje />} />
         <Route path={RouteNames.VINA_NOVI} element={<VinaNovi />} />
         <Route path={RouteNames.SIREVI_NOVI} element={<SireviNovi />} />
+        <Route path={RouteNames.VINA_PROMJENA} element={<VinaPromjena />} />
+        <Route path={RouteNames.SIREVI_PROMJENA} element={<SireviPromjena />} />
       </Routes>
       <hr />
-      &copy; Tankred
+      &copy; Wine and Cheese Pairing App
     </Container>
   )
 }

@@ -1,24 +1,46 @@
-import { Link, useNavigate } from "react-router-dom";
-import { RouteNames } from "../../constants";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { RouteNames } from "../../constants";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import VinaService from "../../services/vina/VinaService";
-np
+import { useEffect, useState } from "react";
 
 
-export default function VinaNovi() {
+export default function VinaPromjena() {
 
     const navigate = useNavigate()
-    
-    async function dodaj(vino) {
-        await VinaService.dodaj(vino).then(() => {
-            navigate(RouteNames.VINA_PREGLED)
+    const params = useParams()
+    const [vina, setVina] = useState({})
+    const [aktivan, setAktivan] = useState(false)
+        
+    async function ucitajVina() {
+        await VinaService.getById(params.id).then((odgovor)=>{
+
+            const s = odgovor.data
+            
+            setVina(s)
+
+            setAktivan(s.aktivan)
+
         })
+        
     }
+
+
+    useEffect(() => {
+        ucitajVina
+    }, [])
+    
+    async function promjeni(vina) {
+        await VinaService.promjeni(params.id,vina).then(() => {
+            navigate(RouteNames.VINA_PREGLED)
+        })       
+    }
+
 
     function odradiSubmit(e) {
         e.preventDefault()
         const podaci = new FormData(e.target)
-        dodaj({
+        promjeni({
             naziv: podaci.get('naziv'),
             tip: podaci.get('tip'),
             regija: podaci.get('regija'),
@@ -103,7 +125,7 @@ export default function VinaNovi() {
                     </Col>
                     <Col>
                         <Button type="submit" variant="success w-100">
-                            Dodaj novo vino
+                            Promjeni vino
                         </Button>
                     </Col>
                 </Row>
