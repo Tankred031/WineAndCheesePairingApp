@@ -11,7 +11,8 @@ import SireviPregled from './pages/sirevi/SireviPregled'
 import VinaNovi from './pages/vina/VinaNovi'
 import SireviNovi from './pages/sirevi/SireviNovi'
 import VinaPromjena from './pages/vina/VinaPromjena'
-import SireviPromjena from '.pages/sirevi/SireviPromjena'
+import SireviPromjena from './pages/sirevi/SireviPromjena'
+
 
 function App() {
 
