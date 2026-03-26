@@ -3,6 +3,7 @@ import { RouteNames } from "../../constants"
 import SireviService from "../../services/sirevi/SireviService"
 import { Link, useNavigate } from "react-router-dom"
 
+
 export default function SireviNovi() {
     
     const navigate = useNavigate() 

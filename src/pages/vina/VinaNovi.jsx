@@ -4,7 +4,6 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import VinaService from "../../services/vina/VinaService";
 
 
-
 export default function VinaNovi() {
 
     const navigate = useNavigate()

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import VinaService from "../../services/vina/VinaService"
 import { Button, Table } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 
 
 export default function VinaPregled() {
 
+    const navigate = useNavigate()
     const [vina, setVina] = useState([])
 
     useEffect(() => {
