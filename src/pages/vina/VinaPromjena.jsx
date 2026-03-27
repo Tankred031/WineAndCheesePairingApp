@@ -9,29 +9,24 @@ export default function VinaPromjena() {
 
     const navigate = useNavigate()
     const params = useParams()
-    const [vina, setVina] = useState({})
-    const [aktivan, setAktivan] = useState(false)
-        
-    async function ucitajVina() {
+    const [vino, setVino] = useState({})
+    
+    async function ucitajVino() {
         await VinaService.getById(params.id).then((odgovor)=>{
-
             const s = odgovor.data
-            
-            setVina(s)
-
-            setAktivan(s.aktivan)
-
+            setVino(s)
         })
         
     }
 
 
     useEffect(() => {
-        ucitajVina
+        ucitajVino()
     }, [])
+
     
-    async function promjeni(vina) {
-        await VinaService.promjeni(params.id,vina).then(() => {
+    async function promjeni(vino) {
+        await VinaService.promjeni(params.id,vino).then(() => {
             navigate(RouteNames.VINA_PREGLED)
         })       
     }
@@ -56,17 +51,18 @@ export default function VinaPromjena() {
     return (
         <>
             <h3>
-                Unos novog vina
+                Izmjena postojećeg vina
             </h3>
             <Form onSubmit={odradiSubmit}>
                 <Form.Group controlId="naziv">
                     <Form.Label>Naziv</Form.Label>
-                    <Form.Control type="text" name="naziv" required />
+                    <Form.Control type="text" name="naziv" required 
+                    defaultValue={vino.naziv} />
                 </Form.Group>
 
                 <Form.Group controlId="tip">
                     <Form.Label>Tip</Form.Label>
-                    <Form.Select name="tip" required>
+                    <Form.Select name="tip" defaultValue={vino.tip} required>
                         <option value="crveno">crveno</option>
                         <option value="bijelo">bijelo</option>
                         <option value="pjenušavo">pjenušavo</option>
@@ -77,22 +73,25 @@ export default function VinaPromjena() {
 
                 <Form.Group controlId="regija">
                     <Form.Label>Regija</Form.Label>
-                    <Form.Control type="text" name="regija" required />
+                    <Form.Control type="text" name="regija" required
+                    defaultValue={vino.regija} />
                 </Form.Group>
 
                 <Form.Group controlId="jacina">
                     <Form.Label>Jačina</Form.Label>
-                    <Form.Control type="text" name="jacina" required />
+                    <Form.Control type="text" name="jacina" required
+                    defaultValue={vino.jacina} />
                 </Form.Group>
 
                 <Form.Group controlId="temperatura">
                     <Form.Label>Temperatura</Form.Label>
-                    <Form.Control type="number" name="temperatura" required step={1} />
+                    <Form.Control type="text" name="temperatura" required
+                    defaultValue={vino.temperatura} />
                 </Form.Group>
 
                 <Form.Group controlId="slatkoca">
                     <Form.Label>Slatkoća</Form.Label>
-                    <Form.Select name="slatkoca" required>
+                    <Form.Select name="slatkoca" defaultValue={vino.slatkoca} required>
                         <option value="suho">suho</option>
                         <option value="polusuho">polusuho</option>
                         <option value="poluslatko">poluslatko</option>
@@ -102,17 +101,20 @@ export default function VinaPromjena() {
 
                 <Form.Group controlId="arome">
                     <Form.Label>Arome</Form.Label>
-                    <Form.Control type="text" name="arome" required />
+                    <Form.Control type="text" name="arome" required
+                    defaultValue={vino.arome} />
                 </Form.Group>
 
                 <Form.Group controlId="tijelo">
                     <Form.Label>Tijelo</Form.Label>
-                    <Form.Control type="text" name="tijelo" required />
+                    <Form.Control type="text" name="tijelo" required
+                    defaultValue={vino.tijelo} />
                 </Form.Group>
 
                 <Form.Group controlId="alkohol">
                     <Form.Label>Alkohol</Form.Label>
-                     <Form.Control type="text" name="alkohol" required />
+                     <Form.Control type="text" name="alkohol" required
+                     defaultValue={vino.alkohol} />
                 </Form.Group>
 
                 <hr style={{ marginTop: '50px', border: '0' }} />

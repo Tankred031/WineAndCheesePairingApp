@@ -3,3 +3,14 @@
     color: whitesmoke;
     padding: 8px;
 } 
+
+.h1 {
+    text-align: center;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px 0;
+}

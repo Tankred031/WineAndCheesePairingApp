@@ -1,38 +1,33 @@
-import { Button, Col, Form, Row } from "react-bootstrap"
-import { RouteNames } from "../../constants"
-import { Link, useNavigate, useParams } from "react-router-dom"
-import SireviService from "../../services/sirevi/SireviService"
-import { use, useEffect, useState } from "react"
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { RouteNames } from "../../constants";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import SireviService from "../../services/sirevi/SireviService";
+import { useEffect, useState } from "react";
+
 
 export default function SireviPromjena() {
 
     const navigate = useNavigate()
     const params = useParams()
-    const [sirevi, setSirevi] = useState({})
-    const [aktivan, setAktivan] = useState(false)
+    const [sir, setSir] = useState({})
     
 
-    async function ucitajSirevi() {
-        await SireviService.getById(params.id).then((odgovor) => {
-
+    async function ucitajSir() {
+        await SireviService.getById(params.id).then((odgovor)=>{
             const s = odgovor.data
-
-            setSirevi(s)
-
-            setAktivan(s.aktivan)
-
+            setSir(s)
         })
 
     }
 
 
-
     useEffect(() => {
-        ucitajSirevi
+        ucitajSir()
     }, [])
 
-    async function promjeni(sirevi) {
-        await SireviService.promjeni(params.id, sirevi).then(() => {
+
+    async function promjeni(sir) {
+        await SireviService.promjeni(params.id,sir).then(() => {
             navigate(RouteNames.SIREVI_PREGLED)
         })
     }
@@ -58,22 +53,24 @@ export default function SireviPromjena() {
     return (
         <>
             <h3>
-                Unos novog sira
+                Izmjena postojećeg sira
             </h3>
             <Form onSubmit={odradiSubmit}>
                 <Form.Group controlId="naziv">
                     <Form.Label>Naziv</Form.Label>
-                    <Form.Control type="text" name="naziv" required />
+                    <Form.Control type="text" name="naziv" required
+                    defaultValue={sir.naziv} />
                 </Form.Group>
 
                 <Form.Group controlId="tip">
                     <Form.Label>Tip</Form.Label>
-                    <Form.Control type="text" name="zrenje" required />
+                    <Form.Control type="text" name="tip" required
+                    defaultValue={sir.tip} />
                 </Form.Group>
 
                 <Form.Group controlId="vrsta">
                     <Form.Label>Vrsta</Form.Label>
-                    <Form.Select name="vrsta" required>
+                    <Form.Select name="vrsta" defaultValue={sir.vrsta} required>
                         <option value="kravlji">kravlji</option>
                         <option value="ovčji">ovčji</option>
                         <option value="kozji">kozji</option>
@@ -83,22 +80,25 @@ export default function SireviPromjena() {
 
                 <Form.Group controlId="zrenje">
                     <Form.Label>Zrenje</Form.Label>
-                    <Form.Control type="text" name="zrenje" required />
+                    <Form.Control type="text" name="zrenje" required
+                    defaultValue={sir.zrenje} />
                 </Form.Group>
 
                 <Form.Group controlId="regija">
                     <Form.Label>Regija</Form.Label>
-                    <Form.Control type="text" name="regija" required />
+                    <Form.Control type="text" name="regija" required
+                    defaultValue={sir.regija} />
                 </Form.Group>
 
                 <Form.Group controlId="intezitet">
                     <Form.Label>Intezitet</Form.Label>
-                    <Form.Control type="text" name="intezitet" required />
+                    <Form.Control type="text" name="intezitet" required
+                    defaultValue={sir.intezitet} />
                 </Form.Group>
 
                 <Form.Group controlId="masnoce">
                     <Form.Label>Masnoce</Form.Label>
-                    <Form.Select name="masnoce" required>
+                    <Form.Select name="masnoce" defaultValue={sir.masnoce} required>
                         <option value="visoke">visoke</option>
                         <option value="srednje">srednje</option>
                         <option value="niske">niske</option>
@@ -107,12 +107,14 @@ export default function SireviPromjena() {
 
                 <Form.Group controlId="tekstura">
                     <Form.Label>Tekstura</Form.Label>
-                    <Form.Control type="text" name="tekstura" required />
+                    <Form.Control type="text" name="tekstura" required
+                    defaultValue={sir.tekstura} />
                 </Form.Group>
 
                 <Form.Group controlId="okus">
                     <Form.Label>Okus</Form.Label>
-                    <Form.Control type="text" name="okus" required />
+                    <Form.Control type="text" name="okus" required
+                    defaultValue={sir.okus} />
                 </Form.Group>
 
                 <hr style={{ marginTop: '50px', border: '0' }} />
@@ -125,7 +127,7 @@ export default function SireviPromjena() {
                     </Col>
                     <Col>
                         <Button type="submit" variant="success w-100">
-                            Dodaj novi sir
+                            Promjeni sir
                         </Button>
                     </Col>
                 </Row>
