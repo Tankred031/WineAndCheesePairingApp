@@ -27,9 +27,15 @@ function nadiIndex(id){
     return sirevi.findIndex(s => s.id === parseInt(id))
 }
 
-export default {
+async function obrisi(id) {
+    const index = nadiIndex(id)
+    sirevi.splice(index,1)
+}
+
+export default{
     get, 
     dodaj, 
     getById,
-    promjeni
+    promjeni,
+    obrisi
 }

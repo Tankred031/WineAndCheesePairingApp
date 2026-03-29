@@ -19,9 +19,17 @@ export default function SireviPregled() {
         })
     }
 
+    async function obrisi(id) {
+        if(!confirm('Sigurno obrisati?')){
+            return
+        }
+        await SireviService.obrisi(id)
+        ucitajSirevi()
+    }
+
     return (
         <>
-            
+
             <div className="mt-4">
                 <Table>
                     <thead>
@@ -51,8 +59,12 @@ export default function SireviPregled() {
                                 <td>{sirevi.tekstura}</td>
                                 <td>{sirevi.okus}</td>
                                 <td>
-                                    <Button onClick={() => {navigate(`/sirevi/${sirevi.id}`)}} variant="warning">
+                                    <Button onClick={() => { navigate(`/sirevi/${sirevi.id}`) }} variant="warning">
                                         Promjena
+                                    </Button>
+                                    &nbsp;
+                                    <Button onClick={() => { obrisi(sirevi.id) }} variant="danger">
+                                        Obriši
                                     </Button>
                                 </td>
                             </tr>

@@ -21,6 +21,15 @@ export default function VinaPregled() {
 
     }
 
+    async function obrisi(id) {
+        if(!confirm('Sigurno obrisati?')){
+            return
+        }
+        await VinaService.obrisi(id)
+        ucitajVina()
+    }
+
+    
     return (
         <>
             <Link to={RouteNames.VINA_NOVI} className="btn btn-success w-100 mb-3 mt-3">
@@ -56,6 +65,10 @@ export default function VinaPregled() {
                             <td>
                                 <Button onClick={()=>{navigate(`/vina/${vina.id}`)}} variant="warning">
                                     Promjena
+                                </Button>
+                                &nbsp;
+                                <Button onClick={()=>{obrisi(vina.id)}} variant="danger">
+                                    Obriši
                                 </Button>
                             </td>
                         </tr>

@@ -27,9 +27,15 @@ function nadiIndex(id){
     return vina.findIndex(s => s.id === parseInt(id))
 }
 
+async function obrisi(id) {
+    const index = nadiIndex(id)
+    vina.splice(index,1)    
+}
+
 export default{
     get, 
     dodaj,
     getById,
-    promjeni
+    promjeni,
+    obrisi
 }
