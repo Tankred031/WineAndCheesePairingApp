@@ -59,13 +59,15 @@ export default function SireviPregled() {
                                 <td>{sirevi.tekstura}</td>
                                 <td>{sirevi.okus}</td>
                                 <td>
-                                    <Button onClick={() => { navigate(`/sirevi/${sirevi.id}`) }} variant="warning">
+                                    <div className="d-flex gap-2">
+                                    <Button onClick={() => { navigate(`/sirevi/${sirevi.id}`) }} variant="warning" size="sm">
                                         Promjena
                                     </Button>
                                     &nbsp;
-                                    <Button onClick={() => { obrisi(sirevi.id) }} variant="danger">
+                                    <Button onClick={() => { obrisi(sirevi.id) }} variant="danger" size="sm">
                                         Obriši
                                     </Button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}

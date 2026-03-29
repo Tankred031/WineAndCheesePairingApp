@@ -63,13 +63,15 @@ export default function VinaPregled() {
                             <td>{vina.tijelo}</td>
                             <td>{vina.alkohol}</td>                            
                             <td>
-                                <Button onClick={()=>{navigate(`/vina/${vina.id}`)}} variant="warning">
+                                <div className="d-flex gap-2">
+                                <Button onClick={()=>{navigate(`/vina/${vina.id}`)}} variant="warning" size="sm">
                                     Promjena
                                 </Button>
                                 &nbsp;
-                                <Button onClick={()=>{obrisi(vina.id)}} variant="danger">
+                                <Button onClick={()=>{obrisi(vina.id)}} variant="danger" size="sm">
                                     Obriši
                                 </Button>
+                                </div>
                             </td>
                         </tr>
                     ))}
