@@ -11,16 +11,16 @@ async function getById(id) {
 
 async function dodaj(sir) {
     if(sirevi.length>0) {
-        sirevi.id = sirevi[sirevi.length-1].id+1
+        sir.id = sirevi[sirevi.length-1].id+1
     }else{
-        sirevi.id = 1
+        sir.id = 1
     }
     sirevi.push(sir)
 }
 
-async function promjeni(id, sirevi) {
+async function promjeni(id, sir) {
     const index = nadiIndex(id)
-    sirevi[index] = {...sirevi[index], ...sirevi}    
+    sirevi[index] = {...sirevi[index], ...sir}    
 }
 
 function nadiIndex(id){

@@ -44,7 +44,7 @@ export default function SireviNovi() {
 
                  <Form.Group controlId="tip">
                     <Form.Label>Tip</Form.Label>
-                    <Form.Control type="text" name="zrenje" required />
+                    <Form.Control type="text" name="tip" required />
                 </Form.Group>
 
                 <Form.Group controlId="vrsta">
