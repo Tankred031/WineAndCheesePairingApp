@@ -5,7 +5,7 @@ import { Component } from "react";
 class Card extends Component {
     render() {
         return (
-            <div className="card shadow h-100" style={{ width: "18rem" }}>
+            <div className="card shadow h-100 mx-auto" style={{ maxWidth: "17rem", width: "100%" }}>
                 <img
                     src={this.props.img}
                     className="card-img-top"
