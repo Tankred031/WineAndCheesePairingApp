@@ -16,6 +16,11 @@ export default function VinaPregled() {
 
     async function ucitajVina() {
         await VinaService.get().then((odgovor) => {
+            
+            if(!odgovor.success){
+                alert('Nije implementiran servis')
+                return
+            }
             setVina(odgovor.data)
         })
 

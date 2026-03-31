@@ -1,41 +1,36 @@
-import { sirevi } from "./SireviPopis";
+import SireviServiceLocalStorage from "./SireviServiceLocalStorage";
+import SireviServiceMemorija from "./SireviServiceMemorija";
+import { DATA_SOURCE } from "../../constants";
+
+let Servis = null;
 
 
-async function get() {
-    return {data: [...sirevi]}
-}
-
-async function getById(id) {
-    return {data: sirevi.find(s => s.id === parseInt(id))}    
-}
-
-async function dodaj(sir) {
-    if(sirevi.length>0) {
-        sir.id = sirevi[sirevi.length-1].id+1
-    }else{
-        sir.id = 1
+switch (DATA_SOURCE) {
+    case 'memorija':
+            Servis = SireviServiceMemorija;
+            break;
+        case 'localStorage':
+            Servis = SireviServiceLocalStorage;
+            break;
+        default:
+            Servis = null;
     }
-    sirevi.push(sir)
-}
 
-async function promjeni(id, sir) {
-    const index = nadiIndex(id)
-    sirevi[index] = {...sirevi[index], ...sir}    
-}
 
-function nadiIndex(id){
-    return sirevi.findIndex(s => s.id === parseInt(id))
-}
+const PrazanServis = {
+    get: async () =>({ success: false, data: []}),
+    getBySifra: async (id) => ({ success: false, data: {} }),
+    dodaj: async (sir) => {console.error("Servis nije učitan"); },
+    promjeni: async (id, sir) => { console.error("Servise nije učitan"); },
+    obrisi: async (id, sir) => { console.error("Servis nije učitan"); }
+};
 
-async function obrisi(id) {
-    const index = nadiIndex(id)
-    sirevi.splice(index,1)
-}
+const AktivniServis = Servis || PrazanServis;
 
-export default{
-    get, 
-    dodaj, 
-    getById,
-    promjeni,
-    obrisi
+export default {
+    get: () => AktivniServis.get(),
+    getBySifra: (id) => AktivniServis.getById(id),
+    dodaj: (sir) => AktivniServis.dodaj(sir),
+    promjeni: (id, sir) => AktivniServis.promjeni(id, sir),
+    obrisi: (id, sir) => AktivniServis.obrisi(id)
 }

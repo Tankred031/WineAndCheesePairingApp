@@ -14,6 +14,12 @@ export default function SireviPromjena() {
 
     async function ucitajSir() {
         await SireviService.getById(params.id).then((odgovor)=>{
+            
+            if(!odgovor.success){
+                alert('Nije implementiran servis')
+                return
+            }
+            
             const s = odgovor.data
             setSir(s)
         })

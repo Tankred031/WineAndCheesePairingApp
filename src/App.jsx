@@ -19,8 +19,9 @@ function App() {
 
 
   return (
-    <Container>
+    <Container style={ {backgroundColor: window.localStorage === 'localhost' ? 'salmon' : 'none'}}>
       <Izbornik />
+      <Container className='app'>
       <Routes>
         <Route path={RouteNames.HOME} element={<Home />} />
         <Route path={RouteNames.VINA_PREGLED} element={<VinaPregled />} />
@@ -31,6 +32,7 @@ function App() {
         <Route path={RouteNames.VINA_PROMJENA} element={<VinaPromjena />} />
         <Route path={RouteNames.SIREVI_PROMJENA} element={<SireviPromjena />} />
       </Routes>
+      </Container>
       <hr />
       <p className='footer'>&copy; Wine and Cheese Pairing App</p>
     </Container>

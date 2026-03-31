@@ -10,3 +10,6 @@ export const RouteNames = {
     VINA_PROMJENA: '/vina/:id',
     SIREVI_PROMJENA: '/sirevi/:id'
 }
+
+// memorija, localStorage, firebase
+export const DATA_SOURCE = 'localStorage';

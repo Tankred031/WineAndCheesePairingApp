@@ -13,6 +13,12 @@ export default function VinaPromjena() {
     
     async function ucitajVino() {
         await VinaService.getById(params.id).then((odgovor)=>{
+
+            if(!odgovor.success){
+                alert('Nije implementiran servis')
+                return
+            }
+            
             const s = odgovor.data
             setVino(s)
         })

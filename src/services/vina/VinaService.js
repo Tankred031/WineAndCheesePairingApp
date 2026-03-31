@@ -1,41 +1,36 @@
-import { vina } from "./VinaPopis";
+import VinaServiceLocalStorage from "./VinaServiceLocalStorage";
+import VinaServiceMemorija from "./VinaServiceMemorija";
+import { DATA_SOURCE } from "../../constants";
+
+let Servis = null;
 
 
-async function get() {
-    return {data: [...vina]}
+switch (DATA_SOURCE) {
+    case 'memorija':
+        Servis = VinaServiceMemorija;
+        break;
+    case 'localStorage':
+        Servis = VinaServiceLocalStorage;
+        break;
+    default:
+        Servis = null;
 }
 
-async function getById(id) {
-    return {data: vina.find(s => s.id === parseInt(id))}    
-}
 
-async function dodaj(vino) {
-    if(vina.length>0) {
-        vino.id = vina[vina.length-1].id+1
-    }else{
-        vino.id = 1
-    }
-    vina.push(vino)
-}
+const PrazanServis = {
+    get: async () =>({ success: false, data: []}),
+    getBySifra: async (id) => ({ success: false, data: {} }),
+    dodaj: async (vino) => {console.error("Servis nije učitan"); },
+    promjeni: async (id, vino) => { console.error("Servise nije učitan"); },
+    obrisi: async (id, vino) => { console.error("Servis nije učitan"); }
+};
 
-async function promjeni(id, vino) {
-    const index = nadiIndex(id)
-    vina[index] = {...vina[index], ...vino}    
-}
+const AktivniServis = Servis || PrazanServis;
 
-function nadiIndex(id){
-    return vina.findIndex(s => s.id === parseInt(id))
-}
-
-async function obrisi(id) {
-    const index = nadiIndex(id)
-    vina.splice(index,1)    
-}
-
-export default{
-    get, 
-    dodaj,
-    getById,
-    promjeni,
-    obrisi
+export default {
+    get: () => AktivniServis.get(),
+    getBySifra: (id) => AktivniServis.getById(id),
+    dodaj: (vino) => AktivniServis.dodaj(vino),
+    promjeni: (id, vino) => AktivniServis.promjeni(id, vino),
+    obrisi: (id, vino) => AktivniServis.obrisi(id)
 }

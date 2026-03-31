@@ -15,6 +15,11 @@ export default function SireviPregled() {
 
     async function ucitajSirevi() {
         await SireviService.get().then((odgovor) => {
+            
+            if(!odgovor.success){
+                alert('Nije implementiran servis')
+                return
+            }
             setSirevi(odgovor.data)
         })
     }
