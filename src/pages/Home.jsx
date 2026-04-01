@@ -28,7 +28,7 @@ export default function Home() {
                             img={vinoDan}
                             alt="vino"
                             title="Nacionalni dan vina i sira 🍷🧀"
-                            text="Jeste li znali da vino i sir imaju svoj dan? Imaju, i to na 25. srpnja. Pa stoga evo par prijedloga u ovoj aplikaciji, kako spojiti što s čim"
+                            text="Jeste li znali da vino i sir imaju svoj dan? Imaju, i to na 25. srpnja. Pa stoga evo par prijedloga u ovoj aplikaciji, kako spojiti što s čim, a o danu vina, više na linku"
                             link="https://www.foxnews.com/lifestyle/national-wine-cheese-day-best-wine-cheese-pairings"
                             button="Pročitaj više"
                         />

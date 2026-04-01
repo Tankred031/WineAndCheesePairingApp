@@ -36,7 +36,7 @@ export default function SireviPregled() {
         <>
 
             <div className="mt-4">
-                <Table>
+                <Table bordered striped hover>
                     <thead>
                         <tr>
                             <th>Naziv</th>

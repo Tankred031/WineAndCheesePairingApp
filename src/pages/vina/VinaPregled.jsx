@@ -40,7 +40,7 @@ export default function VinaPregled() {
             <Link to={RouteNames.VINA_NOVI} className="btn btn-success w-100 mb-3 mt-3">
                 Dodavanje novog vina
             </Link>
-            <Table>
+            <Table bordered striped hover>
                 <thead>
                     <tr>
                         <th>Naziv</th>
