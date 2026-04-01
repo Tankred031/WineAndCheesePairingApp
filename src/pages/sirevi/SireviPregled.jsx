@@ -45,8 +45,7 @@ export default function SireviPregled() {
                             <th>Zrenje</th>
                             <th>Regija</th>
                             <th>Intezitet</th>
-                            <th>Masnoće</th>
-                            <th>Tekstura</th>
+                            <th>Masnoće</th>                            
                             <th>Okus</th>
                             <th>Akcija</th>
                         </tr>
@@ -60,8 +59,7 @@ export default function SireviPregled() {
                                 <td>{sirevi.zrenje}</td>
                                 <td>{sirevi.regija}</td>
                                 <td>{sirevi.intezitet}</td>
-                                <td>{sirevi.masnoce}</td>
-                                <td>{sirevi.tekstura}</td>
+                                <td>{sirevi.masnoce}</td>                                
                                 <td>{sirevi.okus}</td>
                                 <td>
                                     <div className="d-flex gap-2">

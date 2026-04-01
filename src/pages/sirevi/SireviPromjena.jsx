@@ -49,8 +49,7 @@ export default function SireviPromjena() {
             zrenje: podaci.get('zrenje'),
             regija: podaci.get('regija'),
             intezitet: podaci.get('intezitet'),
-            masnoce: podaci.get('masnoce'),
-            tekstura: podaci.get('tekstura'),
+            masnoce: podaci.get('masnoce'),           
             okus: podaci.get('okus')
         })
 
@@ -109,12 +108,6 @@ export default function SireviPromjena() {
                         <option value="srednje">srednje</option>
                         <option value="niske">niske</option>
                     </Form.Select>
-                </Form.Group>
-
-                <Form.Group controlId="tekstura">
-                    <Form.Label>Tekstura</Form.Label>
-                    <Form.Control type="text" name="tekstura" required
-                    defaultValue={sir.tekstura} />
                 </Form.Group>
 
                 <Form.Group controlId="okus">

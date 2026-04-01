@@ -5,10 +5,15 @@ import vinoDan from "../assets/wine-day.png"
 import drinks from "../assets/drinks.jpg"
 import cheeseMeat from "../assets/cheese-meat.webp"
 
+
 export default function Home() {
     return (
         <>
-            <h1 className="h1">Dobrodošli na {IME_APLIKACIJE}</h1>
+            <div style={{ textAlign: "center", marginTop: "20px" }}>
+                <img src="/Wine&Cheese.png" alt="Wine & Cheese" className="home-logo" />
+                <h1 className="h1">Dobrodošli na {IME_APLIKACIJE}</h1>
+                <p style={{ fontSize: "18px", color: "#7B0323" }}>Pronađite savršenu kombinaciju vina i sira</p>
+            </div>
 
             <div style={{ maxWidth: '300px', margin: 'auto' }}>
                 <DotLottieReact

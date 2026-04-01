@@ -7,8 +7,7 @@ export const sirevi = [
         zrenje: 'srednje do dugo',
         regija: 'Somerset',
         intezitet: 'srednji do jak',
-        masnoce: 'visoke',
-        tekstura: 'čvrsta, mrvičasta',
+        masnoce: 'visoke',       
         okus: 'orašast, pun, blago pikantan'
     },
     {
@@ -19,8 +18,7 @@ export const sirevi = [
         zrenje: 'kratko',
         regija: 'Île-de-France',
         intezitet: 'blag',
-        masnoce: 'visoke',
-        tekstura: 'kremasta',
+        masnoce: 'visoke',        
         okus: 'maslac, blago gljivasto'
     },
     {
@@ -31,8 +29,7 @@ export const sirevi = [
         zrenje: 'kratko',
         regija: 'Normandija',
         intezitet: 'srednji',
-        masnoce: 'visoke',
-        tekstura: 'kremasta',
+        masnoce: 'visoke',        
         okus: 'zemljano, gljivasto'
     },
     {
@@ -43,8 +40,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Gouda',
         intezitet: 'srednji',
-        masnoce: 'srednje',
-        tekstura: 'glatka',
+        masnoce: 'srednje',        
         okus: 'karamel, orašasto'
     },
     {
@@ -55,8 +51,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Edam',
         intezitet: 'blag',
-        masnoce: 'srednje',
-        tekstura: 'čvrsta',
+        masnoce: 'srednje',        
         okus: 'blago orašasto'
     },
     {
@@ -67,8 +62,7 @@ export const sirevi = [
         zrenje: 'dugo',
         regija: 'Parma',
         intezitet: 'jak',
-        masnoce: 'visoke',
-        tekstura: 'mrvičasta',
+        masnoce: 'visoke',        
         okus: 'slano, orašasto, umami'
     },
     {
@@ -79,8 +73,7 @@ export const sirevi = [
         zrenje: 'dugo',
         regija: 'Padana nizina',
         intezitet: 'srednji',
-        masnoce: 'srednje',
-        tekstura: 'mrvičasta',
+        masnoce: 'srednje',        
         okus: 'orašasto, blago slano'
     },
     {
@@ -91,8 +84,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Roquefort',
         intezitet: 'jak',
-        masnoce: 'visoke',
-        tekstura: 'kremasta, mrvičasta',
+        masnoce: 'visoke',       
         okus: 'slano, pikantno'
     },
     {
@@ -103,8 +95,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Lombardija',
         intezitet: 'jak',
-        masnoce: 'visoke',
-        tekstura: 'kremasta',
+        masnoce: 'visoke',        
         okus: 'pikantno, slatko'
     },
     {
@@ -115,8 +106,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Nottinghamshire',
         intezitet: 'jak',
-        masnoce: 'visoke',
-        tekstura: 'mrvičasta',
+        masnoce: 'visoke',        
         okus: 'bogato, pikantno'
     },
     {
@@ -127,8 +117,7 @@ export const sirevi = [
         zrenje: 'kratko',
         regija: 'Makedonija',
         intezitet: 'srednji',
-        masnoce: 'srednje',
-        tekstura: 'mrvičasta',
+        masnoce: 'srednje',        
         okus: 'slano, kiselo'
     },
     {
@@ -139,8 +128,7 @@ export const sirevi = [
         zrenje: 'svježi',
         regija: 'Campania',
         intezitet: 'blag',
-        masnoce: 'srednje',
-        tekstura: 'elastična',
+        masnoce: 'srednje',        
         okus: 'mliječno, blago'
     },
     {
@@ -151,8 +139,7 @@ export const sirevi = [
         zrenje: 'svježi',
         regija: 'Toscana',
         intezitet: 'blag',
-        masnoce: 'niske',
-        tekstura: 'kremasta',
+        masnoce: 'niske',        
         okus: 'blago slatko'
     },
     {
@@ -163,8 +150,7 @@ export const sirevi = [
         zrenje: 'svježi',
         regija: 'Lombardija',
         intezitet: 'blag',
-        masnoce: 'visoke',
-        tekstura: 'kremasta',
+        masnoce: 'visoke',        
         okus: 'slatko, bogato'
     },
     {
@@ -175,8 +161,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Emmental',
         intezitet: 'srednji',
-        masnoce: 'srednje',
-        tekstura: 'rupičasta',
+        masnoce: 'srednje',        
         okus: 'orašasto'
     },
     {
@@ -187,8 +172,7 @@ export const sirevi = [
         zrenje: 'dugo',
         regija: 'Gruyères',
         intezitet: 'jak',
-        masnoce: 'visoke',
-        tekstura: 'čvrsta',
+        masnoce: 'visoke',        
         okus: 'orašasto, slatko'
     },
     {
@@ -199,8 +183,7 @@ export const sirevi = [
         zrenje: 'dugo',
         regija: 'Jura',
         intezitet: 'srednje-jak',
-        masnoce: 'visoke',
-        tekstura: 'čvrsta',
+        masnoce: 'visoke',        
         okus: 'orašasto, voćno'
     },
     {
@@ -211,8 +194,7 @@ export const sirevi = [
         zrenje: 'kratko',
         regija: 'Savoja',
         intezitet: 'srednji',
-        masnoce: 'visoke',
-        tekstura: 'kremasta',
+        masnoce: 'visoke',        
         okus: 'maslac, orašasto'
     },
     {
@@ -223,8 +205,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Lombardija',
         intezitet: 'srednje-jak',
-        masnoce: 'visoke',
-        tekstura: 'kremasta',
+        masnoce: 'visoke',        
         okus: 'jak, aromatičan'
     },
     {
@@ -235,8 +216,7 @@ export const sirevi = [
         zrenje: 'dugo',
         regija: 'Sardinija',
         intezitet: 'jak',
-        masnoce: 'visoke',
-        tekstura: 'čvrsta',
+        masnoce: 'visoke',        
         okus: 'slan, pikantan'
     },
     {
@@ -248,7 +228,6 @@ export const sirevi = [
         regija: 'La Mancha',
         intezitet: 'srednji',
         masnoce: 'visoke',
-        tekstura: 'čvrsta',
         okus: 'orašasto, blago slano'
     },
     {
@@ -259,8 +238,7 @@ export const sirevi = [
         zrenje: 'kratko',
         regija: 'Nicosia',
         intezitet: 'srednji',
-        masnoce: 'srednje',
-        tekstura: 'čvrsta',
+        masnoce: 'srednje',        
         okus: 'slano'
     },
     {
@@ -271,8 +249,7 @@ export const sirevi = [
         zrenje: 'dugo',
         regija: 'Pag',
         intezitet: 'jak',
-        masnoce: 'visoke',
-        tekstura: 'čvrsta',
+        masnoce: 'visoke',        
         okus: 'slan, aromatičan'
     },
     {
@@ -283,8 +260,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Alföld',
         intezitet: 'blag',
-        masnoce: 'srednje',
-        tekstura: 'glatka',
+        masnoce: 'srednje',        
         okus: 'blago, mliječno'
     },
     {
@@ -295,8 +271,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Balkan',
         intezitet: 'srednji',
-        masnoce: 'visoke',
-        tekstura: 'elastična',
+        masnoce: 'visoke',        
         okus: 'blago pikantan'
     },
     {
@@ -307,8 +282,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Schleswig-Holstein',
         intezitet: 'srednji',
-        masnoce: 'srednje',
-        tekstura: 'polučvrsta',
+        masnoce: 'srednje',        
         okus: 'blago pikantan'
     },
     {
@@ -319,8 +293,7 @@ export const sirevi = [
         zrenje: 'svježi',
         regija: 'Lika',
         intezitet: 'blag',
-        masnoce: 'srednje',
-        tekstura: 'elastična, škripava',
+        masnoce: 'srednje',        
         okus: 'mliječno, blago slano'
     },
     {
@@ -331,8 +304,7 @@ export const sirevi = [
         zrenje: 'kratko',
         regija: 'Međimurje',
         intezitet: 'jak',
-        masnoce: 'niske',
-        tekstura: 'suha, mrvičasta',
+        masnoce: 'niske',        
         okus: 'pikantno, paprika'
     },
     {
@@ -343,8 +315,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Krk',
         intezitet: 'srednje-jak',
-        masnoce: 'visoke',
-        tekstura: 'čvrsta',
+        masnoce: 'visoke',        
         okus: 'aromatično, biljno'
     },
     {
@@ -355,8 +326,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'Dubrovnik',
         intezitet: 'srednje-jak',
-        masnoce: 'visoke',
-        tekstura: 'čvrsta',
+        masnoce: 'visoke',        
         okus: 'bogato, aromatično'
     },
     {
@@ -367,8 +337,7 @@ export const sirevi = [
         zrenje: 'dugo',
         regija: 'Dalmacija',
         intezitet: 'jak',
-        masnoce: 'visoke',
-        tekstura: 'čvrsta',
+        masnoce: 'visoke',        
         okus: 'intenzivno, pikantno'
     },
     {
@@ -379,8 +348,7 @@ export const sirevi = [
         zrenje: 'kratko do srednje',
         regija: 'Yorkshire',
         intezitet: 'blag',
-        masnoce: 'srednje',
-        tekstura: 'mrvičasta',
+        masnoce: 'srednje',        
         okus: 'svježe, blago kiselo'
     },
     {
@@ -391,8 +359,7 @@ export const sirevi = [
         zrenje: 'srednje',
         regija: 'kontinentalna Hrvatska',
         intezitet: 'srednji',
-        masnoce: 'visoke',
-        tekstura: 'čvrsta',
+        masnoce: 'visoke',        
         okus: 'dimljeno, blago pikantno'
     },
     {
@@ -403,8 +370,7 @@ export const sirevi = [
         zrenje: 'kratko',
         regija: 'kontinentalna Hrvatska',
         intezitet: 'srednji',
-        masnoce: 'srednje',
-        tekstura: 'kremasta',
+        masnoce: 'srednje',        
         okus: 'svježe, blago kiselo'
     }
 ]

@@ -44,8 +44,7 @@ export default function VinaPromjena() {
         promjeni({
             naziv: podaci.get('naziv'),
             tip: podaci.get('tip'),
-            regija: podaci.get('regija'),
-            jacina: podaci.get('jacina'),
+            regija: podaci.get('regija'),           
             temperatura: podaci.get('temperatura'),
             slatkoca: podaci.get('slatkoca'),
             arome: podaci.get('arome'),
@@ -81,13 +80,7 @@ export default function VinaPromjena() {
                     <Form.Label>Regija</Form.Label>
                     <Form.Control type="text" name="regija" required
                     defaultValue={vino.regija} />
-                </Form.Group>
-
-                <Form.Group controlId="jacina">
-                    <Form.Label>Jačina</Form.Label>
-                    <Form.Control type="text" name="jacina" required
-                    defaultValue={vino.jacina} />
-                </Form.Group>
+                </Form.Group>                
 
                 <Form.Group controlId="temperatura">
                     <Form.Label>Temperatura</Form.Label>

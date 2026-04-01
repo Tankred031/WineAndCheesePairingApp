@@ -45,8 +45,7 @@ export default function VinaPregled() {
                     <tr>
                         <th>Naziv</th>
                         <th>Tip</th>
-                        <th>Regija</th>
-                        <th>Jačina</th>
+                        <th>Regija</th>                        
                         <th>Temperatura</th>
                         <th>Slatkoća</th>
                         <th>Arome</th>
@@ -60,8 +59,7 @@ export default function VinaPregled() {
                         <tr key={vina.id}>
                             <td>{vina.naziv}</td>
                             <td>{vina.tip}</td>
-                            <td>{vina.regija}</td>
-                            <td>{vina.jacina}</td>
+                            <td>{vina.regija}</td>                            
                             <td>{vina.temperatura}</td>
                             <td>{vina.slatkoca}</td>
                             <td>{vina.arome}</td>

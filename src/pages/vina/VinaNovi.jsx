@@ -20,8 +20,7 @@ export default function VinaNovi() {
         dodaj({
             naziv: podaci.get('naziv'),
             tip: podaci.get('tip'),
-            regija: podaci.get('regija'),
-            jacina: podaci.get('jacina'),
+            regija: podaci.get('regija'),            
             temperatura: podaci.get('temperatura'),
             slatkoca: podaci.get('slatkoca'),
             arome: podaci.get('arome'),
@@ -55,11 +54,6 @@ export default function VinaNovi() {
                 <Form.Group controlId="regija">
                     <Form.Label>Regija</Form.Label>
                     <Form.Control type="text" name="regija" required />
-                </Form.Group>
-
-                <Form.Group controlId="jacina">
-                    <Form.Label>Jačina</Form.Label>
-                    <Form.Control type="text" name="jacina" required />
                 </Form.Group>
 
                 <Form.Group controlId="temperatura">
