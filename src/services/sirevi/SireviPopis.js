@@ -357,7 +357,7 @@ export const sirevi = [
         tip: 'polutvrdi',
         vrsta: 'kravlji',
         zrenje: 'srednje',
-        regija: 'kontinentalna Hrvatska',
+        regija: 'Hrvatska',
         intezitet: 'srednji',
         masnoce: 'visoke',        
         okus: 'dimljeno, blago pikantno'
@@ -368,7 +368,7 @@ export const sirevi = [
         tip: 'mekani',
         vrsta: 'kozji',
         zrenje: 'kratko',
-        regija: 'kontinentalna Hrvatska',
+        regija: 'Hrvatska',
         intezitet: 'srednji',
         masnoce: 'srednje',        
         okus: 'svježe, blago kiselo'
