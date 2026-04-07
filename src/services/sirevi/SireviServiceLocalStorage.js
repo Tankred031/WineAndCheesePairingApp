@@ -31,12 +31,12 @@ async function dodaj(sir) {
         sir.id = maxId + 1;
     }
     
-    sirevi.push(vino);
+    sirevi.push(sir);
     spremiULocalStorage(sirevi);
     return { data: sir };
 }
 
-async function promjeni(id, vino) {
+async function promjeni(id, sir) {
     const sirevi = dohvatiSveIzStorage();
     const index = sirevi.findIndex(s => s.id === parseInt(id));
 
