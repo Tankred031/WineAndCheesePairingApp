@@ -11,7 +11,6 @@ export default function Izbornik() {
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
 
-     
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link
@@ -36,11 +35,11 @@ export default function Izbornik() {
             <Nav.Link
               onClick={() => navigate(RouteNames.UPARIVANJE)}
             >🍷🧀Uparivanje</Nav.Link>
-            
+
             <NavDropdown title="📚Zanimljivosti" id="basic-nav-dropdown">
               <NavDropdown.Item
-              onClick={() => navigate(RouteNames.ZANIMLJIVOSTI)}
-            >Zanimljivosti</NavDropdown.Item>
+                onClick={() => navigate(RouteNames.ZANIMLJIVOSTI)}
+              >Zanimljivosti</NavDropdown.Item>
             </NavDropdown>
 
 
@@ -49,7 +48,7 @@ export default function Izbornik() {
       </Container>
     </Navbar>
 
-   
+
 
   )
 }
