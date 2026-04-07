@@ -8,7 +8,8 @@ export const RouteNames = {
     VINA_NOVI: '/vina/novi',
     SIREVI_NOVI: '/sirevi/novi',
     VINA_PROMJENA: '/vina/:id',
-    SIREVI_PROMJENA: '/sirevi/:id'
+    SIREVI_PROMJENA: '/sirevi/:id',
+    ZANIMLJIVOSTI: '/zanimljivosti',    
 }
 
 // memorija, localStorage, firebase

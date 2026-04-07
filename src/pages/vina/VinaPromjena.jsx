@@ -10,19 +10,19 @@ export default function VinaPromjena() {
     const navigate = useNavigate()
     const params = useParams()
     const [vino, setVino] = useState({})
-    
-    async function ucitajVino() {
-        await VinaService.getById(params.id).then((odgovor)=>{
 
-            if(!odgovor.success){
+    async function ucitajVino() {
+        await VinaService.getById(params.id).then((odgovor) => {
+
+            if (!odgovor.success) {
                 alert('Nije implementiran servis')
                 return
             }
-            
+
             const s = odgovor.data
             setVino(s)
         })
-        
+
     }
 
 
@@ -30,11 +30,11 @@ export default function VinaPromjena() {
         ucitajVino()
     }, [])
 
-    
+
     async function promjeni(vino) {
-        await VinaService.promjeni(params.id,vino).then(() => {
+        await VinaService.promjeni(params.id, vino).then(() => {
             navigate(RouteNames.VINA_PREGLED)
-        })       
+        })
     }
 
 
@@ -44,7 +44,7 @@ export default function VinaPromjena() {
         promjeni({
             naziv: podaci.get('naziv'),
             tip: podaci.get('tip'),
-            regija: podaci.get('regija'),           
+            regija: podaci.get('regija'),
             temperatura: podaci.get('temperatura'),
             slatkoca: podaci.get('slatkoca'),
             arome: podaci.get('arome'),
@@ -59,61 +59,66 @@ export default function VinaPromjena() {
                 Izmjena postojećeg vina
             </h3>
             <Form onSubmit={odradiSubmit}>
-                <Form.Group controlId="naziv">
-                    <Form.Label>Naziv</Form.Label>
-                    <Form.Control type="text" name="naziv" required 
-                    defaultValue={vino.naziv} />
+                <Form.Group controlId="naziv" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Naziv</Form.Label>
+                    <Form.Control type="text" name="naziv" required
+                        defaultValue={vino.naziv} />
                 </Form.Group>
 
-                <Form.Group controlId="tip">
-                    <Form.Label>Tip</Form.Label>
-                    <Form.Select name="tip" defaultValue={vino.tip} required>
-                        <option value="crveno">crveno</option>
-                        <option value="bijelo">bijelo</option>
-                        <option value="pjenušavo">pjenušavo</option>
-                        <option value="desertno">desertno</option>
-                        <option value="rose">rose</option>
-                    </Form.Select>
-                </Form.Group>
+                <Row>
+                    <Col md={6}>
+                        <Form.Group controlId="tip" className="form-group-custom">
+                            <Form.Label className="form-label-custom">Tip</Form.Label>
+                            <Form.Select name="tip" required>
+                                <option value="crveno">crveno</option>
+                                <option value="bijelo">bijelo</option>
+                                <option value="pjenušavo">pjenušavo</option>
+                                <option value="desertno">desertno</option>
+                                <option value="rose">rose</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                    <Col md={6}>
+                        <Form.Group controlId="slatkoca" className="form-group-custom">
+                            <Form.Label className="form-label-custom">Slatkoća</Form.Label>
+                            <Form.Select name="slatkoca" required>
+                                <option value="suho">suho</option>
+                                <option value="polusuho">polusuho</option>
+                                <option value="poluslatko">poluslatko</option>
+                                <option value="slatko">slatko</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-                <Form.Group controlId="regija">
-                    <Form.Label>Regija</Form.Label>
+                <Form.Group controlId="regija" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Regija</Form.Label>
                     <Form.Control type="text" name="regija" required
-                    defaultValue={vino.regija} />
-                </Form.Group>                
+                        defaultValue={vino.regija} />
+                </Form.Group>
 
-                <Form.Group controlId="temperatura">
-                    <Form.Label>Temperatura</Form.Label>
+                <Form.Group controlId="temperatura" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Temperatura</Form.Label>
                     <Form.Control type="text" name="temperatura" required
-                    defaultValue={vino.temperatura} />
+                        defaultValue={vino.temperatura} />
                 </Form.Group>
 
-                <Form.Group controlId="slatkoca">
-                    <Form.Label>Slatkoća</Form.Label>
-                    <Form.Select name="slatkoca" defaultValue={vino.slatkoca} required>
-                        <option value="suho">suho</option>
-                        <option value="polusuho">polusuho</option>
-                        <option value="poluslatko">poluslatko</option>
-                        <option value="slatko">slatko</option>
-                    </Form.Select>
-                </Form.Group>
-
-                <Form.Group controlId="arome">
-                    <Form.Label>Arome</Form.Label>
+                <Form.Group controlId="arome" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Arome</Form.Label>
                     <Form.Control type="text" name="arome" required
-                    defaultValue={vino.arome} />
+                        defaultValue={vino.arome} />
                 </Form.Group>
 
-                <Form.Group controlId="tijelo">
-                    <Form.Label>Tijelo</Form.Label>
+                <Form.Group controlId="tijelo" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Tijelo</Form.Label>
                     <Form.Control type="text" name="tijelo" required
-                    defaultValue={vino.tijelo} />
+                        defaultValue={vino.tijelo} />
                 </Form.Group>
 
-                <Form.Group controlId="alkohol">
-                    <Form.Label>Alkohol</Form.Label>
-                     <Form.Control type="text" name="alkohol" required
-                     defaultValue={vino.alkohol} />
+                <Form.Group controlId="alkohol" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Alkohol</Form.Label>
+                    <Form.Control type="text" name="alkohol" required
+                        defaultValue={vino.alkohol} />
                 </Form.Group>
 
                 <hr style={{ marginTop: '50px', border: '0' }} />

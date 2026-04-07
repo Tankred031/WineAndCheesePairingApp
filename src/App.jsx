@@ -12,6 +12,7 @@ import VinaNovi from './pages/vina/VinaNovi'
 import SireviNovi from './pages/sirevi/SireviNovi'
 import VinaPromjena from './pages/vina/VinaPromjena'
 import SireviPromjena from './pages/sirevi/SireviPromjena'
+import Zanimljivosti from './pages/zanimljivosti/Zanimljivosti'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path={RouteNames.SIREVI_NOVI} element={<SireviNovi />} />
         <Route path={RouteNames.VINA_PROMJENA} element={<VinaPromjena />} />
         <Route path={RouteNames.SIREVI_PROMJENA} element={<SireviPromjena />} />
+        <Route path={RouteNames.ZANIMLJIVOSTI} element={<Zanimljivosti />} />
       </Routes>
       </Container>
       <hr />

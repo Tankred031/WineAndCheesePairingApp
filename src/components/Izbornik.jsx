@@ -36,6 +36,12 @@ export default function Izbornik() {
             <Nav.Link
               onClick={() => navigate(RouteNames.UPARIVANJE)}
             >🍷🧀Uparivanje</Nav.Link>
+            
+            <NavDropdown title="📚Zanimljivosti" id="basic-nav-dropdown">
+              <NavDropdown.Item
+              onClick={() => navigate(RouteNames.ZANIMLJIVOSTI)}
+            >Zanimljivosti</NavDropdown.Item>
+            </NavDropdown>
 
 
           </Nav>

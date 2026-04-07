@@ -10,16 +10,16 @@ export default function SireviPromjena() {
     const navigate = useNavigate()
     const params = useParams()
     const [sir, setSir] = useState({})
-    
+
 
     async function ucitajSir() {
-        await SireviService.getById(params.id).then((odgovor)=>{
-            
-            if(!odgovor.success){
+        await SireviService.getById(params.id).then((odgovor) => {
+
+            if (!odgovor.success) {
                 alert('Nije implementiran servis')
                 return
             }
-            
+
             const s = odgovor.data
             setSir(s)
         })
@@ -33,7 +33,7 @@ export default function SireviPromjena() {
 
 
     async function promjeni(sir) {
-        await SireviService.promjeni(params.id,sir).then(() => {
+        await SireviService.promjeni(params.id, sir).then(() => {
             navigate(RouteNames.SIREVI_PREGLED)
         })
     }
@@ -49,7 +49,7 @@ export default function SireviPromjena() {
             zrenje: podaci.get('zrenje'),
             regija: podaci.get('regija'),
             intezitet: podaci.get('intezitet'),
-            masnoce: podaci.get('masnoce'),           
+            masnoce: podaci.get('masnoce'),
             okus: podaci.get('okus')
         })
 
@@ -61,59 +61,64 @@ export default function SireviPromjena() {
                 Izmjena postojećeg sira
             </h3>
             <Form onSubmit={odradiSubmit}>
-                <Form.Group controlId="naziv">
-                    <Form.Label>Naziv</Form.Label>
+                <Form.Group controlId="naziv" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Naziv</Form.Label>
                     <Form.Control type="text" name="naziv" required
-                    defaultValue={sir.naziv} />
+                        defaultValue={sir.naziv} />
                 </Form.Group>
 
-                <Form.Group controlId="tip">
-                    <Form.Label>Tip</Form.Label>
+                <Form.Group controlId="tip" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Tip</Form.Label>
                     <Form.Control type="text" name="tip" required
-                    defaultValue={sir.tip} />
+                        defaultValue={sir.tip} />
                 </Form.Group>
 
-                <Form.Group controlId="vrsta">
-                    <Form.Label>Vrsta</Form.Label>
-                    <Form.Select name="vrsta" defaultValue={sir.vrsta} required>
-                        <option value="kravlji">kravlji</option>
-                        <option value="ovčji">ovčji</option>
-                        <option value="kozji">kozji</option>
-                        <option value="mješoviti">mješoviti</option>
-                    </Form.Select>
-                </Form.Group>
+                <Row>
+                    <Col md={6}>
+                        <Form.Group controlId="vrsta" className="form-group-custom">
+                            <Form.Label className="form-label-custom">Vrsta</Form.Label>
+                            <Form.Select name="vrsta" required>
+                                <option value="kravlji">kravlji</option>
+                                <option value="ovčji">ovčji</option>
+                                <option value="kozji">kozji</option>
+                                <option value="mješoviti">mješoviti</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                    <Col md={6}>
+                        <Form.Group controlId="masnoce" className="form-group-custom">
+                            <Form.Label className="form-label-custom">Masnoce</Form.Label>
+                            <Form.Select name="masnoce" required>
+                                <option value="visoke">visoke</option>
+                                <option value="srednje">srednje</option>
+                                <option value="niske">niske</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-                <Form.Group controlId="zrenje">
-                    <Form.Label>Zrenje</Form.Label>
+                <Form.Group controlId="zrenje" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Zrenje</Form.Label>
                     <Form.Control type="text" name="zrenje" required
-                    defaultValue={sir.zrenje} />
+                        defaultValue={sir.zrenje} />
                 </Form.Group>
 
-                <Form.Group controlId="regija">
-                    <Form.Label>Regija</Form.Label>
+                <Form.Group controlId="regija" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Regija</Form.Label>
                     <Form.Control type="text" name="regija" required
-                    defaultValue={sir.regija} />
+                        defaultValue={sir.regija} />
                 </Form.Group>
 
-                <Form.Group controlId="intezitet">
-                    <Form.Label>Intezitet</Form.Label>
+                <Form.Group controlId="intezitet" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Intezitet</Form.Label>
                     <Form.Control type="text" name="intezitet" required
-                    defaultValue={sir.intezitet} />
+                        defaultValue={sir.intezitet} />
                 </Form.Group>
 
-                <Form.Group controlId="masnoce">
-                    <Form.Label>Masnoce</Form.Label>
-                    <Form.Select name="masnoce" defaultValue={sir.masnoce} required>
-                        <option value="visoke">visoke</option>
-                        <option value="srednje">srednje</option>
-                        <option value="niske">niske</option>
-                    </Form.Select>
-                </Form.Group>
-
-                <Form.Group controlId="okus">
-                    <Form.Label>Okus</Form.Label>
+                <Form.Group controlId="okus" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Okus</Form.Label>
                     <Form.Control type="text" name="okus" required
-                    defaultValue={sir.okus} />
+                        defaultValue={sir.okus} />
                 </Form.Group>
 
                 <hr style={{ marginTop: '50px', border: '0' }} />

@@ -5,29 +5,43 @@ import { Link, useNavigate } from "react-router-dom"
 
 
 export default function SireviNovi() {
-    
-    const navigate = useNavigate() 
+
+    const navigate = useNavigate()
 
     async function dodaj(sir) {
         await SireviService.dodaj(sir).then(() => {
             navigate(RouteNames.SIREVI_PREGLED)
-        })        
+        })
     }
 
     function odradiSubmit(e) {
         e.preventDefault()
         const podaci = new FormData(e.target)
+
+        // --- KONTROLA 1: Naziv (Postojanje) ---
+        if (!podaci.get('naziv') || podaci.get('naziv').trim().length === 0) {
+            alert("Naziv je obavezan i ne smije sadržavati samo razmake!")
+            return // Prekid
+        }
+
+        // --- KONTROLA 2: Naziv (Minimalna duljina) ---
+        if (podaci.get('naziv').trim().length < 3) {
+            alert("Naziv smjera mora imati najmanje 3 znaka!")
+            return // Prekid
+        }
+
+
         dodaj({
             naziv: podaci.get('naziv'),
             tip: podaci.get('tip'),
             vrsta: podaci.get('vrsta'),
-            zrenje: podaci.get('zrenje'),            
+            zrenje: podaci.get('zrenje'),
             regija: podaci.get('regija'),
             intezitet: podaci.get('intezitet'),
-            masnoce: podaci.get('masnoce'),            
+            masnoce: podaci.get('masnoce'),
             okus: podaci.get('okus')
         })
-        
+
     }
 
     return (
@@ -36,61 +50,67 @@ export default function SireviNovi() {
                 Unos novog sira
             </h3>
             <Form onSubmit={odradiSubmit}>
-                <Form.Group controlId="naziv">
-                    <Form.Label>Naziv</Form.Label>
+                <Form.Group controlId="naziv" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Naziv</Form.Label>
                     <Form.Control type="text" name="naziv" required />
                 </Form.Group>
 
-                 <Form.Group controlId="tip">
-                    <Form.Label>Tip</Form.Label>
+                <Form.Group controlId="tip" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Tip</Form.Label>
                     <Form.Control type="text" name="tip" required />
                 </Form.Group>
 
-                <Form.Group controlId="vrsta">
-                    <Form.Label>Vrsta</Form.Label>
-                    <Form.Select name="vrsta" required>
-                        <option value="kravlji">kravlji</option>
-                        <option value="ovčji">ovčji</option>
-                        <option value="kozji">kozji</option>
-                        <option value="mješoviti">mješoviti</option>
-                    </Form.Select>
-                </Form.Group>
+                <Row>
+                    <Col md={6}>
+                        <Form.Group controlId="vrsta" className="form-group-custom">
+                            <Form.Label className="form-label-custom">Vrsta</Form.Label>
+                            <Form.Select name="vrsta" required>
+                                <option value="kravlji">kravlji</option>
+                                <option value="ovčji">ovčji</option>
+                                <option value="kozji">kozji</option>
+                                <option value="mješoviti">mješoviti</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                    <Col md={6}>
+                        <Form.Group controlId="masnoce" className="form-group-custom">
+                            <Form.Label className="form-label-custom">Masnoce</Form.Label>
+                            <Form.Select name="masnoce" required>
+                                <option value="visoke">visoke</option>
+                                <option value="srednje">srednje</option>
+                                <option value="niske">niske</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-                <Form.Group controlId="zrenje">
-                    <Form.Label>Zrenje</Form.Label>
+                <Form.Group controlId="zrenje" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Zrenje</Form.Label>
                     <Form.Control type="text" name="zrenje" required />
                 </Form.Group>
 
-                <Form.Group controlId="regija">
-                    <Form.Label>Regija</Form.Label>
+                <Form.Group controlId="regija" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Regija</Form.Label>
                     <Form.Control type="text" name="regija" required />
                 </Form.Group>
 
-                <Form.Group controlId="intezitet">
-                    <Form.Label>Intezitet</Form.Label>
+                <Form.Group controlId="intezitet" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Intezitet</Form.Label>
                     <Form.Control type="text" name="intezitet" required />
                 </Form.Group>
 
-                <Form.Group controlId="masnoce">
-                    <Form.Label>Masnoce</Form.Label>
-                    <Form.Select name="masnoce" required>
-                        <option value="visoke">visoke</option>
-                        <option value="srednje">srednje</option>
-                        <option value="niske">niske</option>
-                        </Form.Select>
-                </Form.Group>
 
-                <Form.Group controlId="okus">
-                    <Form.Label>Okus</Form.Label>
+                <Form.Group controlId="okus" className="form-group-custom">
+                    <Form.Label className="form-label-custom">Okus</Form.Label>
                     <Form.Control type="text" name="okus" required />
                 </Form.Group>
 
-<hr style={{marginTop: '50px', border: '0'}} />
+                <hr style={{ marginTop: '50px', border: '0' }} />
 
                 <Row>
                     <Col>
                         <Link to={RouteNames.SIREVI_PREGLED} className="btn btn-danger w-100">
-                        Odustani
+                            Odustani
                         </Link>
                     </Col>
                     <Col>
@@ -101,7 +121,7 @@ export default function SireviNovi() {
                 </Row>
 
             </Form>
-        
+
         </>
     )
 }
