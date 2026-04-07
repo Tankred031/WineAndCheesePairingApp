@@ -6,3 +6,5 @@ App route... i tu stop
 
 vino i vino pregled poddirektoriji možda statistika meni tu
 provjeriti jel instalirano - doma: react-number-format + react-icons
+
+isto kao i vina za uparivanje ide: novi/pregled/promjena

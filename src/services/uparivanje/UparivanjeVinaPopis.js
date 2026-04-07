@@ -1,3 +1,49 @@
+export const uparivanjeVinaById = {
+
+  1: [1, 4, 6, 23],        // Cabernet Sauvignon
+  3: [4, 5, 1],            // Merlot
+  4: [2, 3, 18],           // Pinot Noir
+  5: [9, 8, 1],            // Syrah
+  6: [1, 4, 6],            // Malbec
+  7: [4, 5, 1],            // Zinfandel
+  8: [21, 1],              // Tempranillo
+  10: [6, 7],              // Nebbiolo
+  11: [12, 13],            // Barbera
+  12: [6, 20],             // Chianti
+  9: [4, 5],               // Grenache
+  2: [20, 6],              // Sangiovese
+  50: [23, 31],            // Plavac Mali
+  49: [24, 4],             // Teran
+  52: [5, 4],              // Frankovka
+  56: [24, 5],             // Zweigelt
+  60: [2, 3],              // Gamay
+  58: [2, 12],             // Kadarka
+  14: [2, 3, 16],          // Chardonnay
+  15: [11, 34],            // Sauvignon Blanc
+  13: [8, 9],              // Riesling
+  16: [12, 13],            // Pinot Grigio
+  17: [19, 9],             // Gewurztraminer 
+  18: [2, 3],              // Viognier
+  19: [12, 11],            // Albarino
+  20: [9, 8],              // Moscato
+  37: [11, 34, 35, 38],    // Gruner Veltliner (dodani kozji sirevi)
+  38: [12, 11],            // Vermentino
+  39: [11],                // Assyrtiko
+  47: [12, 13, 27],        // bolje: Mozzarella, Ricotta, Škripavac
+  48: [2, 34],             // Malvazija
+  54: [12, 13],            // Žlahtina
+  55: [9, 19],             // Vugava
+  57: [13, 12],            // Trebbiano
+  61: [2, 3],              // Müller-Thurgau
+  21: [6, 7, 12],          // Prosecco
+  22: [2, 3, 6],           // Champagne
+  23: [21, 1],             // Cava
+  34: [10, 9],             // Porto
+  35: [21, 17],            // Sherry
+  36: [6, 16]              // Madeira
+};
+
+/*
 export const pairingRules = {
   "Cabernet Sauvignon": ["Cheddar", "Gouda", "Parmezan", "Paški sir"],
   "Merlot": ["Gouda", "Edam", "Cheddar"],
@@ -49,4 +95,4 @@ export const pairingRules = {
   "Madeira": ["Parmezan", "Gruyere"]
 };
 
-
+*/

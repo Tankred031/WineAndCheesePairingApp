@@ -31,16 +31,19 @@ export default function Izbornik() {
                 onClick={() => navigate(RouteNames.SIREVI_NOVI)}
               >Dodavanje sireva</NavDropdown.Item>
             </NavDropdown>
+            
+            <NavDropdown title="🍷🧀Uparivanje" id="basic-nav-dropdown">
+              <NavDropdown.Item
+                onClick={() => navigate(RouteNames.UPARIVANJE)}
+              >Upari vino sa sirom</NavDropdown.Item>
+            <NavDropdown.Item
+                onClick={() => navigate(RouteNames.UPARIVANJE)}
+              >Upari sir s vinom</NavDropdown.Item>
+            </NavDropdown>
 
             <Nav.Link
-              onClick={() => navigate(RouteNames.UPARIVANJE)}
-            >🍷🧀Uparivanje</Nav.Link>
-
-            <NavDropdown title="📚Zanimljivosti" id="basic-nav-dropdown">
-              <NavDropdown.Item
-                onClick={() => navigate(RouteNames.ZANIMLJIVOSTI)}
-              >Zanimljivosti</NavDropdown.Item>
-            </NavDropdown>
+              onClick={() => navigate(RouteNames.ZANIMLJIVOSTI)}
+            >📚Zanimljivosti</Nav.Link>
 
 
           </Nav>
