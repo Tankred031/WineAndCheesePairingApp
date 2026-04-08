@@ -13,6 +13,7 @@ import SireviNovi from './pages/sirevi/SireviNovi'
 import VinaPromjena from './pages/vina/VinaPromjena'
 import SireviPromjena from './pages/sirevi/SireviPromjena'
 import Zanimljivosti from './pages/zanimljivosti/Zanimljivosti'
+import UparivanjePromjena from './pages/uparivanje/UparivanjePromjena'
 
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
         <Route path={RouteNames.HOME} element={<Home />} />
         <Route path={RouteNames.VINA_PREGLED} element={<VinaPregled />} />
         <Route path={RouteNames.SIREVI_PREGLED} element={<SireviPregled />} />
-        <Route path={RouteNames.UPARIVANJE} element={<UparivanjePregled />} />
+        <Route path={RouteNames.UPARIVANJE_PREGLED} element={<UparivanjePregled />} />
+        <Route path={RouteNames.UPARIVANJE_PROMJENA} element={<UparivanjePromjena />} />
         <Route path={RouteNames.VINA_NOVI} element={<VinaNovi />} />
         <Route path={RouteNames.SIREVI_NOVI} element={<SireviNovi />} />
         <Route path={RouteNames.VINA_PROMJENA} element={<VinaPromjena />} />

@@ -15,7 +15,7 @@ export default function Izbornik() {
           <Nav className="me-auto">
             <Nav.Link
               onClick={() => navigate(RouteNames.HOME)}>
-              Početna</Nav.Link>
+              🏠Početna</Nav.Link>
 
             <NavDropdown title="🍷Vina" id="basic-nav-dropdown">
               <NavDropdown.Item
@@ -34,11 +34,12 @@ export default function Izbornik() {
             
             <NavDropdown title="🍷🧀Uparivanje" id="basic-nav-dropdown">
               <NavDropdown.Item
-                onClick={() => navigate(RouteNames.UPARIVANJE)}
+                onClick={() => navigate(RouteNames.UPARIVANJE_PREGLED)}
               >Upari vino sa sirom</NavDropdown.Item>
+                     
             <NavDropdown.Item
-                onClick={() => navigate(RouteNames.UPARIVANJE)}
-              >Upari sir s vinom</NavDropdown.Item>
+                onClick={() => navigate(RouteNames.UPARIVANJE_NOVI)}
+              >Novo uparivanje</NavDropdown.Item>
             </NavDropdown>
 
             <Nav.Link
