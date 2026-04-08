@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import VinaService from "../../services/vina/VinaService";
 import SireviService from "../../services/sirevi/SireviService";
+import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopis";
 
-export default function Uparivanje() {
+export default function UparivanjePregled() {
     const [vina, setVina] = useState([]);
     const [sirevi, setSirevi] = useState([]);
 
@@ -24,25 +25,37 @@ export default function Uparivanje() {
         if (response.success) setSirevi(response.data);
     }
 
+
+    function dohvatiSireveZaVino(vinoId) {
+        const idjevi = uparivanjeVinaById[vinoId] || []
+
+        const lista = sirevi
+            .filter(s => idjevi.includes(s.id))
+            .map(s => s.naziv)
+        
+        return lista.length > 0 ? lista.join(", ") : "Nema preporuke"
+    }
+
     return (
         <>
-            <div>
-                <h2>Vina</h2>
-                <ul>
+            <h2>Uparivanja (vino → sir)</h2>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>Vino</th>
+                        <th>Preporučeni sirevi</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {vina.map(vino => (
-                        <li key={vino.id}>{vino.naziv}</li>
+                        <tr key={vino.id}>
+                            <td>{vino.naziv}</td>
+                            <td>{dohvatiSireveZaVino(vino.id)}</td>
+                        </tr>
                     ))}
-                </ul>
+                </tbody>
+            </table>
 
-                <h2>Sirevi</h2>
-                <ul>
-                    {sirevi.map(sir => (
-                        <li key={sir.id}>{sir.naziv}</li>
-                    ))}
-                </ul>
-            </div>
-
-            Ovdje će uparivanje
         </>
     );
 }
