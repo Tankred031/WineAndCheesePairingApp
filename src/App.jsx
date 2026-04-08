@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap'
 import Izbornik from './components/Izbornik'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
-import Uparivanje from './pages/uparivanje/Uparivanje'
+import UparivanjePregled from './pages/uparivanje/UparivanjePregled'
 import { RouteNames } from './constants'
 import VinaPregled from './pages/vina/VinaPregled'
 import SireviPregled from './pages/sirevi/SireviPregled'
@@ -27,7 +27,7 @@ function App() {
         <Route path={RouteNames.HOME} element={<Home />} />
         <Route path={RouteNames.VINA_PREGLED} element={<VinaPregled />} />
         <Route path={RouteNames.SIREVI_PREGLED} element={<SireviPregled />} />
-        <Route path={RouteNames.UPARIVANJE} element={<Uparivanje />} />
+        <Route path={RouteNames.UPARIVANJE} element={<UparivanjePregled />} />
         <Route path={RouteNames.VINA_NOVI} element={<VinaNovi />} />
         <Route path={RouteNames.SIREVI_NOVI} element={<SireviNovi />} />
         <Route path={RouteNames.VINA_PROMJENA} element={<VinaPromjena />} />
