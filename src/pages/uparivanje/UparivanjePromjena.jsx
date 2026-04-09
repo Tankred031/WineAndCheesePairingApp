@@ -8,67 +8,77 @@ import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomS
 import { Button, Form } from "react-bootstrap";
 
 export default function UparivanjePromjena() {
+    const [vino, setVino] = useState({});
+    const [sirevi, setSirevi] = useState([]);
+    const [odabraniSirevi, setOdabraniSirevi] = useState([]);
 
-    const [vino, setVino] = useState({})
-    const [sirevi, setSirevi] = useState([])
-    const [odabraniSirevi, setOdabraniSirevi] = useState([])
-
-    const params = useParams()
-    const navigate = useNavigate()
+    const params = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        ucitaj()
-    }, [])
+        ucitaj();
+    }, []);
 
     async function ucitaj() {
-        const v = await VinaService.getById(params.id)
-        const s = await SireviService.get()
+        const v = await VinaService.getById(params.id);
+        const s = await SireviService.get();
 
-        setVino(v.data)
-        setSirevi(s.data)
+        setVino(v.data);
+        setSirevi(s.data);
 
-        const idjevi = uparivanjeVinaById[Number(params.id)] || []
-        setOdabraniSirevi(idjevi)
+        // Ucitaj statička uparivanja + eventualna custom
+        const statickaIds = uparivanjeVinaById[Number(params.id)] || [];
+        const customResponse = await UparivanjeCustomService.get();
+        const customIds = (customResponse.data || [])
+            .filter(u => u.vinoId === Number(params.id))
+            .map(u => u.sirId);
 
-        console.log("params:", params.id)
-        console.log("vino:", v.data)
-        console.log("sirevi:", s.data)
+        // Kombiniraj statička + custom uparivanja
+        setOdabraniSirevi([...new Set([...statickaIds, ...customIds])]);
+
+        console.log("params:", params.id);
+        console.log("vino:", v.data);
+        console.log("sirevi:", s.data);
     }
 
     function toggleSir(id) {
         if (odabraniSirevi.includes(id)) {
-            setOdabraniSirevi(odabraniSirevi.filter(s => s !== id))
+            setOdabraniSirevi(odabraniSirevi.filter(s => s !== id));
         } else {
-            setOdabraniSirevi([...odabraniSirevi, id])
+            setOdabraniSirevi([...odabraniSirevi, id]);
         }
     }
 
     async function spremi(e) {
-        e.preventDefault()
+        e.preventDefault();
 
-        const svi = (await UparivanjeCustomService.get()).data
-        const ostali = svi.filter(u => u.vinoId != params.id)
+        // Dohvati trenutna custom uparivanja
+        const svi = (await UparivanjeCustomService.get()).data || [];
 
+        // Zadrži custom uparivanja za ostala vina
+        const ostali = svi.filter(u => u.vinoId !== Number(params.id));
+
+        // Kreiraj nova custom uparivanja za ovo vino
         const novi = odabraniSirevi.map(sirId => ({
-            id: Date.now() + sirId,
+            id: Date.now() + sirId, // unikatan ID
             vinoId: Number(params.id),
             sirId
-        }))
+        }));
 
-        console.log("NOVI ZA SPREMIT:", novi)
+        // Spremi sve zajedno u memoriju
+        await UparivanjeCustomService.postavi([...ostali, ...novi]);
 
-        await UparivanjeCustomService.postavi([...ostali, ...novi])
+        // Opcionalno: log za provjeru
+        const test = await UparivanjeCustomService.get();
+        console.log("NAKON SPREMANJA:", test);
 
-        const test = await UparivanjeCustomService.get()
-        console.log("NAKON SPREMANJA:", test)
-
-        navigate(RouteNames.UPARIVANJE_PREGLED)
+        // Navigiraj nazad na pregled
+        navigate(RouteNames.UPARIVANJE_PREGLED);
     }
-
 
     return (
         <>
-            <h3 className="naslov">Izmjena uparivanja na vino-sirevi</h3>
+            <h3 className="naslov">Izmjena uparivanja vino-sirevi</h3>
 
             <Form onSubmit={spremi}>
                 <h4>{vino.naziv}</h4>
@@ -89,5 +99,5 @@ export default function UparivanjePromjena() {
                 <Button type="submit">Spremi</Button>
             </Form>
         </>
-    )
+    );
 }
