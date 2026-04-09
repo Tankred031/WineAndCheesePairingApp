@@ -55,7 +55,7 @@ export default function VinaPromjena() {
 
     return (
         <>
-            <h3>
+            <h3 className="naslov">
                 Izmjena postojećeg vina
             </h3>
             <Form onSubmit={odradiSubmit}>

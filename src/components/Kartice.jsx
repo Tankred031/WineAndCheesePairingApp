@@ -19,7 +19,7 @@ class Card extends Component {
                      href={this.props.link}
                      target="_blank"
                      rel="noreferrer" 
-                     className="btn btn-info mt-auto"
+                     className="btn btn-info mt-auto btn-bold-custom"
                      >{this.props.button}
                     </a>
                 </div>

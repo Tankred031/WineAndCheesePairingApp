@@ -45,7 +45,7 @@ export default function UparivanjeNovi() {
 
     return (
         <>
-            <h2>Novo uparivanje</h2>
+            <h3 className="naslov">Novo uparivanje</h3>
 
             <div className="mb-3">
                 <label>Vino</label>

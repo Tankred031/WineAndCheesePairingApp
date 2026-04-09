@@ -57,7 +57,7 @@ export default function SireviPromjena() {
 
     return (
         <>
-            <h3>
+            <h3 className="naslov">
                 Izmjena postojećeg sira
             </h3>
             <Form onSubmit={odradiSubmit}>

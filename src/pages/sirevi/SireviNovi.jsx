@@ -46,7 +46,7 @@ export default function SireviNovi() {
 
     return (
         <>
-            <h3>
+            <h3 className="naslov">
                 Unos novog sira
             </h3>
             <Form onSubmit={odradiSubmit}>

@@ -63,7 +63,7 @@ export default function UparivanjePromjena() {
 
     return (
         <>
-            <h3>Izmjena uparivanja vino-sirevi</h3>
+            <h3 className="naslov">Izmjena uparivanja na vino-sirevi</h3>
 
             <Form onSubmit={spremi}>
                 <h4>{vino.naziv}</h4>

@@ -27,7 +27,7 @@ export default function Zanimljivosti() {
                         <Card
                             img={drinks}
                             alt="vino"
-                            title="Vino u usporedbi s drugim pićima 🍷👉 🍺🍸🍹"
+                            title="Vino u usporedbi s drugim pićima  🍺🍸🍹"
                             text="Vino ne samo da nije štetno, već je i izuzetno zdravo, razumije se u razumnim količinama. Gdje stoji vino u odnosu na ostale užitke pročitajte više klikom na gumb"
                             link="https://share.google/t4flBoU7RRmxGP7wN"
                             button="Pročitaj više"

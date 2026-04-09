@@ -46,7 +46,7 @@ export default function VinaNovi() {
 
     return (
         <>
-            <h3>
+            <h3 className="naslov">
                 Unos novog vina
             </h3>
             <Form onSubmit={odradiSubmit}>
