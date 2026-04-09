@@ -8,3 +8,5 @@ vino i vino pregled poddirektoriji možda statistika meni tu
 provjeriti jel instalirano - doma: react-number-format + react-icons
 
 isto kao i vina za uparivanje ide: novi/pregled/promjena
+
+dva nova programa slatkoća i tip i id i naziv

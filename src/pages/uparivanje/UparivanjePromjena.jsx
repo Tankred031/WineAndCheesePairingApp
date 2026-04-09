@@ -55,7 +55,12 @@ export default function UparivanjePromjena() {
             sirId
         }))
 
+        console.log("NOVI ZA SPREMIT:", novi)
+
         await UparivanjeCustomService.postavi([...ostali, ...novi])
+
+        const test = await UparivanjeCustomService.get()
+        console.log("NAKON SPREMANJA:", test)
 
         navigate(RouteNames.UPARIVANJE_PREGLED)
     }

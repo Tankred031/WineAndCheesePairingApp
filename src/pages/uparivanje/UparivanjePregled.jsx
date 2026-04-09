@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import VinaService from "../../services/vina/VinaService";
 import SireviService from "../../services/sirevi/SireviService";
-import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopis";
+import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+
 
 export default function UparivanjePregled() {
     const [vina, setVina] = useState([]);
     const [sirevi, setSirevi] = useState([]);
+    const [uparivanja, setUparivanja] = useState([]);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
             await ucitajVina();
             await ucitajSirevi();
+            await ucitajUparivanja();
         };
         fetchData();
     }, []);
@@ -29,16 +33,43 @@ export default function UparivanjePregled() {
 
 
     function dohvatiSireveZaVino(vinoId) {
-        const idjevi = uparivanjeVinaById[vinoId] || []
+    //console.log("----");
+    //console.log("vinoId:", vinoId);
+    console.log("uparivanja FULL:", JSON.stringify(uparivanja, null, 2));
+    //console.log("uparivanja:", uparivanja);
+    //console.log("sirevi:", sirevi);
 
-        const lista = sirevi
-            .filter(s => idjevi.includes(s.id))
-            .map(s => s.naziv)
+    const idjevi = uparivanja
+        .filter(u => {
+            //console.log("usporedba vinoId:", u.vinoId, vinoId);
+            return Number(u.vinoId) === Number(vinoId);
+        })
+        .map(u => {
+            //console.log("sirId iz uparivanja:", u.sirId);
+            return u.sirId;
+        });
 
-        return lista.length > 0 ? lista.join(", ") : "Nema preporuke"
+    //console.log("IDJEVI:", idjevi);
+
+    const lista = sirevi
+        .filter(s => {
+            //console.log("provjera sira:", s.id, idjevi);
+            return idjevi.includes(s.id);
+        })
+        .map(s => s.naziv);
+
+    //console.log("REZULTAT:", lista);
+
+    return lista.length > 0 ? lista.join(", ") : "Nema preporuke";
+}
+
+    async function ucitajUparivanja() {
+        const response = await UparivanjeCustomService.get();
+        //console.log("RAW response:", response);
+        if (response.success) setUparivanja(response.data);
+       //console.log("uparivanja data:", response.data);
     }
 
-    const navigate = useNavigate()
 
     async function obrisi(id) {
         if (!confirm("Sigurno obrisati?")) {
@@ -62,8 +93,8 @@ export default function UparivanjePregled() {
                         </tr>
                     </thead>
                     <tbody>
-                        {vina.map(vino => (
-                            <tr key={vino.id}>
+                        {vina.map((vino, index) => (
+                            <tr key={vino.id + "_" + index}>
                                 <td>{vino.naziv}</td>
                                 <td>{dohvatiSireveZaVino(vino.id)}</td>
                                 <td>{vino.temperatura}</td>
