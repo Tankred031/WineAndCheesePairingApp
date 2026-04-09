@@ -11,7 +11,7 @@ async function getBySireviId(sirId) {
     
     const custom = (await UparivanjeCustomService.get()).data
         .filter(u => u.sirId === sirId)
-        .map(u => vina.find(v => v.id === u.vinoId))
+        .map(u => result.find(v => v.id === u.vinoId))
         .filter(Boolean);
 
     const svi = [...defaultVina, ...custom].filter(

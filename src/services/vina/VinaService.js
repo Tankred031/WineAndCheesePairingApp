@@ -29,8 +29,8 @@ const AktivniServis = Servis || PrazanServis;
 
 export default {
     get: () => AktivniServis.get(),
-    getBySifra: (id) => AktivniServis.getById(id),
+    getById: (id) => AktivniServis.getById(id),
     dodaj: (vino) => AktivniServis.dodaj(vino),
     promjeni: (id, vino) => AktivniServis.promjeni(id, vino),
-    obrisi: (id, vino) => AktivniServis.obrisi(id)
+    obrisi: (id) => AktivniServis.obrisi(id)
 }
