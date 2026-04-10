@@ -10,6 +10,7 @@ export default function VinaPromjena() {
     const navigate = useNavigate()
     const params = useParams()
     const [vino, setVino] = useState({})
+    const [alkohol, setAlkohol] = useState(0)
 
     async function ucitajVino() {
         await VinaService.getById(params.id).then((odgovor) => {
@@ -21,6 +22,7 @@ export default function VinaPromjena() {
 
             const s = odgovor.data
             setVino(s)
+            setAlkohol(Number(s.alkohol))
         })
 
     }
@@ -49,9 +51,19 @@ export default function VinaPromjena() {
             slatkoca: podaci.get('slatkoca'),
             arome: podaci.get('arome'),
             tijelo: podaci.get('tijelo'),
-            alkohol: parseFloat(podaci.get('alkohol'))
+            alkohol: alkohol
         })
     }
+
+    function getBoja(alkohol) {
+        if (alkohol <= 11) return '#198754'
+        if (alkohol < 13) return '#ffc107'
+        if (alkohol <= 15) return '#dc3545'   
+        return '#6f42c1'                     
+    }
+
+    const postotak = ((alkohol - 8) / (25 - 8)) * 100
+    const boja = getBoja(alkohol)
 
     return (
         <>
@@ -117,14 +129,32 @@ export default function VinaPromjena() {
 
                 <Form.Group controlId="alkohol" className="form-group-custom">
                     <Form.Label className="form-label-custom">Alkohol</Form.Label>
-                    <Form.Control 
-                        type="number" 
+                    <Form.Range
                         name="alkohol"
                         step="0.1"
                         min="8"
                         max="25"
-                        required
-                        defaultValue={vino.alkohol} />
+                        value={alkohol}
+                        onChange={(e) => setAlkohol(parseFloat(e.target.value))}
+                        style={{
+                            background: `linear-gradient(to right,
+                            ${boja} 0%,
+                            ${boja} ${postotak}%,
+                            #dee2e6 ${postotak}%,
+                            #dee2e6 100%
+                            )`
+                        }}
+                    />
+
+                    <div className="d-flex justify-content-between px-1">
+                        <small>8</small>
+                        <small>11</small>
+                        <small>14</small>
+                        <small>17</small>
+                        <small>20</small>
+                        <small>23</small>
+                        <small>25</small>
+                    </div>
                 </Form.Group>
 
                 <hr style={{ marginTop: '50px', border: '0' }} />
