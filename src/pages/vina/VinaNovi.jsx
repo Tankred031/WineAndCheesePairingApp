@@ -2,11 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { RouteNames } from "../../constants";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import VinaService from "../../services/vina/VinaService";
+import { useState } from "react";
 
 
 export default function VinaNovi() {
 
     const navigate = useNavigate()
+    const [alkohol, setAlkohol] = useState(0)
+
 
     async function dodaj(vino) {
         await VinaService.dodaj(vino).then(() => {
@@ -40,9 +43,19 @@ export default function VinaNovi() {
             slatkoca: podaci.get('slatkoca'),
             arome: podaci.get('arome'),
             tijelo: podaci.get('tijelo'),
-            alkohol: podaci.get('alkohol')
+            alkohol: alkohol
         })
     }
+
+    function getBoja(alkohol) {
+        if (alkohol <= 11) return '#198754'
+        if (alkohol <= 12) return '#ffc107'
+        if (alkohol <= 15) return '#dc3545'
+        return '#6f42c1'
+    }
+
+    const postotak = ((alkohol - 8) / (25 - 8)) * 100
+    const boja = getBoja(alkohol)
 
     return (
         <>
@@ -88,7 +101,7 @@ export default function VinaNovi() {
 
                 <Form.Group controlId="temperatura" className="form-group-custom">
                     <Form.Label className="form-label-custom">Temperatura</Form.Label>
-                    <Form.Control type="text" name="temperatura" required/>
+                    <Form.Control type="text" name="temperatura" required />
                 </Form.Group>
 
 
@@ -104,8 +117,34 @@ export default function VinaNovi() {
                 </Form.Group>
 
                 <Form.Group controlId="alkohol" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Alkohol</Form.Label>
-                    <Form.Control type="text" name="alkohol" required />
+                    <Form.Label className="form-label-custom">
+                        Alkohol: <strong style={{ color: boja }}>
+                            {alkohol} %
+                        </strong></Form.Label>
+                    <Form.Range
+                        min="8"
+                        max="25"
+                        step="0.1"
+                        value={alkohol}
+                        onChange={(e) => setAlkohol(parseFloat(e.target.value))}
+                        style={{
+                            background: `linear-gradient(to right,
+                        ${boja} 0%,
+                        ${boja} ${postotak}%,
+                        #dee2e6 ${postotak}%,
+                        #dee2e6 100%
+                        )`
+                        }}
+                    />
+                    <div className="d-flex justify-content-between px-1">
+                        <small>8</small>
+                        <small>11</small>
+                        <small>14</small>
+                        <small>17</small>
+                        <small>20</small>
+                        <small>23</small>
+                        <small>25</small>
+                    </div>
                 </Form.Group>
 
                 <hr style={{ marginTop: '50px', border: '0' }} />
