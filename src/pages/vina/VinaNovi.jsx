@@ -88,7 +88,7 @@ export default function VinaNovi() {
 
                 <Form.Group controlId="temperatura" className="form-group-custom">
                     <Form.Label className="form-label-custom">Temperatura</Form.Label>
-                    <Form.Control type="number" name="temperatura" required step={1} />
+                    <Form.Control type="text" name="temperatura" required/>
                 </Form.Group>
 
 
