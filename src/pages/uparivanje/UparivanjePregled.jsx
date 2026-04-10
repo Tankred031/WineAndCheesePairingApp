@@ -36,7 +36,13 @@ export default function UparivanjePregled() {
 
         const statickiIds = uparivanjeVinaById[vinoId] || [];
 
-        const ids = customIds.length > 0 ? customIds : statickiIds;
+        const customZaVino = custom.filter(u => u.vinoId === vinoId);
+
+        // ako postoji bilo kakav custom zapis za to vino → koristi ga
+        // čak i ako je prazan (to znači "nema preporuke")
+        const ids = customZaVino.length > 0
+            ? customZaVino.map(u => u.sirId)
+            : statickiIds;
 
         const lista = sirevi
             .filter(s => ids.includes(s.id))
@@ -45,15 +51,13 @@ export default function UparivanjePregled() {
         return lista.length ? lista.join(", ") : "Nema preporuke";
     }
 
-    async function obrisi(vinoId) {
+    function obrisi(vinoId) {
         if (!confirm("Sigurno obrisati?")) return;
 
-        const novi = custom.filter(u => u.vinoId !== vinoId);
-
-        await UparivanjeCustomService.postavi(novi);
-
-        setCustom(novi);
+        // samo makni iz prikaza (frontend delete)
+        setVina(prev => prev.filter(v => v.id !== vinoId));
     }
+
 
     return (
         <div className="mt-4">

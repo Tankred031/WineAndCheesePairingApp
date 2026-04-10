@@ -78,7 +78,8 @@ export default function UparivanjePromjena() {
             }))
             : [{
                 id: `${Date.now()}_empty`,
-                vinoId: null,
+                vinoId,
+                sirId: null,
                 empty: true
             }];
 
