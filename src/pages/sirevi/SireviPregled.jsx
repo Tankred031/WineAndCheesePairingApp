@@ -63,11 +63,11 @@ export default function SireviPregled() {
                                 <td>{sirevi.okus}</td>
                                 <td>
                                     <div className="d-flex gap-2">
-                                    <Button onClick={() => { navigate(`/sirevi/${sirevi.id}`) }} variant="warning" size="sm">
+                                    <Button onClick={()=>{navigate(`/sirevi/${sirevi.id}`)}} variant="warning" size="sm">
                                         Promjena
                                     </Button>
                                     &nbsp;
-                                    <Button onClick={() => { obrisi(sirevi.id) }} variant="danger" size="sm">
+                                    <Button onClick={()=>{obrisi(sirevi.id)}} variant="danger" size="sm">
                                         Obriši
                                     </Button>
                                     </div>

@@ -26,7 +26,7 @@ export default function SireviNovi() {
 
         // --- KONTROLA 2: Naziv (Minimalna duljina) ---
         if (podaci.get('naziv').trim().length < 3) {
-            alert("Naziv smjera mora imati najmanje 3 znaka!")
+            alert("Naziv sira mora imati najmanje 3 znaka!")
             return // Prekid
         }
 

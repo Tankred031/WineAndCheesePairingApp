@@ -20,84 +20,95 @@ export default function UparivanjePromjena() {
     }, []);
 
     async function ucitaj() {
-        const v = await VinaService.getById(params.id);
-        const s = await SireviService.get();
+
+        //default
+        const vinoId = Number(params.id);
+
+        //učitaj vino i sireve
+        const v = await VinaService.getById(vinoId);
+        const s = await SireviService.get()
 
         setVino(v.data);
         setSirevi(s.data);
 
-        // Ucitaj statička uparivanja + eventualna custom
-        const statickaIds = uparivanjeVinaById[Number(params.id)] || [];
+        const statickaIds = uparivanjeVinaById[vinoId] || [];
+
+        //custom
         const customResponse = await UparivanjeCustomService.get();
-        const customIds = (customResponse.data || [])
-            .filter(u => u.vinoId === Number(params.id))
+        const custom = customResponse.data || [];
+        
+        const customIds = custom
+            .filter(u => u.vinoId === vinoId)
             .map(u => u.sirId);
 
         // Kombiniraj statička + custom uparivanja
-        setOdabraniSirevi([...new Set([...statickaIds, ...customIds])]);
-
-        console.log("params:", params.id);
-        console.log("vino:", v.data);
-        console.log("sirevi:", s.data);
-    }
-
-    function toggleSir(id) {
-        if (odabraniSirevi.includes(id)) {
-            setOdabraniSirevi(odabraniSirevi.filter(s => s !== id));
+        if (customIds.length > 0) {
+            setOdabraniSirevi(customIds);
         } else {
-            setOdabraniSirevi([...odabraniSirevi, id]);
+            setOdabraniSirevi(statickaIds);
         }
     }
 
-    async function spremi(e) {
-        e.preventDefault();
 
-        // Dohvati trenutna custom uparivanja
-        const svi = (await UparivanjeCustomService.get()).data || [];
-
-        // Zadrži custom uparivanja za ostala vina
-        const ostali = svi.filter(u => u.vinoId !== Number(params.id));
-
-        // Kreiraj nova custom uparivanja za ovo vino
-        const novi = odabraniSirevi.map(sirId => ({
-            id: Date.now() + sirId, // unikatan ID
-            vinoId: Number(params.id),
-            sirId
-        }));
-
-        // Spremi sve zajedno u memoriju
-        await UparivanjeCustomService.postavi([...ostali, ...novi]);
-
-        // Opcionalno: log za provjeru
-        const test = await UparivanjeCustomService.get();
-        console.log("NAKON SPREMANJA:", test);
-
-        // Navigiraj nazad na pregled
-        navigate(RouteNames.UPARIVANJE_PREGLED);
+function toggleSir(id) {
+    if (odabraniSirevi.includes(id)) {
+        setOdabraniSirevi(odabraniSirevi.filter(s => s !== id));
+    } else {
+        setOdabraniSirevi([...odabraniSirevi, id]);
     }
+}
 
-    return (
-        <>
-            <h3 className="naslov">Izmjena uparivanja vino-sirevi</h3>
+async function spremi(e) {
+    e.preventDefault();
 
-            <Form onSubmit={spremi}>
-                <h4>{vino.naziv}</h4>
+    const vinoId = Number(params.id);
 
-                {sirevi.map(s => (
-                    <div key={s.id}>
-                        <input
-                            type="checkbox"
-                            checked={odabraniSirevi.includes(s.id)}
-                            onChange={() => toggleSir(s.id)}
-                        />
-                        <label className="ms-2">{s.naziv}</label>
-                    </div>
-                ))}
+    // Dohvati trenutna custom uparivanja
+    const svi = (await UparivanjeCustomService.get()).data || [];
 
-                <hr />
+    // Zadrži custom uparivanja za ostala vina
+    const ostali = svi.filter(u => u.vinoId !== vinoId);
 
-                <Button type="submit">Spremi</Button>
-            </Form>
-        </>
-    );
+    // Kreiraj nova custom uparivanja za ovo vino
+    const novi = odabraniSirevi.map(sirId => ({
+        id: `${Date.now()}_${sirId}`,
+        vinoId,
+        sirId
+    }));
+
+    // Spremi sve zajedno u memoriju
+    await UparivanjeCustomService.postavi([...ostali, ...novi]);
+
+    // Log za provjeru
+    const test = await UparivanjeCustomService.get();
+    console.log("NAKON SPREMANJA:", test);
+
+    // Navigiraj nazad na pregled
+    navigate(RouteNames.UPARIVANJE_PREGLED);
+}
+
+return (
+    <>
+        <h3 className="naslov">Izmjena uparivanja vino-sirevi</h3>
+
+        <Form onSubmit={spremi}>
+            <h4>{vino.naziv}</h4>
+
+            {sirevi.map(s => (
+                <div key={s.id}>
+                    <input
+                        type="checkbox"
+                        checked={odabraniSirevi.includes(s.id)}
+                        onChange={() => toggleSir(s.id)}
+                    />
+                    <label className="ms-2">{s.naziv}</label>
+                </div>
+            ))}
+
+            <hr />
+
+            <Button type="submit">Spremi</Button>
+        </Form>
+    </>
+);
 }
