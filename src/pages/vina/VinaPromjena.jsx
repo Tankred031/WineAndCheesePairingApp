@@ -49,7 +49,7 @@ export default function VinaPromjena() {
             slatkoca: podaci.get('slatkoca'),
             arome: podaci.get('arome'),
             tijelo: podaci.get('tijelo'),
-            alkohol: podaci.get('alkohol')
+            alkohol: parseFloat(podaci.get('alkohol'))
         })
     }
 
@@ -117,7 +117,13 @@ export default function VinaPromjena() {
 
                 <Form.Group controlId="alkohol" className="form-group-custom">
                     <Form.Label className="form-label-custom">Alkohol</Form.Label>
-                    <Form.Control type="text" name="alkohol" required
+                    <Form.Control 
+                        type="number" 
+                        name="alkohol"
+                        step="0.1"
+                        min="8"
+                        max="25"
+                        required
                         defaultValue={vino.alkohol} />
                 </Form.Group>
 

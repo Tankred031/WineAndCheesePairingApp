@@ -113,12 +113,21 @@ export default function UparivanjePromjena() {
                 ))}
 
                 <hr />
+                <div className="d-flex gap-2">
+                    <Button type="submit" variant="success" size="sm" className="flex-fill">
+                        Spremi
+                    </Button>
 
-                <Button type="submit" variant="success w-50">Spremi</Button>
-                <Link to={
-                    RouteNames.UPARIVANJE_PREGLED} className="btn btn-danger w-50">
-                    Odustani
-                </Link>
+                    <Button
+                        as={Link}
+                        to={RouteNames.UPARIVANJE_PREGLED}
+                        variant="danger"
+                        size="sm"
+                        className="flex-fill"
+                    >
+                        Odustani
+                    </Button>
+                </div>
             </Form>
         </>
     );
