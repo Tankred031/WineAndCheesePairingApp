@@ -9,7 +9,7 @@ export default function VinaPregled() {
 
     const navigate = useNavigate()
     const [vina, setVina] = useState([])
-    const [alkohol, setAlkohol] = useState()
+   
 
     useEffect(() => {
         ucitajVina()
@@ -24,7 +24,7 @@ export default function VinaPregled() {
             }
             setVina(odgovor.data)
 
-            setAlkohol(Number(s.alkohol))
+            
         })
 
     }

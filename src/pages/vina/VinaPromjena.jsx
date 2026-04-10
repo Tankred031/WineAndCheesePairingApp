@@ -128,12 +128,15 @@ export default function VinaPromjena() {
                 </Form.Group>
 
                 <Form.Group controlId="alkohol" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Alkohol</Form.Label>
+                    <Form.Label className="form-label-custom">
+                        Alkohol: <strong style={{ color: boja }}>
+                            {alkohol} %
+                        </strong></Form.Label>
                     <Form.Range
                         name="alkohol"
-                        step="0.1"
                         min="8"
                         max="25"
+                        step="0.1"
                         value={alkohol}
                         onChange={(e) => setAlkohol(parseFloat(e.target.value))}
                         style={{
