@@ -1,4 +1,5 @@
 let lista = []
+let obrisani = []
 
 export default {
 
@@ -24,6 +25,7 @@ export default {
         return { success: true }
     },
 
+
     obrisi: async (id) => {
         lista = lista.filter(u => u.id != id)
         return { success: true }
@@ -31,6 +33,21 @@ export default {
 
     postavi: async (novaLista) => {
         lista = novaLista
-        return {success: true}
+        return { success: true }
+    }, 
+
+    getObrisani: async () => ({
+        success: true,
+        data: obrisani
+    }),
+
+    dodajObrisani: async (vinoId, sirId) => {
+        obrisani.push({ vinoId, sirId });
+        return { success: true };
+    },
+
+    resetObrisani: async () => {
+        obrisani = [];
+        return { success: true}
     }
 }

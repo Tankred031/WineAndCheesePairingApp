@@ -1,80 +1,63 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { vina } from "../../services/vina/VinaPopis";
-import { sirevi } from "../../services/sirevi/SireviPopis";
-import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopis";
+import VinaService from "../../services/vina/VinaService";
+import SireviService from "../../services/sirevi/SireviService";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
+import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopis";
 
 export default function UparivanjePregled() {
-    const [uparivanja, setUparivanja] = useState([]);
+
+    const [vina, setVina] = useState([]);
+    const [sirevi, setSirevi] = useState([]);
+    const [custom, setCustom] = useState([]);
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        ucitajUparivanja();
+        ucitaj();
     }, []);
 
-    // Učitaj statička + custom uparivanja
-    async function ucitajUparivanja() {
-        // 1. Statička uparivanja
-        const staticka = Object.entries(uparivanjeVinaById).flatMap(([vinoId, sireviIds]) =>
-            sireviIds.map(sirId => ({ vinoId: Number(vinoId), sirId }))
-        );
+    async function ucitaj() {
+        const v = await VinaService.get();
+        const s = await SireviService.get();
+        const c = await UparivanjeCustomService.get();
 
-        // 2. Custom uparivanja iz frontend liste (simulacija baze)
-        const customResponse = await UparivanjeCustomService.get();
-        const custom = customResponse.data || [];
-
-        // 3. Spoji oba izvora
-        setUparivanja([...staticka, ...custom]);
+        setVina(v.data || []);
+        setSirevi(s.data || []);
+        setCustom(c.data || []);
     }
 
-    // Dohvati sireve za pojedino vino
-    function dohvatiSireveZaVino(vinoId) {
-        const idjevi = uparivanja
+    function getSirevi(vinoId) {
+
+        const customIds = custom
             .filter(u => u.vinoId === vinoId)
             .map(u => u.sirId);
 
+        const statickiIds = uparivanjeVinaById[vinoId] || [];
+
+        const ids = customIds.length > 0 ? customIds : statickiIds;
+
         const lista = sirevi
-            .filter(s => idjevi.includes(s.id))
+            .filter(s => ids.includes(s.id))
             .map(s => s.naziv);
 
-        return lista.length > 0 ? lista.join(", ") : "Nema preporuke";
+        return lista.length ? lista.join(", ") : "Nema preporuke";
     }
 
-   
-    async function obrisiVino(id) {
+    async function obrisi(vinoId) {
         if (!confirm("Sigurno obrisati?")) return;
 
-        await UparivanjeCustomService.postavi(
-            (await UparivanjeCustomService.get()).data.filter(u => u.vinoId !== id)
-        );
+        const novi = custom.filter(u => u.vinoId !== vinoId);
 
-        ucitajUparivanja();
-    }
+        await UparivanjeCustomService.postavi(novi);
 
-    
-    async function azurirajUparivanje(vinoId, noviSireviIds) {
-        // 1. Dohvati trenutna custom uparivanja
-        const customResponse = await UparivanjeCustomService.get();
-        let custom = customResponse.data || [];
-
-        // 2. Ukloni sve custom uparivanja za ovo vino
-        custom = custom.filter(u => u.vinoId !== vinoId);
-
-        // 3. Dodaj nove selektirane sireve
-        const noviCustom = noviSireviIds.map(sirId => ({ vinoId, sirId }));
-        custom = [...custom, ...noviCustom];
-
-        // 4. Spremi u memoriju
-        await UparivanjeCustomService.postavi(custom);
-
-        // 5. Osvježi lokalni state
-        ucitajUparivanja();
+        setCustom(novi);
     }
 
     return (
         <div className="mt-4">
+
             <Table bordered striped hover>
                 <thead>
                     <tr>
@@ -84,34 +67,40 @@ export default function UparivanjePregled() {
                         <th>Akcija</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    {vina.map((vino, index) => (
-                        <tr key={vino.id + "_" + index}>
+                    {vina.map(vino => (
+                        <tr key={vino.id}>
                             <td>{vino.naziv}</td>
-                            <td>{dohvatiSireveZaVino(vino.id)}</td>
+                            <td>{getSirevi(vino.id)}</td>
                             <td>{vino.temperatura}</td>
                             <td>
                                 <div className="d-flex gap-2">
+
                                     <Button
-                                        onClick={() => navigate(`/uparivanje/${vino.id}`)}
                                         variant="warning"
                                         size="sm"
+                                        onClick={() => navigate(`/uparivanje/${vino.id}`)}
                                     >
                                         Promjena
                                     </Button>
+
                                     <Button
-                                        onClick={() => obrisiVino(vino.id)}
                                         variant="danger"
                                         size="sm"
+                                        onClick={() => obrisi(vino.id)}
                                     >
                                         Obriši
                                     </Button>
+
                                 </div>
                             </td>
                         </tr>
                     ))}
                 </tbody>
+
             </Table>
+
         </div>
     );
 }

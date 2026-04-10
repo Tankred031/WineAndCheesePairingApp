@@ -1,24 +1,27 @@
 import { Link, useNavigate } from "react-router-dom";
 import { RouteNames } from "../../constants";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import VinaService from "../../services/vina/VinaService";
 import { useEffect, useState } from "react";
+import VinaService from "../../services/vina/VinaService";
 import SireviService from "../../services/sirevi/SireviService";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 
-
 export default function UparivanjeNovi() {
 
-    const navigate = useNavigate();
+    const [vina, setVina] = useState([]);
     const [sirevi, setSirevi] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        ucitajSireve();
+        ucitajPodatke();
     }, []);
 
-    async function ucitajSireve() {
+    async function ucitajPodatke() {
+        const v = await VinaService.get();
         const s = await SireviService.get();
-        setSirevi(s.data);
+
+        setVina(v.data || []);
+        setSirevi(s.data || []);
     }
 
     async function odradiSubmit(e) {
@@ -26,25 +29,15 @@ export default function UparivanjeNovi() {
 
         const podaci = new FormData(e.target);
 
-        // 1. KREIRAJ NOVO VINO
-        const novoVino = {
-            vino: podaci.get('naziv'),
-            temperatura: Number(podaci.get('temperatura'))
-        };
+        // 1. ODABRANO VINO
+        const vinoId = Number(podaci.get('vino'));
 
-        await VinaService.dodaj(novoVino);
-
-        const svaVina = (await VinaService.get()).data || [];
-        const zadnje = svaVina[svaVina.length - 1];
-
-        if (!zadnje) {
-            alert("Greška kod dodavanja vina");
+        if (!vinoId) {
+            alert("Odaberi vino");
             return;
         }
 
-        const vinoId = zadnje.id;
-
-        // 2. UZMI ODABRANE SIREVE
+        // 2. SIREVI
         const sireviIds = [
             podaci.get('sir1'),
             podaci.get('sir2'),
@@ -52,14 +45,19 @@ export default function UparivanjeNovi() {
             podaci.get('sir4'),
             podaci.get('sir5')
         ]
-            .filter(id => id) // makni prazne
+            .filter(id => id)
             .map(id => Number(id));
 
-        // 3. SPREMI UPARIVANJE
+        if (sireviIds.length === 0) {
+            alert("Odaberi barem jedan sir");
+            return;
+        }
+
+        // 3. SPREMI
         const svi = (await UparivanjeCustomService.get()).data || [];
 
         const novi = sireviIds.map(sirId => ({
-            id: `${Date.now()}_${sirId}`,
+            id: Date.now() + "_" + sirId,
             vinoId,
             sirId
         }));
@@ -71,19 +69,21 @@ export default function UparivanjeNovi() {
 
     return (
         <>
-            <h3 className="naslov">Novo vino + uparivanje</h3>
+            <h3 className="naslov">Novo uparivanje</h3>
 
             <Form onSubmit={odradiSubmit}>
 
                 {/* VINO */}
                 <Form.Group className="mb-2">
-                    <Form.Label>Naziv</Form.Label>
-                    <Form.Control name="naziv" required />
-                </Form.Group>
-
-                <Form.Group className="mb-2">
-                    <Form.Label>Temperatura</Form.Label>
-                    <Form.Control type="number" name="temperatura" />
+                    <Form.Label>Vino</Form.Label>
+                    <Form.Select name="vino" required>
+                        <option value="">-- odaberi vino --</option>
+                        {vina.map(v => (
+                            <option key={v.id} value={v.id}>
+                                {v.naziv}
+                            </option>
+                        ))}
+                    </Form.Select>
                 </Form.Group>
 
                 {/* SIREVI */}
@@ -111,7 +111,7 @@ export default function UparivanjeNovi() {
                     </Col>
                     <Col>
                         <Button type="submit" variant="success w-100">
-                            Dodaj novo uparivanje
+                            Dodaj uparivanje
                         </Button>
                     </Col>
                 </Row>

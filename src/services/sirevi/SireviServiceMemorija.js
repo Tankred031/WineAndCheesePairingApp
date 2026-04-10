@@ -30,7 +30,7 @@ function nadiIndex(id){
 async function obrisi(id) {
     const index = nadiIndex(id)
     if (index > -1) {
-        vina.splice(index, 1) 
+        sirevi.splice(index, 1) 
         }
         return;          
 }
