@@ -21,6 +21,13 @@ export default function Izbornik() {
               <NavDropdown.Item
                 onClick={() => navigate(RouteNames.VINA_PREGLED)}
               >Pregled vina</NavDropdown.Item>
+
+            <NavDropdown.Divider />
+
+            <NavDropdown.Item
+                onClick={() => navigate(RouteNames.GENERIRANJE_PODATAKA)}
+              >Generiraj podatke</NavDropdown.Item>
+
             </NavDropdown>
 
             <NavDropdown title="🧀Sirevi" id="basic-nav-dropdown">

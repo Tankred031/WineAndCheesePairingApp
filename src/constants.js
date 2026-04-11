@@ -14,7 +14,9 @@ export const RouteNames = {
     VINA_PROMJENA: '/vina/:id',
     SIREVI_PROMJENA: '/sirevi/:id',
     
-    ZANIMLJIVOSTI: '/zanimljivosti',      
+    ZANIMLJIVOSTI: '/zanimljivosti',
+    
+    GENERIRANJE_PODATAKA: '/generiraj-podatke'
 }
 
 // memorija, localStorage, firebase

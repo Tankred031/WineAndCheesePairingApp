@@ -14,6 +14,7 @@ import VinaPromjena from './pages/vina/VinaPromjena'
 import SireviPromjena from './pages/sirevi/SireviPromjena'
 import Zanimljivosti from './pages/zanimljivosti/Zanimljivosti'
 import UparivanjePromjena from './pages/uparivanje/UparivanjePromjena'
+import GeneriranjePodataka from './pages/GeneriranjePodataka'
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path={RouteNames.VINA_PROMJENA} element={<VinaPromjena />} />
         <Route path={RouteNames.SIREVI_PROMJENA} element={<SireviPromjena />} />
         <Route path={RouteNames.ZANIMLJIVOSTI} element={<Zanimljivosti />} />
+        <Route path={RouteNames.GENERIRANJE_PODATAKA} element={<GeneriranjePodataka />} />
       </Routes>
       </Container>
       <hr />
