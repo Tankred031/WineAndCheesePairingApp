@@ -11,6 +11,19 @@ export default function SireviPromjena() {
     const params = useParams()
     const [sir, setSir] = useState({})
 
+    const VRSTE = [
+        { id: 1, naziv: "kravlji" },
+        { id: 2, naziv: "ovčji" },
+        { id: 3, naziv: "kozji" },
+        { id: 4, naziv: "miješano" }
+    ]
+
+    const MASNOCE = [
+        { id: 1, naziv: "niske" },
+        { id: 2, naziv: "srednje" },
+        { id: 3, naziv: "visoke" }
+    ]
+
 
     async function ucitajSir() {
         await SireviService.getById(params.id).then((odgovor) => {
@@ -45,11 +58,11 @@ export default function SireviPromjena() {
         promjeni({
             naziv: podaci.get('naziv'),
             tip: podaci.get('tip'),
-            vrsta: podaci.get('vrsta'),
+            vrsta_id: Number(podaci.get('vrsta_id')),
             zrenje: podaci.get('zrenje'),
             regija: podaci.get('regija'),
             intezitet: podaci.get('intezitet'),
-            masnoce: podaci.get('masnoce'),
+            masnoca_id: Number(podaci.get('masnoca_id')),
             okus: podaci.get('okus')
         })
 
@@ -77,21 +90,35 @@ export default function SireviPromjena() {
                     <Col md={6}>
                         <Form.Group controlId="vrsta" className="form-group-custom">
                             <Form.Label className="form-label-custom">Vrsta</Form.Label>
-                            <Form.Select name="vrsta" required>
-                                <option value="kravlji">kravlji</option>
-                                <option value="ovčji">ovčji</option>
-                                <option value="kozji">kozji</option>
-                                <option value="mješoviti">mješoviti</option>
+                            <Form.Select
+                                name="vrsta_id"
+                                required
+                                value={sir.vrsta_id || ""}
+                                onChange={(e) => setSir({ ...sir, vrsta_id: Number(e.target.value) })}
+                            >
+                                {VRSTE.map((v) => (
+                                    <option key={v.id} value={v.id}>
+                                        {v.naziv}
+                                    </option>
+                                ))}
                             </Form.Select>
+
                         </Form.Group>
                     </Col>
                     <Col md={6}>
                         <Form.Group controlId="masnoce" className="form-group-custom">
-                            <Form.Label className="form-label-custom">Masnoce</Form.Label>
-                            <Form.Select name="masnoce" required>
-                                <option value="visoke">visoke</option>
-                                <option value="srednje">srednje</option>
-                                <option value="niske">niske</option>
+                            <Form.Label className="form-label-custom">Masnoće</Form.Label>
+                            <Form.Select
+                                name="masnoca_id"
+                                required
+                                value={sir.masnoca_id || ""}
+                                onChange={(e) => setSir({ ...sir, masnoca_id: Number(e.target.value) })}
+                            >
+                                {MASNOCE.map((m) => (
+                                    <option key={m.id} value={m.id}>
+                                        {m.naziv}
+                                    </option>
+                                ))}
                             </Form.Select>
                         </Form.Group>
                     </Col>

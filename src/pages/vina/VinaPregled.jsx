@@ -86,11 +86,11 @@ export default function VinaPregled() {
                             <td>{vina.naziv}</td>
                             <td>{getTipNaziv(vina.tip_id)}</td>
                             <td>{vina.regija}</td>
-                            <td>{vina.temperatura}</td>
+                            <td>{vina.temperatura_min} - {vina.temperatura_max} °C</td>
                             <td>{getSlatkocaNaziv(vina.slatkoca_id)}</td>
                             <td>{vina.arome}</td>
                             <td>{vina.tijelo}</td>
-                            <td>{vina.alkohol}</td>
+                            <td>{vina.alkohol_min} - {vina.alkohol_max} %</td>
                             <td>
                                 <div className="d-flex gap-2">
                                     <Button onClick={() => { navigate(`/vina/${vina.id}`) }} variant="warning" size="sm">

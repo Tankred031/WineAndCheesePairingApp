@@ -10,7 +10,8 @@ export default function VinaPromjena() {
     const navigate = useNavigate()
     const params = useParams()
     const [vino, setVino] = useState({})
-    const [alkohol, setAlkohol] = useState(0)
+    const [alkoholMin, setAlkoholMin] = useState(8)
+    const [alkoholMax, setAlkoholMax] = useState(15)
 
     const TIPOVI_VINA = [
         { id: 1, naziv: "crveno" },
@@ -37,7 +38,9 @@ export default function VinaPromjena() {
 
             const s = odgovor.data
             setVino(s)
-            setAlkohol(Number(s.alkohol))
+
+            setAlkoholMin(Number(s.alkohol_min))
+            setAlkoholMax(Number(s.alkohol_max))
         })
 
     }
@@ -62,11 +65,13 @@ export default function VinaPromjena() {
             naziv: podaci.get('naziv'),
             tip_id: Number(podaci.get('tip_id')),
             regija: podaci.get('regija'),
-            temperatura: podaci.get('temperatura'),
+            temperatura_min: Number(podaci.get('temperatura_min')),
+            temperatura_max: Number(podaci.get('temperatura_max')),
             slatkoca_id: Number(podaci.get('slatkoca_id')),
             arome: podaci.get('arome'),
             tijelo: podaci.get('tijelo'),
-            alkohol: alkohol
+            alkohol_min: alkoholMin,
+            alkohol_max: alkoholMax
         })
     }
 
@@ -77,8 +82,11 @@ export default function VinaPromjena() {
         return '#6f42c1'
     }
 
-    const postotak = ((alkohol - 8) / (25 - 8)) * 100
-    const boja = getBoja(alkohol)
+    const postotakMin = ((alkoholMin - 8) / (25 - 8)) * 100
+    const postotakMax = ((alkoholMax - 8) / (25 - 8)) * 100
+
+    const bojaMin = getBoja(alkoholMin)
+    const bojaMax = getBoja(alkoholMax)
 
     return (
         <>
@@ -138,8 +146,26 @@ export default function VinaPromjena() {
 
                 <Form.Group controlId="temperatura" className="form-group-custom">
                     <Form.Label className="form-label-custom">Temperatura</Form.Label>
-                    <Form.Control type="text" name="temperatura" required
-                        defaultValue={vino.temperatura} />
+                    <Row>
+                        <Col>
+                            <Form.Label className="form-label-custom">Min</Form.Label>
+                            <Form.Control
+                                type="number"
+                                step="0.1"
+                                name="temperatura_min"
+                                defaultValue={vino.temperatura_min}
+                            />
+                        </Col>
+                        <Col>
+                            <Form.Label className="form-label-custom">Max</Form.Label>
+                            <Form.Control
+                                type="number"
+                                step="0.1"
+                                name="temperatura_max"
+                                defaultValue={vino.temperatura_max}
+                            />
+                        </Col>
+                    </Row>
                 </Form.Group>
 
                 <Form.Group controlId="arome" className="form-group-custom">
@@ -156,23 +182,47 @@ export default function VinaPromjena() {
 
                 <Form.Group controlId="alkohol" className="form-group-custom">
                     <Form.Label className="form-label-custom">
-                        Alkohol: <strong style={{ color: boja }}>
-                            {alkohol} %
-                        </strong></Form.Label>
+                        Alkohol:
+                        <strong style={{ color: bojaMin }}> {alkoholMin} </strong>
+                        -
+                        <strong style={{ color: bojaMax }}> {alkoholMax} </strong> %
+                    </Form.Label>
+
+                    {/* MIN */}
                     <Form.Range
-                        name="alkohol"
                         min="8"
                         max="25"
                         step="0.1"
-                        value={alkohol}
-                        onChange={(e) => setAlkohol(parseFloat(e.target.value))}
+                        value={alkoholMin}
+                        onChange={(e) => {
+                            const value = parseFloat(e.target.value)
+                            if (value <= alkoholMax) setAlkoholMin(value)
+                        }}
                         style={{
                             background: `linear-gradient(to right,
-                            ${boja} 0%,
-                            ${boja} ${postotak}%,
-                            #dee2e6 ${postotak}%,
-                            #dee2e6 100%
-                            )`
+                        ${bojaMin} 0%,
+                        ${bojaMin} ${postotakMin}%,
+                        #dee2e6 ${postotakMin}%,
+                        #dee2e6 100%)`
+                        }}
+                    />
+
+                    {/* MAX */}
+                    <Form.Range
+                        min="8"
+                        max="25"
+                        step="0.1"
+                        value={alkoholMax}
+                        onChange={(e) => {
+                            const value = parseFloat(e.target.value)
+                            if (value >= alkoholMin) setAlkoholMax(value)
+                        }}
+                        style={{
+                            background: `linear-gradient(to right,
+                        ${bojaMax} 0%,
+                        ${bojaMax} ${postotakMax}%,
+                        #dee2e6 ${postotakMax}%,
+                        #dee2e6 100%)`
                         }}
                     />
 

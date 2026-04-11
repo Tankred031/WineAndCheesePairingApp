@@ -19,10 +19,10 @@ switch (DATA_SOURCE) {
 
 const PrazanServis = {
     get: async () =>({ success: false, data: []}),
-    getBySifra: async (id) => ({ success: false, data: {} }),
+    getById: async (id) => ({ success: false, data: {} }),
     dodaj: async (sir) => {console.error("Servis nije učitan"); },
     promjeni: async (id, sir) => { console.error("Servise nije učitan"); },
-    obrisi: async (id, sir) => { console.error("Servis nije učitan"); }
+    obrisi: async (id) => { console.error("Servis nije učitan"); }
 };
 
 const AktivniServis = Servis || PrazanServis;

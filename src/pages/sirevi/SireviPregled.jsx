@@ -9,14 +9,35 @@ export default function SireviPregled() {
     const navigate = useNavigate()
     const [sirevi, setSirevi] = useState([])
 
+    const VRSTE = [
+        { id: 1, naziv: "kravlji" },
+        { id: 2, naziv: "ovčji" },
+        { id: 3, naziv: "kozji" },
+        { id: 4, naziv: "miješano" }
+    ]
+
+    const MASNOCE = [
+        { id: 1, naziv: "niske" },
+        { id: 2, naziv: "srednje" },
+        { id: 3, naziv: "visoke" }
+    ]
+
+    function getVrstaNaziv(id) {
+        return VRSTE.find(v => v.id === id)?.naziv || ''
+    }
+
+    function getMasnocaNaziv(id) {
+        return MASNOCE.find(m => m.id === id)?.naziv || ''
+    }
+
     useEffect(() => {
         ucitajSirevi()
     }, [])
 
     async function ucitajSirevi() {
         await SireviService.get().then((odgovor) => {
-            
-            if(!odgovor.success){
+
+            if (!odgovor.success) {
                 alert('Nije implementiran servis')
                 return
             }
@@ -25,7 +46,7 @@ export default function SireviPregled() {
     }
 
     async function obrisi(id) {
-        if(!confirm('Sigurno obrisati?')){
+        if (!confirm('Sigurno obrisati?')) {
             return
         }
         await SireviService.obrisi(id)
@@ -41,11 +62,11 @@ export default function SireviPregled() {
                         <tr>
                             <th>Naziv</th>
                             <th>Tip</th>
-                            <th>Vrsta</th>
+                            <td>{getVrstaNaziv(sirevi.vrsta_id)}</td>
                             <th>Zrenje</th>
                             <th>Regija</th>
                             <th>Intezitet</th>
-                            <th>Masnoće</th>                            
+                            <td>{getMasnocaNaziv(sirevi.masnoca_id)}</td>
                             <th>Okus</th>
                             <th>Akcija</th>
                         </tr>
@@ -59,17 +80,17 @@ export default function SireviPregled() {
                                 <td>{sirevi.zrenje}</td>
                                 <td>{sirevi.regija}</td>
                                 <td>{sirevi.intezitet}</td>
-                                <td>{sirevi.masnoce}</td>                                
+                                <td>{sirevi.masnoce}</td>
                                 <td>{sirevi.okus}</td>
                                 <td>
                                     <div className="d-flex gap-2">
-                                    <Button onClick={()=>{navigate(`/sirevi/${sirevi.id}`)}} variant="warning" size="sm">
-                                        Promjena
-                                    </Button>
-                                    &nbsp;
-                                    <Button onClick={()=>{obrisi(sirevi.id)}} variant="danger" size="sm">
-                                        Obriši
-                                    </Button>
+                                        <Button onClick={() => { navigate(`/sirevi/${sirevi.id}`) }} variant="warning" size="sm">
+                                            Promjena
+                                        </Button>
+                                        &nbsp;
+                                        <Button onClick={() => { obrisi(sirevi.id) }} variant="danger" size="sm">
+                                            Obriši
+                                        </Button>
                                     </div>
                                 </td>
                             </tr>
