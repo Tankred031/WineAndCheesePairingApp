@@ -1,7 +1,7 @@
 import VinaService from "../services/vina/VinaService";
 import SireviService from "../services/sirevi/SireviService";
 import { useState } from "react";
-import { faker } from '@faker-js/faker'
+import { fakerHR as faker } from '@faker-js/faker'
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap"
 
 export default function GeneriranjePodataka() {
@@ -11,26 +11,82 @@ export default function GeneriranjePodataka() {
     const [poruka, setPoruka] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    const rawMin = tip_id === 2
+        ? faker.number.float({ min: 8, max: 11, multipleOf: 0.1 })
+        : faker.number.float({ min: 11, max: 14, multipleOf: 0.1 });
 
+    const rawMax = rawMin + faker.number.float({ min: 1, max: 3, multipleOf: 0.1 });
+
+    const alkoholMin = Number(rawMin.toFixed(1));
+    const alkoholMax = Number(rawMax.toFixed(1));
+
+
+    /*
     // Faker na hrvatskom jeziku
-    const faker = new faker({
+    const faker = new Faker({
         locale: [hr]
     });
+    */
 
     const generirajVina = async (broj) => {
 
+        const sorte = [
+            "Pinotage", "Merlot", "Pinot Noir", "Chardonnay",
+            "Chenin Blanc", "Riesling", "Syrah", "Malbec",
+            "Graševina", "Plavac Mali", "Mourverdre", "Debit",
+            "Laški Rizling", "Šipon", "Mataro", "Cabernet Franc",
+            "Babić", "Alicante Bouchet", "Pošip", "Marselan",
+            "Cinsault", "Ugni Blanc", "Pinot Meunier", "Nero D'Avola"
+        ];
+
+        const regije = [
+            "Istra", "Dalmacija", "Slavonija", "Bordeaux",
+            "Toskana", "Rioja", "Napa Valley", "Burgundy", "Baranja"
+        ];
+
+        const godine = [2018, 2019, 2020, 2021, 2022, 2023];
+
+        const oznake = ["Reserve", "Grand", "Selection", "Premium"];
+
+        // generator naziva
+        const generirajNaziv = (i) => {
+            const baza = `${sorte[i % sorte.length]} ${regije[i % regije.length]
+                } ${godine[i % godine.length]}`;
+
+            if (i < sorte.length) {
+                return baza;
+            }
+
+            return `${baza} ${faker.helpers.arrayElement(oznake)} ${Math.floor(i / sorte.length)}`;
+        };
+
         for (let i = 0; i < broj; i++) {
+
+
+            const tip_id = faker.number.int({ min: 1, max: 5 });
+
+            const alkoholMin = tip_id === 2 // bijelo
+                ? faker.number.float({ min: 8, max: 11, multipleOf: 0.1 })
+                : faker.number.float({ min: 11, max: 14, multipleOf: 0.1 });
+
+            const alkoholMax = alkoholMin + faker.number.float({ min: 1, max: 3, multipleOf: 0.1 });
+
             await VinaService.dodaj({
-                naziv: faker.word.words(2),
-                tip_id: faker.number.int({ min: 1, max: 5 }),
-                regija: faker.location.city(),
+                naziv: generirajNaziv(i),
+
+                tip_id: tip_id,
+                regija: faker.helpers.arrayElement(regije),
+
                 temperatura_min: faker.number.int({ min: 6, max: 12 }),
                 temperatura_max: faker.number.int({ min: 13, max: 18 }),
+
                 slatkoca_id: faker.number.int({ min: 1, max: 4 }),
+
                 arome: faker.word.words(3),
                 tijelo: faker.helpers.arrayElement(["lagano", "srednje", "puno"]),
-                alkohol_min: faker.number.float({ min: 8, max: 12, precision: 0.1 }),
-                alkohol_max: faker.number.float({ min: 12, max: 16, precision: 0.1 })
+
+                alkohol_min: alkoholMin,
+                alkohol_max: alkoholMax
             })
         }
     }
@@ -38,16 +94,52 @@ export default function GeneriranjePodataka() {
 
     const generirajSireve = async (broj) => {
 
+        const naziviSireva = [
+            "Raclette", "Ossau-Iraty", "Mont d'Or", "Vacherin Fribourgeois",
+            "Appenzeller", "Caciocavallo", "Queso Cabrales", "Mahón",
+            "Red Leicester", "Paneer", "Mascarpone", "Emmental",
+            "Gruyere", "Comte", "Pecorino", "Manchego",
+            "Halloumi", "Paški sir", "Beaufort", "Chaource",
+            "Cantal", "Reggianito", "Kefalotyri"
+        ];
+
+        const dodatci = ["Classic", "Reserve", "Premium", "Aged", "Bio"];
+
+        const okusi = [
+            "orašasto, blago slano",
+            "kremasto, mliječno",
+            "pikantno, intenzivno",
+            "zemljano, gljivasto",
+            "maslac, blago slatko",
+            "dimljeno, bogato",
+            "svježe, blago kiselo",
+            "aromatično, puno",
+            "slano, izraženo",
+            "voćno, lagano"
+        ];
+
+        const generirajNaziv = (i) => {
+            if (i < naziviSireva.length) {
+                return naziviSireva[i];
+            }
+
+            const baza = naziviSireva[i % naziviSireva.length];
+            const dodatak = faker.helpers.arrayElement(dodatci);
+
+            return `${baza} ${dodatak} ${Math.floor(i / naziviSireva.length)}`;
+        };
+
         for (let i = 0; i < broj; i++) {
             await SireviService.dodaj({
-                naziv: faker.word.words(2),
+                naziv: generirajNaziv(i),
+
                 tip: faker.helpers.arrayElement(["mekani", "polutvrdi", "tvrdi", "plavi"]),
                 vrsta_id: faker.number.int({ min: 1, max: 4 }),
                 zrenje: faker.helpers.arrayElement(["kratko", "srednje", "dugo"]),
                 regija: faker.location.city(),
                 intezitet: faker.helpers.arrayElement(["blag", "srednji", "jak"]),
                 masnoca_id: faker.number.int({ min: 1, max: 3 }),
-                okus: faker.word.words(3)
+                okus: faker.helpers.arrayElement(okusi)
             })
         }
     }
@@ -151,7 +243,7 @@ export default function GeneriranjePodataka() {
                                 disabled={loading}
                             />
                             <Form.Text className="text-muted">
-                                Unesite broj sireva (1-200)
+                                Unesite broj sireva (preporuka: do 100)
                             </Form.Text>
                         </Form.Group>
                         <Button
@@ -165,7 +257,7 @@ export default function GeneriranjePodataka() {
                     </Form>
                 </Col>
 
-               
+
                 {/* UPARIVANJA
                 <Col md={4}>
                     <Form onSubmit={handleGenerirajPairing}>

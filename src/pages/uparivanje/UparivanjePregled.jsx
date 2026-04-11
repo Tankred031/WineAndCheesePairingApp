@@ -77,7 +77,9 @@ export default function UparivanjePregled() {
                         <tr key={vino.id}>
                             <td>{vino.naziv}</td>
                             <td>{getSirevi(vino.id)}</td>
-                            <td>{vino.temperatura}</td>
+                            <td>
+                                {vino.temperatura_min} - {vino.temperatura_max} °C
+                            </td>
                             <td>
                                 <div className="d-flex gap-2">
 
