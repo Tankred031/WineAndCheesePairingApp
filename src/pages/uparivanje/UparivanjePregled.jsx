@@ -11,12 +11,16 @@ export default function UparivanjePregled() {
     const [vina, setVina] = useState([]);
     const [sirevi, setSirevi] = useState([]);
     const [custom, setCustom] = useState([]);
+    const [varijanta, setVarijanta] = useState(0)
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        ucitaj();
-    }, []);
+        ucitaj()
+
+        setVarijanta(Math.random() > 0.5 ? 1 : 0)
+
+    }, [])
 
     async function ucitaj() {
         const v = await VinaService.get();
@@ -51,6 +55,74 @@ export default function UparivanjePregled() {
         return lista.length ? lista.join(", ") : "Nema preporuke";
     }
 
+    // 🔽 DOHVAT OBJEKATA SIREVA
+    function getSireviObjekti(vinoId) {
+
+        const customZaVino = custom.filter(u => u.vinoId === vinoId)
+
+        const ids = customZaVino.length > 0
+            ? customZaVino.map(u => u.sirId)
+            : (uparivanjeVinaById[vinoId] || [])
+
+        return sirevi.filter(s => ids.includes(s.id))
+    }
+
+
+    // SOMMELIER SCORE
+    function getScore(vino, sirevi) {
+
+        let score = 0
+
+        sirevi.forEach(sir => {
+
+            // TANINI vs MASNOĆA
+            if (vino.tip_id === 1 && sir.tip === "tvrdi") score += 2
+            if (vino.tip_id === 1 && sir.tip === "mekani") score -= 1
+
+            // ACIDITY vs FRESHNESS
+            if (vino.tip_id === 2 && sir.intezitet === "blag") score += 2
+            if (vino.tip_id === 2 && sir.intezitet === "jak") score -= 1
+
+            // SLATKO vs BLUE CHEESE
+            if (vino.slatkoca_id === 4 && sir.tip === "plavi") score += 3
+            if (vino.slatkoca_id === 1 && sir.tip === "plavi") score -= 2
+
+            // BODY MATCH
+            if (vino.tijelo === "puno" && sir.intezitet === "jak") score += 2
+            if (vino.tijelo === "lagano" && sir.intezitet === "jak") score -= 2
+
+            // ALKOHOL vs JAČINA
+            const alkohol = (vino.alkohol_min + vino.alkohol_max) / 2
+            if (alkohol > 14 && sir.intezitet === "jak") score += 1
+            if (alkohol < 10 && sir.intezitet === "jak") score -= 1
+
+            // OPĆI BALANS
+            if (vino.tip_id === 3 && sir.tip === "mekani") score += 1
+            if (vino.tip_id === 4 && sir.tip !== "plavi") score -= 1
+
+        })
+
+        return score
+    }
+
+
+    //  OCJENA A/B/C
+    function getOcjena(vino, sirevi) {
+
+        const score = getScore(vino, sirevi)
+
+        if (varijanta === 0) {
+            if (score >= 6) return "A 😍"
+            if (score >= 2) return "B 😐"
+            return "C 😱"
+        } else {
+            if (score >= 6) return "A ⭐"
+            if (score >= 2) return "B ✅"
+            return "C ❌"
+        }
+    }
+
+    
     function obrisi(vinoId) {
         if (!confirm("Sigurno obrisati?")) return;
 
@@ -71,7 +143,7 @@ export default function UparivanjePregled() {
                     <tr>
                         <th>Vino</th>
                         <th>Preporučeni sirevi</th>
-                        <th>Temperatura</th>
+                        <th>Ocjena</th>
                         <th>Akcija</th>
                     </tr>
                 </thead>
@@ -82,7 +154,28 @@ export default function UparivanjePregled() {
                             <td>{vino.naziv}</td>
                             <td>{getSirevi(vino.id)}</td>
                             <td>
-                                {vino.temperatura_min} - {vino.temperatura_max} °C
+                                {(() => {
+                                    const ocjena = getOcjena(vino, getSireviObjekti(vino.id))
+                                    const [slovo, emoji] = ocjena.split(" ")
+
+                                    return (
+                                        <span
+                                            className="badge px-3 py-2"
+                                            style={{
+                                                fontSize: "1rem",
+                                                backgroundColor: "#cfe2ff",
+                                                color: "#084298",
+                                                borderRadius: "12px",
+                                                fontStyle: "normal"
+                                            }}
+                                        >
+                                            {slovo}{" "}
+                                            <span style={{ fontSize: "1.4rem", fontStyle: "normal" }}>
+                                                {emoji}
+                                            </span>
+                                        </span>
+                                    )
+                                })()}
                             </td>
                             <td>
                                 <div className="d-flex gap-2">
