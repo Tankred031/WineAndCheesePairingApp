@@ -97,6 +97,9 @@ export default function SireviPregled() {
                         ))}
                     </tbody>
                 </Table>
+                <p className="mt-2">
+                Učitano ukupno <strong>{sirevi.length}</strong> sireva
+            </p>
             </div>
         </>
     )

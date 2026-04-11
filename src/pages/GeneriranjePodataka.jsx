@@ -1,7 +1,8 @@
 import VinaService from "../services/vina/VinaService";
 import SireviService from "../services/sirevi/SireviService";
 import { useState } from "react";
-import { fakerHR as faker } from '@faker-js/faker'
+import { faker } from '@faker-js/faker'
+faker.locale = 'hr'
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap"
 
 export default function GeneriranjePodataka() {
@@ -11,16 +12,6 @@ export default function GeneriranjePodataka() {
     const [poruka, setPoruka] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const rawMin = tip_id === 2
-        ? faker.number.float({ min: 8, max: 11, multipleOf: 0.1 })
-        : faker.number.float({ min: 11, max: 14, multipleOf: 0.1 });
-
-    const rawMax = rawMin + faker.number.float({ min: 1, max: 3, multipleOf: 0.1 });
-
-    const alkoholMin = Number(rawMin.toFixed(1));
-    const alkoholMax = Number(rawMax.toFixed(1));
-
-
     /*
     // Faker na hrvatskom jeziku
     const faker = new Faker({
@@ -28,6 +19,7 @@ export default function GeneriranjePodataka() {
     });
     */
 
+    
     const generirajVina = async (broj) => {
 
         const sorte = [
@@ -50,7 +42,7 @@ export default function GeneriranjePodataka() {
 
         // generator naziva
         const generirajNaziv = (i) => {
-            const baza = `${sorte[i % sorte.length]} ${regije[i % regije.length]
+            const baza = `${sorte[i % sorte.length]}, ${regije[i % regije.length]
                 } ${godine[i % godine.length]}`;
 
             if (i < sorte.length) {

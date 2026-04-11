@@ -58,6 +58,10 @@ export default function UparivanjePregled() {
         setVina(prev => prev.filter(v => v.id !== vinoId));
     }
 
+    const brojUspjesnih = vina.filter(v =>
+        getSirevi(v.id) !== "Nema preporuke"
+    ).length
+    const opis = brojUspjesnih === vina.length ? "svih" : "samo"
 
     return (
         <div className="mt-4">
@@ -106,7 +110,9 @@ export default function UparivanjePregled() {
                 </tbody>
 
             </Table>
-
+            <p className="mt-2 mb-0 text-muted">
+                Učitano ukupno <strong>{vina.length}</strong> vina - i uspješno upareno {opis} <strong>{brojUspjesnih}</strong>.
+            </p>
         </div>
     );
 }

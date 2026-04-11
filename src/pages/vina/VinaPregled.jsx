@@ -106,6 +106,9 @@ export default function VinaPregled() {
                     ))}
                 </tbody>
             </Table>
+            <p className="mt-2">
+                Učitano ukupno <strong>{vina.length}</strong> vina
+            </p>
         </>
     )
 }
