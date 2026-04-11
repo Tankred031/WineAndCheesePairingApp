@@ -12,6 +12,21 @@ export default function VinaPromjena() {
     const [vino, setVino] = useState({})
     const [alkohol, setAlkohol] = useState(0)
 
+    const TIPOVI_VINA = [
+        { id: 1, naziv: "crveno" },
+        { id: 2, naziv: "bijelo" },
+        { id: 3, naziv: "pjenušavo" },
+        { id: 4, naziv: "desertno" },
+        { id: 5, naziv: "rose" }
+    ]
+
+    const SLATKOCE = [
+        { id: 1, naziv: "suho" },
+        { id: 2, naziv: "polusuho" },
+        { id: 3, naziv: "poluslatko" },
+        { id: 4, naziv: "slatko" }
+    ]
+
     async function ucitajVino() {
         await VinaService.getById(params.id).then((odgovor) => {
 
@@ -45,10 +60,10 @@ export default function VinaPromjena() {
         const podaci = new FormData(e.target)
         promjeni({
             naziv: podaci.get('naziv'),
-            tip: podaci.get('tip'),
+            tip_id: Number(podaci.get('tip_id')),
             regija: podaci.get('regija'),
             temperatura: podaci.get('temperatura'),
-            slatkoca: podaci.get('slatkoca'),
+            slatkoca_id: Number(podaci.get('slatkoca_id')),
             arome: podaci.get('arome'),
             tijelo: podaci.get('tijelo'),
             alkohol: alkohol
@@ -58,8 +73,8 @@ export default function VinaPromjena() {
     function getBoja(alkohol) {
         if (alkohol <= 11) return '#198754'
         if (alkohol < 13) return '#ffc107'
-        if (alkohol <= 15) return '#dc3545'   
-        return '#6f42c1'                     
+        if (alkohol <= 15) return '#dc3545'
+        return '#6f42c1'
     }
 
     const postotak = ((alkohol - 8) / (25 - 8)) * 100
@@ -81,23 +96,35 @@ export default function VinaPromjena() {
                     <Col md={6}>
                         <Form.Group controlId="tip" className="form-group-custom">
                             <Form.Label className="form-label-custom">Tip</Form.Label>
-                            <Form.Select name="tip" required>
-                                <option value="crveno">crveno</option>
-                                <option value="bijelo">bijelo</option>
-                                <option value="pjenušavo">pjenušavo</option>
-                                <option value="desertno">desertno</option>
-                                <option value="rose">rose</option>
+                            <Form.Select
+                                name="tip_id"
+                                required
+                                value={vino.tip_id || ""}
+                                onChange={(e) => setVino({ ...vino, tip_id: Number(e.target.value) })}
+                            >
+                                {TIPOVI_VINA.map((t) => (
+                                    <option key={t.id} value={t.id}>
+                                        {t.naziv}
+                                    </option>
+
+                                ))}
                             </Form.Select>
                         </Form.Group>
                     </Col>
                     <Col md={6}>
                         <Form.Group controlId="slatkoca" className="form-group-custom">
                             <Form.Label className="form-label-custom">Slatkoća</Form.Label>
-                            <Form.Select name="slatkoca" required>
-                                <option value="suho">suho</option>
-                                <option value="polusuho">polusuho</option>
-                                <option value="poluslatko">poluslatko</option>
-                                <option value="slatko">slatko</option>
+                            <Form.Select
+                                name="slatkoca_id"
+                                required
+                                value={vino.slatkoca_id || ""}
+                                onChange={(e) => setVino({ ...vino, slatkoca_id: Number(e.target.value) })}
+                            >
+                                {SLATKOCE.map((s) => (
+                                    <option key={s.id} value={s.id}>
+                                        {s.naziv}
+                                    </option>
+                                ))}
                             </Form.Select>
                         </Form.Group>
                     </Col>
@@ -175,7 +202,7 @@ export default function VinaPromjena() {
                     </Col>
                 </Row>
 
-            </Form>
+            </Form >
         </>
     )
 }
