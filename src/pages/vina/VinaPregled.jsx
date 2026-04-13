@@ -102,9 +102,12 @@ export default function VinaPregled() {
                     type="text"
                     placeholder="Traži vino..."
                     className="form-control w-25"
-                    style={{ backgroundColor: "lightgrey" }}
-                    value={pojam}
-                    onChange={(e) => setPojam(e.target.value)}
+                    style={{
+                        backgroundColor: "lightgrey",
+                        border: "2px solid #7B0323"
+                    }}
+                value={pojam}
+                onChange={(e) => setPojam(e.target.value)}
                 />
             </div>
 
