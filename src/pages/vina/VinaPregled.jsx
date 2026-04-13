@@ -9,6 +9,7 @@ export default function VinaPregled() {
 
     const navigate = useNavigate()
     const [vina, setVina] = useState([])
+    const [pojam, setPojam] = useState('')
 
     const TIPOVI_VINA = [
         { id: 1, naziv: "crveno" },
@@ -24,6 +25,29 @@ export default function VinaPregled() {
         { id: 3, naziv: "poluslatko" },
         { id: 4, naziv: "slatko" }
     ]
+
+    const filtriranaVina = vina.filter(v => {
+        const pojamLower = pojam.toLowerCase();
+
+        // pretvora unos u broj (zbog alkohola)
+        const broj = parseFloat(pojam.replace(',', '.'));
+        const jeBroj = !isNaN(broj);
+
+        return (
+            // pretraga teksta
+            v.naziv?.toLowerCase().includes(pojamLower) ||
+            getTipNaziv(v.tip_id)?.toLowerCase().includes(pojamLower) ||
+            v.regija?.toLowerCase().includes(pojamLower) ||
+            getSlatkocaNaziv(v.slatkoca_id)?.toLowerCase().includes(pojamLower) ||
+            v.arome?.toLowerCase().includes(pojamLower) ||
+            v.tijelo?.toLowerCase().includes(pojamLower) ||
+
+            // pretraga broja - alkohol
+            (jeBroj &&
+                broj >= v.alkohol_min &&
+                broj <= v.alkohol_max)
+        );
+    });
 
     function format1dec(broj) {
         return Number(broj).toLocaleString("hr-HR", {
@@ -72,6 +96,18 @@ export default function VinaPregled() {
             <Link to={RouteNames.VINA_NOVI} className="btn btn-success w-100 mb-3 mt-3">
                 Dodavanje novog vina
             </Link>
+
+            <div className="d-flex justify-content-end mb-3 mt-2">
+                <input
+                    type="text"
+                    placeholder="Traži vino..."
+                    className="form-control w-25"
+                    style={{ backgroundColor: "lightgrey" }}
+                    value={pojam}
+                    onChange={(e) => setPojam(e.target.value)}
+                />
+            </div>
+
             <Table bordered striped hover>
                 <thead>
                     <tr>
@@ -87,7 +123,7 @@ export default function VinaPregled() {
                     </tr>
                 </thead>
                 <tbody>
-                    {vina && vina.map((vina) => (
+                    {filtriranaVina && filtriranaVina.map((vina) => (
                         <tr key={vina.id}>
                             <td>{vina.naziv}</td>
                             <td>{getTipNaziv(vina.tip_id)}</td>

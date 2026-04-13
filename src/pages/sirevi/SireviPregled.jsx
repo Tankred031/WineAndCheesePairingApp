@@ -8,6 +8,7 @@ export default function SireviPregled() {
 
     const navigate = useNavigate()
     const [sirevi, setSirevi] = useState([])
+    const [pojam, setPojam] = useState('')
 
     const VRSTE = [
         { id: 1, naziv: "kravlji" },
@@ -21,6 +22,17 @@ export default function SireviPregled() {
         { id: 2, naziv: "srednje" },
         { id: 3, naziv: "visoke" }
     ]
+
+    const filtriraniSirevi = sirevi.filter(s =>
+    s.naziv?.toLowerCase().includes(pojam.toLowerCase()) ||
+    s.tip?.toLowerCase().includes(pojam.toLowerCase()) ||
+    getVrstaNaziv(s.vrsta_id)?.toLowerCase().includes(pojam.toLowerCase()) ||
+    s.regija?.toLowerCase().includes(pojam.toLowerCase()) ||
+    s.intezitet?.toLowerCase().includes(pojam.toLowerCase()) ||
+    s.zrenje?.toLowerCase().includes(pojam.toLowerCase()) ||
+    getMasnocaNaziv(s.masnoca_id)?.toLowerCase().includes(pojam.toLowerCase()) ||
+    s.okus?.toLowerCase().includes(pojam.toLowerCase())
+);
 
     function getVrstaNaziv(id) {
         return VRSTE.find(v => v.id === id)?.naziv || ''
@@ -55,7 +67,16 @@ export default function SireviPregled() {
 
     return (
         <>
-
+            <div className="d-flex justify-content-end mb-3 mt-3">
+                <input
+                    type="text"
+                    placeholder="Traži sir..."
+                    className="form-control w-25"
+                    style={{ backgroundColor: "lightgrey" }}
+                    value={pojam}
+                    onChange={(e) => setPojam(e.target.value)}
+                />
+            </div>
             <div className="mt-4">
                 <Table bordered striped hover>
                     <thead>
@@ -72,7 +93,7 @@ export default function SireviPregled() {
                         </tr>
                     </thead>
                     <tbody>
-                        {sirevi && sirevi.map((sirevi) => (
+                        {filtriraniSirevi && filtriraniSirevi.map((sirevi) => (
                             <tr key={sirevi.id}>
                                 <td>{sirevi.naziv}</td>
                                 <td>{sirevi.tip}</td>

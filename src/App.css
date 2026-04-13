@@ -103,3 +103,14 @@ body {
   color: #fff;
   letter-spacing: 1px;
 }
+
+.sirevi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.sir-item {
+    display: flex;
+    align-items: center;
+}

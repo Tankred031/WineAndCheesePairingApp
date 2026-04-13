@@ -19,7 +19,7 @@ export default function UparivanjePromjena() {
         ucitaj();
     }, []);
 
-    
+
     async function ucitaj() {
 
         //default
@@ -101,24 +101,21 @@ export default function UparivanjePromjena() {
 
             <Form onSubmit={spremi}>
                 <h4>{vino.naziv}</h4>
+                <div className="sirevi-grid">
+                    {sirevi.map(s => (
+                        <div key={s.id}>
+                            <input
+                                type="checkbox"
+                                checked={odabraniSirevi.includes(s.id)}
+                                onChange={() => toggleSir(s.id)}
+                            />
+                            <label className="ms-2">{s.naziv}</label>
+                        </div>
 
-                {sirevi.map(s => (
-                    <div key={s.id}>
-                        <input
-                            type="checkbox"
-                            checked={odabraniSirevi.includes(s.id)}
-                            onChange={() => toggleSir(s.id)}
-                        />
-                        <label className="ms-2">{s.naziv}</label>
-                    </div>
-                ))}
-
+                    ))}
+                </div>
                 <hr />
                 <div className="d-flex gap-2">
-                    <Button type="submit" variant="success" size="sm" className="flex-fill">
-                        Spremi
-                    </Button>
-
                     <Button
                         as={Link}
                         to={RouteNames.UPARIVANJE_PREGLED}
@@ -128,6 +125,12 @@ export default function UparivanjePromjena() {
                     >
                         Odustani
                     </Button>
+
+
+                    <Button type="submit" variant="success" size="sm" className="flex-fill">
+                        Spremi
+                    </Button>
+
                 </div>
             </Form>
         </>

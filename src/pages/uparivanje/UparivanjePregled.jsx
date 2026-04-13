@@ -12,6 +12,7 @@ export default function UparivanjePregled() {
     const [sirevi, setSirevi] = useState([]);
     const [custom, setCustom] = useState([]);
     const [varijanta, setVarijanta] = useState(0)
+    const [pojam, setPojam] = useState('')
 
     const navigate = useNavigate();
 
@@ -22,6 +23,16 @@ export default function UparivanjePregled() {
 
     }, [])
 
+    const filtriranaVina = vina.filter(v => {
+        const p = pojam.toLowerCase();
+
+        const sireviText = getSirevi(v.id).toLowerCase();
+
+        return (
+            v.naziv?.toLowerCase().includes(p) ||
+            sireviText.includes(p)
+        );
+    });
     async function ucitaj() {
         const v = await VinaService.get();
         const s = await SireviService.get();
@@ -52,10 +63,10 @@ export default function UparivanjePregled() {
             .filter(s => ids.includes(s.id))
             .map(s => s.naziv);
 
-        return lista.length ? lista.join(", ") : "Nema preporuke";
+        return lista.length ? lista.join(", ") : "-nema preporuke-";
     }
 
-    // 🔽 DOHVAT OBJEKATA SIREVA
+    // DOHVAT OBJEKATA SIREVA
     function getSireviObjekti(vinoId) {
 
         const customZaVino = custom.filter(u => u.vinoId === vinoId)
@@ -134,7 +145,7 @@ export default function UparivanjePregled() {
         poruka = "Nema učitanih vina - stoga nema ni uparivanja";
     } else {
         const brojUspjesnih = vina.filter(v =>
-            getSirevi(v.id) !== "Nema preporuke"
+            getSirevi(v.id) !== "-nema preporuke-"
         ).length;
 
         const opis = brojUspjesnih === vina.length ? "svih" : "samo";
@@ -148,6 +159,16 @@ export default function UparivanjePregled() {
 
     return (
         <div className="mt-4">
+            <div className="d-flex justify-content-end mb-3 mt-3">
+                <input
+                    type="text"
+                    placeholder="Traži vino ili sir..."
+                    className="form-control w-25"
+                    style={{ backgroundColor: "lightgrey" }}
+                    value={pojam}
+                    onChange={(e) => setPojam(e.target.value)}
+                />
+            </div>
 
             <Table bordered striped hover>
                 <thead>
@@ -160,7 +181,7 @@ export default function UparivanjePregled() {
                 </thead>
 
                 <tbody>
-                    {vina.map(vino => (
+                    {filtriranaVina.map(vino => (
                         <tr key={vino.id}>
                             <td>{vino.naziv}</td>
                             <td>{getSirevi(vino.id)}</td>
