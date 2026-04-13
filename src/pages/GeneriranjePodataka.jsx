@@ -129,7 +129,7 @@ export default function GeneriranjePodataka() {
                 vrsta_id: faker.number.int({ min: 1, max: 4 }),
                 zrenje: faker.helpers.arrayElement(["kratko", "srednje", "dugo"]),
                 regija: faker.location.city(),
-                intezitet: faker.helpers.arrayElement(["blag", "srednji", "jak"]),
+                intenzitet: faker.helpers.arrayElement(["blag", "srednji", "jak"]),
                 masnoca_id: faker.number.int({ min: 1, max: 3 }),
                 okus: faker.helpers.arrayElement(okusi)
             })

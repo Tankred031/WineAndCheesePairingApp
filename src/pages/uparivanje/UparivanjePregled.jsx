@@ -114,26 +114,37 @@ export default function UparivanjePregled() {
         if (varijanta === 0) {
             if (score >= 6) return "A 😍"
             if (score >= 2) return "B 😐"
-            return "C 😱"
+            return "C 🤮"
         } else {
             if (score >= 6) return "A ⭐"
-            if (score >= 2) return "B ✅"
-            return "C ❌"
+            if (score >= 2) return "B 👍"
+            return "C 👎"
         }
     }
 
-    
+
     function obrisi(vinoId) {
         if (!confirm("Sigurno obrisati?")) return;
-
-        // samo makni iz prikaza (frontend delete)
         setVina(prev => prev.filter(v => v.id !== vinoId));
     }
 
-    const brojUspjesnih = vina.filter(v =>
-        getSirevi(v.id) !== "Nema preporuke"
-    ).length
-    const opis = brojUspjesnih === vina.length ? "svih" : "samo"
+    let poruka;
+
+    if (vina.length === 0) {
+        poruka = "Nema učitanih vina - stoga nema ni uparivanja";
+    } else {
+        const brojUspjesnih = vina.filter(v =>
+            getSirevi(v.id) !== "Nema preporuke"
+        ).length;
+
+        const opis = brojUspjesnih === vina.length ? "svih" : "samo";
+
+        poruka = (
+            <>
+                Učitano ukupno <strong>{vina.length}</strong> vina - i uspješno upareno {opis} <strong>{brojUspjesnih}</strong>.
+            </>
+        );
+    }
 
     return (
         <div className="mt-4">
@@ -141,10 +152,10 @@ export default function UparivanjePregled() {
             <Table bordered striped hover>
                 <thead>
                     <tr>
-                        <th>Vino</th>
-                        <th>Preporučeni sirevi</th>
-                        <th>Ocjena</th>
-                        <th>Akcija</th>
+                        <th style={{ width: "25%" }}>Vino</th>
+                        <th style={{ width: "45%" }}>Preporučeni sirevi</th>
+                        <th style={{ width: "10%" }}>Ocjena</th>
+                        <th style={{ width: "15%", textAlign: "center" }}>Akcija</th>
                     </tr>
                 </thead>
 
@@ -160,12 +171,9 @@ export default function UparivanjePregled() {
 
                                     return (
                                         <span
-                                            className="badge px-3 py-2"
+                                            className="badge bg-primary px-3 py-2"
                                             style={{
-                                                fontSize: "1rem",
-                                                backgroundColor: "#cfe2ff",
-                                                color: "#084298",
-                                                borderRadius: "12px",
+                                                fontSize: "1.4rem", borderRadius: "6px",
                                                 fontStyle: "normal"
                                             }}
                                         >
@@ -177,8 +185,8 @@ export default function UparivanjePregled() {
                                     )
                                 })()}
                             </td>
-                            <td>
-                                <div className="d-flex gap-2">
+                            <td style={{ whiteSpace: "nowrap" }}>
+                                <div className="d-flex justify-content-center gap-2">
 
                                     <Button
                                         variant="warning"
@@ -204,7 +212,7 @@ export default function UparivanjePregled() {
 
             </Table>
             <p className="mt-2 mb-0 text-muted">
-                Učitano ukupno <strong>{vina.length}</strong> vina - i uspješno upareno {opis} <strong>{brojUspjesnih}</strong>.
+                {poruka}
             </p>
         </div>
     );

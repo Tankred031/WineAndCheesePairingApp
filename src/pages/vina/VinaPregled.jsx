@@ -25,6 +25,12 @@ export default function VinaPregled() {
         { id: 4, naziv: "slatko" }
     ]
 
+    function format1dec(broj) {
+        return Number(broj).toLocaleString("hr-HR", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+        })
+    }
     function getSlatkocaNaziv(id) {
         return SLATKOCE.find(s => s.id === id)?.naziv || ''
     }
@@ -77,7 +83,7 @@ export default function VinaPregled() {
                         <th>Arome</th>
                         <th>Tijelo</th>
                         <th>Alkohol</th>
-                        <th>Akcija</th>
+                        <th style={{ textAlign: "center" }}>Akcija</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,11 +92,15 @@ export default function VinaPregled() {
                             <td>{vina.naziv}</td>
                             <td>{getTipNaziv(vina.tip_id)}</td>
                             <td>{vina.regija}</td>
-                            <td>{vina.temperatura_min} - {vina.temperatura_max} °C</td>
+                            <td>
+                                {format1dec(vina.temperatura_min)} - {format1dec(vina.temperatura_max)} °C
+                            </td>
                             <td>{getSlatkocaNaziv(vina.slatkoca_id)}</td>
                             <td>{vina.arome}</td>
                             <td>{vina.tijelo}</td>
-                            <td>{vina.alkohol_min} - {vina.alkohol_max} %</td>
+                            <td>
+                                {format1dec(vina.alkohol_min)} - {format1dec(vina.alkohol_max)} %
+                            </td>
                             <td>
                                 <div className="d-flex gap-2">
                                     <Button onClick={() => { navigate(`/vina/${vina.id}`) }} variant="warning" size="sm">
@@ -107,7 +117,9 @@ export default function VinaPregled() {
                 </tbody>
             </Table>
             <p className="mt-2">
-                Učitano ukupno <strong>{vina.length}</strong> vina
+                {vina.length === 0
+                    ? "Nema učitanih vina"
+                    : <>Učitano ukupno <strong>{vina.length}</strong> vina</>}
             </p>
         </>
     )

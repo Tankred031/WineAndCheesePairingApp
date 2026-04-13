@@ -28,6 +28,13 @@ export default function VinaPromjena() {
         { id: 4, naziv: "slatko" }
     ]
 
+    function format1dec(broj) {
+        return Number(broj).toLocaleString("hr-HR", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+        })
+    }
+
     async function ucitajVino() {
         await VinaService.getById(params.id).then((odgovor) => {
 
@@ -183,9 +190,9 @@ export default function VinaPromjena() {
                 <Form.Group controlId="alkohol" className="form-group-custom">
                     <Form.Label className="form-label-custom">
                         Alkohol:
-                        <strong style={{ color: bojaMin }}> {alkoholMin} </strong>
+                        <strong style={{ color: bojaMin }}> {format1dec(alkoholMin)} </strong>
                         -
-                        <strong style={{ color: bojaMax }}> {alkoholMax} </strong> %
+                        <strong style={{ color: bojaMax }}> {format1dec(alkoholMax)} </strong> %
                     </Form.Label>
 
                     {/* MIN */}

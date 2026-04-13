@@ -62,13 +62,13 @@ export default function SireviPregled() {
                         <tr>
                             <th>Naziv</th>
                             <th>Tip</th>
-                            <td>{getVrstaNaziv(sirevi.vrsta_id)}</td>
+                            <th>Vrsta</th>
                             <th>Zrenje</th>
                             <th>Regija</th>
                             <th>Intezitet</th>
-                            <td>{getMasnocaNaziv(sirevi.masnoca_id)}</td>
+                            <th>Masnoća</th>
                             <th>Okus</th>
-                            <th>Akcija</th>
+                            <th style={{ textAlign: "center" }}>Akcija</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,11 +76,11 @@ export default function SireviPregled() {
                             <tr key={sirevi.id}>
                                 <td>{sirevi.naziv}</td>
                                 <td>{sirevi.tip}</td>
-                                <td>{sirevi.vrsta}</td>
+                                <td>{getVrstaNaziv(sirevi.vrsta_id)}</td>
                                 <td>{sirevi.zrenje}</td>
                                 <td>{sirevi.regija}</td>
                                 <td>{sirevi.intezitet}</td>
-                                <td>{sirevi.masnoce}</td>
+                                <td>{getMasnocaNaziv(sirevi.masnoca_id)}</td>
                                 <td>{sirevi.okus}</td>
                                 <td>
                                     <div className="d-flex gap-2">
@@ -97,10 +97,12 @@ export default function SireviPregled() {
                         ))}
                     </tbody>
                 </Table>
-                <p className="mt-2">
-                Učitano ukupno <strong>{sirevi.length}</strong> sireva
-            </p>
             </div>
+            <p className="mt-2">
+                {sirevi.length === 0
+                    ? "Nema učitanih vina"
+                    : <>Učitano ukupno <strong>{sirevi.length}</strong> sireva</>}
+            </p>
         </>
     )
 }
