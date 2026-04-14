@@ -789,5 +789,83 @@ export const vina = [
         tijelo: 'lagano',
         alkohol_min: 10,
         alkohol_max: 12
+    },
+    {
+        id: 62,
+        naziv: 'Debit',
+        tip_id: 2,
+        regija: 'Dalmacija',
+        temperatura_min: 8,
+        temperatura_max: 10,
+        slatkoca_id: 1,
+        arome: 'jabuka, citrus, lagano biljno',
+        tijelo_id: 1,
+        alkohol_min: 11,
+        alkohol_max: 12.5
+    },
+    {
+        id: 63,
+        naziv: 'Laški Rizling',
+        tip_id: 2,
+        regija: 'Štajerska',
+        temperatura_min: 8,
+        temperatura_max: 10,
+        slatkoca_id: 2,
+        arome: 'jabuka, cvjetno, blago slatko',
+        tijelo_id: 1,
+        alkohol_min: 10.5,
+        alkohol_max: 12
+    },
+    {
+        id: 64,
+        naziv: 'Šipon',
+        tip_id: 2,
+        regija: 'Podravina',
+        temperatura_min: 8,
+        temperatura_max: 10,
+        slatkoca_id: 2,
+        arome: 'jabuka, med, mineralno',
+        tijelo_id: 2,
+        alkohol_min: 11,
+        alkohol_max: 13
+    },
+    {
+        id: 65,
+        naziv: 'Cinsault',
+        tip_id: 1,
+        regija: 'Languedoc',
+        temperatura_min: 14,
+        temperatura_max: 16,
+        slatkoca_id: 1,
+        arome: 'crveno voće, cvjetno',
+        tijelo_id: 1,
+        alkohol_min: 11.5,
+        alkohol_max: 13
+    },
+    {
+        id: 66,
+        naziv: 'Pinot Meunier',
+        tip_id: 3,
+        regija: 'Champagne',
+        temperatura_min: 6,
+        temperatura_max: 8,
+        slatkoca_id: 1,
+        arome: 'crveno voće, cvjetno, lagano kvasasto',
+        tijelo_id: 2,
+        alkohol_min: 11.5,
+        alkohol_max: 12.5
+    },
+    {
+        id: 67,
+        naziv: "Nero d'Avola",
+        tip_id: 1,
+        regija: 'Sicilija',
+        temperatura_min: 16,
+        temperatura_max: 18,
+        slatkoca_id: 1,
+        arome: 'tamno voće, šljiva, začini',
+        tijelo_id: 3,
+        alkohol_min: 13.5,
+        alkohol_max: 15
     }
 ]

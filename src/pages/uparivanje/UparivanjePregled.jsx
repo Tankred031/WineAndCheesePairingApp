@@ -79,37 +79,38 @@ export default function UparivanjePregled() {
     }
 
 
-    // SOMMELIER SCORE
     function getScore(vino, sirevi) {
 
         let score = 0
 
         sirevi.forEach(sir => {
 
-            // TANINI vs MASNOĆA
-            if (vino.tip_id === 1 && sir.tip === "tvrdi") score += 2
-            if (vino.tip_id === 1 && sir.tip === "mekani") score -= 1
+            // TANINI vs MASNOĆA (crna vina)
+            if (vino.tip_id === 1 && sir.tip_id === 3) score += 2   // tvrdi
+            if (vino.tip_id === 1 && sir.tip_id === 1) score -= 1   // svježi
 
-            // ACIDITY vs FRESHNESS
-            if (vino.tip_id === 2 && sir.intezitet === "blag") score += 2
-            if (vino.tip_id === 2 && sir.intezitet === "jak") score -= 1
+            // BIJELA vs SVJEŽI
+            if (vino.tip_id === 2 && sir.intezitet_id === 1) score += 2
+            if (vino.tip_id === 2 && sir.intezitet_id === 3) score -= 1
 
-            // SLATKO vs BLUE CHEESE
-            if (vino.slatkoca_id === 4 && sir.tip === "plavi") score += 3
-            if (vino.slatkoca_id === 1 && sir.tip === "plavi") score -= 2
+            // SLATKO vs PLAVI
+            if (vino.slatkoca_id === 4 && sir.tip_id === 4) score += 3
+            if (vino.slatkoca_id === 1 && sir.tip_id === 4) score -= 2
 
             // BODY MATCH
-            if (vino.tijelo === "puno" && sir.intezitet === "jak") score += 2
-            if (vino.tijelo === "lagano" && sir.intezitet === "jak") score -= 2
+            if (vino.tijelo_id === 3 && sir.intezitet_id === 3) score += 2
+            if (vino.tijelo_id === 1 && sir.intezitet_id === 3) score -= 2
 
             // ALKOHOL vs JAČINA
             const alkohol = (vino.alkohol_min + vino.alkohol_max) / 2
-            if (alkohol > 14 && sir.intezitet === "jak") score += 1
-            if (alkohol < 10 && sir.intezitet === "jak") score -= 1
+            if (alkohol > 14 && sir.intezitet_id === 3) score += 1
+            if (alkohol < 10 && sir.intezitet_id === 3) score -= 1
 
-            // OPĆI BALANS
-            if (vino.tip_id === 3 && sir.tip === "mekani") score += 1
-            if (vino.tip_id === 4 && sir.tip !== "plavi") score -= 1
+            // PJENUŠAVO vs KREMASTO
+            if (vino.tip_id === 3 && sir.tip_id === 1) score += 1
+
+            // FORTIFIED vs OSTALO
+            if (vino.tip_id === 4 && sir.tip_id !== 4) score -= 1
 
         })
 
@@ -123,9 +124,9 @@ export default function UparivanjePregled() {
         const score = getScore(vino, sirevi)
 
         //if (varijanta === 0) {
-            if (score >= 6) return "A"
-            if (score >= 2) return "B"
-            return "C"
+        if (score >= 6) return "A"
+        if (score >= 2) return "B"
+        return "C"
         //}
     }
 
@@ -160,9 +161,10 @@ export default function UparivanjePregled() {
                     type="text"
                     placeholder="Traži vino ili sir..."
                     className="form-control w-25"
-                    style={{ backgroundColor: "lightgrey",
+                    style={{
+                        backgroundColor: "lightgrey",
                         border: "2px solid grey"
-                     }}
+                    }}
                     value={pojam}
                     onChange={(e) => setPojam(e.target.value)}
                 />
@@ -195,14 +197,17 @@ export default function UparivanjePregled() {
                                                 fontSize: "1.4rem",
                                                 borderRadius: "6px",
                                                 fontStyle: "normal",
-                                                minWidth: "60px", 
+                                                minWidth: "60px",
                                                 display: "inline-block",
                                                 textAlign: "center",
-                                                color: "darkblue"                                                
+                                                color:
+                                                    ocjena === "A" ? "lime" :
+                                                        ocjena === "B" ? "darkorange" :
+                                                            "darkblue",
                                             }}
                                         >
                                             {ocjena}
-                                            
+
                                             {/* {slovo}{" "}
                                             <span style={{ fontSize: "1.4rem", fontStyle: "normal" }}>
                                                 {emoji}
