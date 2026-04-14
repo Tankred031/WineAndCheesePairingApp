@@ -46,3 +46,5 @@ function getVinaZaSir(sirId) {
 ✔ lako dodaješ/mičeš veze
 ✔ skalira u backend / bazu
 ✔ idealno za CRUD ekran koji već imaš
+
+zanimljivosti - dodati statistiku koja zemlja pije koliko čega, koliko imamo u bazi itd
