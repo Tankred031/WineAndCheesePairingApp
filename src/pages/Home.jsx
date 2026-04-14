@@ -5,6 +5,7 @@ import SireviService from "../services/sirevi/SireviService";
 import UparivanjaCustomService from "../services/uparivanje/UparivanjeCustomService";
 import { useState, useEffect } from "react";
 import { Card, Col, Row } from "react-bootstrap";
+import { uparivanjeVinaById } from "../services/uparivanje/UparivanjeVinaPopis";
 
 export default function Home() {
 
@@ -24,7 +25,23 @@ export default function Home() {
 
                 setBrojVina(vinaRezultat.data.length);
                 setBrojSireva(sirevi.data.length);
-                setBrojUspjesnihUparivanja(uparivanja.data.length);
+                const custom = uparivanja.data || [];
+
+                const broj = vinaRezultat.data.filter(vino => {
+
+                    const customZaVino = custom.filter(u => u.vinoId === vino.id);
+
+                    const staticka = uparivanjeVinaById[vino.id] || [];
+
+                    const ima = customZaVino.length > 0
+                        ? customZaVino.some(u => u.sirId !== null)
+                        : staticka.length > 0;
+
+                    return ima;
+
+                }).length;
+
+                setBrojUspjesnihUparivanja(broj);
             } catch (error) {
                 console.error('Greška pri dohvaćanju podataka:', error);
             }
