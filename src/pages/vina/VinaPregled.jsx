@@ -153,7 +153,7 @@ export default function VinaPregled() {
                                     <Button
                                         variant="info"
                                         size="sm"
-                                        onClick={() => navigate(`/uparivanje/${v.id}`)}
+                                        onClick={() => navigate(`/uparivanje/${vino.id}`)}
                                     >
                                         Uparivanje
                                     </Button>

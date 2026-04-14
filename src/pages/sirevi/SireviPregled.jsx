@@ -23,16 +23,36 @@ export default function SireviPregled() {
         { id: 3, naziv: "visoke" }
     ]
 
+    const TIPOVI = [
+        { id: 1, naziv: "svježi" },
+        { id: 2, naziv: "polutvrdi" },
+        { id: 3, naziv: "tvrdi" },
+        { id: 4, naziv: "plavi" },
+        { id: 5, naziv: "ekstra tvrdi" }
+    ]
+
+    const ZRENJA = [
+        { id: 1, naziv: "mladi" },
+        { id: 2, naziv: "srednje zreli" },
+        { id: 3, naziv: "dugo zreli" }
+    ]
+
+    const INTEZITETI = [
+        { id: 1, naziv: "blagi" },
+        { id: 2, naziv: "srednji" },
+        { id: 3, naziv: "jaki" }
+    ]
+
     const filtriraniSirevi = sirevi.filter(s =>
-    s.naziv?.toLowerCase().includes(pojam.toLowerCase()) ||
-    s.tip?.toLowerCase().includes(pojam.toLowerCase()) ||
-    getVrstaNaziv(s.vrsta_id)?.toLowerCase().includes(pojam.toLowerCase()) ||
-    s.regija?.toLowerCase().includes(pojam.toLowerCase()) ||
-    s.intezitet?.toLowerCase().includes(pojam.toLowerCase()) ||
-    s.zrenje?.toLowerCase().includes(pojam.toLowerCase()) ||
-    getMasnocaNaziv(s.masnoca_id)?.toLowerCase().includes(pojam.toLowerCase()) ||
-    s.okus?.toLowerCase().includes(pojam.toLowerCase())
-);
+        s.naziv?.toLowerCase().includes(pojam.toLowerCase()) ||
+        s.tip?.toLowerCase().includes(pojam.toLowerCase()) ||
+        getVrstaNaziv(s.vrsta_id)?.toLowerCase().includes(pojam.toLowerCase()) ||
+        s.regija?.toLowerCase().includes(pojam.toLowerCase()) ||
+        s.intezitet?.toLowerCase().includes(pojam.toLowerCase()) ||
+        s.zrenje?.toLowerCase().includes(pojam.toLowerCase()) ||
+        getMasnocaNaziv(s.masnoca_id)?.toLowerCase().includes(pojam.toLowerCase()) ||
+        s.okus?.toLowerCase().includes(pojam.toLowerCase())
+    );
 
     function getVrstaNaziv(id) {
         return VRSTE.find(v => v.id === id)?.naziv || ''
@@ -40,6 +60,18 @@ export default function SireviPregled() {
 
     function getMasnocaNaziv(id) {
         return MASNOCE.find(m => m.id === id)?.naziv || ''
+    }
+
+    function getTipNaziv(id) {
+        return TIPOVI.find(t => t.id === id)?.naziv || ''
+    }
+
+    function getZrenjeNaziv(id) {
+        return ZRENJA.find(z => z.id === id)?.naziv || ''
+    }
+
+    function getIntezitetNaziv(id) {
+        return INTEZITETI.find(i => i.id === id)?.naziv || ''
     }
 
     useEffect(() => {
@@ -72,7 +104,8 @@ export default function SireviPregled() {
                     type="text"
                     placeholder="Traži sir..."
                     className="form-control w-25"
-                    style={{ backgroundColor: "lightgrey", 
+                    style={{
+                        backgroundColor: "lightgrey",
                         border: "2px solid grey"
                     }}
                     value={pojam}
@@ -98,11 +131,11 @@ export default function SireviPregled() {
                         {filtriraniSirevi && filtriraniSirevi.map((sirevi) => (
                             <tr key={sirevi.id}>
                                 <td>{sirevi.naziv}</td>
-                                <td>{sirevi.tip}</td>
+                                <td>{getTipNaziv(sirevi.tip_id)}</td>
                                 <td>{getVrstaNaziv(sirevi.vrsta_id)}</td>
-                                <td>{sirevi.zrenje}</td>
+                                <td>{getZrenjeNaziv(sirevi.zrenje_id)}</td>
                                 <td>{sirevi.regija}</td>
-                                <td>{sirevi.intezitet}</td>
+                                <td>{getIntezitetNaziv(sirevi.intezitet_id)}</td>
                                 <td>{getMasnocaNaziv(sirevi.masnoca_id)}</td>
                                 <td>{sirevi.okus}</td>
                                 <td>
@@ -129,3 +162,8 @@ export default function SireviPregled() {
         </>
     )
 }
+
+izmjeniti:
+getTipNaziv(s.tip_id)?.toLowerCase()
+getIntezitetNaziv(s.intezitet_id)?.toLowerCase()
+getZrenjeNaziv(s.zrenje_id)?.toLowerCase()

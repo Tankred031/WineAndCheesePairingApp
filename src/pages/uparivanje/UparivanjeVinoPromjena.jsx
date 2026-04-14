@@ -7,7 +7,8 @@ import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopi
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { Button, Form } from "react-bootstrap";
 
-export default function UparivanjePromjena() {
+export default function UparivanjeVinoPromjena() {
+    
     const [vino, setVino] = useState({});
     const [sirevi, setSirevi] = useState([]);
     const [odabraniSirevi, setOdabraniSirevi] = useState([]);

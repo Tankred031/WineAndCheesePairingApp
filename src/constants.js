@@ -5,9 +5,10 @@ export const RouteNames = {
     VINA_PREGLED: '/vina',
     SIREVI_PREGLED: '/sirevi',
     
-    UPARIVANJE_PREGLED: '/uparivanje',
-    UPARIVANJE_NOVI: '/uparivanje/novi',
-    UPARIVANJE_PROMJENA: 'uparivanje/:id',
+    UPARIVANJE_VINO_PREGLED: '/uparivanje/vino',
+    UPARIVANJE_VINO_PROMJENA: 'uparivanje/vino/:id',
+    UPARIVANJE_SIR_PREGLED: '/uparivanje/sir',
+    UPARIVANJE_SIR_PROMJENA: '/uparivanje/sir/:id',
     
     VINA_NOVI: '/vina/novi',
     SIREVI_NOVI: '/sirevi/novi',

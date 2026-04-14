@@ -6,20 +6,17 @@ import SireviService from "../../services/sirevi/SireviService";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopis";
 
-export default function UparivanjePregled() {
+export default function UparivanjeVinoPregled() {
 
     const [vina, setVina] = useState([]);
     const [sirevi, setSirevi] = useState([]);
-    const [custom, setCustom] = useState([]);
-    const [varijanta, setVarijanta] = useState(0)
+    const [custom, setCustom] = useState([]);    
     const [pojam, setPojam] = useState('')
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        ucitaj()
-
-        setVarijanta(Math.random() > 0.5 ? 1 : 0)
+        ucitaj()        
 
     }, [])
 
