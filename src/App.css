@@ -106,11 +106,28 @@ body {
 
 .sirevi-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
 }
 
-.sir-item {
-    display: flex;
-    align-items: center;
+.sir-tile {
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.sir-tile:hover {
+    background-color: #f1f1f1;
+}
+
+.sir-tile.selected {
+    background-color: #990012;
+    color: white;
+    border-color: #990012;
+    transform: scale(1.05);
 }

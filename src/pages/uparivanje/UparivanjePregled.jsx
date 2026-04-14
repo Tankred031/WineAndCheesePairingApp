@@ -122,15 +122,11 @@ export default function UparivanjePregled() {
 
         const score = getScore(vino, sirevi)
 
-        if (varijanta === 0) {
-            if (score >= 6) return "A 😍"
-            if (score >= 2) return "B 😐"
-            return "C 🤮"
-        } else {
-            if (score >= 6) return "A ⭐"
-            if (score >= 2) return "B 👍"
-            return "C 👎"
-        }
+        //if (varijanta === 0) {
+            if (score >= 6) return "A"
+            if (score >= 2) return "B"
+            return "C"
+        //}
     }
 
 
@@ -164,13 +160,15 @@ export default function UparivanjePregled() {
                     type="text"
                     placeholder="Traži vino ili sir..."
                     className="form-control w-25"
-                    style={{ backgroundColor: "lightgrey" }}
+                    style={{ backgroundColor: "lightgrey",
+                        border: "2px solid grey"
+                     }}
                     value={pojam}
                     onChange={(e) => setPojam(e.target.value)}
                 />
             </div>
 
-            <Table bordered striped hover>
+            <Table className="align-middle" bordered striped hover>
                 <thead>
                     <tr>
                         <th style={{ width: "25%" }}>Vino</th>
@@ -185,23 +183,30 @@ export default function UparivanjePregled() {
                         <tr key={vino.id}>
                             <td>{vino.naziv}</td>
                             <td>{getSirevi(vino.id)}</td>
-                            <td>
+                            <td className="text-center">
                                 {(() => {
                                     const ocjena = getOcjena(vino, getSireviObjekti(vino.id))
-                                    const [slovo, emoji] = ocjena.split(" ")
+                                    //const [slovo, emoji] = ocjena.split(" ")
 
                                     return (
                                         <span
                                             className="badge bg-primary px-3 py-2"
                                             style={{
-                                                fontSize: "1.4rem", borderRadius: "6px",
-                                                fontStyle: "normal"
+                                                fontSize: "1.4rem",
+                                                borderRadius: "6px",
+                                                fontStyle: "normal",
+                                                minWidth: "60px", 
+                                                display: "inline-block",
+                                                textAlign: "center",
+                                                color: "darkblue"                                                
                                             }}
                                         >
-                                            {slovo}{" "}
+                                            {ocjena}
+                                            
+                                            {/* {slovo}{" "}
                                             <span style={{ fontSize: "1.4rem", fontStyle: "normal" }}>
                                                 {emoji}
-                                            </span>
+                                            </span> */}
                                         </span>
                                     )
                                 })()}

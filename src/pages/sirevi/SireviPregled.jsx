@@ -72,13 +72,15 @@ export default function SireviPregled() {
                     type="text"
                     placeholder="Traži sir..."
                     className="form-control w-25"
-                    style={{ backgroundColor: "lightgrey" }}
+                    style={{ backgroundColor: "lightgrey", 
+                        border: "2px solid grey"
+                    }}
                     value={pojam}
                     onChange={(e) => setPojam(e.target.value)}
                 />
             </div>
             <div className="mt-4">
-                <Table bordered striped hover>
+                <Table bordered striped hover className="align-middle">
                     <thead>
                         <tr>
                             <th>Naziv</th>

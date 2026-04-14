@@ -11,6 +11,7 @@ export default function UparivanjePromjena() {
     const [vino, setVino] = useState({});
     const [sirevi, setSirevi] = useState([]);
     const [odabraniSirevi, setOdabraniSirevi] = useState([]);
+    const [filter, setFilter] = useState("");
 
     const params = useParams();
     const navigate = useNavigate();
@@ -101,38 +102,58 @@ export default function UparivanjePromjena() {
 
             <Form onSubmit={spremi}>
                 <h4>{vino.naziv}</h4>
+
+                {/*Tražilica*/}
+                <div className="d-flex justify-content-end mb-3">
+                    <Form.Control
+                        type="text"
+                        placeholder="Pretraži sireve..."
+                        value={filter}
+                        onChange={(e) => setFilter(e.target.value)}
+                        style={{ maxWidth: "250px" }}
+                    />
+                </div>
+
+                {/*Grid*/}
+                <p>Odabrano: {odabraniSirevi.length}</p>
+
                 <div className="sirevi-grid">
-                    {sirevi.map(s => (
-                        <div key={s.id}>
-                            <input
-                                type="checkbox"
-                                checked={odabraniSirevi.includes(s.id)}
-                                onChange={() => toggleSir(s.id)}
-                            />
-                            <label className="ms-2">{s.naziv}</label>
-                        </div>
+                    {sirevi
+                        .filter(s => s.naziv.toLowerCase().includes(filter.toLowerCase()))
+                        .map(s => {
+                            const selected = odabraniSirevi.includes(s.id);
 
-                    ))}
-                </div>
-                <hr />
-                <div className="d-flex gap-2">
-                    <Button
-                        as={Link}
-                        to={RouteNames.UPARIVANJE_PREGLED}
-                        variant="danger"
-                        size="sm"
-                        className="flex-fill"
-                    >
-                        Odustani
-                    </Button>
+                            return (
+                                <div
+                                    key={s.id}
+                                    className={`sir-tile ${selected ? "selected" : ""}`}
+                                    onClick={() => toggleSir(s.id)}
+                                >
+                                    {s.naziv}
+                                </div>
+                            );
+                        })}
+                </div>    
+
+                    <hr />
+                    <div className="d-flex gap-2">
+                        <Button
+                            as={Link}
+                            to={RouteNames.UPARIVANJE_PREGLED}
+                            variant="danger"
+                            size="sm"
+                            className="flex-fill"
+                        >
+                            Odustani
+                        </Button>
 
 
-                    <Button type="submit" variant="success" size="sm" className="flex-fill">
-                        Spremi
-                    </Button>
+                        <Button type="submit" variant="success" size="sm" className="flex-fill">
+                            Spremi
+                        </Button>
 
-                </div>
-            </Form>
+                    </div>
+            </Form >
         </>
     );
 }

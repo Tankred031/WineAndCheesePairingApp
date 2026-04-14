@@ -104,14 +104,14 @@ export default function VinaPregled() {
                     className="form-control w-25"
                     style={{
                         backgroundColor: "lightgrey",
-                        border: "2px solid #7B0323"
+                        border: "2px solid grey"
                     }}
-                value={pojam}
-                onChange={(e) => setPojam(e.target.value)}
+                    value={pojam}
+                    onChange={(e) => setPojam(e.target.value)}
                 />
             </div>
 
-            <Table bordered striped hover>
+            <Table bordered striped hover className="align-middle">
                 <thead>
                     <tr>
                         <th>Naziv</th>
@@ -141,13 +141,21 @@ export default function VinaPregled() {
                                 {format1dec(vina.alkohol_min)} - {format1dec(vina.alkohol_max)} %
                             </td>
                             <td>
-                                <div className="d-flex gap-2">
+                                <div className="d-flex gap-1">
                                     <Button onClick={() => { navigate(`/vina/${vina.id}`) }} variant="warning" size="sm">
                                         Promjena
                                     </Button>
                                     &nbsp;
                                     <Button onClick={() => { obrisi(vina.id) }} variant="danger" size="sm">
                                         Obriši
+                                    </Button>
+                                    &nbsp;
+                                    <Button
+                                        variant="info"
+                                        size="sm"
+                                        onClick={() => navigate(`/uparivanje/${v.id}`)}
+                                    >
+                                        Uparivanje
                                     </Button>
                                 </div>
                             </td>
