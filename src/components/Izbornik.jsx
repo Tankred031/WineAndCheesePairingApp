@@ -45,8 +45,8 @@ export default function Izbornik() {
               >Upari vino sa sirom</NavDropdown.Item>
 
            {/* <NavDropdown.Item
-                onClick={() => navigate(RouteNames.UPARIVANJE_NOVI)}
-              >Novo uparivanje</NavDropdown.Item> */}
+                onClick={() => navigate(RouteNames.UPARIVANJE_SIREVI)}
+              >Upari sir s vinima</NavDropdown.Item> */}
             </NavDropdown>
 
             <Nav.Link
