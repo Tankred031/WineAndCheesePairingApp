@@ -4,7 +4,6 @@ import { Container } from 'react-bootstrap'
 import Izbornik from './components/Izbornik'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
-import UparivanjePregled from './pages/uparivanje/UparivanjeVinoPregled'
 import { RouteNames } from './constants'
 import VinaPregled from './pages/vina/VinaPregled'
 import SireviPregled from './pages/sirevi/SireviPregled'
@@ -16,10 +15,10 @@ import Zanimljivosti from './pages/zanimljivosti/Zanimljivosti'
 import UparivanjeVinoPromjena from './pages/uparivanje/UparivanjeVinoPromjena'
 import UparivanjeVinoPregled from './pages/uparivanje/UparivanjeVinoPregled'
 import UparivanjeSirPromjena from './pages/uparivanje/UparivanjeSirPromjena'
-import UparivanjeSirPregled from '.pages/uparivanje/UparivanjeSirevaPregled'
+import UparivanjeSirPregled from './pages/uparivanje/UparivanjeSirPregled'
 import GeneriranjePodataka from './pages/GeneriranjePodataka'
-
-
+import Statistika from './pages/zanimljivosti/Statistika'
+import Povijest from './pages/zanimljivosti/Povijest'
 
 function App() {
 
@@ -45,6 +44,9 @@ function App() {
           <Route path={RouteNames.SIREVI_PROMJENA} element={<SireviPromjena />} />
 
           <Route path={RouteNames.ZANIMLJIVOSTI} element={<Zanimljivosti />} />
+          <Route path={RouteNames.ZANIMLJIVOSTI_STATISTIKA} element={<Statistika />} />
+          <Route path="/zanimljivosti/povijest" element={<Povijest />} />
+
           <Route path={RouteNames.GENERIRANJE_PODATAKA} element={<GeneriranjePodataka />} />
         </Routes>
       </Container>

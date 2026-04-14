@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import VinaService from "../../services/vina/VinaService";
 import SireviService from "../../services/sirevi/SireviService";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
-import { uparivanjeSirevaById } from "../../services/uparivanje/UparivanjeSirevaPopis";
+import { uparivanjeSiraById } from "../../services/uparivanje/UparivanjeSiraPopis";
 
 export default function UparivanjeSirPregled() {
 
@@ -46,7 +46,7 @@ export default function UparivanjeSirPregled() {
             .filter(u => u.sirId === sirId)
             .map(u => u.vinoId);
 
-        const statickiIds = uparivanjeSireviById[sirId] || [];
+        const statickiIds = uparivanjeSiraById[sirId] || [];
 
         const customZaSir = custom.filter(u => u.sirId === sirId);
 
@@ -54,7 +54,7 @@ export default function UparivanjeSirPregled() {
         // čak i ako je prazan (to znači "nema preporuke")
         const ids = customZaSir.length > 0
             ? customZaSir.map(u => u.vinoId)
-            : statickiIds;
+            : (uparivanjeSiraById[sirId] || []) 
 
         const lista = vina
             .filter(v => ids.includes(v.id))
@@ -63,6 +63,19 @@ export default function UparivanjeSirPregled() {
         return lista.length ? lista.join(", ") : "-nema preporuke-";
     }
 
+    const TIPOVI = [
+        { id: 1, naziv: "svježi" },
+        { id: 2, naziv: "polutvrdi" },
+        { id: 3, naziv: "tvrdi" },
+        { id: 4, naziv: "plavi" },
+        { id: 5, naziv: "ekstra tvrdi" }
+    ]
+
+function getTipNaziv(id) {
+    return TIPOVI.find(v => v.id === id)?.naziv || ''
+}
+ 
+
     // DOHVAT OBJEKATA SIREVA
     function getVinaObjekti(sirId) {
 
@@ -70,7 +83,7 @@ export default function UparivanjeSirPregled() {
 
         const ids = customZaSir.length > 0
             ? customZaSir.map(u => u.vinoId)
-            : (uparivanjeSirevaById[sirId] || [])
+            : (uparivanjeSiraById[sirId] || [])
 
         return vina.filter(v => ids.includes(v.id))
     }
@@ -83,7 +96,7 @@ export default function UparivanjeSirPregled() {
     let poruka;
 
     if (sirevi.length === 0) {
-        poruka = "Nema učitanih vina - stoga nema ni uparivanja";
+        poruka = "Nema učitanih sireva - stoga nema ni uparivanja";
     } else {
         const brojUspjesnih = sirevi.filter(s =>
             getVina(s.id) !== "-nema preporuke-"
@@ -119,7 +132,7 @@ export default function UparivanjeSirPregled() {
                     <tr>
                         <th>Sirevi</th>
                         <th>Preporučena vina</th>
-                        <th className="text-center">Ocjena</th>
+                        <th className="text-center">Tip</th>
                         <th className="text-center">Akcija</th>
                     </tr>
                 </thead>
@@ -129,20 +142,15 @@ export default function UparivanjeSirPregled() {
                         <tr key={sir.id}>
                             <td>{sir.naziv}</td>
                             <td>{getVina(sir.id)}</td>
+                            <td style={{ textAlign: "center" }}>{getTipNaziv(sir.tip_id)}</td>                            
                             
-
-                                    return (
-                                 
-                                    
-                                
-                           
-                            <td style={{ whiteSpace: "nowrap" }}>
+                          <td style={{ whiteSpace: "nowrap" }}>
                                 <div className="d-flex justify-content-center gap-2">
 
                                     <Button
                                         variant="warning"
                                         size="sm"
-                                        onClick={() => navigate(`/uparivanje/${vino.id}`)}
+                                        onClick={() => navigate(`/uparivanje/sir/${sir.id}`)}
                                     >
                                         Promjena
                                     </Button>
@@ -150,7 +158,7 @@ export default function UparivanjeSirPregled() {
                                     <Button
                                         variant="danger"
                                         size="sm"
-                                        onClick={() => obrisi(vino.id)}
+                                        onClick={() => obrisi(sir.id)}
                                     >
                                         Obriši
                                     </Button>

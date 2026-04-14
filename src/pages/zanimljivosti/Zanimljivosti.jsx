@@ -9,11 +9,12 @@ export default function Zanimljivosti() {
 
     return (
         <>
+        <h2 className="text-center mt-4">📚 Članci</h2>
         
             <div className="container mt-4">
-                <div className="row">
+               <div className="row justify-content-center">
 
-                    <div className="col mt-4">
+                    <div className="col-md-4 mt-4">
                         <Card
                             img={vinoDan}
                             alt="vino"
@@ -23,7 +24,7 @@ export default function Zanimljivosti() {
                             button="Pročitaj više"
                         />
                     </div>
-                    <div className="col mt-4">
+                    <div className="col-md-4 mt-4">
                         <Card
                             img={drinks}
                             alt="vino"
@@ -33,7 +34,7 @@ export default function Zanimljivosti() {
                             button="Pročitaj više"
                         />
                     </div>
-                    <div className="col mt-4">
+                    <div className="col-md-4 mt-4">
                         <Card
                             img={cheeseMeat}
                             alt="vino"

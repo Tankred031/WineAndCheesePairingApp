@@ -63,6 +63,7 @@ export default function UparivanjeVinoPromjena() {
 
     async function spremi(e) {
         e.preventDefault();
+         console.log("SPREMI KLIK");
 
         const vinoId = Number(params.id);
 
@@ -94,7 +95,7 @@ export default function UparivanjeVinoPromjena() {
         console.log("NAKON SPREMANJA:", test);
 
         // Navigiraj nazad na pregled
-        navigate(RouteNames.UPARIVANJE_PREGLED);
+        navigate(RouteNames.UPARIVANJE_VINO_PREGLED);
     }
 
     return (
@@ -140,7 +141,7 @@ export default function UparivanjeVinoPromjena() {
                     <div className="d-flex gap-2">
                         <Button
                             as={Link}
-                            to={RouteNames.UPARIVANJE_PREGLED}
+                            to={RouteNames.UPARIVANJE_VINO_PREGLED}
                             variant="danger"
                             size="sm"
                             className="flex-fill"

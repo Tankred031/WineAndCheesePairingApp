@@ -131,3 +131,10 @@ body {
     border-color: #990012;
     transform: scale(1.05);
 }
+
+.sir-tile {
+    display: flex;
+    align-items: center;     /* vertikalno centriranje */
+    justify-content: center; /* horizontalno centriranje */
+    text-align: center;
+}

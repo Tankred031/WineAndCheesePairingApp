@@ -21,7 +21,8 @@ export default {
 
     promjeni: async (id, novo) => {
         let index = lista.findIndex(u => u.id == id)
-        lista[index] = { ...novo, id }
+        if (index !== -1){
+        lista[index] = { ...novo, id }}
         return { success: true }
     },
 

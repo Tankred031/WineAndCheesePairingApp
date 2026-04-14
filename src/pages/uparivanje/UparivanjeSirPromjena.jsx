@@ -3,15 +3,15 @@ import VinaService from "../../services/vina/VinaService";
 import SireviService from "../../services/sirevi/SireviService";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RouteNames } from "../../constants";
-import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopis";
+import { uparivanjeSiraById } from "../../services/uparivanje/UparivanjeSiraPopis";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { Button, Form } from "react-bootstrap";
 
 export default function UparivanjeSirPromjena() {
 
-    const [vino, setVino] = useState({});
-    const [sirevi, setSirevi] = useState([]);
-    const [odabraniSirevi, setOdabraniSirevi] = useState([]);
+    const [sir, setSir] = useState({});
+    const [vina, setVina] = useState([]);
+    const [odabranaVina, setOdabranaVina] = useState([]);
     const [filter, setFilter] = useState("");
 
     const params = useParams();
@@ -25,64 +25,64 @@ export default function UparivanjeSirPromjena() {
     async function ucitaj() {
 
         //default
-        const vinoId = Number(params.id);
+        const sirId = Number(params.id);
 
         //učitaj vino i sireve
-        const v = await VinaService.getById(vinoId);
-        const s = await SireviService.get()
+        const s = await SireviService.getById(sirId);
+        const v = await VinaService.get()
 
-        setVino(v.data);
-        setSirevi(s.data || []);
+        setSir(s.data);
+        setVina(v.data || []);
 
-        const statickaIds = uparivanjeVinaById[vinoId] || [];
+        const statickaIds = uparivanjeSiraById[sirId] || [];
 
         //custom
         const customResponse = await UparivanjeCustomService.get();
         const custom = customResponse.data || [];
 
         const customIds = custom
-            .filter(u => u.vinoId === vinoId)
-            .map(u => u.sirId);
+            .filter(u => u.sirId === sirId)
+            .map(u => u.vinoId);
 
         // Kombiniraj statička + custom uparivanja
         const finalIds = customIds.length > 0
             ? customIds
             : statickaIds;
 
-        setOdabraniSirevi(finalIds)
+        setOdabranaVina(finalIds)
     }
 
 
-    function toggleSir(id) {
-        if (odabraniSirevi.includes(id)) {
-            setOdabraniSirevi(odabraniSirevi.filter(s => s !== id));
+    function toggleVino(id) {
+        if (odabranaVina.includes(id)) {
+            setOdabranaVina(odabranaVina.filter(v => v !== id));
         } else {
-            setOdabraniSirevi([...odabraniSirevi, id]);
+            setOdabranaVina([...odabranaVina, id]);
         }
     }
 
     async function spremi(e) {
         e.preventDefault();
 
-        const vinoId = Number(params.id);
+        const sirId = Number(params.id);
 
         // Dohvati trenutna custom uparivanja
         const svi = (await UparivanjeCustomService.get()).data || [];
 
         // Zadrži custom uparivanja za ostala vina
-        const ostali = svi.filter(u => u.vinoId !== vinoId);
+        const ostali = svi.filter(u => u.sirId !== sirId);
 
         // Kreiraj nova custom uparivanja za ovo vino
-        const novi = odabraniSirevi.length > 0
-            ? odabraniSirevi.map(sirId => ({
-                id: `${Date.now()}_${sirId}`,
-                vinoId,
-                sirId
+        const novi = odabranaVina.length > 0
+            ? odabranaVina.map(vinoId => ({
+                id: `${Date.now()}_${vinoId}`,
+                sirId,
+                vinoId
             }))
             : [{
                 id: `${Date.now()}_empty`,
-                vinoId,
-                sirId: null,
+                sirId,
+                vinoId: null,
                 empty: true
             }];
 
@@ -94,21 +94,21 @@ export default function UparivanjeSirPromjena() {
         console.log("NAKON SPREMANJA:", test);
 
         // Navigiraj nazad na pregled
-        navigate(RouteNames.UPARIVANJE_PREGLED);
+        navigate(RouteNames.UPARIVANJE_SIR_PREGLED);
     }
 
     return (
         <>
-            <h3 className="naslov">Izmjena uparivanja vino-sirevi</h3>
+            <h3 className="naslov">Izmjena uparivanja sir-vina</h3>
 
             <Form onSubmit={spremi}>
-                <h4>{vino.naziv}</h4>
+                <h4>{sir.naziv}</h4>
 
                 {/*Tražilica*/}
                 <div className="d-flex justify-content-end mb-3">
                     <Form.Control
                         type="text"
-                        placeholder="Pretraži sireve..."
+                        placeholder="Pretraži vina..."
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
                         style={{ maxWidth: "250px" }}
@@ -116,21 +116,21 @@ export default function UparivanjeSirPromjena() {
                 </div>
 
                 {/*Grid*/}
-                <p>Odabrano: {odabraniSirevi.length}</p>
+                <p>Odabrano: {odabranaVina.length}</p>
 
                 <div className="sirevi-grid">
-                    {sirevi
-                        .filter(s => s.naziv.toLowerCase().includes(filter.toLowerCase()))
-                        .map(s => {
-                            const selected = odabraniSirevi.includes(s.id);
+                    {vina
+                        .filter(v => v.naziv.toLowerCase().includes(filter.toLowerCase()))
+                        .map(v => {
+                            const selected = odabranaVina.includes(v.id);
 
                             return (
                                 <div
-                                    key={s.id}
+                                    key={v.id}
                                     className={`sir-tile ${selected ? "selected" : ""}`}
-                                    onClick={() => toggleSir(s.id)}
+                                    onClick={() => toggleVino(v.id)}
                                 >
-                                    {s.naziv}
+                                    {v.naziv}
                                 </div>
                             );
                         })}
@@ -140,7 +140,7 @@ export default function UparivanjeSirPromjena() {
                     <div className="d-flex gap-2">
                         <Button
                             as={Link}
-                            to={RouteNames.UPARIVANJE_PREGLED}
+                            to={RouteNames.UPARIVANJE_SIR_PREGLED}
                             variant="danger"
                             size="sm"
                             className="flex-fill"

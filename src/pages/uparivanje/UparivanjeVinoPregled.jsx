@@ -219,7 +219,7 @@ export default function UparivanjeVinoPregled() {
                                     <Button
                                         variant="warning"
                                         size="sm"
-                                        onClick={() => navigate(`/uparivanje/${vino.id}`)}
+                                        onClick={() => navigate(`/uparivanje/vino/${vino.id}`)}
                                     >
                                         Promjena
                                     </Button>

@@ -43,16 +43,7 @@ export default function SireviPregled() {
         { id: 3, naziv: "jaki" }
     ]
 
-    const filtriraniSirevi = sirevi.filter(s =>
-        s.naziv?.toLowerCase().includes(pojam.toLowerCase()) ||
-        s.tip?.toLowerCase().includes(pojam.toLowerCase()) ||
-        getVrstaNaziv(s.vrsta_id)?.toLowerCase().includes(pojam.toLowerCase()) ||
-        s.regija?.toLowerCase().includes(pojam.toLowerCase()) ||
-        s.intezitet?.toLowerCase().includes(pojam.toLowerCase()) ||
-        s.zrenje?.toLowerCase().includes(pojam.toLowerCase()) ||
-        getMasnocaNaziv(s.masnoca_id)?.toLowerCase().includes(pojam.toLowerCase()) ||
-        s.okus?.toLowerCase().includes(pojam.toLowerCase())
-    );
+
 
     function getVrstaNaziv(id) {
         return VRSTE.find(v => v.id === id)?.naziv || ''
@@ -77,6 +68,21 @@ export default function SireviPregled() {
     useEffect(() => {
         ucitajSirevi()
     }, [])
+
+    const filtriraniSirevi = sirevi.filter(s => {
+        const p = pojam.toLowerCase()
+
+        return (
+            s.naziv?.toLowerCase().includes(p) ||
+            getTipNaziv(s.tip_id)?.toLowerCase().includes(p) ||
+            getVrstaNaziv(s.vrsta_id)?.toLowerCase().includes(p) ||
+            getZrenjeNaziv(s.zrenje_id)?.toLowerCase().includes(p) ||
+            s.regija?.toLowerCase().includes(p) ||
+            getIntezitetNaziv(s.intezitet_id)?.toLowerCase().includes(p) ||
+            getMasnocaNaziv(s.masnoca_id)?.toLowerCase().includes(p) ||
+            s.okus?.toLowerCase().includes(p)
+        )
+    })
 
     async function ucitajSirevi() {
         await SireviService.get().then((odgovor) => {
@@ -147,6 +153,14 @@ export default function SireviPregled() {
                                         <Button onClick={() => { obrisi(sirevi.id) }} variant="danger" size="sm">
                                             Obriši
                                         </Button>
+                                        &nbsp;
+                                        <Button
+                                            variant="info"
+                                            size="sm"
+                                            onClick={() => navigate(`/uparivanje/sir/${sir.id}`)}
+                                        >
+                                            Uparivanje
+                                        </Button>
                                     </div>
                                 </td>
                             </tr>
@@ -163,7 +177,3 @@ export default function SireviPregled() {
     )
 }
 
-izmjeniti:
-getTipNaziv(s.tip_id)?.toLowerCase()
-getIntezitetNaziv(s.intezitet_id)?.toLowerCase()
-getZrenjeNaziv(s.zrenje_id)?.toLowerCase()

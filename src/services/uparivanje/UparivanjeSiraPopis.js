@@ -1,4 +1,4 @@
-export const sireviPairingsById = {
+export const uparivanjeSiraById = {
 
   // 🧀 ZRELI / TVRDI
   1: [1, 3, 5, 6, 7, 8, 50],     // Cheddar

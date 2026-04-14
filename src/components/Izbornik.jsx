@@ -17,20 +17,20 @@ export default function Izbornik() {
               onClick={() => navigate(RouteNames.HOME)}>
               🏠Početna</Nav.Link>
 
-            <NavDropdown title="🍷Vina" id="basic-nav-dropdown">
+            <NavDropdown title="🍷Vina" id="vina-nav-dropdown">
               <NavDropdown.Item
                 onClick={() => navigate(RouteNames.VINA_PREGLED)}
               >Pregled vina</NavDropdown.Item>
 
-            <NavDropdown.Divider />
+              <NavDropdown.Divider />
 
-            <NavDropdown.Item
+              <NavDropdown.Item
                 onClick={() => navigate(RouteNames.GENERIRANJE_PODATAKA)}
               >Generiraj podatke</NavDropdown.Item>
 
             </NavDropdown>
 
-            <NavDropdown title="🧀Sirevi" id="basic-nav-dropdown">
+            <NavDropdown title="🧀Sirevi" id="sirevi-nav-dropdown">
               <NavDropdown.Item
                 onClick={() => navigate(RouteNames.SIREVI_PREGLED)}
               >Pregled sireva</NavDropdown.Item>
@@ -38,20 +38,38 @@ export default function Izbornik() {
                 onClick={() => navigate(RouteNames.SIREVI_NOVI)}
               >Dodavanje sireva</NavDropdown.Item>
             </NavDropdown>
-            
-            <NavDropdown title="🍷🧀Uparivanje" id="basic-nav-dropdown">
+
+            <NavDropdown title="🍷🧀Uparivanje" id="uparivanje-nav-dropdown">
               <NavDropdown.Item
                 onClick={() => navigate(RouteNames.UPARIVANJE_VINO_PREGLED)}
               >Upari vino sa sirom</NavDropdown.Item>
 
-           { <NavDropdown.Item
+              {<NavDropdown.Item
                 onClick={() => navigate(RouteNames.UPARIVANJE_SIR_PREGLED)}
-              >Upari sir s vinima</NavDropdown.Item> }
+              >Upari sir s vinima</NavDropdown.Item>}
             </NavDropdown>
 
-            <Nav.Link
-              onClick={() => navigate(RouteNames.ZANIMLJIVOSTI)}
-            >📚Zanimljivosti</Nav.Link>
+            <NavDropdown title="📚Zanimljivosti" id="zanimljivosti-nav-dropdown">
+
+              <NavDropdown.Item
+                onClick={() => navigate(RouteNames.ZANIMLJIVOSTI)}
+              >
+                Članci
+              </NavDropdown.Item>
+
+              <NavDropdown.Item
+                onClick={() => navigate(RouteNames.ZANIMLJIVOSTI_STATISTIKA)}
+              >
+                Statistika
+              </NavDropdown.Item>
+
+              <NavDropdown.Item
+                onClick={() => navigate("/zanimljivosti/povijest")}
+              >
+                Povijest
+              </NavDropdown.Item>
+
+            </NavDropdown>
 
 
           </Nav>
