@@ -3,6 +3,9 @@ import VinaService from "../../services/vina/VinaService"
 import { Button, Table } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
+import useBreakpoint from "../../hooks/useBreakpoint"
+import VinaPregledGrid from "./VinaPregledGrid"
+import VinaPregledTablica from "./VinaPregledTablica"
 
 
 export default function VinaPregled() {
@@ -10,6 +13,7 @@ export default function VinaPregled() {
     const navigate = useNavigate()
     const [vina, setVina] = useState([])
     const [pojam, setPojam] = useState('')
+    const sirina = useBreakpoint()
 
     const TIPOVI_VINA = [
         { id: 1, naziv: "crveno" },
@@ -111,63 +115,28 @@ export default function VinaPregled() {
                 />
             </div>
 
-            <Table bordered striped hover className="align-middle">
-                <thead>
-                    <tr>
-                        <th>Naziv</th>
-                        <th>Tip</th>
-                        <th>Regija</th>
-                        <th>Temperatura</th>
-                        <th>Slatkoća</th>
-                        <th>Arome</th>
-                        <th>Tijelo</th>
-                        <th>Alkohol</th>
-                        <th style={{ textAlign: "center" }}>Akcija</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filtriranaVina && filtriranaVina.map((vina) => (
-                        <tr key={vina.id}>
-                            <td>{vina.naziv}</td>
-                            <td>{getTipNaziv(vina.tip_id)}</td>
-                            <td>{vina.regija}</td>
-                            <td>
-                                {format1dec(vina.temperatura_min)} - {format1dec(vina.temperatura_max)} °C
-                            </td>
-                            <td>{getSlatkocaNaziv(vina.slatkoca_id)}</td>
-                            <td>{vina.arome}</td>
-                            <td>{vina.tijelo}</td>
-                            <td>
-                                {format1dec(vina.alkohol_min)} - {format1dec(vina.alkohol_max)} %
-                            </td>
-                            <td>
-                                <div className="d-flex gap-1">
-                                    <Button onClick={() => { navigate(`/vina/${vina.id}`) }} variant="warning" size="sm">
-                                        Promjena
-                                    </Button>
-                                    &nbsp;
-                                    <Button onClick={() => { obrisi(vina.id) }} variant="danger" size="sm">
-                                        Obriši
-                                    </Button>
-                                    &nbsp;
-                                    <Button
-                                        variant="info"
-                                        size="sm"
-                                        onClick={() => navigate(`/uparivanje/vino/${vina.id}`)}
-                                    >
-                                        Uparivanje
-                                    </Button>
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
+           
             <p className="mt-2">
                 {vina.length === 0
                     ? "Nema učitanih vina"
                     : <>Učitano ukupno <strong>{vina.length}</strong> vina</>}
             </p>
+
+            {/* tableti prema manje */}
+            {['xs', 'sm', 'md'].includes(sirina) ? (
+                <VinaPregledGrid 
+                    vina={filtriranaVina} 
+                    navigate={navigate} 
+                    obrisi={obrisi} 
+                />
+            ) : (
+                <VinaPregledTablica
+                    vina={filtriranaVina} 
+                    navigate={navigate} 
+                    obrisi={obrisi} 
+                />
+            )}
+
         </>
     )
 }

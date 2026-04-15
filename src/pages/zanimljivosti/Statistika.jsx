@@ -3,10 +3,21 @@ import { Card, Col, Row } from "react-bootstrap"
 import VinaService from "../../services/vina/VinaService"
 import SireviService from "../../services/sirevi/SireviService"
 
+import redWine from "../../assets/statistika/red-wine-types.jpg"
+import whiteWine from "../../assets/statistika/white-wine.webp"
+import sparkWines from "../../assets/statistika/Spark-wine.jpg"   
+import otherWine from "../../assets/statistika/port-blog.jpg"
+
+import freshCheese from "../../assets/statistika/fresh-cheese.jpg"
+import semiHard from "../../assets/statistika/semi-hard-cheese.jpg"
+import hardCheese from "../../assets/statistika/hard-cheese.jpg"
+import otherCheese from "../../assets/statistika/blue.webp"
+
 export default function Statistika() {
 
     const [vina, setVina] = useState([])
     const [sirevi, setSirevi] = useState([])
+    
 
     const TIPOVI_VINA = [
         { id: 1, naziv: "Crveno 🍷" },
@@ -15,6 +26,13 @@ export default function Statistika() {
         { id: 99, naziv: "Ostala 🍇" }
     ]
 
+    const SLIKE_VINA = {
+        1: redWine,
+        2: whiteWine,
+        3: sparkWines,
+        99: otherWine
+    }
+
     const TIPOVI_SIREVA = [
         { id: 1, naziv: "Svježi 🧀" },
         { id: 2, naziv: "Polutvrdi 🟡" },
@@ -22,6 +40,12 @@ export default function Statistika() {
         { id: 99, naziv: "Ostali 🧩" }
     ]
 
+    const SLIKE_SIREVA = {
+        1: freshCheese,
+        2: semiHard,
+        3: hardCheese,
+        99: otherCheese
+    }
     useEffect(() => {
         ucitaj()
     }, [])
@@ -67,12 +91,12 @@ export default function Statistika() {
                         <Card className="stat-card text-center h-100">
 
                             <img
-                                src="https://placehold.co/600x400"
-                                alt="placeholder"
+                                src={SLIKE_VINA[tip.id]}
+                                alt={tip.naziv}
                                 className="stat-img"
                             />
 
-                            <Card.Body>
+                            <Card.Body className={`vino-${tip.id}`}>
                                 <h5>{tip.naziv}</h5>
                                 <div className="stat-number">
                                     {brojVinaPoTipu(tip.id)}
@@ -92,12 +116,12 @@ export default function Statistika() {
                         <Card className="stat-card text-center h-100">
 
                             <img
-                                src="https://placehold.co/600x400"
-                                alt="sir"
+                                src={SLIKE_SIREVA[tip.id]}
+                                alt={tip.naziv}
                                 className="stat-img"
                             />
 
-                            <Card.Body>
+                            <Card.Body className={`sir-${tip.id}`}>
                                 <h5>{tip.naziv}</h5>
                                 <div className="stat-number">
                                     {brojSirevaPoTipu(tip.id)}

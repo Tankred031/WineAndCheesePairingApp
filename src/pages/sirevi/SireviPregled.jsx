@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react"
 import SireviService from "../../services/sirevi/SireviService"
-import { Button, Table } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
-
+import useBreakpoint from "../../hooks/useBreakpoint"
+import SireviPregledGrid from "./SireviPregledGrid"
+import SireviPregledTablica from "./SireviPregledTablica"
 
 export default function SireviPregled() {
 
     const navigate = useNavigate()
+    const sirina = useBreakpoint()
+
     const [sirevi, setSirevi] = useState([])
     const [pojam, setPojam] = useState('')
 
@@ -43,8 +46,6 @@ export default function SireviPregled() {
         { id: 3, naziv: "jaki" }
     ]
 
-
-
     function getVrstaNaziv(id) {
         return VRSTE.find(v => v.id === id)?.naziv || ''
     }
@@ -69,6 +70,23 @@ export default function SireviPregled() {
         ucitajSirevi()
     }, [])
 
+    async function ucitajSirevi() {
+        const odgovor = await SireviService.get()
+
+        if (!odgovor.success) {
+            alert('Nije implementiran servis')
+            return
+        }
+
+        setSirevi(odgovor.data)
+    }
+
+    async function obrisi(id) {
+        if (!confirm('Sigurno obrisati?')) return
+        await SireviService.obrisi(id)
+        ucitajSirevi()
+    }
+
     const filtriraniSirevi = sirevi.filter(s => {
         const p = pojam.toLowerCase()
 
@@ -83,25 +101,6 @@ export default function SireviPregled() {
             s.okus?.toLowerCase().includes(p)
         )
     })
-
-    async function ucitajSirevi() {
-        await SireviService.get().then((odgovor) => {
-
-            if (!odgovor.success) {
-                alert('Nije implementiran servis')
-                return
-            }
-            setSirevi(odgovor.data)
-        })
-    }
-
-    async function obrisi(id) {
-        if (!confirm('Sigurno obrisati?')) {
-            return
-        }
-        await SireviService.obrisi(id)
-        ucitajSirevi()
-    }
 
     return (
         <>
@@ -118,62 +117,27 @@ export default function SireviPregled() {
                     onChange={(e) => setPojam(e.target.value)}
                 />
             </div>
-            <div className="mt-4">
-                <Table bordered striped hover className="align-middle">
-                    <thead>
-                        <tr>
-                            <th>Naziv</th>
-                            <th>Tip</th>
-                            <th>Vrsta</th>
-                            <th>Zrenje</th>
-                            <th>Regija</th>
-                            <th>Intezitet</th>
-                            <th>Masnoća</th>
-                            <th>Okus</th>
-                            <th style={{ textAlign: "center" }}>Akcija</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filtriraniSirevi && filtriraniSirevi.map((sirevi) => (
-                            <tr key={sirevi.id}>
-                                <td>{sirevi.naziv}</td>
-                                <td>{getTipNaziv(sirevi.tip_id)}</td>
-                                <td>{getVrstaNaziv(sirevi.vrsta_id)}</td>
-                                <td>{getZrenjeNaziv(sirevi.zrenje_id)}</td>
-                                <td>{sirevi.regija}</td>
-                                <td>{getIntezitetNaziv(sirevi.intezitet_id)}</td>
-                                <td>{getMasnocaNaziv(sirevi.masnoca_id)}</td>
-                                <td>{sirevi.okus}</td>
-                                <td>
-                                    <div className="d-flex gap-2">
-                                        <Button onClick={() => { navigate(`/sirevi/${sirevi.id}`) }} variant="warning" size="sm">
-                                            Promjena
-                                        </Button>
-                                        &nbsp;
-                                        <Button onClick={() => { obrisi(sirevi.id) }} variant="danger" size="sm">
-                                            Obriši
-                                        </Button>
-                                        &nbsp;
-                                        <Button
-                                            variant="info"
-                                            size="sm"
-                                            onClick={() => navigate(`/uparivanje/sir/${sir.id}`)}
-                                        >
-                                            Uparivanje
-                                        </Button>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            </div>
+
+            {/* 🔥 RWD */}
+            {['xs', 'sm', 'md'].includes(sirina) ? (
+                <SireviPregledGrid
+                    sirevi={filtriraniSirevi}
+                    navigate={navigate}
+                    obrisi={obrisi}
+                />
+            ) : (
+                <SireviPregledTablica
+                    sirevi={filtriraniSirevi}
+                    navigate={navigate}
+                    obrisi={obrisi}
+                />
+            )}
+
             <p className="mt-2">
                 {sirevi.length === 0
-                    ? "Nema učitanih vina"
+                    ? "Nema učitanih sireva"
                     : <>Učitano ukupno <strong>{sirevi.length}</strong> sireva</>}
             </p>
         </>
     )
 }
-

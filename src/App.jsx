@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
+import './pages/zanimljivosti/statistika.css'
 import { Container } from 'react-bootstrap'
 import Izbornik from './components/Izbornik'
 import { Route, Routes } from 'react-router-dom'

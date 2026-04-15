@@ -3,8 +3,6 @@
     overflow: hidden;
     transition: all 0.25s ease;
     cursor: pointer;
-    background: linear-gradient(135deg, #7b0323, #c2185b);
-    color: white;
 }
 
 .stat-card:hover {
@@ -12,39 +10,28 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* broj */
 .stat-number {
-    font-size: 2.2rem;
-    font-weight: bold;
-}
-
-/* placeholder slika */
-.stat-img {
-    height: 120px;
-    background: rgba(255, 255, 255, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
+    font-size: 2.4rem;
+    font-weight: 900;
 }
 
 .stat-img {
     width: 100%;
-    height: 120px;
-    object-fit: cover;  /* 🔥 bitno da se ne rastegne */
+    height: 180px;
+    object-fit: cover;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     filter: brightness(0.8);
 }
 
-.stat-img {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-}
+/* VINA */
+.vino-1 { background: linear-gradient(135deg, #7b0323, #c2185b); }
+.vino-2 { background: linear-gradient(135deg, #d4af37, #f5e6a3); color: black; }
+.vino-3 { background: linear-gradient(135deg, #b2dfdb, #e0f7fa); color: black; }
+.vino-99 { background: linear-gradient(135deg, #6a1b9a, #ab47bc); }
 
-/* varijacije */
-.img-1 { object-position: left; }
-.img-2 { object-position: 33%; }
-.img-3 { object-position: 66%; }
-.img-4 { object-position: right; }
+/* SIREVI */
+.sir-1 { background: linear-gradient(135deg, #fff3cd, #ffe082); color: black; }
+.sir-2 { background: linear-gradient(135deg, #ffcc80, #ffb74d); }
+.sir-3 { background: linear-gradient(135deg, #ff8a65, #ff7043); }
+.sir-99 { background: linear-gradient(135deg, #90a4ae, #78909c); }

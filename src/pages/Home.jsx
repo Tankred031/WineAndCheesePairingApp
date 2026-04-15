@@ -54,7 +54,7 @@ export default function Home() {
         if (animatedVina < brojVina) {
             const timer = setTimeout(() => {
                 setAnimatedVina(prev => Math.min(prev + 1, brojVina));
-            }, 150);
+            }, 100);
             return () => clearTimeout(timer);
         }
     }, [animatedVina, brojVina]);

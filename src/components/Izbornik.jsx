@@ -11,6 +11,8 @@ export default function Izbornik() {
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
 
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link
@@ -70,8 +72,6 @@ export default function Izbornik() {
               </NavDropdown.Item>
 
             </NavDropdown>
-
-
           </Nav>
         </Navbar.Collapse>
       </Container>
