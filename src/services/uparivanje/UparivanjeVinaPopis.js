@@ -1,6 +1,6 @@
 export const uparivanjeVinaById = {
 
-  // 🍷 CRNA – jaka / zrela
+  // CRNA – jaka / zrela
   1: [1, 6, 23, 20],          // Cabernet Sauvignon
   3: [4, 5, 1],               // Merlot
   5: [9, 8, 1, 20],           // Syrah
@@ -11,18 +11,19 @@ export const uparivanjeVinaById = {
   2: [20, 6, 23],             // Sangiovese
   50: [23, 31, 20],           // Plavac Mali
 
-  // 🍷 srednja crna
+  // srednja crna
   4: [2, 3, 18],              // Pinot Noir
   9: [4, 5, 22],              // Grenache (dodan Halloumi)
   11: [12, 13, 39],           // Barbera
   12: [6, 20],                // Chianti
+  44: [1, 4, 7, 10],          // Petit Verdot
   49: [24, 4],                // Teran
   52: [5, 4],                 // Frankovka
   56: [24, 5],                // Zweigelt
   60: [2, 3, 18],             // Gamay
   58: [2, 12],                // Kadarka
 
-  // 🍷 BIJELA – svježa (OVDJE DODAJEMO NOVE SIREVE)
+  // BIJELA – svježa (OVDJE DODAJEMO NOVE SIREVE)
   15: [11, 34, 46, 47],       // Sauvignon Blanc
   13: [8, 9, 48],             // Riesling (dodani svježi lagani)
   16: [12, 13, 46],           // Pinot Grigio
@@ -31,7 +32,7 @@ export const uparivanjeVinaById = {
   22: [2, 3, 6, 46],          // Champagne
   23: [21, 1, 22],            // Cava
 
-  // 🍷 BIJELA – aromatična / srednja
+  // BIJELA – aromatična / srednja
   14: [2, 3, 16, 46],         // Chardonnay
   17: [19, 9, 8],             // Gewurztraminer
   18: [2, 3, 46],             // Viognier
@@ -45,12 +46,12 @@ export const uparivanjeVinaById = {
   57: [13, 12, 46],           // Trebbiano
   61: [2, 3, 46],             // Müller-Thurgau
 
-  // 🍷 SLATKA / FORTIFICIRANA (važna korekcija)
+  // SLATKA / FORTIFICIRANA (važna korekcija)
   34: [10, 9, 8],             // Porto → plavi sirevi
   35: [21, 17, 19],           // Sherry → kompleksni
   36: [6, 16, 20],            // Madeira → zreli
 
-  // 🆕 NOVA VINA
+  // NOVA VINA
   62: [12, 13, 46, 47],       // Debit
   63: [11, 34, 46],           // Laški Rizling
   64: [4, 15, 26],            // Šipon
@@ -103,5 +104,4 @@ export const uparivanjeVinaById = {
 35: [21, 17],            // Sherry
 36: [6, 16]              // Madeira
 };
-
 */
