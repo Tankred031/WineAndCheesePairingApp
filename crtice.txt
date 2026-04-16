@@ -48,3 +48,9 @@ function getVinaZaSir(sirId) {
 ✔ idealno za CRUD ekran koji već imaš
 
 zanimljivosti - dodati statistiku koja zemlja pije koliko čega, koliko imamo u bazi itd
+
+RWD uparivanja
+naslovi 
+vraćanje 
+
+ikone kod RWD
