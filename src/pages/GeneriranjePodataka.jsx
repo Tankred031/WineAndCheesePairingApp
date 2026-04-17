@@ -194,9 +194,9 @@ export default function GeneriranjePodataka() {
 
             <Row>
                 {/* VINA */}
-                <Col md={4}>
+                <Col md={6}>
                     <Form onSubmit={handleGenerirajVina}>
-                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-6">
                             <Form.Label>Broj vina</Form.Label>
                             <Form.Control
                                 type="number"
@@ -222,9 +222,9 @@ export default function GeneriranjePodataka() {
                 </Col>
 
                 {/* SIREVI */}
-                <Col md={4}>
+                <Col md={6}>
                     <Form onSubmit={handleGenerirajSireve}>
-                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-6">
                             <Form.Label>Broj sireva</Form.Label>
                             <Form.Control
                                 type="number"
@@ -247,36 +247,7 @@ export default function GeneriranjePodataka() {
                             {loading ? 'Generiranje...' : 'Generiraj sireve'}
                         </Button>
                     </Form>
-                </Col>
-
-
-                {/* UPARIVANJA
-                <Col md={4}>
-                    <Form onSubmit={handleGenerirajPairing}>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Broj uparivanja</Form.Label>
-                            <Form.Control
-                                type="number"
-                                min="1"
-                                max="100"
-                                value={brojPairing}
-                                onChange={(e) => setBrojPairing(parseInt(e.target.value))}
-                                disabled={loading}
-                            />
-                            <Form.Text className="text-muted">
-                                Unesite broj uparivanja (1-100)
-                            </Form.Text>
-                        </Form.Group>
-                        <Button
-                            variant="primary"
-                            type="submit"
-                            disabled={loading}
-                            className="w-100"
-                        >
-                            {loading ? 'Generiranje...' : 'Generiraj uparivanja'}
-                        </Button>
-                    </Form>
-                </Col> */}
+                </Col>              
             </Row>
 
             <Alert variant="warning" className="mt-3">
@@ -292,7 +263,7 @@ export default function GeneriranjePodataka() {
             </p>
 
             <Row className="mt-3">
-                <Col md={4}>
+                <Col md={6}>
                     <Button
                         variant="danger"
                         onClick={handleObrisiVina}
@@ -302,7 +273,7 @@ export default function GeneriranjePodataka() {
                         {loading ? 'Brisanje...' : 'Obriši sva vina'}
                     </Button>
                 </Col>
-                <Col md={4}>
+                <Col md={6}>
                     <Button
                         variant="danger"
                         onClick={handleObrisiSireve}
@@ -311,17 +282,7 @@ export default function GeneriranjePodataka() {
                     >
                         {loading ? 'Brisanje...' : 'Obriši sve sireve'}
                     </Button>
-                </Col>
-                {/* <Col md={4}>
-                    <Button
-                        variant="danger"
-                        onClick={handleObrisiPairing}
-                        disabled={loading}
-                        className="w-100 mb-2"
-                    >
-                        {loading ? 'Brisanje...' : 'Obriši sva uparivanja'}
-                    </Button>
-                </Col> */}
+                </Col>                
             </Row>
 
             <Alert variant="danger" className="mt-3">
