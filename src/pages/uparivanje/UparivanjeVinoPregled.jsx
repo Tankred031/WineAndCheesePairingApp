@@ -10,13 +10,13 @@ export default function UparivanjeVinoPregled() {
 
     const [vina, setVina] = useState([]);
     const [sirevi, setSirevi] = useState([]);
-    const [custom, setCustom] = useState([]);    
+    const [custom, setCustom] = useState([]);
     const [pojam, setPojam] = useState('')
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        ucitaj()        
+        ucitaj()
 
     }, [])
 
@@ -219,7 +219,9 @@ export default function UparivanjeVinoPregled() {
                                     <Button
                                         variant="warning"
                                         size="sm"
-                                        onClick={() => navigate(`/uparivanje/vino/${vino.id}`)}
+                                        onClick={() => navigate(`/uparivanje/vino/${vino.id}`, {
+                                            state: { from: "uparivanje" }
+                                        })}
                                     >
                                         Promjena
                                     </Button>

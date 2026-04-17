@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import VinaService from "../../services/vina/VinaService";
 import SireviService from "../../services/sirevi/SireviService";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { RouteNames } from "../../constants";
 import { uparivanjeSiraById } from "../../services/uparivanje/UparivanjeSiraPopis";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
@@ -16,6 +16,8 @@ export default function UparivanjeSirPromjena() {
 
     const params = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from;
 
     useEffect(() => {
         ucitaj();
@@ -94,7 +96,11 @@ export default function UparivanjeSirPromjena() {
         console.log("NAKON SPREMANJA:", test);
 
         // Navigiraj nazad na pregled
-        navigate(RouteNames.UPARIVANJE_SIR_PREGLED);
+        if (from === "sirevi") {
+            navigate(RouteNames.SIREVI_PREGLED);
+        } else {
+            navigate(RouteNames.UPARIVANJE_SIR_PREGLED);
+        }
     }
 
     return (
@@ -134,26 +140,32 @@ export default function UparivanjeSirPromjena() {
                                 </div>
                             );
                         })}
-                </div>    
+                </div>
 
-                    <hr />
-                    <div className="d-flex gap-2">
-                        <Button
-                            as={Link}
-                            to={RouteNames.UPARIVANJE_SIR_PREGLED}
-                            variant="danger"
-                            size="sm"
-                            className="flex-fill"
-                        >
-                            Odustani
-                        </Button>
+                <hr />
+                <div className="d-flex gap-2">
+                    <Button
+                        as={Link}
+                        onClick={() => {
+                            if (from === "sirevi") {
+                                navigate(RouteNames.SIREVI_PREGLED);
+                            } else {
+                                navigate(RouteNames.UPARIVANJE_SIR_PREGLED)
+                            }
+                        }}
+                        variant="danger"
+                        size="sm"
+                        className="flex-fill"
+                    >
+                        Odustani
+                    </Button>
 
 
-                        <Button type="submit" variant="success" size="sm" className="flex-fill">
-                            Spremi
-                        </Button>
+                    <Button type="submit" variant="success" size="sm" className="flex-fill">
+                        Spremi
+                    </Button>
 
-                    </div>
+                </div>
             </Form >
         </>
     );

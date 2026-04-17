@@ -128,7 +128,9 @@ export default function SireviPregledGrid({ sirevi, navigate, obrisi }) {
                                 <Button
                                     variant="outline-info"
                                     className="flex-fill"
-                                    onClick={() => navigate(`/uparivanje/sir/${sir.id}`)}
+                                    onClick={() => navigate(`/uparivanje/sir/${sir.id}`, {
+                                        state: { from: "sirevi" }
+                                    })}
                                 >
                                     Uparivanje
                                 </Button>

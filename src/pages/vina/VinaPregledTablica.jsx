@@ -83,7 +83,9 @@ export default function VinaPregledTablica({ vina, navigate, obrisi }) {
                                 <Button
                                     variant="info"
                                     size="sm"
-                                    onClick={() => navigate(`/uparivanje/vino/${vino.id}`)}
+                                    onClick={() => navigate(`/uparivanje/vino/${vino.id}`, {
+                                        state: { from: "vina" }
+                                    })}
                                 >
                                     Uparivanje
                                 </Button>

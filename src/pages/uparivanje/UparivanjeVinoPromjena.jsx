@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import VinaService from "../../services/vina/VinaService";
 import SireviService from "../../services/sirevi/SireviService";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Route, useLocation, useNavigate, useParams } from "react-router-dom";
 import { RouteNames } from "../../constants";
 import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopis";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { Button, Form } from "react-bootstrap";
 
 export default function UparivanjeVinoPromjena() {
-    
+
     const [vino, setVino] = useState({});
     const [sirevi, setSirevi] = useState([]);
     const [odabraniSirevi, setOdabraniSirevi] = useState([]);
@@ -16,6 +16,8 @@ export default function UparivanjeVinoPromjena() {
 
     const params = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from;
 
     useEffect(() => {
         ucitaj();
@@ -63,7 +65,7 @@ export default function UparivanjeVinoPromjena() {
 
     async function spremi(e) {
         e.preventDefault();
-         console.log("SPREMI KLIK");
+        console.log("SPREMI KLIK");
 
         const vinoId = Number(params.id);
 
@@ -94,8 +96,12 @@ export default function UparivanjeVinoPromjena() {
         const test = await UparivanjeCustomService.get();
         console.log("NAKON SPREMANJA:", test);
 
-        // Navigiraj nazad na pregled
-        navigate(RouteNames.UPARIVANJE_VINO_PREGLED);
+        // Navigiraj nazad na pregled ili uparivanje
+        if (from === "vina") {
+            navigate(RouteNames.VINA_PREGLED);
+        } else {
+            navigate(RouteNames.UPARIVANJE_VINO_PREGLED);
+        }
     }
 
     return (
@@ -135,26 +141,32 @@ export default function UparivanjeVinoPromjena() {
                                 </div>
                             );
                         })}
-                </div>    
+                </div>
 
-                    <hr />
-                    <div className="d-flex gap-2">
-                        <Button
-                            as={Link}
-                            to={RouteNames.UPARIVANJE_VINO_PREGLED}
-                            variant="danger"
-                            size="sm"
-                            className="flex-fill"
-                        >
-                            Odustani
-                        </Button>
+                <hr />
+                <div className="d-flex gap-2">
+                    <Button
+                        as={Link}
+                        onClick={() => {
+                            if (from === "vina") {
+                                navigate(RouteNames.VINA_PREGLED);
+                            } else {
+                                navigate(RouteNames.UPARIVANJE_VINO_PREGLED)
+                            }
+                        }}
+                        variant="danger"
+                        size="sm"
+                        className="flex-fill"
+                    >
+                        Odustani
+                    </Button>
 
 
-                        <Button type="submit" variant="success" size="sm" className="flex-fill">
-                            Spremi
-                        </Button>
+                    <Button type="submit" variant="success" size="sm" className="flex-fill">
+                        Spremi
+                    </Button>
 
-                    </div>
+                </div>
             </Form >
         </>
     );

@@ -102,7 +102,9 @@ export default function SireviPregledTablica({ sirevi, navigate, obrisi }) {
                                 <Button
                                     variant="info"
                                     size="sm"
-                                    onClick={() => navigate(`/uparivanje/sir/${sir.id}`)}
+                                    onClick={() => navigate(`/uparivanje/sir/${sir.id}`, {
+                                        state: { from: "sirevi" }
+                                    })}
                                 >
                                     Uparivanje
                                 </Button>

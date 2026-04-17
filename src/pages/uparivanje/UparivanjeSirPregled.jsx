@@ -150,7 +150,9 @@ function getTipNaziv(id) {
                                     <Button
                                         variant="warning"
                                         size="sm"
-                                        onClick={() => navigate(`/uparivanje/sir/${sir.id}`)}
+                                        onClick={() => navigate(`/uparivanje/sir/${sir.id}`, {
+                                            state: { from: "uparivanje" }
+                                        })}
                                     >
                                         Promjena
                                     </Button>

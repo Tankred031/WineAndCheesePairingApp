@@ -109,7 +109,9 @@ export default function VinaPregledGrid({ vina, navigate, obrisi }) {
                                 <Button
                                     variant="outline-info"
                                     className="flex-fill"
-                                    onClick={() => navigate(`/uparivanje/vino/${vino.id}`)}
+                                    onClick={() => navigate(`/uparivanje/vino/${vino.id}`, {
+                                        state: { from: "vina" }
+                                    })}
                                 >
                                     Uparivanje
                                 </Button>
