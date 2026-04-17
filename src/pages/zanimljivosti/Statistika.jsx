@@ -34,10 +34,10 @@ export default function Statistika() {
     }
 
     const TIPOVI_SIREVA = [
-        { id: 1, naziv: "Svježi 🧀" },
-        { id: 2, naziv: "Polutvrdi 🟡" },
-        { id: 3, naziv: "Tvrdi 🟠" },
-        { id: 99, naziv: "Ostali 🧩" }
+        { id: 1, naziv: "Svježi 🥛" },
+        { id: 2, naziv: "Polutvrdi 🟨" },
+        { id: 3, naziv: "Tvrdi 🧀" },
+        { id: 99, naziv: "Ostali 🫕" }
     ]
 
     const SLIKE_SIREVA = {
