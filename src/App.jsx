@@ -19,7 +19,7 @@ import UparivanjeSirPromjena from './pages/uparivanje/UparivanjeSirPromjena'
 import UparivanjeSirPregled from './pages/uparivanje/UparivanjeSirPregled'
 import GeneriranjePodataka from './pages/GeneriranjePodataka'
 import Statistika from './pages/zanimljivosti/Statistika'
-import Povijest from './pages/zanimljivosti/Povijest'
+import Preporuke from './pages/zanimljivosti/preporuke'
 
 function App() {
 
@@ -46,7 +46,7 @@ function App() {
 
           <Route path={RouteNames.ZANIMLJIVOSTI} element={<Zanimljivosti />} />
           <Route path={RouteNames.ZANIMLJIVOSTI_STATISTIKA} element={<Statistika />} />
-          <Route path="/zanimljivosti/povijest" element={<Povijest />} />
+          <Route path="/zanimljivosti/preporuke" element={<Preporuke />} />
 
           <Route path={RouteNames.GENERIRANJE_PODATAKA} element={<GeneriranjePodataka />} />
         </Routes>
