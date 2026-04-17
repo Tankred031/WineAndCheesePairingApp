@@ -316,7 +316,7 @@ export const sirevi = [
     {
         id: 28,
         naziv: 'Prgica',
-        tip_id: 1,
+        tip_id: 3,
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Međimurje',

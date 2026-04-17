@@ -153,7 +153,11 @@ export default function UparivanjeVinoPregled() {
 
     return (
         <div className="mt-4">
-            <div className="d-flex justify-content-end mb-3 mt-3">
+
+            <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
+
+            <h4 className="mb-0">Popis uparenih vina</h4>
+
                 <input
                     type="text"
                     placeholder="Traži vino ili sir..."

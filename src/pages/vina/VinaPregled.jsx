@@ -101,7 +101,10 @@ export default function VinaPregled() {
                 Dodavanje novog vina
             </Link>
 
-            <div className="d-flex justify-content-end mb-3 mt-2">
+            <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
+
+            <h4 className="mb-0">Popis vina</h4>
+
                 <input
                     type="text"
                     placeholder="Traži vino..."
@@ -116,12 +119,7 @@ export default function VinaPregled() {
             </div>
 
            
-            <p className="mt-2">
-                {vina.length === 0
-                    ? "Nema učitanih vina"
-                    : <>Učitano ukupno <strong>{vina.length}</strong> vina</>}
-            </p>
-
+           
             {/* tableti prema manje */}
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <VinaPregledGrid 
@@ -136,6 +134,13 @@ export default function VinaPregled() {
                     obrisi={obrisi} 
                 />
             )}
+
+             <p className="mt-2">
+                {vina.length === 0
+                    ? "Nema učitanih vina"
+                    : <>Učitano ukupno <strong>{vina.length}</strong> vina</>}
+            </p>
+
 
         </>
     )
