@@ -1,4 +1,6 @@
 import { Button, Card, Row, Col, Container } from "react-bootstrap";
+import { FaEdit, FaLink, FaTrash } from "react-icons/fa";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function SireviPregledGrid({ sirevi, navigate, obrisi }) {
 
@@ -107,33 +109,82 @@ export default function SireviPregledGrid({ sirevi, navigate, obrisi }) {
 
                             </Card.Body>
 
-                            <Card.Footer className="bg-light d-flex gap-2">
+                            <Card.Footer className="bg-light d-flex justify-content-between">
 
-                                <Button
-                                    variant="outline-warning"
-                                    className="flex-fill"
-                                    onClick={() => navigate(`/sirevi/${sir.id}`)}
-                                >
-                                    Promjena
-                                </Button>
+                                {/* DESKTOP */}
+                                <div className="d-none d-md-flex gap-2 w-100">
 
-                                <Button
-                                    variant="outline-danger"
-                                    className="flex-fill"
-                                    onClick={() => obrisi(sir.id)}
-                                >
-                                    Obriši
-                                </Button>
+                                    <Button
+                                        variant="outline-warning"
+                                        className="flex-fill"
+                                        onClick={() => navigate(`/sirevi/${sir.id}`)}
+                                    >
+                                        Promjena
+                                    </Button>
 
-                                <Button
-                                    variant="outline-info"
-                                    className="flex-fill"
-                                    onClick={() => navigate(`/uparivanje/sir/${sir.id}`, {
-                                        state: { from: "sirevi" }
-                                    })}
-                                >
-                                    Uparivanje
-                                </Button>
+                                    <Button
+                                        variant="outline-danger"
+                                        className="flex-fill"
+                                        onClick={() => obrisi(sir.id)}
+                                    >
+                                        Obriši
+                                    </Button>
+
+                                    <Button
+                                        variant="outline-info"
+                                        className="flex-fill"
+                                        onClick={() => navigate(`/uparivanje/sir/${sir.id}`, {
+                                            state: { from: "sirevi" }
+                                        })}
+                                    >
+                                        Uparivanje
+                                    </Button>
+
+                                </div>
+
+                                {/* MOBILE */}
+                                <div className="d-flex d-md-none justify-content-around px-3 w-100">
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip>Promjena</Tooltip>}
+                                    >
+                                        <span>
+                                            <FaEdit
+                                                className="icon-btn text-warning"
+                                                size={20}
+                                                onClick={() => navigate(`/sirevi/${sir.id}`)}
+                                            />
+                                        </span>
+                                    </OverlayTrigger>
+
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip>Obriši</Tooltip>}
+                                    >
+                                        <span>
+                                            <FaTrash
+                                                className="icon-btn text-danger"
+                                                size={20}
+                                                onClick={() => obrisi(sir.id)}
+                                            />
+                                        </span>
+                                    </OverlayTrigger>
+
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip>Uparivanje</Tooltip>}
+                                    >
+                                        <span>
+                                            <FaLink
+                                                className="icon-btn text-info"
+                                                size={20}
+                                                onClick={() => navigate(`/uparivanje/sir/${sir.id}`, {
+                                                    state: { from: "sirevi" }
+                                                })}
+                                            />
+                                        </span>
+                                    </OverlayTrigger>
+                                </div>
 
                             </Card.Footer>
 

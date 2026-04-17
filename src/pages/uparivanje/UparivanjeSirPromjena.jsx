@@ -144,8 +144,7 @@ export default function UparivanjeSirPromjena() {
 
                 <hr />
                 <div className="d-flex gap-2">
-                    <Button
-                        as={Link}
+                    <Button                        
                         onClick={() => {
                             if (from === "sirevi") {
                                 navigate(RouteNames.SIREVI_PREGLED);

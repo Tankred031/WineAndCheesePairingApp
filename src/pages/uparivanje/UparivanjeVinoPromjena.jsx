@@ -145,8 +145,7 @@ export default function UparivanjeVinoPromjena() {
 
                 <hr />
                 <div className="d-flex gap-2">
-                    <Button
-                        as={Link}
+                    <Button                        
                         onClick={() => {
                             if (from === "vina") {
                                 navigate(RouteNames.VINA_PREGLED);

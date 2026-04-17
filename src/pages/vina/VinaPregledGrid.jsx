@@ -1,4 +1,6 @@
 import { Button, Card, Row, Col, Container } from "react-bootstrap";
+import { FaEdit, FaLink, FaTrash } from "react-icons/fa";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function VinaPregledGrid({ vina, navigate, obrisi }) {
 
@@ -88,33 +90,83 @@ export default function VinaPregledGrid({ vina, navigate, obrisi }) {
 
                             </Card.Body>
 
-                            <Card.Footer className="bg-light d-flex gap-2">
+                            <Card.Footer className="bg-light">
 
-                                <Button
-                                    variant="outline-warning"
-                                    className="flex-fill"
-                                    onClick={() => navigate(`/vina/${vino.id}`)}
-                                >
-                                    Promjena
-                                </Button>
+                                {/* DESKTOP */}
+                                <div className="d-none d-md-flex gap-2">
 
-                                <Button
-                                    variant="outline-danger"
-                                    className="flex-fill"
-                                    onClick={() => obrisi(vino.id)}
-                                >
-                                    Obriši
-                                </Button>
+                                    <Button
+                                        variant="outline-warning"
+                                        className="flex-fill"
+                                        onClick={() => navigate(`/vina/${vino.id}`)}
+                                    >
+                                        Promjena
+                                    </Button>
 
-                                <Button
-                                    variant="outline-info"
-                                    className="flex-fill"
-                                    onClick={() => navigate(`/uparivanje/vino/${vino.id}`, {
-                                        state: { from: "vina" }
-                                    })}
-                                >
-                                    Uparivanje
-                                </Button>
+                                    <Button
+                                        variant="outline-danger"
+                                        className="flex-fill"
+                                        onClick={() => obrisi(vino.id)}
+                                    >
+                                        Obriši
+                                    </Button>
+
+                                    <Button
+                                        variant="outline-info"
+                                        className="flex-fill"
+                                        onClick={() => navigate(`/uparivanje/vino/${vino.id}`, {
+                                            state: { from: "vina" }
+                                        })}
+                                    >
+                                        Uparivanje
+                                    </Button>
+
+                                </div>
+
+                                {/* MOBILE */}
+                                <div className="d-flex d-md-none justify-content-around px-3 w-100">
+
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip>Promjena</Tooltip>}
+                                    >
+                                        <span>
+                                            <FaEdit
+                                                className="icon-btn text-warning"
+                                                size={20}
+                                                onClick={() => navigate(`/vina/${vino.id}`)}
+                                            />
+                                        </span>
+                                    </OverlayTrigger>
+
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip>Obriši</Tooltip>}
+                                    >
+                                        <span>
+                                            <FaTrash
+                                                className="icon-btn text-danger"
+                                                size={20}
+                                                onClick={() => obrisi(vino.id)}
+                                            />
+                                        </span>
+                                    </OverlayTrigger>
+
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip>Uparivanje</Tooltip>}
+                                    >
+                                        <span>
+                                            <FaLink
+                                                className="icon-btn text-info"
+                                                size={20}
+                                                onClick={() => navigate(`/uparivanje/vino/${vino.id}`, {
+                                                    state: { from: "vina" }
+                                                })}
+                                            />
+                                        </span>
+                                    </OverlayTrigger>
+                                </div>
 
                             </Card.Footer>
 
