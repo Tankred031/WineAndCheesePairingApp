@@ -6,6 +6,7 @@ import { RouteNames } from "../../constants";
 import { uparivanjeSiraById } from "../../services/uparivanje/UparivanjeSiraPopis";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { Button, Form } from "react-bootstrap";
+import { generirajUparivanjePDF } from "../../components/UparivanjePDFGenerator";
 
 export default function UparivanjeSirPromjena() {
 
@@ -111,7 +112,23 @@ export default function UparivanjeSirPromjena() {
                 <h4>{sir.naziv}</h4>
 
                 {/*Tražilica*/}
-                <div className="d-flex justify-content-end mb-3">
+                <div className="d-flex justify-content-end mb-3 gap-3">
+                    <Button
+                        variant="light"
+                        style={{ color: '#7B0323', fontWeight: 'bold', border: '1px solid #7B0323' }}
+                        onClick={() => {
+                            const filtriranaVina = vina.filter(v =>
+                                v.naziv.toLowerCase().includes(filter.toLowerCase())
+                            );
+
+                            console.log("Šaljem u PDF:", sir.naziv, filtriranaVina);
+
+                            generirajUparivanjePDF(sir.naziv, filtriranaVina, 'sir');
+                        }}
+                    >
+                        Generiraj PDF
+                    </Button>
+
                     <Form.Control
                         type="text"
                         placeholder="Pretraži vina..."
@@ -144,7 +161,7 @@ export default function UparivanjeSirPromjena() {
 
                 <hr />
                 <div className="d-flex gap-2">
-                    <Button                        
+                    <Button
                         onClick={() => {
                             if (from === "sirevi") {
                                 navigate(RouteNames.SIREVI_PREGLED);

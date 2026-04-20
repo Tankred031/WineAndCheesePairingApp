@@ -6,6 +6,8 @@ import { RouteNames } from "../../constants";
 import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopis";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { Button, Form } from "react-bootstrap";
+import { generirajUparivanjePDF } from "../../components/UparivanjePDFGenerator";
+
 
 export default function UparivanjeVinoPromjena() {
 
@@ -112,7 +114,24 @@ export default function UparivanjeVinoPromjena() {
                 <h4>{vino.naziv}</h4>
 
                 {/*Tražilica*/}
-                <div className="d-flex justify-content-end mb-3">
+                <div className="d-flex justify-content-end mb-3 gap-3">
+
+                    <Button
+                        variant="light"
+                        style={{ color: '#7B0323', fontWeight: 'bold', border: '1px solid #7B0323' }}
+                        onClick={() => {
+                            // Filtriramo sireve na isti način kao što se prikazuju u gridu
+                            const sireviUGridu = sirevi.filter(s =>
+                                s.naziv.toLowerCase().includes(filter.toLowerCase())
+                            );
+
+                            // Šaljemo: naziv vina, listu sireva i tip 'vino'
+                            generirajUparivanjePDF(vino.naziv, sireviUGridu, 'vino');
+                        }}
+                    >
+                        Generiraj PDF popisa
+                    </Button>
+                    
                     <Form.Control
                         type="text"
                         placeholder="Pretraži sireve..."
@@ -145,7 +164,7 @@ export default function UparivanjeVinoPromjena() {
 
                 <hr />
                 <div className="d-flex gap-2">
-                    <Button                        
+                    <Button
                         onClick={() => {
                             if (from === "vina") {
                                 navigate(RouteNames.VINA_PREGLED);

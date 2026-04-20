@@ -33,6 +33,7 @@ export default function VinaPregledTablica({ vina, navigate, obrisi }) {
     }
 
     return (
+        
         <Table striped bordered hover responsive className="align-middle">
             <thead>
                 <tr>

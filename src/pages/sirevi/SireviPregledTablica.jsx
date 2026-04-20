@@ -55,7 +55,11 @@ export default function SireviPregledTablica({ sirevi, navigate, obrisi }) {
         return INTEZITETI.find(i => i.id === id)?.naziv || '';
     }
 
+
+
+
     return (
+
         <Table bordered striped hover responsive className="align-middle">
             <thead>
                 <tr>

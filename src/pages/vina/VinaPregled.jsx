@@ -6,6 +6,7 @@ import { RouteNames } from "../../constants"
 import useBreakpoint from "../../hooks/useBreakpoint"
 import VinaPregledGrid from "./VinaPregledGrid"
 import VinaPregledTablica from "./VinaPregledTablica"
+import { generirajVinaPDF } from "../../components/VinaPDFGenerator"
 
 
 export default function VinaPregled() {
@@ -103,45 +104,59 @@ export default function VinaPregled() {
 
             <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
 
-            <h4 className="mb-0">Popis vina</h4>
+                <h4 className="mb-0">Popis vina</h4>
 
-                <input
-                    type="text"
-                    placeholder="Traži vino..."
-                    className="form-control w-25"
-                    style={{
-                        backgroundColor: "lightgrey",
-                        border: "2px solid grey"
-                    }}
-                    value={pojam}
-                    onChange={(e) => setPojam(e.target.value)}
-                />
+                <div className="d-flex gap-2 w-50 justify-content-end">
+                    <Button
+                        variant="light"
+                        style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey'}}                        
+                        onClick={() => generirajVinaPDF(filtriranaVina, {
+                            getTipNaziv, 
+                            getSlatkocaNaziv, 
+                            format1dec
+                        })}
+                    >
+                        Generiraj PDF
+                    </Button>
+
+                    <input
+                        type="text"
+                        placeholder="Traži vino..."
+                        className="form-control w-25"
+                        style={{
+                            backgroundColor: "lightgrey",
+                            border: "2px solid grey"
+                        }}
+                        value={pojam}
+                        onChange={(e) => setPojam(e.target.value)}
+                    />
+                </div>
             </div>
 
-           
-           
-            {/* tableti prema manje */}
-            {['xs', 'sm', 'md'].includes(sirina) ? (
-                <VinaPregledGrid 
-                    vina={filtriranaVina} 
-                    navigate={navigate} 
-                    obrisi={obrisi} 
-                />
-            ) : (
-                <VinaPregledTablica
-                    vina={filtriranaVina} 
-                    navigate={navigate} 
-                    obrisi={obrisi} 
-                />
-            )}
-
-             <p className="mt-2">
-                {vina.length === 0
-                    ? "Nema učitanih vina"
-                    : <>Učitano ukupno <strong>{vina.length}</strong> vina</>}
-            </p>
 
 
-        </>
-    )
+                {/* tableti prema manje */}
+                {['xs', 'sm', 'md'].includes(sirina) ? (
+                    <VinaPregledGrid
+                        vina={filtriranaVina}
+                        navigate={navigate}
+                        obrisi={obrisi}
+                    />
+                ) : (
+                    <VinaPregledTablica
+                        vina={filtriranaVina}
+                        navigate={navigate}
+                        obrisi={obrisi}
+                    />
+                )}
+
+                <p className="mt-2">
+                    {vina.length === 0
+                        ? "Nema učitanih vina"
+                        : <>Učitano ukupno <strong>{vina.length}</strong> vina</>}
+                </p>
+
+
+            </>
+            )
 }
