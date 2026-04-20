@@ -60,3 +60,42 @@ export const generirajUparivanjePDF = async (glavniNaziv, odabraneStavke, tip) =
 
     window.open(URL.createObjectURL(doc.output('blob')), '_blank');
 };
+
+
+/*
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
+
+export const generirajUparivanjePDF = (glavniNaziv, stavkeZaIspis, tip) => {
+    try {
+        const doc = new jsPDF();
+
+        // Jednostavni naslovi
+        doc.setFontSize(18);
+        doc.text('WINE & CHEESE PAIRING', 20, 20);
+
+        doc.setFontSize(12);
+        doc.text(`${tip === 'sir' ? 'Sir' : 'Vino'}: ${glavniNaziv || ''}`, 20, 30);
+
+        // Mapiramo podatke iz grida u tablicu (uzmi samo naziv)
+        const tableData = stavkeZaIspis.map(s => [s.naziv || 'Bez naziva']);
+
+        autoTable(doc, {
+            startY: 35,
+            head: [[tip === 'sir' ? 'Popis vina:' : 'Popis sireva:']],
+            body: tableData,
+            theme: 'grid', // Najjednostavnija tema koja sigurno radi
+            styles: { font: 'helvetica' } 
+        });
+
+        // Otvaranje PDF-a u novom prozoru
+        const pdfBlob = doc.output('blob');
+        const url = URL.createObjectURL(pdfBlob);
+        window.open(url, '_blank');
+
+    } catch (error) {
+        console.error("Greška kod PDF-a:", error);
+        alert("Došlo je do greške, provjeri jesu li podaci ispravni.");
+    }
+};
+*/
