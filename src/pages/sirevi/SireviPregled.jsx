@@ -78,7 +78,7 @@ export default function SireviPregled() {
     return (
         <>
             <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
-                <h4 className="mb-0">Popis sireva</h4>
+                <h4 className="section-title">Popis sireva</h4>
 
                 <div className="d-flex gap-2 w-50 justify-content-end">
                     <Button

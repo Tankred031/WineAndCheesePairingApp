@@ -171,3 +171,8 @@ body {
     border-radius: 50%;
     display: inline-block;
 }
+
+.section-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+}

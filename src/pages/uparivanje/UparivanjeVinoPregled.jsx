@@ -194,7 +194,7 @@ export default function UparivanjeVinoPregled() {
 
             <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
 
-                <h4>Popis uparenih vina</h4>
+                <h4 className="section-title">Popis uparenih vina</h4>
 
                 <input
                     type="text"
@@ -209,8 +209,7 @@ export default function UparivanjeVinoPregled() {
                 />
             </div>
 
-            <Table bordered striped hover className="align-middle">
-
+            <Table className="align-middle" bordered striped hover>
                 <thead>
                     <tr>
                         <th onClick={() => handleSort("naziv")} style={{ cursor: "pointer" }}>
@@ -226,8 +225,7 @@ export default function UparivanjeVinoPregled() {
                         <th onClick={() => handleSort("ocjena")} style={{ cursor: "pointer" }}>
                             Ocjena {getSortIcon("ocjena")}
                         </th>
-
-                        <th>Akcija</th>
+                        <th className="text-center">Akcija</th>
                     </tr>
                 </thead>
 
@@ -273,29 +271,31 @@ export default function UparivanjeVinoPregled() {
                                 })()}
                             </td>
 
-                            <td>
-                                <Button
-                                    variant="warning"
-                                    size="sm"
-                                    onClick={() => navigate(`/uparivanje/vino/${vino.id}`)}
-                                >
-                                    Promjena
-                                </Button>
+                            <td style={{ whiteSpace: "nowrap" }}>
+                                <div className="d-flex justify-content-center gap-2">
+                                    <Button
+                                        variant="warning"
+                                        size="sm"
+                                        onClick={() => navigate(`/uparivanje/vino/${vino.id}`)}
+                                    >
+                                        Promjena
+                                    </Button>
 
-                                <Button
-                                    variant="danger"
-                                    size="sm"
-                                    onClick={() => obrisi(vino.id)}
-                                >
-                                    Obriši
-                                </Button>
+                                    <Button
+                                        variant="danger"
+                                        size="sm"
+                                        onClick={() => obrisi(vino.id)}
+                                    >
+                                        Obriši
+                                    </Button>
+
+                                </div>
                             </td>
                         </tr>
                     ))}
                 </tbody>
 
             </Table>
-
             <p className="text-muted">{poruka}</p>
         </div>
     );

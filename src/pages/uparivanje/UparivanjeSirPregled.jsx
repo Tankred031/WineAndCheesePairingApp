@@ -175,7 +175,7 @@ export default function UparivanjeSirPregled() {
 
             <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
 
-                <h4 className="mb-0">Popis uparenih sireva</h4>
+                <h4 className="section-title">Popis uparenih sireva</h4>
 
                 <input
                     type="text"
@@ -204,7 +204,7 @@ export default function UparivanjeSirPregled() {
                         <th onClick={() => handleSort('tip_id')} style={{ cursor: 'pointer' }}>
                             Tip {getSortIcon('tip_id')}
                         </th>
-                        <th>Akcija</th>
+                        <th className="text-center">Akcija</th>
                     </tr>
                 </thead>
 

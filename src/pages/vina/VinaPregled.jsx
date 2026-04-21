@@ -104,7 +104,7 @@ export default function VinaPregled() {
 
             <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
 
-                <h4 className="mb-0">Popis vina</h4>
+                <h4 className="section-title">Popis vina</h4>
 
                 <div className="d-flex gap-2 w-50 justify-content-end">
                     <Button
