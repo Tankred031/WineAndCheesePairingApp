@@ -200,6 +200,10 @@ export default function UparivanjeVinoPregled() {
                     type="text"
                     placeholder="Traži vino ili sir..."
                     className="form-control w-25"
+                    style={{
+                        backgroundColor: "lightgrey",
+                        border: "2px solid grey"
+                    }}
                     value={pojam}
                     onChange={(e) => setPojam(e.target.value)}
                 />
