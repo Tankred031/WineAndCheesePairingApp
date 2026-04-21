@@ -11,41 +11,8 @@ isto kao i vina za uparivanje ide: novi/pregled/promjena
 
 dva nova programa slatkoća i tip i id i naziv
 
-konstane, linkovi, rute i importi - korekcija za vina, pa dodati sireve
+konstante, linkovi, rute i importi - korekcija za vina, pa dodati sireve
 
-🟢 OPCIJA 2 (PREPORUKA) — JEDNA ZAJEDNIČKA STRUKTURA
-
-Umjesto 2 objekta → napravi jedan source of truth
-
-🔥 MODEL: RELACIJSKA TABLICA (KAO BAZA)
-export const pairings = [
-  { vinoId: 1, sirId: 1 },
-  { vinoId: 1, sirId: 3 },
-  { vinoId: 1, sirId: 5 },
-
-  { vinoId: 2, sirId: 20 },
-  { vinoId: 2, sirId: 6 },
-];
-🔁 IZ TOGA GENERIRAŠ OBA PRIKAZA
-🍷 vina → sirevi
-function getSireviZaVino(vinoId) {
-  return pairings
-    .filter(p => p.vinoId === vinoId)
-    .map(p => p.sirId);
-}
-🧀 sirevi → vina
-function getVinaZaSir(sirId) {
-  return pairings
-    .filter(p => p.sirId === sirId)
-    .map(p => p.vinoId);
-}
-💡 ZAŠTO JE OVO PUNO BOLJE
-
-✔ 1 izvor istine
-✔ nema dupliranja
-✔ lako dodaješ/mičeš veze
-✔ skalira u backend / bazu
-✔ idealno za CRUD ekran koji već imaš
 
 zanimljivosti - dodati statistiku koja zemlja pije koliko čega, koliko imamo u bazi itd
 
