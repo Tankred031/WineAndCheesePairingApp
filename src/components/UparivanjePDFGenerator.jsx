@@ -2,15 +2,15 @@ import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 export const generirajUparivanjePDF = async (glavniNaziv, odabraneStavke, tip) => {
-    
-    // 1. Funkcija za učitavanje fonta (Base64)
+
+    // Učitavanje fonta (Base64)
     const fetchFont = async (url) => {
         try {
             const response = await fetch(url);
             const blob = await response.blob();
             return new Promise((resolve) => {
                 const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result.split(',')[1]); // Ključno: [1]
+                reader.onloadend = () => resolve(reader.result.split(',')[1]);
                 reader.readAsDataURL(blob);
             });
         } catch (e) {
@@ -20,47 +20,78 @@ export const generirajUparivanjePDF = async (glavniNaziv, odabraneStavke, tip) =
 
     const doc = new jsPDF();
 
-    // 2. Učitaj font (Pobrini se da je Outfit-Regular.ttf u public/fonts/)
-    const fontBase64 = await fetchFont('/fonts/Outfit-Regular.ttf');
+    // Učitaj oba fonta
+    const [regularBase64, boldBase64] = await Promise.all([
+        fetchFont('/fonts/Outfit-Regular.ttf'),
+        fetchFont('/fonts/Outfit-Bold.ttf')
+    ]);
 
-    if (fontBase64) {
-        doc.addFileToVFS('Outfit-Regular.ttf', fontBase64);
+    let fontName = 'helvetica';
+
+    if (regularBase64 && boldBase64) {
+        doc.addFileToVFS('Outfit-Regular.ttf', regularBase64);
         doc.addFont('Outfit-Regular.ttf', 'Outfit', 'normal');
-        doc.setFont('Outfit'); // Postavi ga odmah
-    } else {
-        doc.setFont('helvetica');
+
+        doc.addFileToVFS('Outfit-Bold.ttf', boldBase64);
+        doc.addFont('Outfit-Bold.ttf', 'Outfit', 'bold');
+
+        fontName = 'Outfit';
     }
 
-    // 3. Naslovi
-    doc.setFont('Outfit', 'normal');
-    doc.setFontSize(20);
-    doc.setTextColor(123, 3, 35); 
-    doc.text('WINE & CHEESE PAIRING', 20, 20);
+    // NASLOVI
+    doc.setFont(fontName, 'bold');
+    doc.setFontSize(22);
+    doc.setTextColor(128, 0, 0);
+    doc.text('WINE & CHEESE', 20, 20);
 
-    doc.setFont('Outfit', 'normal');
+    doc.setFont(fontName, 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    doc.text('UPARIVANJE VINA I SIREVA', 20, 27);
+
+    doc.setFont(fontName, 'normal');
     doc.setFontSize(14);
     doc.setTextColor(0);
-    doc.text(`Popis za: ${glavniNaziv || ''}`, 20, 32);
+    doc.text(`Popis za: ${glavniNaziv || ''}`, 20, 38, {
+        encoding: 'Identity-H'
+    });
 
-    // 4. Tablica s podacima
+    // LINIJA
+    doc.setDrawColor(128, 0, 0);
+    doc.setLineWidth(0.5);
+    doc.line(20, 42, 190, 42);
+
+    // TABLICA
     const tableData = odabraneStavke.map(s => [s.naziv || '']);
 
     autoTable(doc, {
-        startY: 40,
-        head: [[tip === 'sir' ? 'Preporučena vina:' : 'Preporučeni sirevi:']],
+        startY: 48,
+        head: [[tip === 'sir' ? 'Preporučena vina' : 'Preporučeni sirevi']],
         body: tableData,
-        styles: { 
-            font: fontBase64 ? 'Outfit' : 'helvetica', // Koristi Outfit samo ako je učitan
+
+        styles: {
+            font: fontName,
             fontSize: 11,
-            charSpace: 0 // DODANO: Osigurava da nema razmaka između slova
+            cellPadding: 4,
+            textColor: 50
         },
-        headStyles: { 
-            fillColor: [123, 3, 35],
-            font: fontBase64 ? 'Outfit' : 'helvetica'
-        }
+
+        headStyles: {
+            fillColor: [128, 0, 0],
+            textColor: 255,
+            fontStyle: 'bold'
+        },
+
+        alternateRowStyles: {
+            fillColor: [240, 240, 240]
+        },
+
+        tableLineWidth: 0,
+        tableLineColor: [255, 255, 255]
     });
 
-    window.open(URL.createObjectURL(doc.output('blob')), '_blank');
+    // OTVORI PDF
+    const pdfBlob = doc.output('blob');
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    window.open(pdfUrl, '_blank');
 };
-
-
