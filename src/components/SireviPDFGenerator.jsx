@@ -23,8 +23,8 @@ export const generirajSireviPDF = async (sirevi, helperi) => {
 
     // Fontovi
      const [regBase64, boldBase64] = await Promise.all([
-        fetchFontAsBase64('/src/assets/fonts/Outfit-Regular.ttf'),
-        fetchFontAsBase64('/src/assets/fonts/Outfit-Bold.tff')
+        fetchFontAsBase64('/fonts/Outfit-Regular.ttf'),
+        fetchFontAsBase64('/fonts/Outfit-Bold.ttf')
     ]);
 
     if (regBase64 && boldBase64) {
@@ -72,13 +72,13 @@ export const generirajSireviPDF = async (sirevi, helperi) => {
         head: [['Naziv', 'Tip', 'Vrsta', 'Zrenje', 'Regija', 'Intenzitet', 'Masnoća']],
         body: tableData,
         styles: {
-            font: 'Outfit-Regular',
+            font: 'Outfit',
             fontStyle: 'normal',
             fontSize: 9,
         },
         headStyles: {
             fillColor: [46, 125, 50],
-            font: 'Outfit-bold',
+            font: 'Outfit',
             fontStyle: 'bold'
         },
         margin: { left: 15, right: 15 }

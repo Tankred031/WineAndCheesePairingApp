@@ -232,15 +232,10 @@ export default function UparivanjeVinoPregled() {
                         <tr key={vino.id}>
                             <td>{vino.naziv}</td>
 
-                            <td>
+                            <td className="color-cell">
                                 <span
-                                    style={{
-                                        width: 18,
-                                        height: 18,
-                                        borderRadius: "50%",
-                                        display: "inline-block",
-                                        backgroundColor: getBojaVina(vino.id)
-                                    }}
+                                    className="color-dot"
+                                    style={{ backgroundColor: getBojaVina(vino.id) }}
                                 />
                             </td>
 
@@ -265,7 +260,7 @@ export default function UparivanjeVinoPregled() {
                                                         : ocjena === "B"
                                                             ? "darkorange"
                                                             : "darkblue",
-                                                backgroundColor: "#0d6efd" // bootstrap blue (kao bg-primary)
+                                                backgroundColor: "#0d6efd"
                                             }}
                                         >
                                             {ocjena}

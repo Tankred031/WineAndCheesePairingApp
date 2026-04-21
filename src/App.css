@@ -148,3 +148,28 @@ body {
     font-weight: 500;
     box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
+
+.sortable-header {
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.sort-icon {
+    display: inline-block;
+    width: 14px;        /* fiksna širina = nema skakanja */
+    text-align: center;
+    margin-left: 4px;
+}
+
+.color-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.color-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-block;
+}

@@ -23,8 +23,8 @@ export const generirajVinaPDF = async (vina, helperi) => {
 
     // Fontovi
     const [regBase64, boldBase64] = await Promise.all([
-        fetchFontAsBase64('/src/assets/fonts/Outfit-Regular.ttf'),
-        fetchFontAsBase64('/src/assets/fonts/Outfit-Bold.tff')
+        fetchFontAsBase64('/fonts/Outfit-Regular.ttf'),
+        fetchFontAsBase64('/fonts/Outfit-Bold.ttf')
     ]);
 
     if (regBase64 && boldBase64) {
@@ -72,14 +72,14 @@ export const generirajVinaPDF = async (vina, helperi) => {
         head: [['Naziv', 'Tip', 'Regija', 'Temp.', 'Slatkoća', 'Arome', 'Tijelo', 'Alkohol']],
         body: tableData,
         styles: {
-            font: 'Outfit-Regular',
+            font: 'Outfit',
             fontSize: 9,
             overflow: 'linebreak',
             fontStyle: 'normal'
         },
         headStyles: {
             fillColor: [128, 0, 0],
-            font: 'Outfit-Bold',
+            font: 'Outfit',
             fontStyle: 'bold'
         },
         columnStyles: {

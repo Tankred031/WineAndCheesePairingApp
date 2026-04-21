@@ -94,38 +94,39 @@ export default function VinaPregledTablica({ vina, navigate, obrisi }) {
 
     return (
         <Table striped bordered hover responsive className="align-middle">
+
             <thead>
                 <tr>
-                    <th onClick={() => handleSort("naziv")} style={{ cursor: "pointer" }}>
-                        Naziv {getSortIcon("naziv")}
+                    <th onClick={() => handleSort("naziv")} className="sortable-header">
+                        Naziv <span className="sort-icon">{getSortIcon("naziv")}</span>
                     </th>
 
-                    <th onClick={() => handleSort("tip_id")} style={{ cursor: "pointer" }}>
-                        Tip {getSortIcon("tip_id")}
+                    <th onClick={() => handleSort("tip_id")} className="sortable-header">
+                        Tip <span className="sort-icon">{getSortIcon("tip_id")}</span>
                     </th>
 
-                    <th onClick={() => handleSort("regija")} style={{ cursor: "pointer" }}>
-                        Regija {getSortIcon("regija")}
+                    <th onClick={() => handleSort("regija")} className="sortable-header">
+                        Regija <span className="sort-icon">{getSortIcon("regija")}</span>
                     </th>
 
-                    <th onClick={() => handleSort("temperatura")} style={{ cursor: "pointer" }}>
-                        Temperatura {getSortIcon("temperatura")}
+                    <th onClick={() => handleSort("temperatura")} className="sortable-header">
+                        Temperatura <span className="sort-icon">{getSortIcon("temperatura")}</span>
                     </th>
 
-                    <th onClick={() => handleSort("slatkoca_id")} style={{ cursor: "pointer" }}>
-                        Slatkoća {getSortIcon("slatkoca_id")}
+                    <th onClick={() => handleSort("slatkoca_id")} className="sortable-header">
+                        Slatkoća <span className="sort-icon">{getSortIcon("slatkoca_id")}</span>
                     </th>
 
-                    <th onClick={() => handleSort("arome")} style={{ cursor: "pointer" }}>
-                        Arome {getSortIcon("arome")}
+                    <th onClick={() => handleSort("arome")} className="sortable-header">
+                        Arome <span className="sort-icon">{getSortIcon("arome")}</span>
                     </th>
 
-                    <th onClick={() => handleSort("tijelo")} style={{ cursor: "pointer" }}>
-                        Tijelo {getSortIcon("tijelo")}
+                    <th onClick={() => handleSort("tijelo")} className="sortable-header">
+                        Tijelo <span className="sort-icon">{getSortIcon("tijelo")}</span>
                     </th>
 
-                    <th onClick={() => handleSort("alkohol")} style={{ cursor: "pointer" }}>
-                        Alkohol {getSortIcon("alkohol")}
+                    <th onClick={() => handleSort("alkohol")} className="sortable-header">
+                        Alkohol <span className="sort-icon">{getSortIcon("alkohol")}</span>
                     </th>
 
                     <th className="text-center">Akcija</th>

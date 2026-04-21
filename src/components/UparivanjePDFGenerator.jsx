@@ -32,10 +32,12 @@ export const generirajUparivanjePDF = async (glavniNaziv, odabraneStavke, tip) =
     }
 
     // 3. Naslovi
+    doc.setFont('Outfit', 'normal');
     doc.setFontSize(20);
     doc.setTextColor(123, 3, 35); 
     doc.text('WINE & CHEESE PAIRING', 20, 20);
 
+    doc.setFont('Outfit', 'normal');
     doc.setFontSize(14);
     doc.setTextColor(0);
     doc.text(`Popis za: ${glavniNaziv || ''}`, 20, 32);
@@ -62,40 +64,3 @@ export const generirajUparivanjePDF = async (glavniNaziv, odabraneStavke, tip) =
 };
 
 
-/*
-import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable';
-
-export const generirajUparivanjePDF = (glavniNaziv, stavkeZaIspis, tip) => {
-    try {
-        const doc = new jsPDF();
-
-        // Jednostavni naslovi
-        doc.setFontSize(18);
-        doc.text('WINE & CHEESE PAIRING', 20, 20);
-
-        doc.setFontSize(12);
-        doc.text(`${tip === 'sir' ? 'Sir' : 'Vino'}: ${glavniNaziv || ''}`, 20, 30);
-
-        // Mapiramo podatke iz grida u tablicu (uzmi samo naziv)
-        const tableData = stavkeZaIspis.map(s => [s.naziv || 'Bez naziva']);
-
-        autoTable(doc, {
-            startY: 35,
-            head: [[tip === 'sir' ? 'Popis vina:' : 'Popis sireva:']],
-            body: tableData,
-            theme: 'grid', // Najjednostavnija tema koja sigurno radi
-            styles: { font: 'helvetica' } 
-        });
-
-        // Otvaranje PDF-a u novom prozoru
-        const pdfBlob = doc.output('blob');
-        const url = URL.createObjectURL(pdfBlob);
-        window.open(url, '_blank');
-
-    } catch (error) {
-        console.error("Greška kod PDF-a:", error);
-        alert("Došlo je do greške, provjeri jesu li podaci ispravni.");
-    }
-};
-*/
