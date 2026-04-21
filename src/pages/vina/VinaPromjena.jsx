@@ -4,14 +4,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import VinaService from "../../services/vina/VinaService";
 import { useEffect, useState } from "react";
 
-
 export default function VinaPromjena() {
 
-    const navigate = useNavigate()
-    const params = useParams()
-    const [vino, setVino] = useState({})
-    const [alkoholMin, setAlkoholMin] = useState(8)
-    const [alkoholMax, setAlkoholMax] = useState(15)
+    const navigate = useNavigate();
+    const params = useParams();
+
+    const [vino, setVino] = useState({});
+    const [alkoholMin, setAlkoholMin] = useState(8);
+    const [alkoholMax, setAlkoholMax] = useState(15);
 
     const TIPOVI_VINA = [
         { id: 1, naziv: "crveno" },
@@ -19,55 +19,52 @@ export default function VinaPromjena() {
         { id: 3, naziv: "pjenušavo" },
         { id: 4, naziv: "desertno" },
         { id: 5, naziv: "rose" }
-    ]
+    ];
 
     const SLATKOCE = [
         { id: 1, naziv: "suho" },
         { id: 2, naziv: "polusuho" },
         { id: 3, naziv: "poluslatko" },
         { id: 4, naziv: "slatko" }
-    ]
-
-    function format1dec(broj) {
-        return Number(broj).toLocaleString("hr-HR", {
-            minimumFractionDigits: 1,
-            maximumFractionDigits: 1
-        })
-    }
-
-    async function ucitajVino() {
-        await VinaService.getById(params.id).then((odgovor) => {
-
-            if (!odgovor.success) {
-                alert('Nije implementiran servis')
-                return
-            }
-
-            const s = odgovor.data
-            setVino(s)
-
-            setAlkoholMin(Number(s.alkohol_min))
-            setAlkoholMax(Number(s.alkohol_max))
-        })
-
-    }
-
+    ];
 
     useEffect(() => {
-        ucitajVino()
-    }, [])
+        ucitajVino();
+    }, []);
 
+    async function ucitajVino() {
+        const odgovor = await VinaService.getById(params.id);
 
-    async function promjeni(vino) {
-        await VinaService.promjeni(params.id, vino).then(() => {
-            navigate(RouteNames.VINA_PREGLED)
-        })
+        if (!odgovor.success) {
+            alert("Greška kod učitavanja");
+            return;
+        }
+
+        const s = odgovor.data;
+        setVino(s);
+        setAlkoholMin(Number(s.alkohol_min));
+        setAlkoholMax(Number(s.alkohol_max));
     }
 
+    async function promjeni(vino) {
+        await VinaService.promjeni(params.id, vino);
+        navigate(RouteNames.VINA_PREGLED);
+    }
 
     function odradiSubmit(e) {
-        e.preventDefault()
-        const podaci = new FormData(e.target)
+        e.preventDefault();
+        const podaci = new FormData(e.target);
+
+        if (!podaci.get('naziv') || podaci.get('naziv').trim().length < 3) {
+            alert("Naziv mora imati barem 3 znaka");
+            return;
+        }
+
+        if (Number(podaci.get('temperatura_min')) > Number(podaci.get('temperatura_max'))) {
+            alert("Temperatura min ne može biti veća od max!");
+            return;
+        }
+
         promjeni({
             naziv: podaci.get('naziv'),
             tip_id: Number(podaci.get('tip_id')),
@@ -79,172 +76,151 @@ export default function VinaPromjena() {
             tijelo: podaci.get('tijelo'),
             alkohol_min: alkoholMin,
             alkohol_max: alkoholMax
-        })
+        });
     }
 
     function getBoja(alkohol) {
-        if (alkohol <= 11) return '#198754'
-        if (alkohol < 13) return '#ffc107'
-        if (alkohol <= 15) return '#dc3545'
-        return '#6f42c1'
+        if (alkohol <= 11) return '#198754';
+        if (alkohol < 13) return '#ffc107';
+        if (alkohol <= 15) return '#dc3545';
+        return '#6f42c1';
     }
 
-    const postotakMin = ((alkoholMin - 8) / (25 - 8)) * 100
-    const postotakMax = ((alkoholMax - 8) / (25 - 8)) * 100
+    const postotakMin = ((alkoholMin - 8) / (25 - 8)) * 100;
+    const postotakMax = ((alkoholMax - 8) / (25 - 8)) * 100;
 
-    const bojaMin = getBoja(alkoholMin)
-    const bojaMax = getBoja(alkoholMax)
+    const bojaMin = getBoja(alkoholMin);
+    const bojaMax = getBoja(alkoholMax);
 
     return (
         <>
-            <h3 className="naslov">
-                Izmjena postojećeg vina
-            </h3>
+            <h3 className="naslov">Izmjena vina</h3>
+
             <Form onSubmit={odradiSubmit}>
-                <Form.Group controlId="naziv" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Naziv</Form.Label>
-                    <Form.Control type="text" name="naziv" required
-                        defaultValue={vino.naziv} />
-                </Form.Group>
 
                 <Row>
                     <Col md={6}>
-                        <Form.Group controlId="tip" className="form-group-custom">
-                            <Form.Label className="form-label-custom">Tip</Form.Label>
+                        <Form.Group>
+                            <Form.Label>Naziv</Form.Label>
+                            <Form.Control
+                                name="naziv"
+                                defaultValue={vino.naziv}
+                                required
+                            />
+                        </Form.Group>
+                    </Col>
+
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Tip</Form.Label>
                             <Form.Select
                                 name="tip_id"
-                                required
                                 value={vino.tip_id || ""}
                                 onChange={(e) => setVino({ ...vino, tip_id: Number(e.target.value) })}
                             >
-                                {TIPOVI_VINA.map((t) => (
-                                    <option key={t.id} value={t.id}>
-                                        {t.naziv}
-                                    </option>
-
+                                {TIPOVI_VINA.map(t => (
+                                    <option key={t.id} value={t.id}>{t.naziv}</option>
                                 ))}
                             </Form.Select>
                         </Form.Group>
                     </Col>
-                    <Col md={6}>
-                        <Form.Group controlId="slatkoca" className="form-group-custom">
-                            <Form.Label className="form-label-custom">Slatkoća</Form.Label>
+
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Slatkoća</Form.Label>
                             <Form.Select
                                 name="slatkoca_id"
-                                required
                                 value={vino.slatkoca_id || ""}
                                 onChange={(e) => setVino({ ...vino, slatkoca_id: Number(e.target.value) })}
                             >
-                                {SLATKOCE.map((s) => (
-                                    <option key={s.id} value={s.id}>
-                                        {s.naziv}
-                                    </option>
+                                {SLATKOCE.map(s => (
+                                    <option key={s.id} value={s.id}>{s.naziv}</option>
                                 ))}
                             </Form.Select>
                         </Form.Group>
                     </Col>
                 </Row>
 
-                <Form.Group controlId="regija" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Regija</Form.Label>
-                    <Form.Control type="text" name="regija" required
-                        defaultValue={vino.regija} />
-                </Form.Group>
+                <Row>
+                    <Col md={6}>
+                        <Form.Group>
+                            <Form.Label>Regija</Form.Label>
+                            <Form.Control name="regija" defaultValue={vino.regija} required />
+                        </Form.Group>
+                    </Col>
 
-                <Form.Group controlId="temperatura" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Temperatura</Form.Label>
-                    <Row>
-                        <Col>
-                            <Form.Label className="form-label-custom">Min</Form.Label>
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Temp Min</Form.Label>
                             <Form.Control
                                 type="number"
-                                step="0.1"
                                 name="temperatura_min"
                                 defaultValue={vino.temperatura_min}
+                                required
                             />
-                        </Col>
-                        <Col>
-                            <Form.Label className="form-label-custom">Max</Form.Label>
+                        </Form.Group>
+                    </Col>
+
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Temp Max</Form.Label>
                             <Form.Control
                                 type="number"
-                                step="0.1"
                                 name="temperatura_max"
                                 defaultValue={vino.temperatura_max}
+                                required
                             />
-                        </Col>
-                    </Row>
-                </Form.Group>
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-                <Form.Group controlId="arome" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Arome</Form.Label>
-                    <Form.Control type="text" name="arome" required
-                        defaultValue={vino.arome} />
-                </Form.Group>
+                <Row>
+                    <Col md={8}>
+                        <Form.Group>
+                            <Form.Label>Arome</Form.Label>
+                            <Form.Control name="arome" defaultValue={vino.arome} required />
+                        </Form.Group>
+                    </Col>
 
-                <Form.Group controlId="tijelo" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Tijelo</Form.Label>
-                    <Form.Control type="text" name="tijelo" required
-                        defaultValue={vino.tijelo} />
-                </Form.Group>
+                    <Col md={4}>
+                        <Form.Group>
+                            <Form.Label>Tijelo</Form.Label>
+                            <Form.Control name="tijelo" defaultValue={vino.tijelo} required />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-                <Form.Group controlId="alkohol" className="form-group-custom">
-                    <Form.Label className="form-label-custom">
+                <Form.Group>
+                    <Form.Label>
                         Alkohol:
-                        <strong style={{ color: bojaMin }}> {format1dec(alkoholMin)} </strong>
-                        -
-                        <strong style={{ color: bojaMax }}> {format1dec(alkoholMax)} </strong> %
+                        <strong style={{ color: bojaMin }}> {alkoholMin}</strong> -
+                        <strong style={{ color: bojaMax }}> {alkoholMax}</strong> %
                     </Form.Label>
 
-                    {/* MIN */}
                     <Form.Range
                         min="8"
                         max="25"
                         step="0.1"
                         value={alkoholMin}
                         onChange={(e) => {
-                            const value = parseFloat(e.target.value)
-                            if (value <= alkoholMax) setAlkoholMin(value)
-                        }}
-                        style={{
-                            background: `linear-gradient(to right,
-                        ${bojaMin} 0%,
-                        ${bojaMin} ${postotakMin}%,
-                        #dee2e6 ${postotakMin}%,
-                        #dee2e6 100%)`
+                            const v = parseFloat(e.target.value);
+                            if (v <= alkoholMax) setAlkoholMin(v);
                         }}
                     />
 
-                    {/* MAX */}
                     <Form.Range
                         min="8"
                         max="25"
                         step="0.1"
                         value={alkoholMax}
                         onChange={(e) => {
-                            const value = parseFloat(e.target.value)
-                            if (value >= alkoholMin) setAlkoholMax(value)
-                        }}
-                        style={{
-                            background: `linear-gradient(to right,
-                        ${bojaMax} 0%,
-                        ${bojaMax} ${postotakMax}%,
-                        #dee2e6 ${postotakMax}%,
-                        #dee2e6 100%)`
+                            const v = parseFloat(e.target.value);
+                            if (v >= alkoholMin) setAlkoholMax(v);
                         }}
                     />
-
-                    <div className="d-flex justify-content-between px-1">
-                        <small>8</small>
-                        <small>11</small>
-                        <small>14</small>
-                        <small>17</small>
-                        <small>20</small>
-                        <small>23</small>
-                        <small>25</small>
-                    </div>
                 </Form.Group>
 
-                <hr style={{ marginTop: '50px', border: '0' }} />
+                <div className="mt-3" />
 
                 <Row>
                     <Col>
@@ -253,14 +229,13 @@ export default function VinaPromjena() {
                         </Link>
                     </Col>
                     <Col>
-                        <Button type="submit" variant="success w-100">
-                            Promjeni vino
+                        <Button type="submit" className="w-100" variant="success">
+                            Spremi promjene
                         </Button>
                     </Col>
                 </Row>
 
-            </Form >
+            </Form>
         </>
-    )
+    );
 }
-

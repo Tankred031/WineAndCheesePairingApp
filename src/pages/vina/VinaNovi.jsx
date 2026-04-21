@@ -86,66 +86,77 @@ export default function VinaNovi() {
                 Unos novog vina
             </h3>
             <Form onSubmit={odradiSubmit}>
-                <Form.Group controlId="naziv" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Naziv</Form.Label>
-                    <Form.Control type="text" name="naziv" required />
-                </Form.Group>
 
                 <Row>
                     <Col md={6}>
-                        <Form.Group controlId="tip" className="form-group-custom">
-                            <Form.Label className="form-label-custom">Tip</Form.Label>
-                            <Form.Select name="tip_id" required>
-                                {TIPOVI_VINA.map((t) => (
-                                    <option key={t.id} value={t.id}>
-                                        {t.naziv}
-                                    </option>
+                        <Form.Group className="form-group-custom">
+                            <Form.Label>Naziv</Form.Label>
+                            <Form.Control type="text" name="naziv" required />
+                        </Form.Group>
+                    </Col>
+
+                    <Col md={3}>
+                        <Form.Group className="form-group-custom">
+                            <Form.Label>Tip</Form.Label>
+                            <Form.Select name="tip_id">
+                                {TIPOVI_VINA.map(t => (
+                                    <option key={t.id} value={t.id}>{t.naziv}</option>
                                 ))}
                             </Form.Select>
                         </Form.Group>
                     </Col>
-                    <Col md={6}>
-                        <Form.Group controlId="slatkoca" className="form-group-custom">
-                            <Form.Label className="form-label-custom">Slatkoća</Form.Label>
-                            <Form.Select name="slatkoca_id" required>
-                                {SLATKOCE.map((s) => (
-                                    <option key={s.id} value={s.id}>
-                                        {s.naziv}
-                                    </option>
+
+                    <Col md={3}>
+                        <Form.Group className="form-group-custom">
+                            <Form.Label>Slatkoća</Form.Label>
+                            <Form.Select name="slatkoca_id">
+                                {SLATKOCE.map(s => (
+                                    <option key={s.id} value={s.id}>{s.naziv}</option>
                                 ))}
                             </Form.Select>
                         </Form.Group>
                     </Col>
                 </Row>
 
-                <Form.Group controlId="regija" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Regija</Form.Label>
-                    <Form.Control type="text" name="regija" required />
-                </Form.Group>
+                <Row>
+                    <Col md={6}>
+                        <Form.Group>
+                            <Form.Label>Regija</Form.Label>
+                            <Form.Control name="regija" required />
+                        </Form.Group>
+                    </Col>
 
-                <Form.Group controlId="temperatura" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Temperatura</Form.Label>
-                    <Row>
-                        <Col>
-                            <Form.Control type="number" step="0.1" name="temperatura_min" placeholder="Min °C" required />
-                        </Col>
-                        <Col>
-                            <Form.Control type="number" step="0.1" name="temperatura_max" placeholder="Max °C" required />
-                        </Col>
-                    </Row>
-                </Form.Group>
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Temp Min</Form.Label>
+                            <Form.Control type="number" name="temperatura_min" required />
+                        </Form.Group>
+                    </Col>
+
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Temp Max</Form.Label>
+                            <Form.Control type="number" name="temperatura_max" required />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
 
+                <Row>
+                    <Col md={8}>
+                        <Form.Group>
+                            <Form.Label>Arome</Form.Label>
+                            <Form.Control name="arome" required />
+                        </Form.Group>
+                    </Col>
 
-                <Form.Group controlId="arome" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Arome</Form.Label>
-                    <Form.Control type="text" name="arome" required />
-                </Form.Group>
-
-                <Form.Group controlId="tijelo" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Tijelo</Form.Label>
-                    <Form.Control type="text" name="tijelo" required />
-                </Form.Group>
+                    <Col md={4}>
+                        <Form.Group>
+                            <Form.Label>Tijelo</Form.Label>
+                            <Form.Control name="tijelo" required />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
                 <Form.Group controlId="alkohol" className="form-group-custom">
                     <Form.Label className="form-label-custom">
@@ -205,7 +216,7 @@ export default function VinaNovi() {
                     </div>
                 </Form.Group>
 
-                <hr style={{ marginTop: '50px', border: '0' }} />
+                <div className="mt-3" />
 
                 <Row>
                     <Col>

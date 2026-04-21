@@ -1,128 +1,154 @@
-import { Button, Col, Form, Row } from "react-bootstrap"
-import { RouteNames } from "../../constants"
-import SireviService from "../../services/sirevi/SireviService"
-import { Link, useNavigate } from "react-router-dom"
-
+import { Link, useNavigate } from "react-router-dom";
+import { RouteNames } from "../../constants";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import SireviService from "../../services/sirevi/SireviService";
 
 export default function SireviNovi() {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const VRSTE = [
-        { id: 1, naziv: "kravlji" },
-        { id: 2, naziv: "ovčji" },
-        { id: 3, naziv: "kozji" },
-        { id: 4, naziv: "miješano" }
-    ]
+        { id: 1, naziv: "kravlji" }, { id: 2, naziv: "ovčji" },
+        { id: 3, naziv: "kozji" }, { id: 4, naziv: "miješano" }
+    ];
 
     const MASNOCE = [
-        { id: 1, naziv: "niske" },
-        { id: 2, naziv: "srednje" },
-        { id: 3, naziv: "visoke" }
-    ]
+        { id: 1, naziv: "niske" }, { id: 2, naziv: "srednje" }, { id: 3, naziv: "visoke" }
+    ];
+
+    const TIPOVI = [
+        { id: 1, naziv: "svježi" }, { id: 2, naziv: "polutvrdi" },
+        { id: 3, naziv: "tvrdi" }, { id: 4, naziv: "plavi" }, { id: 5, naziv: "ekstra tvrdi" }
+    ];
+
+    const ZRENJA = [
+        { id: 1, naziv: "mladi" }, { id: 2, naziv: "srednje zreli" }, { id: 3, naziv: "dugo zreli" }
+    ];
+
+    const INTEZITETI = [
+        { id: 1, naziv: "blagi" }, { id: 2, naziv: "srednji" }, { id: 3, naziv: "jaki" }
+    ];
 
     async function dodaj(sir) {
-        await SireviService.dodaj(sir).then(() => {
-            navigate(RouteNames.SIREVI_PREGLED)
-        })
+        await SireviService.dodaj(sir);
+        navigate(RouteNames.SIREVI_PREGLED);
     }
 
     function odradiSubmit(e) {
-        e.preventDefault()
-        const podaci = new FormData(e.target)
+        e.preventDefault();
+        const podaci = new FormData(e.target);
 
-        // --- KONTROLA 1: Naziv (Postojanje) ---
-        if (!podaci.get('naziv') || podaci.get('naziv').trim().length === 0) {
-            alert("Naziv je obavezan i ne smije sadržavati samo razmake!")
-            return // Prekid
+        if (!podaci.get('naziv') || podaci.get('naziv').trim().length < 2) {
+            alert("Naziv mora imati barem 2 znaka");
+            return;
         }
-
-        // --- KONTROLA 2: Naziv (Minimalna duljina) ---
-        if (podaci.get('naziv').trim().length < 3) {
-            alert("Naziv sira mora imati najmanje 3 znaka!")
-            return // Prekid
-        }
-
 
         dodaj({
             naziv: podaci.get('naziv'),
-            tip: podaci.get('tip'),
             vrsta_id: Number(podaci.get('vrsta_id')),
-            zrenje: podaci.get('zrenje'),
-            regija: podaci.get('regija'),
-            intezitet: podaci.get('intezitet'),
+            tip_id: Number(podaci.get('tip_id')),
+            zrenje_id: Number(podaci.get('zrenje_id')),
             masnoca_id: Number(podaci.get('masnoca_id')),
+            intezitet_id: Number(podaci.get('intezitet_id')),
+            regija: podaci.get('regija'),
             okus: podaci.get('okus')
-        })
-
+        });
     }
 
     return (
         <>
-            <h3 className="naslov">
-                Unos novog sira
-            </h3>
+            <h3 className="naslov">Unos novog sira</h3>
+
             <Form onSubmit={odradiSubmit}>
-                <Form.Group controlId="naziv" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Naziv</Form.Label>
-                    <Form.Control type="text" name="naziv" required />
-                </Form.Group>
 
-                <Form.Group controlId="tip" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Tip</Form.Label>
-                    <Form.Control type="text" name="tip" required />
-                </Form.Group>
-
+                {/* RED 1 */}
                 <Row>
                     <Col md={6}>
-                        <Form.Group controlId="vrsta" className="form-group-custom">
-                            <Form.Label className="form-label-custom">Vrsta</Form.Label>
-                            <Form.Select name="vrsta_id" required>
-                                {VRSTE.map((v) => (
-                                    <option key={v.id} value={v.id}>
-                                        {v.naziv}
-                                    </option>
+                        <Form.Group>
+                            <Form.Label>Naziv</Form.Label>
+                            <Form.Control name="naziv" placeholder="npr. Gouda" required />
+                        </Form.Group>
+                    </Col>
+
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Vrsta</Form.Label>
+                            <Form.Select name="vrsta_id">
+                                {VRSTE.map(v => (
+                                    <option key={v.id} value={v.id}>{v.naziv}</option>
                                 ))}
                             </Form.Select>
                         </Form.Group>
                     </Col>
-                    <Col md={6}>
-                        <Form.Group controlId="masnoce" className="form-group-custom">
-                            <Form.Label className="form-label-custom">Masnoće</Form.Label>
-                            <Form.Select name="masnoca_id" required>
-                                {MASNOCE.map((m) => (
-                                    <option key={m.id} value={m.id}>
-                                        {m.naziv}
-                                    </option>
+
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Tip</Form.Label>
+                            <Form.Select name="tip_id">
+                                {TIPOVI.map(t => (
+                                    <option key={t.id} value={t.id}>{t.naziv}</option>
                                 ))}
                             </Form.Select>
                         </Form.Group>
                     </Col>
                 </Row>
 
-                <Form.Group controlId="zrenje" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Zrenje</Form.Label>
-                    <Form.Control type="text" name="zrenje" required />
-                </Form.Group>
+                {/* RED 2 */}
+                <Row>
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Zrenje</Form.Label>
+                            <Form.Select name="zrenje_id">
+                                {ZRENJA.map(z => (
+                                    <option key={z.id} value={z.id}>{z.naziv}</option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
 
-                <Form.Group controlId="regija" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Regija</Form.Label>
-                    <Form.Control type="text" name="regija" required />
-                </Form.Group>
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Masnoća</Form.Label>
+                            <Form.Select name="masnoca_id">
+                                {MASNOCE.map(m => (
+                                    <option key={m.id} value={m.id}>{m.naziv}</option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
 
-                <Form.Group controlId="intezitet" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Intezitet</Form.Label>
-                    <Form.Control type="text" name="intezitet" required />
-                </Form.Group>
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Intenzitet</Form.Label>
+                            <Form.Select name="intezitet_id">
+                                {INTEZITETI.map(i => (
+                                    <option key={i.id} value={i.id}>{i.naziv}</option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
 
+                    <Col md={3}>
+                        <Form.Group>
+                            <Form.Label>Regija</Form.Label>
+                            <Form.Control name="regija" placeholder="npr. Francuska" required />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-                <Form.Group controlId="okus" className="form-group-custom">
-                    <Form.Label className="form-label-custom">Okus</Form.Label>
-                    <Form.Control type="text" name="okus" required />
-                </Form.Group>
+                {/* RED 3 */}
+                <Row>
+                    <Col md={12}>
+                        <Form.Group>
+                            <Form.Label>Okus</Form.Label>
+                            <Form.Control name="okus" placeholder="npr. orašast, pikantan..." required />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-                <hr style={{ marginTop: '50px', border: '0' }} />
+                <div className="mt-3" />
 
+                {/* BUTTONI */}
                 <Row>
                     <Col>
                         <Link to={RouteNames.SIREVI_PREGLED} className="btn btn-danger w-100">
@@ -130,15 +156,13 @@ export default function SireviNovi() {
                         </Link>
                     </Col>
                     <Col>
-                        <Button type="submit" variant="success w-100">
-                            Dodaj novi sir
+                        <Button type="submit" className="w-100" variant="success">
+                            Dodaj sir
                         </Button>
                     </Col>
                 </Row>
 
             </Form>
-
         </>
-    )
+    );
 }
-
