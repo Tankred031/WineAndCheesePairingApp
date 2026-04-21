@@ -867,5 +867,44 @@ export const vina = [
         tijelo_id: 3,
         alkohol_min: 13.5,
         alkohol_max: 15
+    },
+    {
+        id: 68,
+        naziv: 'Irsai Oliver',
+        tip_id: 2,
+        regija: 'Mađarska',
+        temperatura_min: 8,
+        temperatura_max: 10,
+        slatkoca_id: 2,
+        arome: 'muškatno, cvjetno, grožđe',
+        tijelo: 'lagano',
+        alkohol_min: 10,
+        alkohol_max: 11.5
+    },
+    {
+        id: 69,
+        naziv: 'Pedro Ximenez',
+        tip_id: 4,
+        regija: 'Jerez',
+        temperatura_min: 10,
+        temperatura_max: 14,
+        slatkoca_id: 4,
+        arome: 'grožđice, smokva, karamela',
+        tijelo: 'puno',
+        alkohol_min: 15,
+        alkohol_max: 18
+    },
+    {
+        id: 70,
+        naziv: 'Chablis',
+        tip_id: 2,
+        regija: 'Burgundy',
+        temperatura_min: 10,
+        temperatura_max: 12,
+        slatkoca_id: 1,
+        arome: 'mineralno, limun, jabuka',
+        tijelo: 'srednje',
+        alkohol_min: 12,
+        alkohol_max: 13.5
     }
 ]

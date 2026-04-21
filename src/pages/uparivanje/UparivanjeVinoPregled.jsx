@@ -5,6 +5,7 @@ import VinaService from "../../services/vina/VinaService";
 import SireviService from "../../services/sirevi/SireviService";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopis";
+import { VinaBoje } from "../../services/vina/VinaBoje";
 
 export default function UparivanjeVinoPregled() {
 
@@ -151,12 +152,16 @@ export default function UparivanjeVinoPregled() {
         );
     }
 
+    function getBojaVina(vinoId) {
+        return VinaBoje[vinoId]?.hex || "#ccc";
+    }
+
     return (
         <div className="mt-4">
 
             <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
 
-            <h4 className="mb-0">Popis uparenih vina</h4>
+                <h4 className="mb-0">Popis uparenih vina</h4>
 
                 <input
                     type="text"
@@ -175,6 +180,7 @@ export default function UparivanjeVinoPregled() {
                 <thead>
                     <tr>
                         <th style={{ width: "25%" }}>Vino</th>
+                        <th style={{ width: "5%" }}>Boja</th>
                         <th style={{ width: "45%" }}>Preporučeni sirevi</th>
                         <th style={{ width: "10%" }}>Ocjena</th>
                         <th style={{ width: "15%", textAlign: "center" }}>Akcija</th>
@@ -185,6 +191,20 @@ export default function UparivanjeVinoPregled() {
                     {filtriranaVina.map(vino => (
                         <tr key={vino.id}>
                             <td>{vino.naziv}</td>
+                            <td className="text-center align-middle">
+                                <span
+                                    title={VinaBoje[vino.id]?.naziv}
+                                    style={{
+                                        width: "18px",
+                                        height: "18px",
+                                        display: "inline-block",
+                                        borderRadius: "50%",
+                                        backgroundColor: getBojaVina(vino.id),
+                                        border: "1px solid #999",
+                                        boxShadow: "0 0 2px rgba(0,0,0,0.3)"
+                                    }}
+                                />
+                            </td>
                             <td>{getSirevi(vino.id)}</td>
                             <td className="text-center">
                                 {(() => {
