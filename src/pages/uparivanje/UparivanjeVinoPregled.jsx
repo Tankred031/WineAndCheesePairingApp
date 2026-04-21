@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import VinaService from "../../services/vina/VinaService";
@@ -7,30 +7,26 @@ import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomS
 import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopis";
 import { VinaBoje } from "../../services/vina/VinaBoje";
 
+import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+
 export default function UparivanjeVinoPregled() {
 
     const [vina, setVina] = useState([]);
     const [sirevi, setSirevi] = useState([]);
     const [custom, setCustom] = useState([]);
-    const [pojam, setPojam] = useState('')
+    const [pojam, setPojam] = useState("");
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        ucitaj()
-
-    }, [])
-
-    const filtriranaVina = vina.filter(v => {
-        const p = pojam.toLowerCase();
-
-        const sireviText = getSirevi(v.id).toLowerCase();
-
-        return (
-            v.naziv?.toLowerCase().includes(p) ||
-            sireviText.includes(p)
-        );
+    const [sortConfig, setSortConfig] = useState({
+        key: "naziv",
+        direction: "asc"
     });
+
+    useEffect(() => {
+        ucitaj();
+    }, []);
+
     async function ucitaj() {
         const v = await VinaService.get();
         const s = await SireviService.get();
@@ -42,20 +38,11 @@ export default function UparivanjeVinoPregled() {
     }
 
     function getSirevi(vinoId) {
-
-        const customIds = custom
-            .filter(u => u.vinoId === vinoId)
-            .map(u => u.sirId);
-
-        const statickiIds = uparivanjeVinaById[vinoId] || [];
-
         const customZaVino = custom.filter(u => u.vinoId === vinoId);
 
-        // ako postoji bilo kakav custom zapis za to vino → koristi ga
-        // čak i ako je prazan (to znači "nema preporuke")
         const ids = customZaVino.length > 0
             ? customZaVino.map(u => u.sirId)
-            : statickiIds;
+            : (uparivanjeVinaById[vinoId] || []);
 
         const lista = sirevi
             .filter(s => ids.includes(s.id))
@@ -64,74 +51,124 @@ export default function UparivanjeVinoPregled() {
         return lista.length ? lista.join(", ") : "-nema preporuke-";
     }
 
-    // DOHVAT OBJEKATA SIREVA
     function getSireviObjekti(vinoId) {
-
-        const customZaVino = custom.filter(u => u.vinoId === vinoId)
+        const customZaVino = custom.filter(u => u.vinoId === vinoId);
 
         const ids = customZaVino.length > 0
             ? customZaVino.map(u => u.sirId)
-            : (uparivanjeVinaById[vinoId] || [])
+            : (uparivanjeVinaById[vinoId] || []);
 
-        return sirevi.filter(s => ids.includes(s.id))
+        return sirevi.filter(s => ids.includes(s.id));
     }
 
-
     function getScore(vino, sirevi) {
-
-        let score = 0
+        let score = 0;
 
         sirevi.forEach(sir => {
 
-            // TANINI vs MASNOĆA (crna vina)
-            if (vino.tip_id === 1 && sir.tip_id === 3) score += 2   // tvrdi
-            if (vino.tip_id === 1 && sir.tip_id === 1) score -= 1   // svježi
+            if (vino.tip_id === 1 && sir.tip_id === 3) score += 2;
+            if (vino.tip_id === 1 && sir.tip_id === 1) score -= 1;
 
-            // BIJELA vs SVJEŽI
-            if (vino.tip_id === 2 && sir.intezitet_id === 1) score += 2
-            if (vino.tip_id === 2 && sir.intezitet_id === 3) score -= 1
+            if (vino.tip_id === 2 && sir.intezitet_id === 1) score += 2;
+            if (vino.tip_id === 2 && sir.intezitet_id === 3) score -= 1;
 
-            // SLATKO vs PLAVI
-            if (vino.slatkoca_id === 4 && sir.tip_id === 4) score += 3
-            if (vino.slatkoca_id === 1 && sir.tip_id === 4) score -= 2
+            if (vino.slatkoca_id === 4 && sir.tip_id === 4) score += 3;
+            if (vino.slatkoca_id === 1 && sir.tip_id === 4) score -= 2;
 
-            // BODY MATCH
-            if (vino.tijelo_id === 3 && sir.intezitet_id === 3) score += 2
-            if (vino.tijelo_id === 1 && sir.intezitet_id === 3) score -= 2
+            if (vino.tijelo_id === 3 && sir.intezitet_id === 3) score += 2;
+            if (vino.tijelo_id === 1 && sir.intezitet_id === 3) score -= 2;
 
-            // ALKOHOL vs JAČINA
-            const alkohol = (vino.alkohol_min + vino.alkohol_max) / 2
-            if (alkohol > 14 && sir.intezitet_id === 3) score += 1
-            if (alkohol < 10 && sir.intezitet_id === 3) score -= 1
+            const alkohol = (vino.alkohol_min + vino.alkohol_max) / 2;
+            if (alkohol > 14 && sir.intezitet_id === 3) score += 1;
+            if (alkohol < 10 && sir.intezitet_id === 3) score -= 1;
 
-            // PJENUŠAVO vs KREMASTO
-            if (vino.tip_id === 3 && sir.tip_id === 1) score += 1
+            if (vino.tip_id === 3 && sir.tip_id === 1) score += 1;
+            if (vino.tip_id === 4 && sir.tip_id !== 4) score -= 1;
+        });
 
-            // FORTIFIED vs OSTALO
-            if (vino.tip_id === 4 && sir.tip_id !== 4) score -= 1
-
-        })
-
-        return score
+        return score;
     }
 
-
-    //  OCJENA A/B/C
     function getOcjena(vino, sirevi) {
+        const score = getScore(vino, sirevi);
 
-        const score = getScore(vino, sirevi)
-
-        //if (varijanta === 0) {
-        if (score >= 6) return "A"
-        if (score >= 2) return "B"
-        return "C"
-        //}
+        if (score >= 6) return "A";
+        if (score >= 2) return "B";
+        return "C";
     }
 
+    function getBojaVina(vinoId) {
+        return VinaBoje[vinoId]?.hex || "#ccc";
+    }
 
     function obrisi(vinoId) {
         if (!confirm("Sigurno obrisati?")) return;
         setVina(prev => prev.filter(v => v.id !== vinoId));
+    }
+
+    const filtriranaVina = useMemo(() => {
+        const p = pojam.toLowerCase();
+
+        return vina.filter(v => {
+            const sireviText = getSirevi(v.id).toLowerCase();
+
+            return (
+                v.naziv?.toLowerCase().includes(p) ||
+                sireviText.includes(p)
+            );
+        });
+    }, [vina, pojam, sirevi, custom]);
+
+    function handleSort(key) {
+        let direction = "asc";
+
+        if (sortConfig.key === key && sortConfig.direction === "asc") {
+            direction = "desc";
+        } else if (sortConfig.key === key && sortConfig.direction === "desc") {
+            direction = null;
+        }
+
+        setSortConfig({ key, direction });
+    }
+
+    function getSortValue(vino, key) {
+        switch (key) {
+            case "naziv":
+                return vino.naziv;
+            case "ocjena":
+                return getOcjena(vino, getSireviObjekti(vino.id));
+            case "sirevi":
+                return getSirevi(vino.id);
+            default:
+                return vino[key] ?? "";
+        }
+    }
+
+    const sortedVina = useMemo(() => {
+        if (!sortConfig.direction) return filtriranaVina;
+
+        return [...filtriranaVina].sort((a, b) => {
+            let aValue = getSortValue(a, sortConfig.key);
+            let bValue = getSortValue(b, sortConfig.key);
+
+            if (aValue == null) aValue = "";
+            if (bValue == null) bValue = "";
+
+            if (typeof aValue === "string") {
+                return sortConfig.direction === "asc"
+                    ? aValue.localeCompare(bValue, "hr")
+                    : bValue.localeCompare(aValue, "hr");
+            }
+
+            return sortConfig.direction === "asc"
+                ? aValue - bValue
+                : bValue - aValue;
+        });
+    }, [filtriranaVina, sortConfig]);
+
+    function getSortIcon(key) {
+        if (sortConfig.key !== key || !sortConfig.direction) return <FaSort />;
+        return sortConfig.direction === "asc" ? <FaSortUp /> : <FaSortDown />;
     }
 
     let poruka;
@@ -152,122 +189,115 @@ export default function UparivanjeVinoPregled() {
         );
     }
 
-    function getBojaVina(vinoId) {
-        return VinaBoje[vinoId]?.hex || "#ccc";
-    }
-
     return (
         <div className="mt-4">
 
             <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
 
-                <h4 className="mb-0">Popis uparenih vina</h4>
+                <h4>Popis uparenih vina</h4>
 
                 <input
                     type="text"
                     placeholder="Traži vino ili sir..."
                     className="form-control w-25"
-                    style={{
-                        backgroundColor: "lightgrey",
-                        border: "2px solid grey"
-                    }}
                     value={pojam}
                     onChange={(e) => setPojam(e.target.value)}
                 />
             </div>
 
-            <Table className="align-middle" bordered striped hover>
+            <Table bordered striped hover className="align-middle">
+
                 <thead>
                     <tr>
-                        <th style={{ width: "25%" }}>Vino</th>
-                        <th style={{ width: "5%" }}>Boja</th>
-                        <th style={{ width: "45%" }}>Preporučeni sirevi</th>
-                        <th style={{ width: "10%" }}>Ocjena</th>
-                        <th style={{ width: "15%", textAlign: "center" }}>Akcija</th>
+                        <th onClick={() => handleSort("naziv")} style={{ cursor: "pointer" }}>
+                            Vino {getSortIcon("naziv")}
+                        </th>
+
+                        <th>Boja</th>
+
+                        <th onClick={() => handleSort("sirevi")} style={{ cursor: "pointer" }}>
+                            Sirevi {getSortIcon("sirevi")}
+                        </th>
+
+                        <th onClick={() => handleSort("ocjena")} style={{ cursor: "pointer" }}>
+                            Ocjena {getSortIcon("ocjena")}
+                        </th>
+
+                        <th>Akcija</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {filtriranaVina.map(vino => (
+                    {sortedVina.map(vino => (
                         <tr key={vino.id}>
                             <td>{vino.naziv}</td>
-                            <td className="text-center align-middle">
+
+                            <td>
                                 <span
-                                    title={VinaBoje[vino.id]?.naziv}
                                     style={{
-                                        width: "18px",
-                                        height: "18px",
-                                        display: "inline-block",
+                                        width: 18,
+                                        height: 18,
                                         borderRadius: "50%",
-                                        backgroundColor: getBojaVina(vino.id),
-                                        border: "1px solid #999",
-                                        boxShadow: "0 0 2px rgba(0,0,0,0.3)"
+                                        display: "inline-block",
+                                        backgroundColor: getBojaVina(vino.id)
                                     }}
                                 />
                             </td>
+
                             <td>{getSirevi(vino.id)}</td>
+
                             <td className="text-center">
-                                {(() => {
-                                    const ocjena = getOcjena(vino, getSireviObjekti(vino.id))
-                                    //const [slovo, emoji] = ocjena.split(" ")
+    {(() => {
+        const ocjena = getOcjena(vino, getSireviObjekti(vino.id));
 
-                                    return (
-                                        <span
-                                            className="badge bg-primary px-3 py-2"
-                                            style={{
-                                                fontSize: "1.4rem",
-                                                borderRadius: "6px",
-                                                fontStyle: "normal",
-                                                minWidth: "60px",
-                                                display: "inline-block",
-                                                textAlign: "center",
-                                                color:
-                                                    ocjena === "A" ? "lime" :
-                                                        ocjena === "B" ? "darkorange" :
-                                                            "darkblue",
-                                            }}
-                                        >
-                                            {ocjena}
+        return (
+            <span
+                className="badge px-3 py-2"
+                style={{
+                    fontSize: "1.4rem",
+                    borderRadius: "6px",
+                    minWidth: "60px",
+                    display: "inline-block",
+                    textAlign: "center",
+                    color:
+                        ocjena === "A"
+                            ? "lime"
+                            : ocjena === "B"
+                                ? "darkorange"
+                                : "darkblue",
+                    backgroundColor: "#0d6efd" // bootstrap blue (kao bg-primary)
+                }}
+            >
+                {ocjena}
+            </span>
+        );
+    })()}
+</td>
 
-                                            {/* {slovo}{" "}
-                                            <span style={{ fontSize: "1.4rem", fontStyle: "normal" }}>
-                                                {emoji}
-                                            </span> */}
-                                        </span>
-                                    )
-                                })()}
-                            </td>
-                            <td style={{ whiteSpace: "nowrap" }}>
-                                <div className="d-flex justify-content-center gap-2">
+                            <td>
+                                <Button
+                                    variant="warning"
+                                    size="sm"
+                                    onClick={() => navigate(`/uparivanje/vino/${vino.id}`)}
+                                >
+                                    Promjena
+                                </Button>
 
-                                    <Button
-                                        variant="warning"
-                                        size="sm"
-                                        onClick={() => navigate(`/uparivanje/vino/${vino.id}`, {
-                                            state: { from: "uparivanje" }
-                                        })}
-                                    >
-                                        Promjena
-                                    </Button>
-
-                                    <Button
-                                        variant="danger"
-                                        size="sm"
-                                        onClick={() => obrisi(vino.id)}
-                                    >
-                                        Obriši
-                                    </Button>
-
-                                </div>
+                                <Button
+                                    variant="danger"
+                                    size="sm"
+                                    onClick={() => obrisi(vino.id)}
+                                >
+                                    Obriši
+                                </Button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
 
             </Table>
-            <p className="mt-2 mb-0 text-muted">
-                {poruka}
-            </p>
+
+            <p className="text-muted">{poruka}</p>
         </div>
     );
 }

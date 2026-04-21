@@ -5,20 +5,27 @@ import VinaService from "../../services/vina/VinaService";
 import SireviService from "../../services/sirevi/SireviService";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { uparivanjeSiraById } from "../../services/uparivanje/UparivanjeSiraPopis";
+import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 
 export default function UparivanjeSirPregled() {
 
     const [vina, setVina] = useState([]);
     const [sirevi, setSirevi] = useState([]);
-    const [custom, setCustom] = useState([]);    
+    const [custom, setCustom] = useState([]);
     const [pojam, setPojam] = useState('')
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        ucitaj()        
+        ucitaj()
 
     }, [])
+
+    const [sortConfig, setSortConfig] = useState({
+        key: 'naziv',
+        direction: 'asc'
+    });
+
 
     const filtriraniSirevi = sirevi.filter(s => {
         const p = pojam.toLowerCase();
@@ -54,7 +61,7 @@ export default function UparivanjeSirPregled() {
         // čak i ako je prazan (to znači "nema preporuke")
         const ids = customZaSir.length > 0
             ? customZaSir.map(u => u.vinoId)
-            : (uparivanjeSiraById[sirId] || []) 
+            : (uparivanjeSiraById[sirId] || [])
 
         const lista = vina
             .filter(v => ids.includes(v.id))
@@ -71,10 +78,10 @@ export default function UparivanjeSirPregled() {
         { id: 5, naziv: "ekstra tvrdi" }
     ]
 
-function getTipNaziv(id) {
-    return TIPOVI.find(v => v.id === id)?.naziv || ''
-}
- 
+    function getTipNaziv(id) {
+        return TIPOVI.find(v => v.id === id)?.naziv || ''
+    }
+
 
     // DOHVAT OBJEKATA SIREVA
     function getVinaObjekti(sirId) {
@@ -111,12 +118,64 @@ function getTipNaziv(id) {
         );
     }
 
+    function handleSort(key) {
+        let direction = 'asc';
+
+        if (sortConfig.key === key && sortConfig.direction === 'asc') {
+            direction = 'desc';
+        } else if (sortConfig.key === key && sortConfig.direction === 'desc') {
+            direction = null;
+        }
+
+        setSortConfig({ key, direction });
+    }
+
+    function getSortIcon(key) {
+        if (sortConfig.key !== key || !sortConfig.direction) return <FaSort />;
+        return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />;
+    }
+
+    function getSortValue(sir, key) {
+        switch (key) {
+            case 'tip_id':
+                return TIPOVI.find(t => t.id === sir.tip_id)?.naziv || '';
+            case 'vina':
+                return getVina(sir.id); // 👈 sort po stringu vina
+            default:
+                return sir[key] ?? '';
+        }
+    }
+
+    function sortedSirevi() {
+        if (!filtriraniSirevi || !sortConfig.direction) return filtriraniSirevi;
+
+        return [...filtriraniSirevi].sort((a, b) => {
+            let aValue = getSortValue(a, sortConfig.key);
+            let bValue = getSortValue(b, sortConfig.key);
+
+            if (aValue == null) aValue = '';
+            if (bValue == null) bValue = '';
+
+            if (typeof aValue === 'string') {
+                return sortConfig.direction === 'asc'
+                    ? aValue.localeCompare(bValue, 'hr')
+                    : bValue.localeCompare(aValue, 'hr');
+            }
+
+            return sortConfig.direction === 'asc'
+                ? aValue - bValue
+                : bValue - aValue;
+        });
+    }
+
+
+
     return (
         <div className="mt-4">
 
             <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
 
-            <h4 className="mb-0">Popis uparenih sireva</h4>
+                <h4 className="mb-0">Popis uparenih sireva</h4>
 
                 <input
                     type="text"
@@ -134,21 +193,29 @@ function getTipNaziv(id) {
             <Table className="align-middle" bordered striped hover>
                 <thead>
                     <tr>
-                        <th>Sirevi</th>
-                        <th>Preporučena vina</th>
-                        <th className="text-center">Tip</th>
-                        <th className="text-center">Akcija</th>
+                        <th onClick={() => handleSort('naziv')} style={{ cursor: 'pointer' }}>
+                            Sirevi {getSortIcon('naziv')}
+                        </th>
+
+                        <th onClick={() => handleSort('vina')} style={{ cursor: 'pointer' }}>
+                            Preporučena vina {getSortIcon('vina')}
+                        </th>
+
+                        <th onClick={() => handleSort('tip_id')} style={{ cursor: 'pointer' }}>
+                            Tip {getSortIcon('tip_id')}
+                        </th>
+                        <th>Akcija</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {filtriraniSirevi.map(sir => (
+                    {sortedSirevi().map(sir => (
                         <tr key={sir.id}>
                             <td>{sir.naziv}</td>
                             <td>{getVina(sir.id)}</td>
-                            <td style={{ textAlign: "center" }}>{getTipNaziv(sir.tip_id)}</td>                            
-                            
-                          <td style={{ whiteSpace: "nowrap" }}>
+                            <td style={{ textAlign: "center" }}>{getTipNaziv(sir.tip_id)}</td>
+
+                            <td style={{ whiteSpace: "nowrap" }}>
                                 <div className="d-flex justify-content-center gap-2">
 
                                     <Button

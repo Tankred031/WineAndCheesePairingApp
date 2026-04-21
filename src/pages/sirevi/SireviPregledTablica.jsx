@@ -1,6 +1,13 @@
 import { Button, Table } from "react-bootstrap";
+import { useState } from "react";
+import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 
 export default function SireviPregledTablica({ sirevi, navigate, obrisi }) {
+
+    const [sortConfig, setSortConfig] = useState({
+        key: 'naziv',
+        direction: 'asc'
+    });
 
     const VRSTE = [
         { id: 1, naziv: "kravlji" },
@@ -35,56 +42,116 @@ export default function SireviPregledTablica({ sirevi, navigate, obrisi }) {
         { id: 3, naziv: "jaki" }
     ];
 
-    function getVrstaNaziv(id) {
-        return VRSTE.find(v => v.id === id)?.naziv || '';
+    function handleSort(key) {
+        let direction = 'asc';
+
+        if (sortConfig.key === key && sortConfig.direction === 'asc') {
+            direction = 'desc';
+        } else if (sortConfig.key === key && sortConfig.direction === 'desc') {
+            direction = null;
+        }
+
+        setSortConfig({ key, direction });
     }
 
-    function getMasnocaNaziv(id) {
-        return MASNOCE.find(m => m.id === id)?.naziv || '';
+    function getSortIcon(key) {
+        if (sortConfig.key !== key || !sortConfig.direction) return <FaSort />;
+        return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />;
     }
 
-    function getTipNaziv(id) {
-        return TIPOVI.find(t => t.id === id)?.naziv || '';
+    function getSortValue(sir, key) {
+        switch (key) {
+            case 'tip_id':
+                return TIPOVI.find(t => t.id === sir.tip_id)?.naziv;
+            case 'vrsta_id':
+                return VRSTE.find(v => v.id === sir.vrsta_id)?.naziv;
+            case 'zrenje_id':
+                return ZRENJA.find(z => z.id === sir.zrenje_id)?.naziv;
+            case 'masnoca_id':
+                return MASNOCE.find(m => m.id === sir.masnoca_id)?.naziv;
+            case 'intezitet_id':
+                return INTEZITETI.find(i => i.id === sir.intezitet_id)?.naziv;
+            default:
+                return sir[key];
+        }
     }
 
-    function getZrenjeNaziv(id) {
-        return ZRENJA.find(z => z.id === id)?.naziv || '';
-    }
+    function sortedSirevi() {
+    if (!sirevi || !sortConfig.direction) return sirevi;
 
-    function getIntezitetNaziv(id) {
-        return INTEZITETI.find(i => i.id === id)?.naziv || '';
-    }
+    return [...sirevi].sort((a, b) => {
+        let aValue = getSortValue(a, sortConfig.key);
+        let bValue = getSortValue(b, sortConfig.key);
 
+        if (aValue == null) aValue = '';
+        if (bValue == null) bValue = '';
 
+        if (typeof aValue === 'string') {
+            return sortConfig.direction === 'asc'
+                ? aValue.localeCompare(bValue, 'hr')
+                : bValue.localeCompare(aValue, 'hr');
+        }
 
+        return sortConfig.direction === 'asc'
+            ? aValue - bValue
+            : bValue - aValue;
+    });
+}
 
     return (
-
         <Table bordered striped hover responsive className="align-middle">
             <thead>
                 <tr>
-                    <th>Naziv</th>
-                    <th>Tip</th>
-                    <th>Vrsta</th>
-                    <th>Zrenje</th>
-                    <th>Regija</th>
-                    <th>Intezitet</th>
-                    <th>Masnoća</th>
-                    <th>Okus</th>
-                    <th className="text-center">Akcija</th>
+                    <th onClick={() => handleSort('naziv')} style={{ cursor: 'pointer' }}>
+                        Naziv {getSortIcon('naziv')}
+                    </th>
+
+                    <th onClick={() => handleSort('tip_id')} style={{ cursor: 'pointer' }}>
+                        Tip {getSortIcon('tip_id')}
+                    </th>
+
+                    <th onClick={() => handleSort('vrsta_id')} style={{ cursor: 'pointer' }}>
+                        Vrsta {getSortIcon('vrsta_id')}
+                    </th>
+
+                    <th onClick={() => handleSort('zrenje_id')} style={{ cursor: 'pointer' }}>
+                        Zrenje {getSortIcon('zrenje_id')}
+                    </th>
+
+                    <th onClick={() => handleSort('regija')} style={{ cursor: 'pointer' }}>
+                        Regija {getSortIcon('regija')}
+                    </th>
+
+                    <th onClick={() => handleSort('intezitet_id')} style={{ cursor: 'pointer' }}>
+                        Intezitet {getSortIcon('intezitet_id')}
+                    </th>
+
+                    <th onClick={() => handleSort('masnoca_id')} style={{ cursor: 'pointer' }}>
+                        Masnoća {getSortIcon('masnoca_id')}
+                    </th>
+
+                    <th>
+                        Okus
+                    </th>
+
+                    <th className="text-center">
+                        Akcija
+                    </th>
                 </tr>
             </thead>
+
             <tbody>
-                {sirevi && sirevi.map((sir) => (
+                {sortedSirevi()?.map((sir) => (
                     <tr key={sir.id}>
                         <td>{sir.naziv}</td>
-                        <td>{getTipNaziv(sir.tip_id)}</td>
-                        <td>{getVrstaNaziv(sir.vrsta_id)}</td>
-                        <td>{getZrenjeNaziv(sir.zrenje_id)}</td>
+                        <td>{TIPOVI.find(t => t.id === sir.tip_id)?.naziv}</td>
+                        <td>{VRSTE.find(v => v.id === sir.vrsta_id)?.naziv}</td>
+                        <td>{ZRENJA.find(z => z.id === sir.zrenje_id)?.naziv}</td>
                         <td>{sir.regija}</td>
-                        <td>{getIntezitetNaziv(sir.intezitet_id)}</td>
-                        <td>{getMasnocaNaziv(sir.masnoca_id)}</td>
+                        <td>{INTEZITETI.find(i => i.id === sir.intezitet_id)?.naziv}</td>
+                        <td>{MASNOCE.find(m => m.id === sir.masnoca_id)?.naziv}</td>
                         <td>{sir.okus}</td>
+
                         <td>
                             <div className="d-flex gap-1">
                                 <Button
