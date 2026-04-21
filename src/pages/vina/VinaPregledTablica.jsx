@@ -54,43 +54,43 @@ export default function VinaPregledTablica({ vina, navigate, obrisi }) {
     };
 
     const sortedVina = () => {
-    if (!vina) return [];
+        if (!vina) return [];
 
-    const { key, direction } = sortConfig;
-    if (!direction) return vina;
+        const { key, direction } = sortConfig;
+        if (!direction) return vina;
 
-    return [...vina].sort((a, b) => {
+        return [...vina].sort((a, b) => {
 
-        let aValue;
-        let bValue;
+            let aValue;
+            let bValue;
 
-        if (key === "alkohol") {
-            aValue = (a.alkohol_min + a.alkohol_max) / 2;
-            bValue = (b.alkohol_min + b.alkohol_max) / 2;
-        }
-        else if (key === "temperatura") {
-            aValue = (a.temperatura_min + a.temperatura_max) / 2;
-            bValue = (b.temperatura_min + b.temperatura_max) / 2;
-        }
-        else {
-            aValue = a[key];
-            bValue = b[key];
-        }
+            if (key === "alkohol") {
+                aValue = (a.alkohol_min + a.alkohol_max) / 2;
+                bValue = (b.alkohol_min + b.alkohol_max) / 2;
+            }
+            else if (key === "temperatura") {
+                aValue = (a.temperatura_min + a.temperatura_max) / 2;
+                bValue = (b.temperatura_min + b.temperatura_max) / 2;
+            }
+            else {
+                aValue = a[key];
+                bValue = b[key];
+            }
 
-        if (aValue == null) return 1;
-        if (bValue == null) return -1;
+            if (aValue == null) return 1;
+            if (bValue == null) return -1;
 
-        if (typeof aValue === "string") {
+            if (typeof aValue === "string") {
+                return direction === "asc"
+                    ? aValue.localeCompare(bValue, "hr")
+                    : bValue.localeCompare(aValue, "hr");
+            }
+
             return direction === "asc"
-                ? aValue.localeCompare(bValue, "hr")
-                : bValue.localeCompare(aValue, "hr");
-        }
-
-        return direction === "asc"
-            ? aValue - bValue
-            : bValue - aValue;
-    });
-};
+                ? aValue - bValue
+                : bValue - aValue;
+        });
+    };
 
     return (
         <Table striped bordered hover responsive className="align-middle">

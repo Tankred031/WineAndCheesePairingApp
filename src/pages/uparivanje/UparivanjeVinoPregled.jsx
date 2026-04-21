@@ -247,32 +247,32 @@ export default function UparivanjeVinoPregled() {
                             <td>{getSirevi(vino.id)}</td>
 
                             <td className="text-center">
-    {(() => {
-        const ocjena = getOcjena(vino, getSireviObjekti(vino.id));
+                                {(() => {
+                                    const ocjena = getOcjena(vino, getSireviObjekti(vino.id));
 
-        return (
-            <span
-                className="badge px-3 py-2"
-                style={{
-                    fontSize: "1.4rem",
-                    borderRadius: "6px",
-                    minWidth: "60px",
-                    display: "inline-block",
-                    textAlign: "center",
-                    color:
-                        ocjena === "A"
-                            ? "lime"
-                            : ocjena === "B"
-                                ? "darkorange"
-                                : "darkblue",
-                    backgroundColor: "#0d6efd" // bootstrap blue (kao bg-primary)
-                }}
-            >
-                {ocjena}
-            </span>
-        );
-    })()}
-</td>
+                                    return (
+                                        <span
+                                            className="badge px-3 py-2"
+                                            style={{
+                                                fontSize: "1.4rem",
+                                                borderRadius: "6px",
+                                                minWidth: "60px",
+                                                display: "inline-block",
+                                                textAlign: "center",
+                                                color:
+                                                    ocjena === "A"
+                                                        ? "lime"
+                                                        : ocjena === "B"
+                                                            ? "darkorange"
+                                                            : "darkblue",
+                                                backgroundColor: "#0d6efd" // bootstrap blue (kao bg-primary)
+                                            }}
+                                        >
+                                            {ocjena}
+                                        </span>
+                                    );
+                                })()}
+                            </td>
 
                             <td>
                                 <Button

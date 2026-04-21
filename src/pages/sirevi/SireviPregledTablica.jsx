@@ -77,26 +77,26 @@ export default function SireviPregledTablica({ sirevi, navigate, obrisi }) {
     }
 
     function sortedSirevi() {
-    if (!sirevi || !sortConfig.direction) return sirevi;
+        if (!sirevi || !sortConfig.direction) return sirevi;
 
-    return [...sirevi].sort((a, b) => {
-        let aValue = getSortValue(a, sortConfig.key);
-        let bValue = getSortValue(b, sortConfig.key);
+        return [...sirevi].sort((a, b) => {
+            let aValue = getSortValue(a, sortConfig.key);
+            let bValue = getSortValue(b, sortConfig.key);
 
-        if (aValue == null) aValue = '';
-        if (bValue == null) bValue = '';
+            if (aValue == null) aValue = '';
+            if (bValue == null) bValue = '';
 
-        if (typeof aValue === 'string') {
+            if (typeof aValue === 'string') {
+                return sortConfig.direction === 'asc'
+                    ? aValue.localeCompare(bValue, 'hr')
+                    : bValue.localeCompare(aValue, 'hr');
+            }
+
             return sortConfig.direction === 'asc'
-                ? aValue.localeCompare(bValue, 'hr')
-                : bValue.localeCompare(aValue, 'hr');
-        }
-
-        return sortConfig.direction === 'asc'
-            ? aValue - bValue
-            : bValue - aValue;
-    });
-}
+                ? aValue - bValue
+                : bValue - aValue;
+        });
+    }
 
     return (
         <Table bordered striped hover responsive className="align-middle">
