@@ -83,7 +83,7 @@ export default function SireviPregled() {
                 <div className="d-flex gap-2 w-50 justify-content-end">
                     <Button
                         variant="light"
-                        style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey'}}
+                        style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey' }}
                         onClick={() => generirajSireviPDF(filtriraniSirevi, {
                             getVrstaNaziv, getTipNaziv, getZrenjeNaziv, getIntezitetNaziv, getMasnocaNaziv
                         })}
@@ -94,8 +94,10 @@ export default function SireviPregled() {
                     <input
                         type="text"
                         placeholder="Traži sir..."
-                        className="form-control w-50"
-                        style={{ backgroundColor: "lightgrey", border: "2px solid grey" }}
+                        className="form-control w-25"
+                        style={{
+                            backgroundColor: "lightgrey",
+                            border: "2px solid grey"}}
                         value={pojam}
                         onChange={(e) => setPojam(e.target.value)}
                     />

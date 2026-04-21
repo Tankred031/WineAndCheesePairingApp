@@ -134,7 +134,11 @@ export default function UparivanjeSirPromjena() {
                         placeholder="Pretraži vina..."
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
-                        style={{ maxWidth: "250px" }}
+                        style={{
+                            maxWidth: "250px",
+                            backgroundColor: "lightgrey",
+                            border: "2px solid grey"
+                        }}
                     />
                 </div>
 

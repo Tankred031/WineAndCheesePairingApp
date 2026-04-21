@@ -131,13 +131,17 @@ export default function UparivanjeVinoPromjena() {
                     >
                         Generiraj PDF popisa
                     </Button>
-                    
+
                     <Form.Control
                         type="text"
                         placeholder="Pretraži sireve..."
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
-                        style={{ maxWidth: "250px" }}
+                        style={{
+                            maxWidth: "250px",
+                            backgroundColor: "lightgrey",
+                            border: "2px solid grey"
+                        }}
                     />
                 </div>
 
