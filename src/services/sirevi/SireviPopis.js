@@ -1,20 +1,3 @@
-//možemo ovako, ali nek bude konzistentno s vinima
-/*
-export const VRSTE = [
-    { id: 1, naziv: "kravlji" },
-    { id: 2, naziv: "ovčji" },
-    { id: 3, naziv: "kozji" },
-    { id: 4, naziv: "miješano" }
-]
-
-export const MASNOCE = [
-    { id: 1, naziv: "niske" },
-    { id: 2, naziv: "srednje" },
-    { id: 3, naziv: "visoke" }
-]
-*/
-
-
 export const sirevi = [
     {
         id: 1,

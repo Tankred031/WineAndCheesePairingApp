@@ -60,6 +60,7 @@ export const uparivanjeVinaById = {
   33: [8, 9, 10, 14],         // Tokaji
 
   // NOVA VINA
+  41: [7],                    // Aglianico
   62: [12, 13, 46, 47],       // Debit
   63: [11, 34, 46],           // Laški Rizling
   64: [4, 15, 26],            // Šipon
@@ -69,5 +70,4 @@ export const uparivanjeVinaById = {
   68: [12, 13, 34, 11],       // Irsai Oliver
   69: [8, 10, 20, 6],         // Pedro Ximenez
   70: [35, 2, 3, 15],         // Chablis
-
 };

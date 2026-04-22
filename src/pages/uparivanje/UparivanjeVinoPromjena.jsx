@@ -129,7 +129,7 @@ export default function UparivanjeVinoPromjena() {
                             generirajUparivanjePDF(vino.naziv, sireviUGridu, 'vino');
                         }}
                     >
-                        Generiraj PDF popisa
+                        Generiraj PDF
                     </Button>
 
                     <Form.Control
