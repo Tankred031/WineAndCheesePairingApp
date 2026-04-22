@@ -1,12 +1,13 @@
 import { useEffect, useState, useMemo } from "react";
-import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import VinaService from "../../services/vina/VinaService";
 import SireviService from "../../services/sirevi/SireviService";
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { uparivanjeVinaById } from "../../services/uparivanje/UparivanjeVinaPopis";
 import { VinaBoje } from "../../services/vina/VinaBoje";
-
+import useBreakpoint from "../../hooks/useBreakpoint";
+import UparivanjeVinoPregledGrid from "./UparivanjeVinoPregledGrid";
+import UparivanjeVinoPregledTablica from "./UparivanjeVinoPregledTablica";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 
 export default function UparivanjeVinoPregled() {
@@ -17,6 +18,7 @@ export default function UparivanjeVinoPregled() {
     const [pojam, setPojam] = useState("");
 
     const navigate = useNavigate();
+    const sirina = useBreakpoint();
 
     const [sortConfig, setSortConfig] = useState({
         key: "naziv",
@@ -190,113 +192,50 @@ export default function UparivanjeVinoPregled() {
     }
 
     return (
-        <div className="mt-4">
+    <div className="mt-4">
 
-            <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
+        <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
 
-                <h4 className="section-title">Popis uparenih vina</h4>
+            <h4 className="section-title">Popis uparenih vina</h4>
 
-                <input
-                    type="text"
-                    placeholder="Traži vino ili sir..."
-                    className="form-control w-25"
-                    style={{
-                        backgroundColor: "lightgrey",
-                        border: "2px solid grey"
-                    }}
-                    value={pojam}
-                    onChange={(e) => setPojam(e.target.value)}
-                />
-            </div>
-
-            <Table className="align-middle" bordered striped hover>
-                <thead>
-                    <tr>
-                        <th onClick={() => handleSort("naziv")} style={{ cursor: "pointer" }}>
-                            Vino {getSortIcon("naziv")}
-                        </th>
-
-                        <th>Boja</th>
-
-                        <th onClick={() => handleSort("sirevi")} style={{ cursor: "pointer" }}>
-                            Sirevi {getSortIcon("sirevi")}
-                        </th>
-
-                        <th onClick={() => handleSort("ocjena")} style={{ cursor: "pointer" }}>
-                            Ocjena {getSortIcon("ocjena")}
-                        </th>
-                        <th className="text-center">Akcija</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {sortedVina.map(vino => (
-                        <tr key={vino.id}>
-                            <td>{vino.naziv}</td>
-
-                            <td className="color-cell">
-                                <span
-                                    className="color-dot"
-                                    style={{ backgroundColor: getBojaVina(vino.id) }}
-                                />
-                            </td>
-
-                            <td>{getSirevi(vino.id)}</td>
-
-                            <td className="text-center">
-                                {(() => {
-                                    const ocjena = getOcjena(vino, getSireviObjekti(vino.id));
-
-                                    return (
-                                        <span
-                                            className="badge px-3 py-2"
-                                            style={{
-                                                fontSize: "1.4rem",
-                                                borderRadius: "6px",
-                                                minWidth: "60px",
-                                                display: "inline-block",
-                                                textAlign: "center",
-                                                color:
-                                                    ocjena === "A"
-                                                        ? "lime"
-                                                        : ocjena === "B"
-                                                            ? "darkorange"
-                                                            : "darkblue",
-                                                backgroundColor: "#0d6efd"
-                                            }}
-                                        >
-                                            {ocjena}
-                                        </span>
-                                    );
-                                })()}
-                            </td>
-
-                            <td style={{ whiteSpace: "nowrap" }}>
-                                <div className="d-flex justify-content-center gap-2">
-                                    <Button
-                                        variant="warning"
-                                        size="sm"
-                                        onClick={() => navigate(`/uparivanje/vino/${vino.id}`)}
-                                    >
-                                        Promjena
-                                    </Button>
-
-                                    <Button
-                                        variant="danger"
-                                        size="sm"
-                                        onClick={() => obrisi(vino.id)}
-                                    >
-                                        Obriši
-                                    </Button>
-
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-
-            </Table>
-            <p className="text-muted">{poruka}</p>
+            <input
+                type="text"
+                placeholder="Traži vino ili sir..."
+                className="form-control w-25"
+                style={{
+                    backgroundColor: "lightgrey",
+                    border: "2px solid grey"
+                }}
+                value={pojam}
+                onChange={(e) => setPojam(e.target.value)}
+            />
         </div>
-    );
+
+        {['xs', 'sm', 'md'].includes(sirina) ? (
+            <UparivanjeVinoPregledGrid
+                vina={sortedVina}
+                getBojaVina={getBojaVina}
+                getSirevi={getSirevi}
+                getOcjena={getOcjena}
+                getSireviObjekti={getSireviObjekti}
+                navigate={navigate}
+                obrisi={obrisi}
+            />
+        ) : (
+            <UparivanjeVinoPregledTablica
+                sortedVina={sortedVina}
+                handleSort={handleSort}
+                getSortIcon={getSortIcon}
+                getBojaVina={getBojaVina}
+                getSirevi={getSirevi}
+                getOcjena={getOcjena}
+                getSireviObjekti={getSireviObjekti}
+                navigate={navigate}
+                obrisi={obrisi}
+            />
+        )}
+
+        <p className="text-muted">{poruka}</p>
+    </div>
+);
 }

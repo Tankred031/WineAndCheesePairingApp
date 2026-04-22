@@ -166,8 +166,8 @@ body {
 }
 
 .color-dot {
-    width: 18px;
-    height: 18px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     display: inline-block;
 }
@@ -176,3 +176,4 @@ body {
   font-weight: 700;
   font-size: 1.6rem;
 }
+

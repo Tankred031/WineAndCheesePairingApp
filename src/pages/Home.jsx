@@ -109,7 +109,7 @@ export default function Home() {
                 <Col md={4}>
                     <Card className="mb-3 shadow-lg border-0 statistikaPanel">
                         <Card.Body className="text-center">
-                            <p className="text-white">Sirevi</p>
+                            <p className="text-white">Sireva</p>
                             <div className="statistikaTekst">
                                 {animatedSirevi}
                             </div>
