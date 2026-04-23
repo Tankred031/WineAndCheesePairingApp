@@ -5,7 +5,7 @@ import useBreakpoint from "../../hooks/useBreakpoint"
 import SireviPregledGrid from "./SireviPregledGrid"
 import SireviPregledTablica from "./SireviPregledTablica"
 import { generirajSireviPDF } from "../../components/SireviPDFGenerator"
-import { Button } from "react-bootstrap"
+import { Button, Pagination } from "react-bootstrap"
 
 export default function SireviPregled() {
 
@@ -17,13 +17,6 @@ export default function SireviPregled() {
 
     const [currentPage, setCurrentPage] = useState(1)
     const pageSize = 10
-
-    const startIndex = (currentPage - 1) * pageSize
-    const endIndex = startIndex + pageSize
-
-    const paginatedSirevi = filtriraniSirevi.slice(startIndex, endIndex)
-    const totalPages = Math.cell(filtriraniSirevi.length / pageSize)
-
 
     // --- Konstante ---
     const VRSTE = [
@@ -51,27 +44,33 @@ export default function SireviPregled() {
     function getZrenjeNaziv(id) { return ZRENJA.find(z => z.id === id)?.naziv || '' }
     function getIntezitetNaziv(id) { return INTEZITETI.find(i => i.id === id)?.naziv || '' }
 
+    // --- 1. UCITAVANJE ---
     useEffect(() => {
         ucitajSirevi()
     }, [])
 
     async function ucitajSirevi() {
         const odgovor = await SireviService.get()
+
         if (!odgovor.success) {
             alert('Nije implementiran servis')
             return
         }
+
         setSirevi(odgovor.data)
     }
 
+    // --- 2. BRISANJE ---
     async function obrisi(id) {
         if (!confirm('Sigurno obrisati?')) return
         await SireviService.obrisi(id)
         ucitajSirevi()
     }
 
+    // --- 3. FILTRIRANJE (SVI PODACI) ---
     const filtriraniSirevi = sirevi.filter(s => {
         const p = pojam.toLowerCase()
+
         return (
             s.naziv?.toLowerCase().includes(p) ||
             getTipNaziv(s.tip_id)?.toLowerCase().includes(p) ||
@@ -84,23 +83,43 @@ export default function SireviPregled() {
         )
     })
 
+    // reset page kad se traži
+    function handleSearch(e) {
+        setPojam(e.target.value)
+        setCurrentPage(1)
+    }
+
     function handlePageChange(page) {
         if (page < 1 || page > totalPages) return
         setCurrentPage(page)
     }
 
+    // --- 4. PAGINACIJA ---
+    const totalPages = Math.ceil(filtriraniSirevi.length / pageSize)
+
+    const startIndex = (currentPage - 1) * pageSize
+    const endIndex = startIndex + pageSize
+
+    const paginatedSirevi = filtriraniSirevi.slice(startIndex, endIndex)
+
     // --- RENDER ---
     return (
         <>
             <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
+
                 <h4 className="section-title">Popis sireva</h4>
 
                 <div className="d-flex gap-2 w-50 justify-content-end">
+
                     <Button
                         variant="light"
                         style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey' }}
                         onClick={() => generirajSireviPDF(filtriraniSirevi, {
-                            getVrstaNaziv, getTipNaziv, getZrenjeNaziv, getIntezitetNaziv, getMasnocaNaziv
+                            getVrstaNaziv,
+                            getTipNaziv,
+                            getZrenjeNaziv,
+                            getIntezitetNaziv,
+                            getMasnocaNaziv
                         })}
                     >
                         Generiraj PDF
@@ -115,18 +134,16 @@ export default function SireviPregled() {
                             border: "2px solid grey"
                         }}
                         value={pojam}
-                        onChange={(e) => {
-                            setPojam(e.target.value)
-                            setCurrentPage(1)
-                        }}
+                        onChange={handleSearch}
                     />
+
                 </div>
             </div>
 
-            {/* RWD Prikaz */}
+            {/* GRID / TABLICA */}
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <SireviPregledGrid
-                    sirevi={filtriraniSirevi}
+                    sirevi={paginatedSirevi}
                     navigate={navigate}
                     obrisi={obrisi}
                 />
@@ -144,8 +161,10 @@ export default function SireviPregled() {
                     : <>Učitano ukupno <strong>{sirevi.length}</strong> sireva</>}
             </p>
 
+            {/* PAGINATION */}
             {totalPages > 1 && (
                 <div className="d-flex justify-content-center mt-3">
+
                     <Pagination>
 
                         <Pagination.First
@@ -198,6 +217,7 @@ export default function SireviPregled() {
                         />
 
                     </Pagination>
+
                 </div>
             )}
         </>
