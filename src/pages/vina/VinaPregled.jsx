@@ -7,6 +7,7 @@ import useBreakpoint from "../../hooks/useBreakpoint"
 import VinaPregledGrid from "./VinaPregledGrid"
 import VinaPregledTablica from "./VinaPregledTablica"
 import { generirajVinaPDF } from "../../components/VinaPDFGenerator"
+import { generirajExcel } from "../../components/ExcelGenerator";
 
 export default function VinaPregled() {
 
@@ -115,6 +116,25 @@ export default function VinaPregled() {
                 <h4 className="section-title">Popis vina</h4>
 
                 <div className="d-flex gap-2 w-50 justify-content-end">
+
+                    <Button
+                        variant="light"
+                        style={{ color: 'darkgreen', fontWeight: 'bold', border: '1px solid lightgrey' }}
+                        onClick={() =>
+                            generirajExcel(
+                                filtriranaVina.map(v => ({
+                                    Naziv: v.naziv,
+                                    Regija: v.regija,
+                                    Arome: v.arome,
+                                    Tijelo: v.tijelo
+                                })),
+                                "vina",
+                                "Vina"
+                            )
+                        }
+                    >
+                        Excel export
+                    </Button>
 
                     <Button
                         variant="light"

@@ -6,6 +6,7 @@ import SireviPregledGrid from "./SireviPregledGrid"
 import SireviPregledTablica from "./SireviPregledTablica"
 import { generirajSireviPDF } from "../../components/SireviPDFGenerator"
 import { Button, Pagination } from "react-bootstrap"
+import { generirajExcel } from "../../components/ExcelGenerator";
 
 export default function SireviPregled() {
 
@@ -113,6 +114,26 @@ export default function SireviPregled() {
 
                     <Button
                         variant="light"
+                        style={{ color: 'darkgreen', fontWeight: 'bold', border: '1px solid lightgrey' }}
+                        onClick={() =>
+                            generirajExcel(
+                                filtriraniSirevi.map(s => ({
+                                    Naziv: s.naziv,
+                                    Vrsta: getVrstaNaziv(s.vrsta_id),
+                                    Tip: getTipNaziv(s.tip_id),
+                                    Regija: s.regija,
+                                    Okus: s.okus
+                                })),
+                                "sirevi",
+                                "Sirevi"
+                            )
+                        }
+                    >
+                        Excel export
+                    </Button>
+
+                    <Button
+                        variant="light"
                         style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey' }}
                         onClick={() => generirajSireviPDF(filtriraniSirevi, {
                             getVrstaNaziv,
@@ -138,22 +159,24 @@ export default function SireviPregled() {
                     />
 
                 </div>
-            </div>
+            </div >
 
             {/* GRID / TABLICA */}
-            {['xs', 'sm', 'md'].includes(sirina) ? (
-                <SireviPregledGrid
-                    sirevi={paginatedSirevi}
-                    navigate={navigate}
-                    obrisi={obrisi}
-                />
-            ) : (
-                <SireviPregledTablica
-                    sirevi={paginatedSirevi}
-                    navigate={navigate}
-                    obrisi={obrisi}
-                />
-            )}
+            {
+                ['xs', 'sm', 'md'].includes(sirina) ? (
+                    <SireviPregledGrid
+                        sirevi={paginatedSirevi}
+                        navigate={navigate}
+                        obrisi={obrisi}
+                    />
+                ) : (
+                    <SireviPregledTablica
+                        sirevi={paginatedSirevi}
+                        navigate={navigate}
+                        obrisi={obrisi}
+                    />
+                )
+            }
 
             <p className="mt-2">
                 {sirevi.length === 0
@@ -162,64 +185,66 @@ export default function SireviPregled() {
             </p>
 
             {/* PAGINATION */}
-            {totalPages > 1 && (
-                <div className="d-flex justify-content-center mt-3">
+            {
+                totalPages > 1 && (
+                    <div className="d-flex justify-content-center mt-3">
 
-                    <Pagination>
+                        <Pagination>
 
-                        <Pagination.First
-                            onClick={() => handlePageChange(1)}
-                            disabled={currentPage === 1}
-                        />
+                            <Pagination.First
+                                onClick={() => handlePageChange(1)}
+                                disabled={currentPage === 1}
+                            />
 
-                        <Pagination.Prev
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                        />
+                            <Pagination.Prev
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                            />
 
-                        {[...Array(totalPages)].map((_, index) => {
-                            const pageNumber = index + 1
+                            {[...Array(totalPages)].map((_, index) => {
+                                const pageNumber = index + 1
 
-                            if (
-                                pageNumber === 1 ||
-                                pageNumber === totalPages ||
-                                (pageNumber >= currentPage - 2 && pageNumber <= currentPage + 2)
-                            ) {
-                                return (
-                                    <Pagination.Item
-                                        key={pageNumber}
-                                        active={pageNumber === currentPage}
-                                        onClick={() => handlePageChange(pageNumber)}
-                                    >
-                                        {pageNumber}
-                                    </Pagination.Item>
-                                )
-                            }
+                                if (
+                                    pageNumber === 1 ||
+                                    pageNumber === totalPages ||
+                                    (pageNumber >= currentPage - 2 && pageNumber <= currentPage + 2)
+                                ) {
+                                    return (
+                                        <Pagination.Item
+                                            key={pageNumber}
+                                            active={pageNumber === currentPage}
+                                            onClick={() => handlePageChange(pageNumber)}
+                                        >
+                                            {pageNumber}
+                                        </Pagination.Item>
+                                    )
+                                }
 
-                            if (
-                                pageNumber === currentPage - 3 ||
-                                pageNumber === currentPage + 3
-                            ) {
-                                return <Pagination.Ellipsis key={pageNumber} disabled />
-                            }
+                                if (
+                                    pageNumber === currentPage - 3 ||
+                                    pageNumber === currentPage + 3
+                                ) {
+                                    return <Pagination.Ellipsis key={pageNumber} disabled />
+                                }
 
-                            return null
-                        })}
+                                return null
+                            })}
 
-                        <Pagination.Next
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                        />
+                            <Pagination.Next
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                            />
 
-                        <Pagination.Last
-                            onClick={() => handlePageChange(totalPages)}
-                            disabled={currentPage === totalPages}
-                        />
+                            <Pagination.Last
+                                onClick={() => handlePageChange(totalPages)}
+                                disabled={currentPage === totalPages}
+                            />
 
-                    </Pagination>
+                        </Pagination>
 
-                </div>
-            )}
+                    </div>
+                )
+            }
         </>
     )
 }

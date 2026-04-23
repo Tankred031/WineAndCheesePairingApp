@@ -8,7 +8,7 @@ export default function Izbornik() {
   const navigate = useNavigate()
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar className="silver-navbar" expand="lg">
       <Container>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

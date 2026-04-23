@@ -19,6 +19,11 @@ body {
   background-color: salmon;
 }
 
+.silver-navbar {
+  background-color: navajowhite !important;
+}
+
+
 .home-logo {
   height: 140px;
   padding: 15px;
