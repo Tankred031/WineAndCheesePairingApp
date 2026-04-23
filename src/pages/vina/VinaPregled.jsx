@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import VinaService from "../../services/vina/VinaService"
-import { Button, Table } from "react-bootstrap"
+import { Button, Pagination } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import useBreakpoint from "../../hooks/useBreakpoint"
@@ -8,13 +8,15 @@ import VinaPregledGrid from "./VinaPregledGrid"
 import VinaPregledTablica from "./VinaPregledTablica"
 import { generirajVinaPDF } from "../../components/VinaPDFGenerator"
 
-
 export default function VinaPregled() {
 
     const navigate = useNavigate()
     const [vina, setVina] = useState([])
     const [pojam, setPojam] = useState('')
     const sirina = useBreakpoint()
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const pageSize = 10
 
     const TIPOVI_VINA = [
         { id: 1, naziv: "crveno" },
@@ -31,35 +33,6 @@ export default function VinaPregled() {
         { id: 4, naziv: "slatko" }
     ]
 
-    const filtriranaVina = vina.filter(v => {
-        const pojamLower = pojam.toLowerCase();
-
-        // pretvora unos u broj (zbog alkohola)
-        const broj = parseFloat(pojam.replace(',', '.'));
-        const jeBroj = !isNaN(broj);
-
-        return (
-            // pretraga teksta
-            v.naziv?.toLowerCase().includes(pojamLower) ||
-            getTipNaziv(v.tip_id)?.toLowerCase().includes(pojamLower) ||
-            v.regija?.toLowerCase().includes(pojamLower) ||
-            getSlatkocaNaziv(v.slatkoca_id)?.toLowerCase().includes(pojamLower) ||
-            v.arome?.toLowerCase().includes(pojamLower) ||
-            v.tijelo?.toLowerCase().includes(pojamLower) ||
-
-            // pretraga broja - alkohol
-            (jeBroj &&
-                broj >= v.alkohol_min &&
-                broj <= v.alkohol_max)
-        );
-    });
-
-    function format1dec(broj) {
-        return Number(broj).toLocaleString("hr-HR", {
-            minimumFractionDigits: 1,
-            maximumFractionDigits: 1
-        })
-    }
     function getSlatkocaNaziv(id) {
         return SLATKOCE.find(s => s.id === id)?.naziv || ''
     }
@@ -68,33 +41,68 @@ export default function VinaPregled() {
         return TIPOVI_VINA.find(t => t.id === id)?.naziv || ''
     }
 
+    function format1dec(broj) {
+        return Number(broj).toLocaleString("hr-HR", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+        })
+    }
+
+    // 🔥 1. FILTRIRANJE (svi podaci)
+    const filtriranaVina = vina.filter(v => {
+        const pojamLower = pojam.toLowerCase()
+
+        const broj = parseFloat(pojam.replace(',', '.'))
+        const jeBroj = !isNaN(broj)
+
+        return (
+            v.naziv?.toLowerCase().includes(pojamLower) ||
+            getTipNaziv(v.tip_id)?.toLowerCase().includes(pojamLower) ||
+            v.regija?.toLowerCase().includes(pojamLower) ||
+            getSlatkocaNaziv(v.slatkoca_id)?.toLowerCase().includes(pojamLower) ||
+            v.arome?.toLowerCase().includes(pojamLower) ||
+            v.tijelo?.toLowerCase().includes(pojamLower) ||
+
+            (jeBroj &&
+                broj >= v.alkohol_min &&
+                broj <= v.alkohol_max)
+        )
+    })
+
+    // 🔥 2. PAGINACIJA NA FILTERU
+    const totalPages = Math.ceil(filtriranaVina.length / pageSize)
+
+    const startIndex = (currentPage - 1) * pageSize
+    const endIndex = startIndex + pageSize
+
+    const paginatedVina = filtriranaVina.slice(startIndex, endIndex)
 
     useEffect(() => {
         ucitajVina()
     }, [])
 
     async function ucitajVina() {
-        await VinaService.get().then((odgovor) => {
+        const odgovor = await VinaService.get()
 
-            if (!odgovor.success) {
-                alert('Nije implementiran servis')
-                return
-            }
-            setVina(odgovor.data)
+        if (!odgovor.success) {
+            alert('Nije implementiran servis')
+            return
+        }
 
+        setVina(odgovor.data)
+    }
 
-        })
-
+    function handlePageChange(page) {
+        if (page < 1 || page > totalPages) return
+        setCurrentPage(page)
     }
 
     async function obrisi(id) {
-        if (!confirm('Sigurno obrisati?')) {
-            return
-        }
+        if (!confirm('Sigurno obrisati?')) return
+
         await VinaService.obrisi(id)
         ucitajVina()
     }
-
 
     return (
         <>
@@ -107,12 +115,13 @@ export default function VinaPregled() {
                 <h4 className="section-title">Popis vina</h4>
 
                 <div className="d-flex gap-2 w-50 justify-content-end">
+
                     <Button
                         variant="light"
-                        style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey'}}                        
+                        style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey' }}
                         onClick={() => generirajVinaPDF(filtriranaVina, {
-                            getTipNaziv, 
-                            getSlatkocaNaziv, 
+                            getTipNaziv,
+                            getSlatkocaNaziv,
                             format1dec
                         })}
                     >
@@ -128,35 +137,94 @@ export default function VinaPregled() {
                             border: "2px solid grey"
                         }}
                         value={pojam}
-                        onChange={(e) => setPojam(e.target.value)}
+                        onChange={(e) => {
+                            setPojam(e.target.value)
+                            setCurrentPage(1)
+                        }}
                     />
+
                 </div>
             </div>
 
+            {/* GRID / TABLICA */}
+            {['xs', 'sm', 'md'].includes(sirina) ? (
+                <VinaPregledGrid
+                    vina={paginatedVina}
+                    navigate={navigate}
+                    obrisi={obrisi}
+                />
+            ) : (
+                <VinaPregledTablica
+                    vina={paginatedVina}
+                    navigate={navigate}
+                    obrisi={obrisi}
+                />
+            )}
 
+            <p className="mt-2">
+                {vina.length === 0
+                    ? "Nema učitanih vina"
+                    : <>Učitano ukupno <strong>{vina.length}</strong> vina</>}
+            </p>
 
-                {/* tableti prema manje */}
-                {['xs', 'sm', 'md'].includes(sirina) ? (
-                    <VinaPregledGrid
-                        vina={filtriranaVina}
-                        navigate={navigate}
-                        obrisi={obrisi}
-                    />
-                ) : (
-                    <VinaPregledTablica
-                        vina={filtriranaVina}
-                        navigate={navigate}
-                        obrisi={obrisi}
-                    />
-                )}
+            {/* PAGINATION */}
+            {totalPages > 1 && (
+                <div className="d-flex justify-content-center">
+                    <Pagination>
 
-                <p className="mt-2">
-                    {vina.length === 0
-                        ? "Nema učitanih vina"
-                        : <>Učitano ukupno <strong>{vina.length}</strong> vina</>}
-                </p>
+                        <Pagination.First
+                            onClick={() => handlePageChange(1)}
+                            disabled={currentPage === 1}
+                        />
 
+                        <Pagination.Prev
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        />
 
-            </>
-            )
+                        {[...Array(totalPages)].map((_, index) => {
+                            const pageNumber = index + 1
+
+                            if (
+                                pageNumber === 1 ||
+                                pageNumber === totalPages ||
+                                (pageNumber >= currentPage - 2 && pageNumber <= currentPage + 2)
+                            ) {
+                                return (
+                                    <Pagination.Item
+                                        key={pageNumber}
+                                        active={pageNumber === currentPage}
+                                        onClick={() => handlePageChange(pageNumber)}
+                                    >
+                                        {pageNumber}
+                                    </Pagination.Item>
+                                )
+                            }
+
+                            if (
+                                pageNumber === currentPage - 3 ||
+                                pageNumber === currentPage + 3
+                            ) {
+                                return <Pagination.Ellipsis key={pageNumber} disabled />
+                            }
+
+                            return null
+                        })}
+
+                        <Pagination.Next
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                        />
+
+                        <Pagination.Last
+                            onClick={() => handlePageChange(totalPages)}
+                            disabled={currentPage === totalPages}
+                        />
+
+                    </Pagination>
+                </div>
+            )}
+
+        </>
+    )
 }

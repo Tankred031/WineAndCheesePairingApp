@@ -21,8 +21,9 @@ const PrazanServis = {
     get: async () =>({ success: false, data: []}),
     getById: async (id) => ({ success: false, data: {} }),
     dodaj: async (vino) => {console.error("Servis nije učitan"); },
-    promjeni: async (id, vino) => { console.error("Servise nije učitan"); },
-    obrisi: async (id) => { console.error("Servis nije učitan"); }
+    promjeni: async (id, vino) => { console.error("Servis nije učitan"); },
+    obrisi: async (id) => { console.error("Servis nije učitan"); },
+    getPage: async (page, pageSize) => ({ success: false, data: [], totalPages: 0, totalItems: 0 })
 };
 
 const AktivniServis = Servis || PrazanServis;
@@ -32,5 +33,6 @@ export default {
     getById: (id) => AktivniServis.getById(id),
     dodaj: (vino) => AktivniServis.dodaj(vino),
     promjeni: (id, vino) => AktivniServis.promjeni(id, vino),
-    obrisi: (id) => AktivniServis.obrisi(id)
+    obrisi: (id) => AktivniServis.obrisi(id),
+    getPage: (page, pageSize) => AktivniServis.getPage(page, pageSize)
 }
