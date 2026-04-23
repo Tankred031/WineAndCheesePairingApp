@@ -72,7 +72,7 @@ export default function Home() {
         if (animatedUspjesnihUparivanja < brojUspjesnihUparivanja) {
             const timer = setTimeout(() => {
                 setAnimatedUspjesnihUparivanja(prev => Math.min(prev + 1, brojUspjesnihUparivanja));
-            }, 200);
+            }, 150);
             return () => clearTimeout(timer);
         }
     }, [animatedUspjesnihUparivanja, brojUspjesnihUparivanja]);
