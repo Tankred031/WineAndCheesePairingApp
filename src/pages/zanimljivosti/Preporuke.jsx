@@ -11,19 +11,19 @@ export default function Preporuke() {
                     <h4>Vrhunska</h4>
 
                     <h6 className="mt-3">Bijela vina</h6>
-                    <ul>
+                    <ul className="white">
                         <li>BURGUNDAC BIJELI (PINOT BLANC)</li>
                         <li>BURGUNDAC SIVI (PINOT GRIS)</li>
                         <li>CHARDONNAY</li>
                         <li>RAJNSKI RIZLING</li>
                         <li>SAUVIGNON BIJELI (BLANC)</li>
                         <li>SILVANAC ZELENI (SILVANER)</li>
-                        <li>TRAMINAC CRVENI (ROTER TRAMINER)</li>
+                        <li className="rose">TRAMINAC CRVENI (ROTER TRAMINER)</li>
                         <li>MUŠKAT OTTONEL</li>
                     </ul>
 
                     <h6 className="mt-3">Crvena vina</h6>
-                    <ul>
+                    <ul className="red">
                         <li>BURGUNDAC CRNI (PINOT NOIR)</li>
                         <li>CABERNET SAUVIGNON</li>
                         <li>PLAVAC MALI</li>
@@ -35,7 +35,7 @@ export default function Preporuke() {
                     <h4>Kvalitetna</h4>
 
                     <h6 className="mt-3">Bijela vina</h6>
-                    <ul>
+                    <ul className="white">
                         <li>GRAŠEVINA BIJELA</li>
                         <li>MALVAZIJA BIJELA</li>
                         <li>RIZVANAC BIJELI (MULLER-THURGAU)</li>
@@ -44,7 +44,7 @@ export default function Preporuke() {
                     </ul>
 
                     <h6 className="mt-3">Crvena vina</h6>
-                    <ul>
+                    <ul className="red">
                         <li>BABIĆ CRNI</li>
                         <li>FRANKOVKA</li>
                         <li>MERLOT CRNI</li>
