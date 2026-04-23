@@ -15,6 +15,16 @@ export default function SireviPregled() {
     const [sirevi, setSirevi] = useState([])
     const [pojam, setPojam] = useState('')
 
+    const [currentPage, setCurrentPage] = useState(1)
+    const pageSize = 10
+
+    const startIndex = (currentPage - 1) * pageSize
+    const endIndex = startIndex + pageSize
+
+    const paginatedSirevi = filtriraniSirevi.slice(startIndex, endIndex)
+    const totalPages = Math.cell(filtriraniSirevi.length / pageSize)
+
+
     // --- Konstante ---
     const VRSTE = [
         { id: 1, naziv: "kravlji" }, { id: 2, naziv: "ovčji" },
@@ -74,6 +84,11 @@ export default function SireviPregled() {
         )
     })
 
+    function handlePageChange(page) {
+        if (page < 1 || page > totalPages) return
+        setCurrentPage(page)
+    }
+
     // --- RENDER ---
     return (
         <>
@@ -97,9 +112,13 @@ export default function SireviPregled() {
                         className="form-control w-25"
                         style={{
                             backgroundColor: "lightgrey",
-                            border: "2px solid grey"}}
+                            border: "2px solid grey"
+                        }}
                         value={pojam}
-                        onChange={(e) => setPojam(e.target.value)}
+                        onChange={(e) => {
+                            setPojam(e.target.value)
+                            setCurrentPage(1)
+                        }}
                     />
                 </div>
             </div>
@@ -113,7 +132,7 @@ export default function SireviPregled() {
                 />
             ) : (
                 <SireviPregledTablica
-                    sirevi={filtriraniSirevi}
+                    sirevi={paginatedSirevi}
                     navigate={navigate}
                     obrisi={obrisi}
                 />
@@ -124,6 +143,63 @@ export default function SireviPregled() {
                     ? "Nema učitanih sireva"
                     : <>Učitano ukupno <strong>{sirevi.length}</strong> sireva</>}
             </p>
+
+            {totalPages > 1 && (
+                <div className="d-flex justify-content-center mt-3">
+                    <Pagination>
+
+                        <Pagination.First
+                            onClick={() => handlePageChange(1)}
+                            disabled={currentPage === 1}
+                        />
+
+                        <Pagination.Prev
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        />
+
+                        {[...Array(totalPages)].map((_, index) => {
+                            const pageNumber = index + 1
+
+                            if (
+                                pageNumber === 1 ||
+                                pageNumber === totalPages ||
+                                (pageNumber >= currentPage - 2 && pageNumber <= currentPage + 2)
+                            ) {
+                                return (
+                                    <Pagination.Item
+                                        key={pageNumber}
+                                        active={pageNumber === currentPage}
+                                        onClick={() => handlePageChange(pageNumber)}
+                                    >
+                                        {pageNumber}
+                                    </Pagination.Item>
+                                )
+                            }
+
+                            if (
+                                pageNumber === currentPage - 3 ||
+                                pageNumber === currentPage + 3
+                            ) {
+                                return <Pagination.Ellipsis key={pageNumber} disabled />
+                            }
+
+                            return null
+                        })}
+
+                        <Pagination.Next
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                        />
+
+                        <Pagination.Last
+                            onClick={() => handlePageChange(totalPages)}
+                            disabled={currentPage === totalPages}
+                        />
+
+                    </Pagination>
+                </div>
+            )}
         </>
     )
 }
