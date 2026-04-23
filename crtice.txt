@@ -21,3 +21,5 @@ naslovi
 vraćanje 
 
 ikone kod RWD
+
+npm install html2canvas jspdf

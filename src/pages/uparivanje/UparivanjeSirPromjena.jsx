@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import VinaService from "../../services/vina/VinaService";
 import SireviService from "../../services/sirevi/SireviService";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
@@ -7,6 +7,9 @@ import { uparivanjeSiraById } from "../../services/uparivanje/UparivanjeSiraPopi
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { Button, Form } from "react-bootstrap";
 import { generirajUparivanjePDF } from "../../components/UparivanjePDFGenerator";
+
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function UparivanjeSirPromjena() {
 
@@ -20,26 +23,24 @@ export default function UparivanjeSirPromjena() {
     const location = useLocation();
     const from = location.state?.from;
 
+    const printRef = useRef(null);
+
     useEffect(() => {
         ucitaj();
     }, []);
 
-
     async function ucitaj() {
 
-        //default
         const sirId = Number(params.id);
 
-        //učitaj vino i sireve
         const s = await SireviService.getById(sirId);
-        const v = await VinaService.get()
+        const v = await VinaService.get();
 
         setSir(s.data);
         setVina(v.data || []);
 
         const statickaIds = uparivanjeSiraById[sirId] || [];
 
-        //custom
         const customResponse = await UparivanjeCustomService.get();
         const custom = customResponse.data || [];
 
@@ -47,14 +48,11 @@ export default function UparivanjeSirPromjena() {
             .filter(u => u.sirId === sirId)
             .map(u => u.vinoId);
 
-        // Kombiniraj statička + custom uparivanja
-        const finalIds = customIds.length > 0
-            ? customIds
-            : statickaIds;
+        const finalIds =
+            customIds.length > 0 ? customIds : statickaIds;
 
-        setOdabranaVina(finalIds)
+        setOdabranaVina(finalIds);
     }
-
 
     function toggleVino(id) {
         if (odabranaVina.includes(id)) {
@@ -69,39 +67,48 @@ export default function UparivanjeSirPromjena() {
 
         const sirId = Number(params.id);
 
-        // Dohvati trenutna custom uparivanja
         const svi = (await UparivanjeCustomService.get()).data || [];
-
-        // Zadrži custom uparivanja za ostala vina
         const ostali = svi.filter(u => u.sirId !== sirId);
 
-        // Kreiraj nova custom uparivanja za ovo vino
-        const novi = odabranaVina.length > 0
-            ? odabranaVina.map(vinoId => ({
-                id: `${Date.now()}_${vinoId}`,
-                sirId,
-                vinoId
-            }))
-            : [{
-                id: `${Date.now()}_empty`,
-                sirId,
-                vinoId: null,
-                empty: true
-            }];
+        const novi =
+            odabranaVina.length > 0
+                ? odabranaVina.map(vinoId => ({
+                    id: `${Date.now()}_${vinoId}`,
+                    sirId,
+                    vinoId
+                }))
+                : [{
+                    id: `${Date.now()}_empty`,
+                    sirId,
+                    vinoId: null,
+                    empty: true
+                }];
 
-        // Spremi sve zajedno u memoriju
         await UparivanjeCustomService.postavi([...ostali, ...novi]);
 
-        // Log za provjeru
-        const test = await UparivanjeCustomService.get();
-        console.log("NAKON SPREMANJA:", test);
+        if (from === "sirevi") navigate(RouteNames.SIREVI_PREGLED);
+        else navigate(RouteNames.UPARIVANJE_SIR_PREGLED);
+    }
 
-        // Navigiraj nazad na pregled
-        if (from === "sirevi") {
-            navigate(RouteNames.SIREVI_PREGLED);
-        } else {
-            navigate(RouteNames.UPARIVANJE_SIR_PREGLED);
-        }
+    // SCREENSHOT PDF (WYSIWYG)
+    async function printScreenPDF() {
+        const element = printRef.current;
+        if (!element) return;
+
+        const canvas = await html2canvas(element, {
+            scale: 2,
+            useCORS: true
+        });
+
+        const imgData = canvas.toDataURL("image/png");
+
+        const pdf = new jsPDF("l", "mm", "a4");
+
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+        pdf.save(`uparivanje-sir-${sir.naziv}.pdf`);
     }
 
     return (
@@ -109,85 +116,108 @@ export default function UparivanjeSirPromjena() {
             <h3 className="naslov">Izmjena uparivanja sir-vina</h3>
 
             <Form onSubmit={spremi}>
-                <h4>{sir.naziv}</h4>
 
-                {/*Tražilica*/}
-                <div className="d-flex justify-content-end mb-3 gap-3">
-                    <Button
-                        variant="light"
-                        style={{ color: '#7B0323', fontWeight: 'bold', border: '1px solid #7B0323' }}
-                        onClick={() => {
-                            const filtriranaVina = vina.filter(v =>
+                {/* ZONA ZA PRINT */}
+                <div ref={printRef}>
+
+                    <h4>{sir.naziv}</h4>
+
+                    {/*Tražilica + PDF*/}
+                    <div className="d-flex justify-content-end mb-3 gap-2">
+
+                        {/* SCREENSHOT PDF */}
+                        <Button
+                            variant="primary"
+                            style={{
+                                fontWeight: "bold",
+                                border: "1px solid black"                                
+                            }}
+                            onClick={printScreenPDF}
+                        >
+                            Screenshot PDF
+                        </Button>
+
+                        {/* STANDARD PDF */}
+                        <Button
+                            variant="light"
+                            style={{
+                                color: '#7B0323',
+                                fontWeight: 'bold',
+                                border: '1px solid #7B0323'
+                            }}
+                            onClick={() => {
+                                const filtriranaVina = vina.filter(v =>
+                                    v.naziv.toLowerCase().includes(filter.toLowerCase())
+                                );
+
+                                generirajUparivanjePDF(sir.naziv, filtriranaVina, 'sir');
+                            }}
+                        >
+                            Generiraj PDF
+                        </Button>
+
+                        <Form.Control
+                            type="text"
+                            placeholder="Pretraži vina..."
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value)}
+                            style={{
+                                maxWidth: "250px",
+                                backgroundColor: "lightgrey",
+                                border: "2px solid grey"
+                            }}
+                        />
+                    </div>
+
+                    <p>Odabrano: {odabranaVina.length}</p>
+
+                    <div className="sirevi-grid">
+                        {vina
+                            .filter(v =>
                                 v.naziv.toLowerCase().includes(filter.toLowerCase())
-                            );
+                            )
+                            .map(v => {
+                                const selected = odabranaVina.includes(v.id);
 
-                            console.log("Šaljem u PDF:", sir.naziv, filtriranaVina);
+                                return (
+                                    <div
+                                        key={v.id}
+                                        className={`sir-tile ${selected ? "selected" : ""}`}
+                                        onClick={() => toggleVino(v.id)}
+                                    >
+                                        {v.naziv}
+                                    </div>
+                                );
+                            })}
+                    </div>
 
-                            generirajUparivanjePDF(sir.naziv, filtriranaVina, 'sir');
-                        }}
-                    >
-                        Generiraj PDF
-                    </Button>
-
-                    <Form.Control
-                        type="text"
-                        placeholder="Pretraži vina..."
-                        value={filter}
-                        onChange={(e) => setFilter(e.target.value)}
-                        style={{
-                            maxWidth: "250px",
-                            backgroundColor: "lightgrey",
-                            border: "2px solid grey"
-                        }}
-                    />
-                </div>
-
-                {/*Grid*/}
-                <p>Odabrano: {odabranaVina.length}</p>
-
-                <div className="sirevi-grid">
-                    {vina
-                        .filter(v => v.naziv.toLowerCase().includes(filter.toLowerCase()))
-                        .map(v => {
-                            const selected = odabranaVina.includes(v.id);
-
-                            return (
-                                <div
-                                    key={v.id}
-                                    className={`sir-tile ${selected ? "selected" : ""}`}
-                                    onClick={() => toggleVino(v.id)}
-                                >
-                                    {v.naziv}
-                                </div>
-                            );
-                        })}
                 </div>
 
                 <hr />
+
                 <div className="d-flex gap-2">
+
                     <Button
                         onClick={() => {
                             if (from === "sirevi") {
                                 navigate(RouteNames.SIREVI_PREGLED);
                             } else {
-                                navigate(RouteNames.UPARIVANJE_SIR_PREGLED)
+                                navigate(RouteNames.UPARIVANJE_SIR_PREGLED);
                             }
                         }}
                         variant="danger"
-                        size="sm"
                         className="flex-fill"
                     >
                         Odustani
                     </Button>
 
-
-                    <Button type="submit" variant="success" size="sm" className="flex-fill">
+                    <Button type="submit" variant="success" className="flex-fill">
                         Spremi
                     </Button>
 
                 </div>
-            </Form >
+
+            </Form>
         </>
     );
 }
-
