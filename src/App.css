@@ -224,3 +224,10 @@ h2.section-title.preporuke {
   color: #7b0323;
   font-weight: bold;
 }
+
+.zanimljivosti-nove {
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid #ddd;
+    padding-bottom: 30px;
+}

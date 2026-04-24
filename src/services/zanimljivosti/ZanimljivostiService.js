@@ -1,12 +1,18 @@
-let cards = []
+import { DATA_SOURCE } from "../../constants";
 
-export function getCards() {
-    return cards
+import * as memorija from "./ZanimljivostiServiceMemorija";
+import * as local from "./ZanimljivostiServiceLocalStorage";
+
+let service;
+
+switch (DATA_SOURCE) {
+    case 'localStorage':
+        service = local;
+        break;
+    case 'memorija':
+    default:
+        service = memorija;
 }
 
-
-export function addCard(card) {
-    if (!card.title || !card.text) return
-
-    cards = [...cards, card]    
-}
+export const getCards = service.getCards;
+export const addCard = service.addCard;

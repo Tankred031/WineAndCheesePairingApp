@@ -22,6 +22,7 @@ export default function Zanimljivosti() {
             <div className="container mt-4">
                 <div className="row justify-content-center">
 
+                    {/*postojeće kartice*/}
                     <div className="col-md-4 mt-4">
                         <Card
                             img={vinoDan}
@@ -53,12 +54,17 @@ export default function Zanimljivosti() {
                         />
                     </div>
 
-                    {cards.map((card, index) => (
-                        <div className="col-md-4 mt-4" key={index}>
-                            <Card {...card} button="Pročitaj više" />
-                        </div>
-                    ))}
+                    {/*novo dodane kartice*/}
+                    {cards.length > 0 && (
+                        <div className="row justify-content-center zanimljivosti-nove">
 
+                            {cards.map((card, index) => (
+                                <div className="col-md-4 mt-4" key={index}>
+                                    <Card {...card} button="Pročitaj više" />
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
 
