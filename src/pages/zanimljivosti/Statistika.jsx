@@ -83,7 +83,7 @@ export default function Statistika() {
     return (
         <div className="mt-4">
 
-            <h3 className="text-center mb-4">🍷 Statistika vina</h3>
+            <h2 className="section-title mb-4">Statistika vina</h2>
 
             <Row className="mb-5">
                 {TIPOVI_VINA.map(tip => (
@@ -108,7 +108,7 @@ export default function Statistika() {
                 ))}
             </Row>
 
-            <h3 className="text-center mb-4">🧀 Statistika sireva</h3>
+            <h2 className="section-title mb-4">Statistika sireva</h2>
 
             <Row>
                 {TIPOVI_SIREVA.map(tip => (

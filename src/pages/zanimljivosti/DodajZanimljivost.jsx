@@ -34,8 +34,8 @@ export default function DodajZanimljivost() {
         
     <div className="zanimljivosti-form-wrapper">
 
-        <h2 className="zanimljivosti-form-title">
-            Dodaj zanimljivost
+        <h2 className="section-title mb-4">
+            Dodaj zanimljivost 👇
         </h2>
 
         <div className="zanimljivosti-form-card">

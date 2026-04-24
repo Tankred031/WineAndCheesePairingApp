@@ -17,7 +17,7 @@ export default function Zanimljivosti() {
 
     return (
         <>
-            <h2 className="text-center mt-4">📚 Članci</h2>
+            <h2 className="section-title mt-4">Članci</h2>
 
             <div className="container mt-4">
                 <div className="row justify-content-center">

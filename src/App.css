@@ -190,7 +190,7 @@ body {
 .zanimljivosti-form-title {
     text-align: center;
     font-weight: 800;
-    color: #990012;
+    color: black;
     margin-bottom: 20px;
 }
 
@@ -218,4 +218,9 @@ body {
 .zanimljivosti-form-card .form-control:focus {
     border-color: #990012;
     box-shadow: 0 0 0 0.15rem rgba(153, 0, 18, 0.25);
+}
+
+h2.section-title.preporuke {
+  color: #7b0323;
+  font-weight: bold;
 }

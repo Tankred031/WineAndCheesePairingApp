@@ -1,8 +1,10 @@
 export default function Preporuke() {
+
+
     return (
         <div className="container mt-4">
 
-            <h2 className="mb-4">Preporučene sorte vina u RH</h2>
+            <h2 className="section-title mb-4 preporuke">Preporučene vinske sorte u RH</h2>
 
             <div className="row">
 
