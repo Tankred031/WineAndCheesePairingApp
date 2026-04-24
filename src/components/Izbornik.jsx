@@ -66,7 +66,13 @@ export default function Izbornik() {
               </NavDropdown.Item>
 
               <NavDropdown.Item
-                onClick={() => navigate("/zanimljivosti/preporuke")}
+                onClick={() => navigate(RouteNames.ZANIMLJIVOSTI_NOVI)}
+              >
+                Dodaj članak/zanimljivost
+              </NavDropdown.Item>
+
+              <NavDropdown.Item
+                onClick={() => navigate(RouteNames.ZANIMLJIVOSTI_PREPORUKE)}
               >
                 Preporuke
               </NavDropdown.Item>

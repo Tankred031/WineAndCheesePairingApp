@@ -20,10 +20,9 @@ import UparivanjeSirPregled from './pages/uparivanje/UparivanjeSirPregled'
 import GeneriranjePodataka from './pages/GeneriranjePodataka'
 import Statistika from './pages/zanimljivosti/Statistika'
 import Preporuke from './pages/zanimljivosti/preporuke'
+import DodajZanimljivost from './pages/zanimljivosti/DodajZanimljivost' 
 
 function App() {
-
-
 
   return (
     <Container style={{ backgroundColor: window.localStorage === 'localhost' ? 'salmon' : 'none' }}>
@@ -46,9 +45,11 @@ function App() {
 
           <Route path={RouteNames.ZANIMLJIVOSTI} element={<Zanimljivosti />} />
           <Route path={RouteNames.ZANIMLJIVOSTI_STATISTIKA} element={<Statistika />} />
-          <Route path="/zanimljivosti/preporuke" element={<Preporuke />} />
+          <Route path={RouteNames.ZANIMLJIVOSTI_PREPORUKE} element={<Preporuke />} />
 
           <Route path={RouteNames.GENERIRANJE_PODATAKA} element={<GeneriranjePodataka />} />
+
+          <Route path={RouteNames.ZANIMLJIVOSTI_NOVI} element={<DodajZanimljivost />} />
         </Routes>
       </Container>
       <hr />

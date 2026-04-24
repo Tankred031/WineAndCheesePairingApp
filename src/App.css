@@ -182,3 +182,40 @@ body {
   font-size: 1.6rem;
 }
 
+.zanimljivosti-form-wrapper {
+    max-width: 750px;
+    margin: 40px auto;
+}
+
+.zanimljivosti-form-title {
+    text-align: center;
+    font-weight: 800;
+    color: #990012;
+    margin-bottom: 20px;
+}
+
+.zanimljivosti-form-card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    transition: 0.2s ease;
+}
+
+.zanimljivosti-form-card:hover {
+    transform: translateY(-3px);
+}
+
+.zanimljivosti-form-card .form-label {
+    font-weight: 600;
+    color: #333;
+}
+
+.zanimljivosti-form-card .form-control {
+    border-radius: 10px;
+}
+
+.zanimljivosti-form-card .form-control:focus {
+    border-color: #990012;
+    box-shadow: 0 0 0 0.15rem rgba(153, 0, 18, 0.25);
+}

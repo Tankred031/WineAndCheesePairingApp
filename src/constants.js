@@ -17,9 +17,11 @@ export const RouteNames = {
 
     ZANIMLJIVOSTI: '/zanimljivosti/clanci',
     ZANIMLJIVOSTI_STATISTIKA: '/zanimljivosti/statistika',
-    ZANIMLJIVOSTI_POVIJEST: '/zanimljivosti/povijest',
+    ZANIMLJIVOSTI_PREPORUKE: '/zanimljivosti/preporuke',
+    ZANIMLJIVOSTI_NOVI: '/zanimljivosti/novi',
 
     GENERIRANJE_PODATAKA: '/generiraj-podatke'
+
 }
 
 // memorija, localStorage, firebase
