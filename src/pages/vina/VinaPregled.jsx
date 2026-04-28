@@ -7,7 +7,9 @@ import useBreakpoint from "../../hooks/useBreakpoint"
 import VinaPregledGrid from "./VinaPregledGrid"
 import VinaPregledTablica from "./VinaPregledTablica"
 import { generirajVinaPDF } from "../../components/VinaPDFGenerator"
-import { generirajExcel } from "../../components/ExcelGenerator";
+import { generirajExcel } from "../../components/ExcelGenerator"
+import useLoading from "../../hooks/useLoading"
+
 
 export default function VinaPregled() {
 
@@ -18,6 +20,8 @@ export default function VinaPregled() {
 
     const [currentPage, setCurrentPage] = useState(1)
     const pageSize = 10
+
+    const { showLoading, hideLoading } = useLoading()
 
     const TIPOVI_VINA = [
         { id: 1, naziv: "crveno" },
@@ -47,6 +51,10 @@ export default function VinaPregled() {
             minimumFractionDigits: 1,
             maximumFractionDigits: 1
         })
+    }
+
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
     }
 
     // 🔥 1. FILTRIRANJE (svi podaci)
@@ -83,7 +91,9 @@ export default function VinaPregled() {
     }, [])
 
     async function ucitajVina() {
+        showLoading()
         const odgovor = await VinaService.get()
+        
 
         if (!odgovor.success) {
             alert('Nije implementiran servis')
@@ -91,6 +101,7 @@ export default function VinaPregled() {
         }
 
         setVina(odgovor.data)
+        hideLoading()
     }
 
     function handlePageChange(page) {
@@ -101,8 +112,13 @@ export default function VinaPregled() {
     async function obrisi(id) {
         if (!confirm('Sigurno obrisati?')) return
 
+        showLoading()
+
         await VinaService.obrisi(id)
-        ucitajVina()
+        await delay(800) // produži trajanje loadera 
+        await ucitajVina()
+
+        hideLoading()
     }
 
     return (

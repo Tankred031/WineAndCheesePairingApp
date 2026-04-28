@@ -21,10 +21,14 @@ import GeneriranjePodataka from './pages/GeneriranjePodataka'
 import Statistika from './pages/zanimljivosti/Statistika'
 import Preporuke from './pages/zanimljivosti/preporuke'
 import DodajZanimljivost from './pages/zanimljivosti/DodajZanimljivost' 
+import LoadingSpinner from './components/LoadingSpinner'
 
 function App() {
 
   return (
+    <>
+
+    <LoadingSpinner />
     <Container style={{ backgroundColor: window.localStorage === 'localhost' ? 'salmon' : 'none' }}>
       <Izbornik />
       <Container className='app'>
@@ -55,6 +59,7 @@ function App() {
       <hr />
       <p className='footer'>&copy; Wine and Cheese Pairing App</p>
     </Container>
+    </>
   )
 }
 

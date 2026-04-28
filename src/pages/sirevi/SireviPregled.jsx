@@ -6,7 +6,8 @@ import SireviPregledGrid from "./SireviPregledGrid"
 import SireviPregledTablica from "./SireviPregledTablica"
 import { generirajSireviPDF } from "../../components/SireviPDFGenerator"
 import { Button, Pagination } from "react-bootstrap"
-import { generirajExcel } from "../../components/ExcelGenerator";
+import { generirajExcel } from "../../components/ExcelGenerator"
+import useLoading from "../../hooks/useLoading"
 
 export default function SireviPregled() {
 
@@ -18,6 +19,8 @@ export default function SireviPregled() {
 
     const [currentPage, setCurrentPage] = useState(1)
     const pageSize = 10
+
+    const { showLoading, hideLoading } = useLoading()
 
     // --- Konstante ---
     const VRSTE = [
@@ -50,8 +53,14 @@ export default function SireviPregled() {
         ucitajSirevi()
     }, [])
 
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+    }
+
     async function ucitajSirevi() {
+        showLoading()
         const odgovor = await SireviService.get()
+        
 
         if (!odgovor.success) {
             alert('Nije implementiran servis')
@@ -59,13 +68,20 @@ export default function SireviPregled() {
         }
 
         setSirevi(odgovor.data)
+        hideLoading()
     }
 
     // --- 2. BRISANJE ---
     async function obrisi(id) {
         if (!confirm('Sigurno obrisati?')) return
+        
+        showLoading()
+
         await SireviService.obrisi(id)
-        ucitajSirevi()
+        await delay(800) // produži trajanje loadera 
+        await ucitajSirevi()
+        
+        hideLoading()
     }
 
     // --- 3. FILTRIRANJE (SVI PODACI) ---
