@@ -91,7 +91,7 @@ export default function VinaPregled() {
     }, [])
 
     async function ucitajVina() {
-        showLoading()
+        showLoading("Učitavam podatke...")
         const odgovor = await VinaService.get()
         
 
@@ -112,7 +112,7 @@ export default function VinaPregled() {
     async function obrisi(id) {
         if (!confirm('Sigurno obrisati?')) return
 
-        showLoading()
+        showLoading("Brišem podatke...")
 
         await VinaService.obrisi(id)
         await delay(800) // produži trajanje loadera 

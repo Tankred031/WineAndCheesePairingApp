@@ -3,6 +3,7 @@ import { RouteNames } from "../../constants";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import VinaService from "../../services/vina/VinaService";
 import { useEffect, useState } from "react";
+import useLoading from "../../hooks/useLoading";
 
 export default function VinaPromjena() {
 
@@ -12,6 +13,8 @@ export default function VinaPromjena() {
     const [vino, setVino] = useState({});
     const [alkoholMin, setAlkoholMin] = useState(8);
     const [alkoholMax, setAlkoholMax] = useState(15);
+
+    const { showLoading, hideLoading } = useLoading()
 
     const TIPOVI_VINA = [
         { id: 1, naziv: "crveno" },
@@ -33,6 +36,7 @@ export default function VinaPromjena() {
     }, []);
 
     async function ucitajVino() {
+        showLoading("Učitavam vina...");
         const odgovor = await VinaService.getById(params.id);
 
         if (!odgovor.success) {
@@ -44,11 +48,18 @@ export default function VinaPromjena() {
         setVino(s);
         setAlkoholMin(Number(s.alkohol_min));
         setAlkoholMax(Number(s.alkohol_max));
+        hideLoading();
     }
 
     async function promjeni(vino) {
+        showLoading("Spremam izmjene...");
+
         await VinaService.promjeni(params.id, vino);
-        navigate(RouteNames.VINA_PREGLED);
+
+        setTimeout(() => {
+            hideLoading();
+            navigate(RouteNames.VINA_PREGLED);
+        }, 400);
     }
 
     function odradiSubmit(e) {

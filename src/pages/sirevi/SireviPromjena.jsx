@@ -3,12 +3,15 @@ import { RouteNames } from "../../constants";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SireviService from "../../services/sirevi/SireviService";
 import { useEffect, useState } from "react";
+import useLoading from "../../hooks/useLoading";
 
 export default function SireviPromjena() {
 
     const navigate = useNavigate();
     const params = useParams();
     const [sir, setSir] = useState({});
+
+    const { showLoading, hideLoading } = useLoading()
 
     const VRSTE = [
         { id: 1, naziv: "kravlji" },
@@ -48,6 +51,8 @@ export default function SireviPromjena() {
     }, []);
 
     async function ucitajSir() {
+        showLoading("Učitavam sireve...");
+
         const odgovor = await SireviService.getById(params.id);
 
         if (!odgovor.success) {
@@ -56,11 +61,18 @@ export default function SireviPromjena() {
         }
 
         setSir(odgovor.data);
+        hideLoading();
     }
 
     async function promjeni(sir) {
+        showLoading("Spremam izmjene...");
+
         await SireviService.promjeni(params.id, sir);
-        navigate(RouteNames.SIREVI_PREGLED);
+
+        setTimeout(() => {
+            hideLoading();
+            navigate(RouteNames.SIREVI_PREGLED);
+        }, 400);
     }
 
     function odradiSubmit(e) {

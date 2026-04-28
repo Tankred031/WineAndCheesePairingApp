@@ -5,17 +5,21 @@ export const LoadingContext = createContext();
 
 export function LoadingProvider({ children }) {
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
-  function showLoading() {
+  function showLoading(msg = 'Učitavam podatke...') {
+    setMessage(msg)
     setLoading(true);
   }
 
   function hideLoading() {
     setLoading(false);
+    setMessage('');
   }
 
   const value = {
     loading,
+    message,
     showLoading,
     hideLoading,
   };

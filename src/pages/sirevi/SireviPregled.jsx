@@ -58,7 +58,7 @@ export default function SireviPregled() {
     }
 
     async function ucitajSirevi() {
-        showLoading()
+        showLoading("Učitavam podatke...")
         const odgovor = await SireviService.get()
         
 
@@ -75,12 +75,12 @@ export default function SireviPregled() {
     async function obrisi(id) {
         if (!confirm('Sigurno obrisati?')) return
         
-        showLoading()
+        showLoading("Brišem podatke...")
 
         await SireviService.obrisi(id)
         await delay(800) // produži trajanje loadera 
         await ucitajSirevi()
-        
+
         hideLoading()
     }
 

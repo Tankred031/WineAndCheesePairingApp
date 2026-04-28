@@ -20,45 +20,48 @@ import UparivanjeSirPregled from './pages/uparivanje/UparivanjeSirPregled'
 import GeneriranjePodataka from './pages/GeneriranjePodataka'
 import Statistika from './pages/zanimljivosti/Statistika'
 import Preporuke from './pages/zanimljivosti/preporuke'
-import DodajZanimljivost from './pages/zanimljivosti/DodajZanimljivost' 
+import DodajZanimljivost from './pages/zanimljivosti/DodajZanimljivost'
 import LoadingSpinner from './components/LoadingSpinner'
+import { LoadingProvider } from './components/LoadingContext'
 
 function App() {
 
   return (
     <>
 
-    <LoadingSpinner />
-    <Container style={{ backgroundColor: window.localStorage === 'localhost' ? 'salmon' : 'none' }}>
-      <Izbornik />
-      <Container className='app'>
-        <Routes>
-          <Route path={RouteNames.HOME} element={<Home />} />
-          <Route path={RouteNames.VINA_PREGLED} element={<VinaPregled />} />
-          <Route path={RouteNames.SIREVI_PREGLED} element={<SireviPregled />} />
+      <LoadingProvider>
+      <LoadingSpinner />
+      <Container style={{ backgroundColor: window.location.hostname === 'localhost' ? 'salmon' : 'none' }}>
+        <Izbornik />
+        <Container className='app'>
+          <Routes>
+            <Route path={RouteNames.HOME} element={<Home />} />
+            <Route path={RouteNames.VINA_PREGLED} element={<VinaPregled />} />
+            <Route path={RouteNames.SIREVI_PREGLED} element={<SireviPregled />} />
 
-          <Route path={RouteNames.UPARIVANJE_VINO_PREGLED} element={<UparivanjeVinoPregled />} />
-          <Route path={RouteNames.UPARIVANJE_VINO_PROMJENA} element={<UparivanjeVinoPromjena />} />          
-          <Route path={RouteNames.UPARIVANJE_SIR_PREGLED} element={<UparivanjeSirPregled />} />
-          <Route path={RouteNames.UPARIVANJE_SIR_PROMJENA} element={<UparivanjeSirPromjena />} />
+            <Route path={RouteNames.UPARIVANJE_VINO_PREGLED} element={<UparivanjeVinoPregled />} />
+            <Route path={RouteNames.UPARIVANJE_VINO_PROMJENA} element={<UparivanjeVinoPromjena />} />
+            <Route path={RouteNames.UPARIVANJE_SIR_PREGLED} element={<UparivanjeSirPregled />} />
+            <Route path={RouteNames.UPARIVANJE_SIR_PROMJENA} element={<UparivanjeSirPromjena />} />
 
-          <Route path={RouteNames.VINA_NOVI} element={<VinaNovi />} />
-          <Route path={RouteNames.SIREVI_NOVI} element={<SireviNovi />} />
-          <Route path={RouteNames.VINA_PROMJENA} element={<VinaPromjena />} />
-          <Route path={RouteNames.SIREVI_PROMJENA} element={<SireviPromjena />} />
+            <Route path={RouteNames.VINA_NOVI} element={<VinaNovi />} />
+            <Route path={RouteNames.SIREVI_NOVI} element={<SireviNovi />} />
+            <Route path={RouteNames.VINA_PROMJENA} element={<VinaPromjena />} />
+            <Route path={RouteNames.SIREVI_PROMJENA} element={<SireviPromjena />} />
 
-          <Route path={RouteNames.ZANIMLJIVOSTI} element={<Zanimljivosti />} />
-          <Route path={RouteNames.ZANIMLJIVOSTI_STATISTIKA} element={<Statistika />} />
-          <Route path={RouteNames.ZANIMLJIVOSTI_PREPORUKE} element={<Preporuke />} />
+            <Route path={RouteNames.ZANIMLJIVOSTI} element={<Zanimljivosti />} />
+            <Route path={RouteNames.ZANIMLJIVOSTI_STATISTIKA} element={<Statistika />} />
+            <Route path={RouteNames.ZANIMLJIVOSTI_PREPORUKE} element={<Preporuke />} />
 
-          <Route path={RouteNames.GENERIRANJE_PODATAKA} element={<GeneriranjePodataka />} />
+            <Route path={RouteNames.GENERIRANJE_PODATAKA} element={<GeneriranjePodataka />} />
 
-          <Route path={RouteNames.ZANIMLJIVOSTI_NOVI} element={<DodajZanimljivost />} />
-        </Routes>
+            <Route path={RouteNames.ZANIMLJIVOSTI_NOVI} element={<DodajZanimljivost />} />
+          </Routes>
+        </Container>
+        <hr />
+        <p className='footer'>&copy; Wine and Cheese Pairing App</p>
       </Container>
-      <hr />
-      <p className='footer'>&copy; Wine and Cheese Pairing App</p>
-    </Container>
+      </LoadingProvider>
     </>
   )
 }

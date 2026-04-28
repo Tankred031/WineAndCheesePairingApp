@@ -1,16 +1,24 @@
-import { Spinner } from 'react-bootstrap';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import useLoading from '../hooks/useLoading';
 
 export default function LoadingSpinner() {
-    const { loading } = useLoading();
+    const { loading, message } = useLoading();
+
+    if (!loading) return null;
 
     return (
         <>
             {loading && (
                 <div className='loading-spinner-overlay'>
-                    <Spinner animation='border' role='status' variant='primary' />
+
                     <div className='loading-content'>
-                        <p className='loading-text'>Učitavanje podataka...</p>
+                    <DotLottieReact
+                    src="/bottle.lottie"
+                    loop
+                    autoplay
+                    style= {{ width: 120, height: 120 }} />
+                    
+                        <p className='loading-text'>{message}</p>
                     </div>
                 </div>
             )}
