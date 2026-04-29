@@ -11,16 +11,16 @@ import useLoading from "../../hooks/useLoading"
 
 export default function SireviPregled() {
 
-    const navigate = useNavigate()
-    const sirina = useBreakpoint()
+    const navigate = useNavigate();
+    const sirina = useBreakpoint();
 
-    const [sirevi, setSirevi] = useState([])
-    const [pojam, setPojam] = useState('')
+    const [sirevi, setSirevi] = useState([]);
+    const [pojam, setPojam] = useState('');
 
-    const [currentPage, setCurrentPage] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 10
 
-    const { showLoading, hideLoading } = useLoading()
+    const { showLoading, hideLoading } = useLoading();
 
     // --- Konstante ---
     const VRSTE = [
@@ -47,6 +47,7 @@ export default function SireviPregled() {
     function getTipNaziv(id) { return TIPOVI.find(t => t.id === id)?.naziv || '' }
     function getZrenjeNaziv(id) { return ZRENJA.find(z => z.id === id)?.naziv || '' }
     function getIntezitetNaziv(id) { return INTEZITETI.find(i => i.id === id)?.naziv || '' }
+
 
     // --- 1. UCITAVANJE ---
     useEffect(() => {

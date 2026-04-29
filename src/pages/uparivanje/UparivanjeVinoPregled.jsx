@@ -9,6 +9,8 @@ import useBreakpoint from "../../hooks/useBreakpoint";
 import UparivanjeVinoPregledGrid from "./UparivanjeVinoPregledGrid";
 import UparivanjeVinoPregledTablica from "./UparivanjeVinoPregledTablica";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+import useLoading from "../../hooks/useLoading";
+
 
 export default function UparivanjeVinoPregled() {
 
@@ -20,6 +22,8 @@ export default function UparivanjeVinoPregled() {
     const navigate = useNavigate();
     const sirina = useBreakpoint();
 
+    const { showLoading, hideLoading } = useLoading();
+
     const [sortConfig, setSortConfig] = useState({
         key: "naziv",
         direction: "asc"
@@ -29,14 +33,28 @@ export default function UparivanjeVinoPregled() {
         ucitaj();
     }, []);
 
-    async function ucitaj() {
-        const v = await VinaService.get();
-        const s = await SireviService.get();
-        const c = await UparivanjeCustomService.get();
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
-        setVina(v.data || []);
-        setSirevi(s.data || []);
-        setCustom(c.data || []);
+    async function ucitaj() {
+        showLoading("Učitavam podatke...");
+
+        try {
+            const v = await VinaService.get();
+            const s = await SireviService.get();
+            const c = await UparivanjeCustomService.get();
+
+            await delay(500);
+
+            setVina(v.data || []);
+            setSirevi(s.data || []);
+            setCustom(c.data || []);
+        } catch (err) {
+            console.error("Greška kod učitavanja:", err);
+        } finally {
+            hideLoading();
+        }
     }
 
     function getSirevi(vinoId) {
@@ -103,9 +121,20 @@ export default function UparivanjeVinoPregled() {
         return VinaBoje[vinoId]?.hex || "#ccc";
     }
 
-    function obrisi(vinoId) {
+    async function obrisi(vinoId) {
         if (!confirm("Sigurno obrisati?")) return;
-        setVina(prev => prev.filter(v => v.id !== vinoId));
+
+        showLoading("Brišem uparivanje...");
+
+        try {
+            await delay(500);
+
+            setVina(prev => prev.filter(v => v.id !== vinoId));
+        } catch (err) {
+            console.error("Greška kod brisanja:", err);
+        } finally {
+            hideLoading();
+        }
     }
 
     const filtriranaVina = useMemo(() => {
@@ -192,50 +221,50 @@ export default function UparivanjeVinoPregled() {
     }
 
     return (
-    <div className="mt-4">
+        <div className="mt-4">
 
-        <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
+            <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
 
-            <h4 className="section-title">Popis uparenih vina</h4>
+                <h4 className="section-title">Popis uparenih vina</h4>
 
-            <input
-                type="text"
-                placeholder="Traži vino ili sir..."
-                className="form-control w-25"
-                style={{
-                    backgroundColor: "lightgrey",
-                    border: "2px solid grey"
-                }}
-                value={pojam}
-                onChange={(e) => setPojam(e.target.value)}
-            />
+                <input
+                    type="text"
+                    placeholder="Traži vino ili sir..."
+                    className="form-control w-25"
+                    style={{
+                        backgroundColor: "lightgrey",
+                        border: "2px solid grey"
+                    }}
+                    value={pojam}
+                    onChange={(e) => setPojam(e.target.value)}
+                />
+            </div>
+
+            {['xs', 'sm', 'md'].includes(sirina) ? (
+                <UparivanjeVinoPregledGrid
+                    vina={sortedVina}
+                    getBojaVina={getBojaVina}
+                    getSirevi={getSirevi}
+                    getOcjena={getOcjena}
+                    getSireviObjekti={getSireviObjekti}
+                    navigate={navigate}
+                    obrisi={obrisi}
+                />
+            ) : (
+                <UparivanjeVinoPregledTablica
+                    sortedVina={sortedVina}
+                    handleSort={handleSort}
+                    getSortIcon={getSortIcon}
+                    getBojaVina={getBojaVina}
+                    getSirevi={getSirevi}
+                    getOcjena={getOcjena}
+                    getSireviObjekti={getSireviObjekti}
+                    navigate={navigate}
+                    obrisi={obrisi}
+                />
+            )}
+
+            <p className="text-muted">{poruka}</p>
         </div>
-
-        {['xs', 'sm', 'md'].includes(sirina) ? (
-            <UparivanjeVinoPregledGrid
-                vina={sortedVina}
-                getBojaVina={getBojaVina}
-                getSirevi={getSirevi}
-                getOcjena={getOcjena}
-                getSireviObjekti={getSireviObjekti}
-                navigate={navigate}
-                obrisi={obrisi}
-            />
-        ) : (
-            <UparivanjeVinoPregledTablica
-                sortedVina={sortedVina}
-                handleSort={handleSort}
-                getSortIcon={getSortIcon}
-                getBojaVina={getBojaVina}
-                getSirevi={getSirevi}
-                getOcjena={getOcjena}
-                getSireviObjekti={getSireviObjekti}
-                navigate={navigate}
-                obrisi={obrisi}
-            />
-        )}
-
-        <p className="text-muted">{poruka}</p>
-    </div>
-);
+    );
 }

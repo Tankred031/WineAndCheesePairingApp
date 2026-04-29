@@ -8,6 +8,7 @@ import useBreakpoint from "../../hooks/useBreakpoint";
 import UparivanjeSirPregledGrid from "./UparivanjeSirPregledGrid";
 import UparivanjeSirPregledTablica from "./UparivanjeSirPregledTablica";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+import useLoading from "../../hooks/useLoading";
 
 export default function UparivanjeSirPregled() {
 
@@ -19,6 +20,8 @@ export default function UparivanjeSirPregled() {
     const navigate = useNavigate();
     const sirina = useBreakpoint();
 
+    const { showLoading, hideLoading } = useLoading();
+
     const [sortConfig, setSortConfig] = useState({
         key: 'naziv',
         direction: 'asc'
@@ -28,14 +31,28 @@ export default function UparivanjeSirPregled() {
         ucitaj();
     }, []);
 
-    async function ucitaj() {
-        const v = await VinaService.get();
-        const s = await SireviService.get();
-        const c = await UparivanjeCustomService.get();
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
-        setVina(v.data || []);
-        setSirevi(s.data || []);
-        setCustom(c.data || []);
+    async function ucitaj() {
+        showLoading("Učitavam podatke...");
+
+        try {
+            const v = await VinaService.get();
+            const s = await SireviService.get();
+            const c = await UparivanjeCustomService.get();
+
+            await delay(500);
+
+            setVina(v.data || []);
+            setSirevi(s.data || []);
+            setCustom(c.data || []);
+        } catch (err) {
+            console.error("Greška kod učitavanja:", err);
+        } finally {
+            hideLoading();
+        }
     }
 
     function getVina(sirId) {
@@ -62,96 +79,109 @@ export default function UparivanjeSirPregled() {
         return vina.filter(v => ids.includes(v.id));
     }
 
-    function obrisi(sirId) {
+    async function obrisi(sirId) {
         if (!confirm("Sigurno obrisati?")) return;
-        setSirevi(prev => prev.filter(s => s.id !== sirId));
-    }
 
-    const filtriraniSirevi = sirevi.filter(s => {
-        const p = pojam.toLowerCase();
-        return (
-            s.naziv?.toLowerCase().includes(p) ||
-            getVina(s.id).toLowerCase().includes(p)
-        );
-    });
+        showLoading("Brišem uparivanje...");
 
-    function handleSort(key) {
-        let direction = 'asc';
+        try {
 
-        if (sortConfig.key === key && sortConfig.direction === 'asc') {
-            direction = 'desc';
-        } else if (sortConfig.key === key && sortConfig.direction === 'desc') {
-            direction = null;
+            await delay(500);
+            
+            setSirevi(prev => prev.filter(s => s.id !== sirId));
+        } catch (err) {
+            console.error("Greška kod brisanja:",err);
+        } finally {
+            hideLoading();
         }
-
-        setSortConfig({ key, direction });
     }
 
-    function getSortValue(sir, key) {
-        if (key === "vina") return getVina(sir.id);
-        return sir[key] ?? "";
-    }
+        const filtriraniSirevi = sirevi.filter(s => {
+            const p = pojam.toLowerCase();
+            return (
+                s.naziv?.toLowerCase().includes(p) ||
+                getVina(s.id).toLowerCase().includes(p)
+            );
+        });
 
-    const sortedSirevi = () => {
-        if (!sortConfig.direction) return filtriraniSirevi;
+        function handleSort(key) {
+            let direction = 'asc';
 
-        return [...filtriraniSirevi].sort((a, b) => {
-            let aValue = getSortValue(a, sortConfig.key);
-            let bValue = getSortValue(b, sortConfig.key);
-
-            if (typeof aValue === "string") {
-                return sortConfig.direction === "asc"
-                    ? aValue.localeCompare(bValue, "hr")
-                    : bValue.localeCompare(aValue, "hr");
+            if (sortConfig.key === key && sortConfig.direction === 'asc') {
+                direction = 'desc';
+            } else if (sortConfig.key === key && sortConfig.direction === 'desc') {
+                direction = null;
             }
 
-            return sortConfig.direction === "asc"
-                ? aValue - bValue
-                : bValue - aValue;
-        });
-    };
+            setSortConfig({ key, direction });
+        }
 
-    function getSortIcon(key) {
-        if (sortConfig.key !== key || !sortConfig.direction) return <FaSort />;
-        return sortConfig.direction === "asc" ? <FaSortUp /> : <FaSortDown />;
-    }
+        function getSortValue(sir, key) {
+            if (key === "vina") return getVina(sir.id);
+            return sir[key] ?? "";
+        }
 
-    return (
-        <div className="mt-4">
+        const sortedSirevi = () => {
+            if (!sortConfig.direction) return filtriraniSirevi;
 
-            <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
-                <h4 className="section-title">Popis uparenih sireva</h4>
+            return [...filtriraniSirevi].sort((a, b) => {
+                let aValue = getSortValue(a, sortConfig.key);
+                let bValue = getSortValue(b, sortConfig.key);
 
-                <input
-                    type="text"
-                    placeholder="Traži sir ili vino..."
-                    className="form-control w-25"
-                    style={{
-                    backgroundColor: "lightgrey",
-                    border: "2px solid grey"
-                }}
-                    value={pojam}
-                    onChange={(e) => setPojam(e.target.value)}
-                />
+                if (typeof aValue === "string") {
+                    return sortConfig.direction === "asc"
+                        ? aValue.localeCompare(bValue, "hr")
+                        : bValue.localeCompare(aValue, "hr");
+                }
+
+                return sortConfig.direction === "asc"
+                    ? aValue - bValue
+                    : bValue - aValue;
+            });
+        };
+
+        function getSortIcon(key) {
+            if (sortConfig.key !== key || !sortConfig.direction) return <FaSort />;
+            return sortConfig.direction === "asc" ? <FaSortUp /> : <FaSortDown />;
+        }
+    
+
+        return (
+            <div className="mt-4">
+
+                <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
+                    <h4 className="section-title">Popis uparenih sireva</h4>
+
+                    <input
+                        type="text"
+                        placeholder="Traži sir ili vino..."
+                        className="form-control w-25"
+                        style={{
+                            backgroundColor: "lightgrey",
+                            border: "2px solid grey"
+                        }}
+                        value={pojam}
+                        onChange={(e) => setPojam(e.target.value)}
+                    />
+                </div>
+
+                {['xs', 'sm', 'md'].includes(sirina) ? (
+                    <UparivanjeSirPregledGrid
+                        sirevi={sortedSirevi()}
+                        getVina={getVina}
+                        navigate={navigate}
+                        obrisi={obrisi}
+                    />
+                ) : (
+                    <UparivanjeSirPregledTablica
+                        sirevi={sortedSirevi()}
+                        handleSort={handleSort}
+                        getSortIcon={getSortIcon}
+                        getVina={getVina}
+                        navigate={navigate}
+                        obrisi={obrisi}
+                    />
+                )}
             </div>
-
-            {['xs', 'sm', 'md'].includes(sirina) ? (
-                <UparivanjeSirPregledGrid
-                    sirevi={sortedSirevi()}
-                    getVina={getVina}
-                    navigate={navigate}
-                    obrisi={obrisi}
-                />
-            ) : (
-                <UparivanjeSirPregledTablica
-                    sirevi={sortedSirevi()}
-                    handleSort={handleSort}
-                    getSortIcon={getSortIcon}
-                    getVina={getVina}
-                    navigate={navigate}
-                    obrisi={obrisi}
-                />
-            )}
-        </div>
-    );
-}
+        );
+    }
