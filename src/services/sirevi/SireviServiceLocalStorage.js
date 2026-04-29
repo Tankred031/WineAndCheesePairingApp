@@ -1,13 +1,14 @@
-const STORAGE_KEY = 'sirevi'
+import { PrefixStorage } from "../../constants";
 
-
+// Pomoćna funkcija za dohvaćanje podataka iz local storage-a
 function dohvatiSveIzStorage() {
-    const podaci = localStorage.getItem(STORAGE_KEY);
+    const podaci = localStorage.getItem(PrefixStorage.SIREVI);
     return podaci ? JSON.parse(podaci) : [];
 }
 
+// Pomoćna funkcija za spremanje podataka
 function spremiULocalStorage(podaci) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(podaci));
+    localStorage.setItem(PrefixStorage.SIREVI, JSON.stringify(podaci));
 }
 
 async function get() {
@@ -51,12 +52,12 @@ async function obrisi(id) {
     const sirevi = dohvatiSveIzStorage();
     const nova = sirevi.filter(s => s.id !== parseInt(id));
 
-    if (nova.length === sirevi.lenght) {
+    if (nova.length === sirevi.length) {
         return { success: false, message: "Sir nije pronađen" };
     }
 
-    spremiULocalStorage(sirevi);
-    return { succeess: true };
+    spremiULocalStorage(nova);
+    return { success: true };
 }
 
 // Straničenje - dohvati stranicu polaznika

@@ -550,3 +550,8 @@ export const sirevi = [
         okus: 'lagano, mliječno, blago'
     }
 ]
+
+
+export default {
+    sirevi
+}

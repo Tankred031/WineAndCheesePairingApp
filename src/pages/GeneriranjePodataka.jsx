@@ -19,7 +19,7 @@ export default function GeneriranjePodataka() {
     });
     */
 
-    
+
     const generirajVina = async (broj) => {
 
         const sorte = [
@@ -179,6 +179,36 @@ export default function GeneriranjePodataka() {
     }
 
 
+    const handleMemorijaULocalStorage = async () => {
+        if (!window.confirm('Jesi siguran?')) return;
+
+        setLoading(true);
+        setPoruka(null);
+
+        try {
+            // DOHVATI IZ MEMORY SERVICE-A
+            const vina = await VinaService.get();
+            const sirevi = await SireviService.get();
+
+            // PRELIJ U LOCAL STORAGE
+            localStorage.setItem(PrefixStorage.VINA, JSON.stringify(vina.data));
+            localStorage.setItem(PrefixStorage.SIREVI, JSON.stringify(sirevi.data));
+
+            setPoruka({
+                tip: "success",
+                tekst: "Podaci prebačeni u localStorage!"
+            });
+
+        } catch (err) {
+            setPoruka({
+                tip: "danger",
+                tekst: "Greška kod pretakanja"
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <Container className="mt-4">
             <h1>Generiranje podataka</h1>
@@ -247,7 +277,7 @@ export default function GeneriranjePodataka() {
                             {loading ? 'Generiranje...' : 'Generiraj sireve'}
                         </Button>
                     </Form>
-                </Col>              
+                </Col>
             </Row>
 
             <Alert variant="warning" className="mt-3">
@@ -263,7 +293,7 @@ export default function GeneriranjePodataka() {
             </p>
 
             <Row className="mt-3">
-                <Col md={6}>
+                <Col md={4}>
                     <Button
                         variant="danger"
                         onClick={handleObrisiVina}
@@ -273,7 +303,7 @@ export default function GeneriranjePodataka() {
                         {loading ? 'Brisanje...' : 'Obriši sva vina'}
                     </Button>
                 </Col>
-                <Col md={6}>
+                <Col md={4}>
                     <Button
                         variant="danger"
                         onClick={handleObrisiSireve}
@@ -282,7 +312,18 @@ export default function GeneriranjePodataka() {
                     >
                         {loading ? 'Brisanje...' : 'Obriši sve sireve'}
                     </Button>
-                </Col>                
+                </Col>
+
+                <Col md={4}>
+                    <Button
+                        variant="success"
+                        onClick={handleMemorijaULocalStorage}
+                        disabled={loading}
+                        className="w-100 mt-2"
+                    >
+                        Pretoći u localStorage
+                    </Button>
+                </Col>
             </Row>
 
             <Alert variant="danger" className="mt-3">

@@ -3,7 +3,7 @@ import vinoDan from "../../assets/wine-day.png"
 import drinks from "../../assets/drinks.jpg"
 import cheeseMeat from "../../assets/cheese-meat.webp"
 import { useEffect, useState } from "react"
-import { getCards } from '../../services/zanimljivosti/ZanimljivostiService'
+import ZanimljivostiService from '../../services/zanimljivosti/ZanimljivostiService'
 
 
 export default function Zanimljivosti() {
@@ -12,8 +12,13 @@ export default function Zanimljivosti() {
     const [reload, setReload] = useState(false)
 
     useEffect(() => {
-        setCards(getCards())
-    }, [reload])
+        const load = async () => {
+            const res = await ZanimljivostiService.get();
+            setCards(res.data);
+        };
+
+        load()
+    }, [reload]);
 
     return (
         <>
@@ -59,7 +64,7 @@ export default function Zanimljivosti() {
                         <div className="row justify-content-center zanimljivosti-nove">
 
                             {cards.map((card, index) => (
-                                <div className="col-md-4 mt-4" key={index}>
+                                <div className="col-md-4 mt-4" key={card.id}>
                                     <Card {...card} button="Pročitaj više" />
                                 </div>
                             ))}

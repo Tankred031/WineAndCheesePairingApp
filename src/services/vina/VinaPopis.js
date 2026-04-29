@@ -908,3 +908,8 @@ export const vina = [
         alkohol_max: 13.5
     }
 ]
+
+
+export default {
+    vina
+}

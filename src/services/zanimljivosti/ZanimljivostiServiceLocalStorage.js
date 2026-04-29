@@ -1,22 +1,57 @@
-const STORAGE_KEY = "zanimljivosti_cards";
+import { PrefixStorage } from "../../constants";
 
-export function getCards() {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
+// helperi
+function dohvatiSveIzStorage() {
+    try {
+        const data = localStorage.getItem(PrefixStorage.CLANCI);
+        return data ? JSON.parse(data) : [];
+    } catch {
+        return [];
+    }
 }
 
-export function addCard(card) {
-    if (!card.title || !card.text) return;
-
-    const existing = getCards();
-
-    const updated = [
-        ...existing,
-        {
-            ...card,
-            id: Date.now()
-        }
-    ];
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+function spremiULocalStorage(data) {
+    localStorage.setItem(PrefixStorage.CLANCI, JSON.stringify(data));
 }
+
+// GET
+async function get() {
+    const cards = dohvatiSveIzStorage();
+    return { success: true, data: cards };
+}
+
+// ADD
+async function dodaj(card) {
+    if (!card.title || !card.text) {
+        return { success: false, message: "Nedostaje title ili text" };
+    }
+
+    const existing = dohvatiSveIzStorage();
+
+    const novi = {
+        ...card,
+        id: Date.now()
+    };
+
+    const updated = [...existing, novi];
+
+    spremiULocalStorage(updated);
+
+    return { success: true, data: novi };
+}
+
+// DELETE (bonus — dobro imati)
+async function obrisi(id) {
+    const existing = dohvatiSveIzStorage();
+    const nova = existing.filter(c => c.id !== parseInt(id, 10));
+
+    spremiULocalStorage(nova);
+
+    return { success: true };
+}
+
+export default {
+    get,
+    dodaj,
+    obrisi
+};

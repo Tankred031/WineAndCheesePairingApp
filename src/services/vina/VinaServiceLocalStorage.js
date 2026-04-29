@@ -1,13 +1,14 @@
-const STORAGE_KEY = 'vina'
+import { PrefixStorage } from "../../constants";
 
-
+// Pomoćna funkcija za dohvaćanje podataka iz local storage-a
 function dohvatiSveIzStorage() {
-    const podaci = localStorage.getItem(STORAGE_KEY);
+    const podaci = localStorage.getItem(PrefixStorage.VINA);
     return podaci ? JSON.parse(podaci) : [];
 }
 
+// Pomoćna funkcija za spremanje podataka
 function spremiULocalStorage(podaci) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(podaci));
+    localStorage.setItem(PrefixStorage.VINA, JSON.stringify(podaci));
 }
 
 async function get() {
@@ -27,7 +28,7 @@ async function dodaj(vino) {
     if (vina.length === 0) {
         vino.id = 1
     } else {
-        const maxId = Math.max(...vina.map(s => s.id));
+        const maxId = Math.max(...vina.map(v => v.id));
         vino.id = maxId + 1;
     }
 
@@ -38,7 +39,7 @@ async function dodaj(vino) {
 
 async function promjeni(id, vino) {
     const vina = dohvatiSveIzStorage();
-    const index = vina.findIndex(s => s.id === parseInt(id));
+    const index = vina.findIndex(v => v.id === parseInt(id));
 
     if (index !== -1) {
         vina[index] = { ...vina[index], ...vino };
@@ -49,13 +50,13 @@ async function promjeni(id, vino) {
 
 async function obrisi(id) {
     const vina = dohvatiSveIzStorage();
-    const nova = vina.filter(s => s.id !== parseInt(id));
+    const nova = vina.filter(v => v.id !== parseInt(id));
 
     if (nova.length === vina.length) {
         return { success: false, message: "Vino nije pronađeno" };
     }
 
-    spremiULocalStorage(vina);
+    spremiULocalStorage(nova);
     return { success: true };
 }
 

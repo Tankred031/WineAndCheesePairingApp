@@ -1,14 +1,31 @@
 let cards = [];
 
-export function getCards() {
-    return cards;
+async function get() {
+    return { success: true, data: cards };
 }
 
-export function addCard(card) {
-    if (!card.title || !card.text) return;
+async function dodaj(card) {
+    if (!card.title || !card.text) {
+        return { success: false };
+    }
 
-    cards = [...cards, {
+    const novi = {
         ...card,
         id: Date.now()
-    }];
+    };
+
+    cards = [...cards, novi];
+
+    return { success: true, data: novi };
 }
+
+async function obrisi(id) {
+    cards = cards.filter(c => c.id !== parseInt(id));
+    return { success: true };
+}
+
+export default {
+    get,
+    dodaj,
+    obrisi
+};

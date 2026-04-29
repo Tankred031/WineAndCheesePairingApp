@@ -1,7 +1,7 @@
 import { DATA_SOURCE } from "../../constants";
 
-import * as memorija from "./ZanimljivostiServiceMemorija";
-import * as local from "./ZanimljivostiServiceLocalStorage";
+import memorija from "./ZanimljivostiServiceMemorija";
+import local from "./ZanimljivostiServiceLocalStorage";
 
 let service;
 
@@ -14,5 +14,4 @@ switch (DATA_SOURCE) {
         service = memorija;
 }
 
-export const getCards = service.getCards;
-export const addCard = service.addCard;
+export default service;
