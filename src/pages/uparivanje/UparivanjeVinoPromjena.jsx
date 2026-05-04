@@ -10,6 +10,7 @@ import { generirajUparivanjePDF } from "../../components/UparivanjePDFGenerator"
 
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { ShemaUparivanje } from "../../schemas/ShemaUparivanje";
 
 export default function UparivanjeVinoPromjena() {
     const [vino, setVino] = useState({});
@@ -65,13 +66,27 @@ export default function UparivanjeVinoPromjena() {
 
         const vinoId = Number(params.id);
 
+        const payload = {
+            vinoId,
+            sirevi: odabraniSirevi
+        };
+        
+        // validacija
+        const rezultat = ShemaUparivanje.safeParse(payload);
+
+        if (!rezultat.success) {
+            alert(rezultat.error.issues[0].message);
+            return;
+        }
+        
+        // logika
         const svi = (await UparivanjeCustomService.get()).data || [];
         const ostali = svi.filter(u => u.vinoId !== vinoId);
-
+        
         const novi =
             odabraniSirevi.length > 0
                 ? odabraniSirevi.map(sirId => ({
-                    id: `${Date.now()}_${sirId}`,
+                    id: `${Date.now()}_${sirId}_${Math.random()}`,
                     vinoId,
                     sirId
                 }))
@@ -81,6 +96,8 @@ export default function UparivanjeVinoPromjena() {
                     sirId: null,
                     empty: true
                 }];
+
+        
 
         await UparivanjeCustomService.postavi([...ostali, ...novi]);
 

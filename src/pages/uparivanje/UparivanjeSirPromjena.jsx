@@ -10,6 +10,7 @@ import { generirajUparivanjePDF } from "../../components/UparivanjePDFGenerator"
 
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { ShemaUparivanje } from "../../schemas/ShemaUparivanje";
 
 export default function UparivanjeSirPromjena() {
 
@@ -63,32 +64,46 @@ export default function UparivanjeSirPromjena() {
     }
 
     async function spremi(e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        const sirId = Number(params.id);
+    const sirId = Number(params.id);
 
-        const svi = (await UparivanjeCustomService.get()).data || [];
-        const ostali = svi.filter(u => u.sirId !== sirId);
+    const payload = {
+        sirId,
+        vina: odabranaVina
+    };
 
-        const novi =
-            odabranaVina.length > 0
-                ? odabranaVina.map(vinoId => ({
-                    id: `${Date.now()}_${vinoId}`,
-                    sirId,
-                    vinoId
-                }))
-                : [{
-                    id: `${Date.now()}_empty`,
-                    sirId,
-                    vinoId: null,
-                    empty: true
-                }];
+    // ZOD VALIDACIJA
+    const rezultat = ShemaUparivanje.safeParse(payload);
 
-        await UparivanjeCustomService.postavi([...ostali, ...novi]);
-
-        if (from === "sirevi") navigate(RouteNames.SIREVI_PREGLED);
-        else navigate(RouteNames.UPARIVANJE_SIR_PREGLED);
+    if (!rezultat.success) {
+        alert(rezultat.error.issues[0].message);
+        return;
     }
+
+    // postojeća logika
+    const svi = (await UparivanjeCustomService.get()).data || [];
+    const ostali = svi.filter(u => u.sirId !== sirId);
+
+    const novi =
+        odabranaVina.length > 0
+            ? odabranaVina.map(vinoId => ({
+                id: `${Date.now()}_${vinoId}_${Math.random()}`,
+                sirId,
+                vinoId
+            }))
+            : [{
+                id: `${Date.now()}_empty`,
+                sirId,
+                vinoId: null,
+                empty: true
+            }];
+
+    await UparivanjeCustomService.postavi([...ostali, ...novi]);
+
+    if (from === "sirevi") navigate(RouteNames.SIREVI_PREGLED);
+    else navigate(RouteNames.UPARIVANJE_SIR_PREGLED);
+}
 
     // SCREENSHOT PDF (WYSIWYG)
     async function printScreenPDF() {
