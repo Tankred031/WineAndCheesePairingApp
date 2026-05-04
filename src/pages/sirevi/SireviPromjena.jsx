@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import SireviService from "../../services/sirevi/SireviService";
 import { useEffect, useState } from "react";
 import useLoading from "../../hooks/useLoading";
+import { ShemaSir } from "../../schemas/ShemaSir"
 
 export default function SireviPromjena() {
 
@@ -40,11 +41,13 @@ export default function SireviPromjena() {
         { id: 3, naziv: "dugo zreli" }
     ];
 
-    const INTEZITETI = [
+    const INTENZITETI = [
         { id: 1, naziv: "blagi" },
         { id: 2, naziv: "srednji" },
         { id: 3, naziv: "jaki" }
     ];
+
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         ucitajSir();
@@ -75,27 +78,41 @@ export default function SireviPromjena() {
         }, 400);
     }
 
-    function odradiSubmit(e) {
+    async function odradiSubmit(e) {
         e.preventDefault();
+        setErrors({});
+
         const podaci = new FormData(e.target);
 
-        if (!podaci.get('naziv') || podaci.get('naziv').trim().length < 2) {
-            alert("Naziv mora imati barem 2 znaka");
-            return;
-        }
-
-        promjeni({
+        const objekt = {
             naziv: podaci.get('naziv'),
             vrsta_id: Number(podaci.get('vrsta_id')),
             tip_id: Number(podaci.get('tip_id')),
             zrenje_id: Number(podaci.get('zrenje_id')),
             masnoca_id: Number(podaci.get('masnoca_id')),
-            intezitet_id: Number(podaci.get('intezitet_id')),
+            intenzitet_id: Number(podaci.get('intenzitet_id')),
             regija: podaci.get('regija'),
             okus: podaci.get('okus')
-        });
-    }
+        };
 
+        const rezultat = ShemaSir.safeParse(objekt);
+
+        if (!rezultat.success) {
+            const noveGreske = {};
+
+            rezultat.error.issues.forEach(issue => {
+                const kljuc = issue.path[0];
+                if (!noveGreske[kljuc]) {
+                    noveGreske[kljuc] = issue.message;
+                }
+            });
+
+            setErrors(noveGreske);
+            return;
+        }
+
+        promjeni(objekt);
+    }
     return (
         <>
             <h3 className="naslov">Izmjena sira</h3>
@@ -110,8 +127,16 @@ export default function SireviPromjena() {
                             <Form.Control
                                 name="naziv"
                                 defaultValue={sir.naziv}
-                                required
+                                isInvalid={!!errors.naziv}
+                                onFocus={() => {
+                                    const e = { ...errors };
+                                    delete e.naziv;
+                                    setErrors(e);
+                                }}
                             />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.naziv}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
 
@@ -120,13 +145,18 @@ export default function SireviPromjena() {
                             <Form.Label>Vrsta</Form.Label>
                             <Form.Select
                                 name="vrsta_id"
+                                isInvalid={!!errors.vrsta_id}
                                 value={sir.vrsta_id || ""}
                                 onChange={(e) => setSir({ ...sir, vrsta_id: Number(e.target.value) })}
                             >
+                                <option value="">-- odaberite vrstu --</option>
                                 {VRSTE.map(v => (
                                     <option key={v.id} value={v.id}>{v.naziv}</option>
                                 ))}
                             </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                {errors.vrsta_id}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
 
@@ -135,13 +165,18 @@ export default function SireviPromjena() {
                             <Form.Label>Tip</Form.Label>
                             <Form.Select
                                 name="tip_id"
+                                isInvalid={!!errors.tip_id}
                                 value={sir.tip_id || ""}
                                 onChange={(e) => setSir({ ...sir, tip_id: Number(e.target.value) })}
                             >
+                                <option value="">-- odaberite tip --</option>
                                 {TIPOVI.map(t => (
                                     <option key={t.id} value={t.id}>{t.naziv}</option>
                                 ))}
                             </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                {errors.tip_id}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -153,13 +188,18 @@ export default function SireviPromjena() {
                             <Form.Label>Zrenje</Form.Label>
                             <Form.Select
                                 name="zrenje_id"
+                                isInvalid={!!errors.zrenje_id}
                                 value={sir.zrenje_id || ""}
                                 onChange={(e) => setSir({ ...sir, zrenje_id: Number(e.target.value) })}
                             >
+                                <option value="">-- odaberite zrenje --</option>
                                 {ZRENJA.map(z => (
                                     <option key={z.id} value={z.id}>{z.naziv}</option>
                                 ))}
                             </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                {errors.zrenje_id}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
 
@@ -168,13 +208,18 @@ export default function SireviPromjena() {
                             <Form.Label>Masnoća</Form.Label>
                             <Form.Select
                                 name="masnoca_id"
+                                isInvalid={!!errors.masnoca_id}
                                 value={sir.masnoca_id || ""}
                                 onChange={(e) => setSir({ ...sir, masnoca_id: Number(e.target.value) })}
                             >
+                                <option value="">-- odaberite masnoću --</option>
                                 {MASNOCE.map(m => (
                                     <option key={m.id} value={m.id}>{m.naziv}</option>
                                 ))}
                             </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                {errors.masnoca_id}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
 
@@ -182,14 +227,19 @@ export default function SireviPromjena() {
                         <Form.Group>
                             <Form.Label>Intenzitet</Form.Label>
                             <Form.Select
-                                name="intezitet_id"
-                                value={sir.intezitet_id || ""}
-                                onChange={(e) => setSir({ ...sir, intezitet_id: Number(e.target.value) })}
+                                name="intenzitet_id"
+                                isInvalid={!!errors.intenzitet_id}
+                                value={sir.intenzitet_id || ""}
+                                onChange={(e) => setSir({ ...sir, intenzitet_id: Number(e.target.value) })}
                             >
+                                <option value="">-- odaberite intenzitet --</option>
                                 {INTEZITETI.map(i => (
                                     <option key={i.id} value={i.id}>{i.naziv}</option>
                                 ))}
                             </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                {errors.intenzitet_id}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
 
@@ -198,9 +248,12 @@ export default function SireviPromjena() {
                             <Form.Label>Regija</Form.Label>
                             <Form.Control
                                 name="regija"
-                                defaultValue={sir.regija}
-                                required
+                                isInvalid={!!errors.regija}
+                                defaultValue={sir.regija}                                
                             />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.regija}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -212,9 +265,12 @@ export default function SireviPromjena() {
                             <Form.Label>Okus</Form.Label>
                             <Form.Control
                                 name="okus"
-                                defaultValue={sir.okus}
-                                required
+                                isInvalid={!!errors.okus}
+                                defaultValue={sir.okus}                               
                             />
+                             <Form.Control.Feedback type="invalid">
+                                {errors.okus}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                 </Row>

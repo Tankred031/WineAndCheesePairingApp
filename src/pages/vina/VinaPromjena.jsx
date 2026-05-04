@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import VinaService from "../../services/vina/VinaService";
 import { useEffect, useState } from "react";
 import useLoading from "../../hooks/useLoading";
+import { ShemaVino } from "../../schemas/ShemaVino";
 
 export default function VinaPromjena() {
 
@@ -14,8 +15,8 @@ export default function VinaPromjena() {
     const [alkoholMin, setAlkoholMin] = useState(8);
     const [alkoholMax, setAlkoholMax] = useState(15);
 
-    const { showLoading, hideLoading } = useLoading()
-
+    const { showLoading, hideLoading } = useLoading();
+    
     const TIPOVI_VINA = [
         { id: 1, naziv: "crveno" },
         { id: 2, naziv: "bijelo" },
@@ -30,6 +31,8 @@ export default function VinaPromjena() {
         { id: 3, naziv: "poluslatko" },
         { id: 4, naziv: "slatko" }
     ];
+
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         ucitajVino();
@@ -62,21 +65,13 @@ export default function VinaPromjena() {
         }, 400);
     }
 
-    function odradiSubmit(e) {
+    async function odradiSubmit(e) {
         e.preventDefault();
+        setErrors({});
+
         const podaci = new FormData(e.target);
 
-        if (!podaci.get('naziv') || podaci.get('naziv').trim().length < 3) {
-            alert("Naziv mora imati barem 3 znaka");
-            return;
-        }
-
-        if (Number(podaci.get('temperatura_min')) > Number(podaci.get('temperatura_max'))) {
-            alert("Temperatura min ne može biti veća od max!");
-            return;
-        }
-
-        promjeni({
+        const objekt = {
             naziv: podaci.get('naziv'),
             tip_id: Number(podaci.get('tip_id')),
             regija: podaci.get('regija'),
@@ -87,7 +82,33 @@ export default function VinaPromjena() {
             tijelo: podaci.get('tijelo'),
             alkohol_min: alkoholMin,
             alkohol_max: alkoholMax
-        });
+        };
+
+        const rezultat = ShemaVino.safeParse(objekt);
+
+        if (!rezultat.success) {
+            const noveGreske = {};
+
+            rezultat.error.issues.forEach(issue => {
+                const kljuc = issue.path[0];
+                if (!noveGreske[kljuc]) {
+                    noveGreske[kljuc] = issue.message;
+                }
+            });
+
+            setErrors(noveGreske);
+            return;
+        }
+
+        // dodatna logika (nije u Zod)
+        if (objekt.temperatura_min > objekt.temperatura_max) {
+            setErrors({
+                temperatura_min: "Min ne može biti veći od max!"
+            })
+            return;
+        }
+
+        promjeni(objekt);
     }
 
     function getBoja(alkohol) {
@@ -116,8 +137,16 @@ export default function VinaPromjena() {
                             <Form.Control
                                 name="naziv"
                                 defaultValue={vino.naziv}
-                                required
+                                isInvalid={!!errors.naziv}
+                                onFocus={() => {
+                                    const e = { ...errors };
+                                    delete e.naziv;
+                                    setErrors(e);
+                                }}
                             />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.naziv}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
 
@@ -127,12 +156,17 @@ export default function VinaPromjena() {
                             <Form.Select
                                 name="tip_id"
                                 value={vino.tip_id || ""}
+                                isInvalid={!!errors.tip_id}
                                 onChange={(e) => setVino({ ...vino, tip_id: Number(e.target.value) })}
                             >
+                                <option value="">--odaberite tip --</option>
                                 {TIPOVI_VINA.map(t => (
                                     <option key={t.id} value={t.id}>{t.naziv}</option>
                                 ))}
                             </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                {errors.tip_id}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
 
@@ -142,12 +176,17 @@ export default function VinaPromjena() {
                             <Form.Select
                                 name="slatkoca_id"
                                 value={vino.slatkoca_id || ""}
+                                isInvalid={!!errors.slatkoca_id}
                                 onChange={(e) => setVino({ ...vino, slatkoca_id: Number(e.target.value) })}
                             >
+                                <option value="">--odaberite slatkoću --</option>
                                 {SLATKOCE.map(s => (
                                     <option key={s.id} value={s.id}>{s.naziv}</option>
                                 ))}
                             </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                {errors.slatkoca_id}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -156,7 +195,14 @@ export default function VinaPromjena() {
                     <Col md={6}>
                         <Form.Group>
                             <Form.Label>Regija</Form.Label>
-                            <Form.Control name="regija" defaultValue={vino.regija} required />
+                            <Form.Control
+                                name="regija"
+                                defaultValue={vino.regija}
+                                isInvalid={!!errors.regija}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.regija}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
 
@@ -167,8 +213,11 @@ export default function VinaPromjena() {
                                 type="number"
                                 name="temperatura_min"
                                 defaultValue={vino.temperatura_min}
-                                required
+                                isInvalid={!!errors.temperatura_min}
                             />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.temperatura_min}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
 
@@ -179,8 +228,11 @@ export default function VinaPromjena() {
                                 type="number"
                                 name="temperatura_max"
                                 defaultValue={vino.temperatura_max}
-                                required
+                                isInvalid={!!errors.temperatura_max}
                             />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.temperatura_max}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -189,14 +241,28 @@ export default function VinaPromjena() {
                     <Col md={8}>
                         <Form.Group>
                             <Form.Label>Arome</Form.Label>
-                            <Form.Control name="arome" defaultValue={vino.arome} required />
+                            <Form.Control
+                                name="arome"
+                                defaultValue={vino.arome}
+                                isInvalid={!!errors.arome}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.arome}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
 
                     <Col md={4}>
                         <Form.Group>
                             <Form.Label>Tijelo</Form.Label>
-                            <Form.Control name="tijelo" defaultValue={vino.tijelo} required />
+                            <Form.Control
+                                name="tijelo"
+                                defaultValue={vino.tijelo}
+                                isInvalid={!!errors.tijelo}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.tijelo}
+                            </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                 </Row>
