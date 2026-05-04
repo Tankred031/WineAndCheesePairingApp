@@ -11,7 +11,10 @@ export const ShemaZanimljivost = z.object({
 
   link: z.string()
     .url("Link mora biti validan URL")
+    .or(z.literal(""))
     .optional(),
 
-  img: z.string().optional()
+  img: z.string()
+    .or(z.literal(""))
+    .optional()
 });

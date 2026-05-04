@@ -19,6 +19,7 @@ export const RouteNames = {
     ZANIMLJIVOSTI_STATISTIKA: '/zanimljivosti/statistika',
     ZANIMLJIVOSTI_PREPORUKE: '/zanimljivosti/preporuke',
     ZANIMLJIVOSTI_NOVI: '/zanimljivosti/novi',
+    ZANIMLJIVOSTI_PROMJENA: '/zanimljivosti/:id',
 
     GENERIRANJE_PODATAKA: '/generiraj-podatke'
 

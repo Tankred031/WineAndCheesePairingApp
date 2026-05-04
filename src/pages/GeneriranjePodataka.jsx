@@ -319,7 +319,7 @@ export default function GeneriranjePodataka() {
                         variant="success"
                         onClick={handleMemorijaULocalStorage}
                         disabled={loading}
-                        className="w-100 mt-2"
+                        className="w-100 mb-2"
                     >
                         Pretoći u localStorage
                     </Button>

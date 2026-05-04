@@ -14,7 +14,7 @@ export default function Izbornik() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="mx-auto align-items-center">
             <Nav.Link
               onClick={() => navigate(RouteNames.HOME)}>
               🏠Početna</Nav.Link>
@@ -69,7 +69,7 @@ export default function Izbornik() {
                 onClick={() => navigate(RouteNames.ZANIMLJIVOSTI_NOVI)}
               >
                 Dodaj članak/zanimljivost
-              </NavDropdown.Item>
+              </NavDropdown.Item>              
 
               <NavDropdown.Item
                 onClick={() => navigate(RouteNames.ZANIMLJIVOSTI_PREPORUKE)}

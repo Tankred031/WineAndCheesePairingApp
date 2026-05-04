@@ -5,7 +5,7 @@ export const ShemaSir = z.object({
     .trim()
     .min(2, "Naziv mora imati barem 2 znaka"),
 
-  tip: z.z.coerce.number()
+  tip: z.coerce.number()
     .min(1, "Odaberite tip"),
 
   vrsta_id: z.coerce.number()

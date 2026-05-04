@@ -23,6 +23,7 @@ import Preporuke from './pages/zanimljivosti/preporuke'
 import DodajZanimljivost from './pages/zanimljivosti/DodajZanimljivost'
 import LoadingSpinner from './components/LoadingSpinner'
 import { LoadingProvider } from './components/LoadingContext'
+import ZanimljivostiPromjena from './pages/zanimljivosti/ZanimljivostiPromjena'
 
 function App() {
 
@@ -53,13 +54,17 @@ function App() {
             <Route path={RouteNames.ZANIMLJIVOSTI_STATISTIKA} element={<Statistika />} />
             <Route path={RouteNames.ZANIMLJIVOSTI_PREPORUKE} element={<Preporuke />} />
 
+
             <Route path={RouteNames.GENERIRANJE_PODATAKA} element={<GeneriranjePodataka />} />
 
             <Route path={RouteNames.ZANIMLJIVOSTI_NOVI} element={<DodajZanimljivost />} />
+            <Route path={RouteNames.ZANIMLJIVOSTI_PROMJENA} element={<ZanimljivostiPromjena />} />
           </Routes>
         </Container>
         <hr />
-        <p className='footer'>&copy; Wine and Cheese Pairing App</p>
+        <p className='footer'>&copy; Wine and Cheese Pairing App <br />
+              Izradio: Tankred Kralj
+        </p>
       </Container>
       </LoadingProvider>
     </>

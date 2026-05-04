@@ -52,7 +52,7 @@ body {
 
 .navbar .nav-link,
 .navbar .dropdown {
-  margin-left: 30px;
+  margin: 0 18px;
 }
 
 .navbar .nav-link:hover,
@@ -122,6 +122,10 @@ body {
     border: 2px solid transparent;
     transition: all 0.2s ease;
     font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .sir-tile:hover {
@@ -133,13 +137,6 @@ body {
     color: white;
     border-color: #990012;
     transform: scale(1.05);
-}
-
-.sir-tile {
-    display: flex;
-    align-items: center;     /* vertikalno centriranje */
-    justify-content: center; /* horizontalno centriranje */
-    text-align: center;
 }
 
 .tooltip-inner {
@@ -264,3 +261,18 @@ h2.section-title.preporuke {
   font-weight: 500;
   color: #333;
 }
+
+.icon-btn {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.icon-btn:hover {
+  transform: scale(1.2);
+}
+
+.icon-btn.text-secondary {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
