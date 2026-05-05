@@ -21,6 +21,8 @@ export default function VinaPregledTablica({ vina, navigate, obrisi }) {
         { id: 4, naziv: "slatko" }
     ];
 
+    const round1 = (num) => Math.round(num * 10) / 10;
+
     function getTipNaziv(id) {
         return TIPOVI_VINA.find(t => t.id === id)?.naziv || '';
     }
@@ -65,12 +67,12 @@ export default function VinaPregledTablica({ vina, navigate, obrisi }) {
             let bValue;
 
             if (key === "alkohol") {
-                aValue = (a.alkohol_min + a.alkohol_max) / 2;
-                bValue = (b.alkohol_min + b.alkohol_max) / 2;
+                aValue = round1((a.alkohol_min + a.alkohol_max) / 2);
+                bValue = round1((b.alkohol_min + b.alkohol_max) / 2);
             }
             else if (key === "temperatura") {
-                aValue = (a.temperatura_min + a.temperatura_max) / 2;
-                bValue = (b.temperatura_min + b.temperatura_max) / 2;
+                aValue = round1((a.temperatura_min + a.temperatura_max) / 2);
+                bValue = round1((b.temperatura_min + b.temperatura_max) / 2);
             }
             else {
                 aValue = a[key];

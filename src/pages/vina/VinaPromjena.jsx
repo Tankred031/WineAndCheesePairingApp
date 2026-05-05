@@ -33,6 +33,7 @@ export default function VinaPromjena() {
     ];
 
     const [errors, setErrors] = useState({});
+    const round1 = (num) => Math.round(num * 10) / 10;
 
     useEffect(() => {
         ucitajVino();
@@ -212,6 +213,7 @@ export default function VinaPromjena() {
                             <Form.Control
                                 type="number"
                                 name="temperatura_min"
+                                min={8}
                                 defaultValue={vino.temperatura_min}
                                 isInvalid={!!errors.temperatura_min}
                             />
@@ -227,6 +229,7 @@ export default function VinaPromjena() {
                             <Form.Control
                                 type="number"
                                 name="temperatura_max"
+                                max={18}
                                 defaultValue={vino.temperatura_max}
                                 isInvalid={!!errors.temperatura_max}
                             />
@@ -280,7 +283,7 @@ export default function VinaPromjena() {
                         step="0.1"
                         value={alkoholMin}
                         onChange={(e) => {
-                            const v = parseFloat(e.target.value);
+                            const v = round1(parseFloat(e.target.value));
                             if (v <= alkoholMax) setAlkoholMin(v);
                         }}
                     />
@@ -291,7 +294,7 @@ export default function VinaPromjena() {
                         step="0.1"
                         value={alkoholMax}
                         onChange={(e) => {
-                            const v = parseFloat(e.target.value);
+                            const v = round1(parseFloat(e.target.value));
                             if (v >= alkoholMin) setAlkoholMax(v);
                         }}
                     />

@@ -1,17 +1,21 @@
 import { z } from 'zod'
 
 export const ShemaSir = z.object({
-  naziv: z.string()
+  naziv: z.string({
+  required_error: "Naziv je obavezan"
+})
     .trim()
-    .min(2, "Naziv mora imati barem 2 znaka"),
+    .min(1, "Naziv je obavezan")
+    .max(26, "Naziv je predug")
+    .regex(/^[^\d]+$/, "Naziv ne može sadržavati brojeve"),
 
-  tip: z.coerce.number()
+  tip_id: z.coerce.number()
     .min(1, "Odaberite tip"),
 
   vrsta_id: z.coerce.number()
     .min(1, "Odaberite vrstu"),
 
-  zrenje: z.string()
+  zrenje_id: z.string()
     .trim()
     .min(1, "Zrenje je obavezno"),
 
@@ -19,7 +23,7 @@ export const ShemaSir = z.object({
     .trim()
     .min(2, "Regija je obavezna"),
 
-  intenzitet: z.string()
+  intenzitet_id: z.string()
     .trim()
     .min(1, "Intenzitet je obavezan"),
 
@@ -27,6 +31,5 @@ export const ShemaSir = z.object({
     .min(1, "Odaberite masnoću"),
 
   okus: z.string()
-    .trim()
-    .min(2, "Opis okusa je obavezan")
+    .optional(),
 });

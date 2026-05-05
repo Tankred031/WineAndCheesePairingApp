@@ -38,6 +38,8 @@ export default function VinaPregled() {
         { id: 4, naziv: "slatko" }
     ]
 
+    const round1 = (num) => Math.round(num * 10) / 10;
+
     function getSlatkocaNaziv(id) {
         return SLATKOCE.find(s => s.id === id)?.naziv || ''
     }
@@ -73,9 +75,9 @@ export default function VinaPregled() {
             v.tijelo?.toLowerCase().includes(pojamLower) ||
 
             (jeBroj &&
-                broj >= v.alkohol_min &&
-                broj <= v.alkohol_max)
-        )
+                broj >= round1(v.alkohol_min) &&
+                broj <= round1(v.alkohol_max)
+        ))
     })
 
     // 🔥 2. PAGINACIJA NA FILTERU

@@ -23,8 +23,13 @@ export default function Zanimljivosti() {
         load()
     }, [reload]);
 
-    async function obrisi(id) {
+    async function obrisi(id, isStatic) {
         if (!window.confirm("Sigurno želiš obrisati?")) return
+
+        if (isStatic) {
+            alert("Ovaj članak je statički i ne može se obrisati.")
+            return
+        }
 
         await ZanimljivostiService.obrisi(id)
         setReload(!reload)
@@ -40,6 +45,8 @@ export default function Zanimljivosti() {
                     {/* postojeće kartice */}
                     <div className="col-md-4 mt-4">
                         <Card
+                            id="static-1"
+                            staticCard={true}
                             img={vinoDan}
                             alt="vino-sir"
                             title="Nacionalni dan vina i sira 🍷🧀"
@@ -52,13 +59,21 @@ export default function Zanimljivosti() {
 
                                     <OverlayTrigger placement="top" overlay={<Tooltip>Uredi (nije moguće)</Tooltip>}>
                                         <span>
-                                            <FaEdit className="icon-btn text-secondary" size={20} />
+                                            <FaEdit
+                                                className="icon-btn text-warning"
+                                                size={20}
+                                                onClick={() => alert("Ovaj članak se ne može uređivati")}
+                                            />
                                         </span>
                                     </OverlayTrigger>
 
                                     <OverlayTrigger placement="top" overlay={<Tooltip>Obriši (nije moguće)</Tooltip>}>
                                         <span>
-                                            <FaTrash className="icon-btn text-secondary" size={20} />
+                                            <FaTrash
+                                                className="icon-btn text-danger"
+                                                size={20}
+                                                onClick={() => obrisi("static-1", true)}
+                                            />
                                         </span>
                                     </OverlayTrigger>
 
@@ -69,6 +84,8 @@ export default function Zanimljivosti() {
 
                     <div className="col-md-4 mt-4">
                         <Card
+                            id="static-2"
+                            staticCard={true}
                             img={drinks}
                             alt="vino-alkohol"
                             title="Vino u usporedbi s drugim pićima 🍺🍸🍹"
@@ -81,13 +98,21 @@ export default function Zanimljivosti() {
 
                                     <OverlayTrigger placement="top" overlay={<Tooltip>Uredi (nije moguće)</Tooltip>}>
                                         <span>
-                                            <FaEdit className="icon-btn text-secondary" size={20} />
+                                            <FaEdit
+                                                className="icon-btn text-warning"
+                                                size={20}
+                                                onClick={() => alert("Ovaj članak se ne može uređivati")}
+                                            />
                                         </span>
                                     </OverlayTrigger>
 
                                     <OverlayTrigger placement="top" overlay={<Tooltip>Obriši (nije moguće)</Tooltip>}>
                                         <span>
-                                            <FaTrash className="icon-btn text-secondary" size={20} />
+                                            <FaTrash
+                                                className="icon-btn text-danger"
+                                                size={20}
+                                                onClick={() => obrisi("static-2", true)}
+                                            />
                                         </span>
                                     </OverlayTrigger>
 
@@ -98,6 +123,8 @@ export default function Zanimljivosti() {
 
                     <div className="col-md-4 mt-4">
                         <Card
+                            id="static-3"
+                            staticCard={true}
                             img={cheeseMeat}
                             alt="vino-meso"
                             title="Sir (i druge stvari) - 👌 za vaše ❤️"
@@ -110,13 +137,21 @@ export default function Zanimljivosti() {
 
                                     <OverlayTrigger placement="top" overlay={<Tooltip>Uredi (nije moguće)</Tooltip>}>
                                         <span>
-                                            <FaEdit className="icon-btn text-secondary" size={20} />
+                                            <FaEdit
+                                                className="icon-btn text-warning"
+                                                size={20}
+                                                onClick={() => alert("Ovaj članak se ne može uređivati")}
+                                            />
                                         </span>
                                     </OverlayTrigger>
 
                                     <OverlayTrigger placement="top" overlay={<Tooltip>Obriši (nije moguće)</Tooltip>}>
                                         <span>
-                                            <FaTrash className="icon-btn text-secondary" size={20} />
+                                            <FaTrash
+                                                className="icon-btn text-danger"
+                                                size={20}
+                                                onClick={() => obrisi("static-3", true)}
+                                            />
                                         </span>
                                     </OverlayTrigger>
 

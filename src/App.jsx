@@ -32,7 +32,7 @@ function App() {
 
       <LoadingProvider>
       <LoadingSpinner />
-      <Container style={{ backgroundColor: window.location.hostname === 'localhost' ? 'salmon' : 'none' }}>
+      <Container style={{ backgroundColor: window.location.hostname === 'localhost' ? 'navajowhite' : 'white' }}>
         <Izbornik />
         <Container className='app'>
           <Routes>
