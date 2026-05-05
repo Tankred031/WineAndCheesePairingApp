@@ -4,8 +4,15 @@ import VinaService from "../services/vina/VinaService";
 import SireviService from "../services/sirevi/SireviService";
 import UparivanjaCustomService from "../services/uparivanje/UparivanjeCustomService";
 import { useState, useEffect } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Carousel, Col, Row } from "react-bootstrap";
 import { uparivanjeVinaById } from "../services/uparivanje/UparivanjeVinaPopis";
+import vinograd1 from "../assets/img/vineyard1.jpg";
+import vinograd2 from "../assets/img/vineyard2.jpg";
+import podrum from "../assets/img/vinecellar.jpg";
+import burad from "../assets/img/cellar-old.jpg";
+import sir from "../assets/img/cheese-storage.jpg";
+import vino from "../assets/img/pouring2.jpg";
+
 
 export default function Home() {
 
@@ -77,56 +84,138 @@ export default function Home() {
         }
     }, [animatedUspjesnihUparivanja, brojUspjesnihUparivanja]);
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     return (
-        <>
-            <div style={{ textAlign: "center", marginTop: "80px" }}>
-                <img src="/Wine-Olives.png" alt="Wine_Olives" className="home-logo" />
-                <h1 className="h1">Dobrodošli na {IME_APLIKACIJE}</h1>
-                <p style={{ fontSize: "18px", color: "#7B0323" }}>Pronađite savršenu kombinaciju vina i sira</p>
-            </div>
+    <>
 
-            <div style={{ maxWidth: '300px', margin: 'auto' }}>
-                <DotLottieReact
-                    src="/bottle.lottie"
+        {isMobile ? (
 
-                    loop
-                    autoplay
-
+            // 📱 MOBILNI HERO
+            <div className="mobile-hero mt-5">
+                <img
+                    src="/Wine-Olives.png"
+                    alt="Wine_Olives"
+                    className="home-logo"
                 />
             </div>
 
-            <Row className="mt-4 justify-content-center">
-                <Col md={4}>
-                    <Card className="mb-3 shadow-lg border-0 statistikaPanel">
-                        <Card.Body className="text-center">
-                            <p className="text-white">Vina</p>
-                            <div className="statistikaTekst">
-                                {animatedVina}
-                            </div>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col md={4}>
-                    <Card className="mb-3 shadow-lg border-0 statistikaPanel">
-                        <Card.Body className="text-center">
-                            <p className="text-white">Sireva</p>
-                            <div className="statistikaTekst">
-                                {animatedSirevi}
-                            </div>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col md={4}>
-                    <Card className="shadow-lg border-0 statistikaPanel">
-                        <Card.Body className="text-center">
-                            <p className="text-white">Uparivanja</p>
-                            <div className="statistikaTekst">
-                                {animatedUspjesnihUparivanja}
-                            </div>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-        </>
-    );
+        ) : (
+
+            // 💻 DESKTOP CAROUSEL
+            <Carousel className="mt-5" interval={2000} controls={false}>
+
+                <Carousel.Item>
+                    <div
+                        className="carousel-bg"
+                        style={{ backgroundImage: `url(${vinograd1})` }}
+                    >
+                        <img className="carousel-img" src={vinograd1} alt="vinograd-1" />
+                    </div>
+                </Carousel.Item>
+
+                <Carousel.Item>
+                    <div
+                        className="carousel-bg"
+                        style={{ backgroundImage: `url(${vinograd2})` }}
+                    >
+                        <img className="carousel-img" src={vinograd2} alt="vinograd-2" />
+                    </div>
+                </Carousel.Item>
+
+                <Carousel.Item>
+                    <div
+                        className="carousel-bg"
+                        style={{ backgroundImage: `url(${podrum})` }}
+                    >
+                        <img className="carousel-img" src={podrum} alt="podrum" />
+                    </div>
+                </Carousel.Item>
+
+                <Carousel.Item>
+                    <div
+                        className="carousel-bg"
+                        style={{ backgroundImage: `url(${burad})` }}
+                    >
+                        <img className="carousel-img" src={burad} alt="burad" />
+                    </div>
+                </Carousel.Item>
+
+                <Carousel.Item>
+                    <div
+                        className="carousel-bg"
+                        style={{ backgroundImage: `url(${sir})` }}
+                    >
+                        <img className="carousel-img" src={sir} alt="sir" />
+                    </div>
+                </Carousel.Item>
+
+                <Carousel.Item>
+                    <div
+                        className="carousel-bg"
+                        style={{ backgroundImage: `url(${vino})` }}
+                    >
+                        <img className="carousel-img" src={vino} alt="vino" />
+                    </div>
+                </Carousel.Item>
+
+            </Carousel>
+
+        )}
+
+        <div style={{ textAlign: "center", marginTop: "80px" }}>
+            <h1 className="h1">Dobrodošli na {IME_APLIKACIJE}</h1>
+            <p style={{ fontSize: "18px", color: "#7B0323" }}>
+                Pronađite savršenu kombinaciju vina i sira
+            </p>
+        </div>
+
+        <div style={{ maxWidth: '300px', margin: 'auto' }}>
+            <DotLottieReact
+                src="/bottle.lottie"
+                loop
+                autoplay
+            />
+        </div>
+
+        <Row className="mt-4 justify-content-center">
+            <Col md={4}>
+                <Card className="mb-3 shadow-lg border-0 statistikaPanel">
+                    <Card.Body className="text-center">
+                        <p className="text-white">Vina</p>
+                        <div className="statistikaTekst">{animatedVina}</div>
+                    </Card.Body>
+                </Card>
+            </Col>
+
+            <Col md={4}>
+                <Card className="mb-3 shadow-lg border-0 statistikaPanel">
+                    <Card.Body className="text-center">
+                        <p className="text-white">Sireva</p>
+                        <div className="statistikaTekst">{animatedSirevi}</div>
+                    </Card.Body>
+                </Card>
+            </Col>
+
+            <Col md={4}>
+                <Card className="shadow-lg border-0 statistikaPanel">
+                    <Card.Body className="text-center">
+                        <p className="text-white">Uparivanja</p>
+                        <div className="statistikaTekst">{animatedUspjesnihUparivanja}</div>
+                    </Card.Body>
+                </Card>
+            </Col>
+        </Row>
+
+    </>
+);
 }

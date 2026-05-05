@@ -286,3 +286,40 @@ h2.section-title.preporuke {
   color: #7B1E3A !important;
   font-weight: bold !important;
 }
+
+.carousel-bg {
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.carousel-img {
+  position: relative;
+  z-index: 1;
+  max-height: 90%;
+  max-width: 90%;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: transform 0.5s ease;
+}
+
+.carousel-item.active .carousel-img {
+  transform: scale(1.03);
+}
+
+.mobile-hero {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.mobile-hero img {
+  width: 80%;
+  max-width: 280px;
+  height: auto;
+  object-fit: contain;
+}
