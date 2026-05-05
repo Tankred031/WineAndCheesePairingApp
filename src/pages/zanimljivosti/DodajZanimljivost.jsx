@@ -109,7 +109,7 @@ export default function DodajZanimljivost() {
                         </Form.Control.Feedback>
                     </Form.Group>
 
-                    <button className="btn btn-primary w-100">
+                    <button className="btn btn-warning w-100">
                         Dodaj karticu
                     </button>
 
