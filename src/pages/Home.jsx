@@ -100,7 +100,7 @@ export default function Home() {
 
         {isMobile ? (
 
-            // 📱 MOBILNI HERO
+            // MOBILNI HERO
             <div className="mobile-hero mt-5">
                 <img
                     src="/Wine-Olives.png"
@@ -111,15 +111,14 @@ export default function Home() {
 
         ) : (
 
-            // 💻 DESKTOP CAROUSEL
-            <Carousel className="mt-5" interval={2000} controls={false}>
+            // DESKTOP CAROUSEL
+            <Carousel className="mt-5" interval={3000} controls={false}>
 
                 <Carousel.Item>
                     <div
                         className="carousel-bg"
                         style={{ backgroundImage: `url(${vinograd1})` }}
-                    >
-                        <img className="carousel-img" src={vinograd1} alt="vinograd-1" />
+                    >                        
                     </div>
                 </Carousel.Item>
 
@@ -127,8 +126,7 @@ export default function Home() {
                     <div
                         className="carousel-bg"
                         style={{ backgroundImage: `url(${vinograd2})` }}
-                    >
-                        <img className="carousel-img" src={vinograd2} alt="vinograd-2" />
+                    >                        
                     </div>
                 </Carousel.Item>
 
@@ -136,8 +134,7 @@ export default function Home() {
                     <div
                         className="carousel-bg"
                         style={{ backgroundImage: `url(${podrum})` }}
-                    >
-                        <img className="carousel-img" src={podrum} alt="podrum" />
+                    >                        
                     </div>
                 </Carousel.Item>
 
@@ -145,8 +142,7 @@ export default function Home() {
                     <div
                         className="carousel-bg"
                         style={{ backgroundImage: `url(${burad})` }}
-                    >
-                        <img className="carousel-img" src={burad} alt="burad" />
+                    >                        
                     </div>
                 </Carousel.Item>
 
@@ -154,8 +150,7 @@ export default function Home() {
                     <div
                         className="carousel-bg"
                         style={{ backgroundImage: `url(${sir})` }}
-                    >
-                        <img className="carousel-img" src={sir} alt="sir" />
+                    >                        
                     </div>
                 </Carousel.Item>
 
@@ -163,8 +158,7 @@ export default function Home() {
                     <div
                         className="carousel-bg"
                         style={{ backgroundImage: `url(${vino})` }}
-                    >
-                        <img className="carousel-img" src={vino} alt="vino" />
+                    >                        
                     </div>
                 </Carousel.Item>
 
