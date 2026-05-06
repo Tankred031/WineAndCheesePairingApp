@@ -233,7 +233,7 @@ export default function SireviPromjena() {
                                 onChange={(e) => setSir({ ...sir, intenzitet_id: Number(e.target.value) })}
                             >
                                 <option value="">-- odaberite intenzitet --</option>
-                                {INTEZITETI.map(i => (
+                                {INTENZITETI.map(i => (
                                     <option key={i.id} value={i.id}>{i.naziv}</option>
                                 ))}
                             </Form.Select>

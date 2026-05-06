@@ -6,7 +6,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 3,
         regija: 'Somerset',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'orašast, pun, blago pikantan'
     },
@@ -17,7 +17,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Île-de-France',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 3,
         okus: 'maslac, blago gljivasto'
     },
@@ -28,7 +28,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Normandija',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 3,
         okus: 'zemljano, gljivasto'
     },
@@ -39,7 +39,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Južna Nizozemska',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 2,
         okus: 'karamel, orašasto'
     },
@@ -50,7 +50,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Sjeverna Nizozemska',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 2,
         okus: 'blago orašasto'
     },
@@ -61,7 +61,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 3,
         regija: 'Emilia-Romagna',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'slano, orašasto, umami'
     },
@@ -72,7 +72,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 3,
         regija: 'Padanska nizina',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 2,
         okus: 'orašasto, blago slano'
     },
@@ -83,7 +83,7 @@ export const sirevi = [
         vrsta_id: 2,
         zrenje_id: 2,
         regija: 'Aveyron',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'slano, pikantno'
     },
@@ -94,7 +94,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Lombardija',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'pikantno, slatko'
     },
@@ -105,7 +105,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Midlands',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'bogato, pikantno'
     },
@@ -116,7 +116,7 @@ export const sirevi = [
         vrsta_id: 2,
         zrenje_id: 1,
         regija: 'Makedonija',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 2,
         okus: 'slano, kiselo'
     },
@@ -127,7 +127,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Campania',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 2,
         okus: 'mliječno, blago'
     },
@@ -138,7 +138,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Toscana',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 1,
         okus: 'blago slatko'
     },
@@ -149,7 +149,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Lombardija',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 3,
         okus: 'slatko, bogato'
     },
@@ -160,7 +160,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Emmental',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 2,
         okus: 'orašasto'
     },
@@ -171,7 +171,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 3,
         regija: 'Gruyères',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'orašasto, slatko'
     },
@@ -182,7 +182,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 3,
         regija: 'Jura',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'orašasto, voćno'
     },
@@ -193,7 +193,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Savoja',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 3,
         okus: 'maslac, orašasto'
     },
@@ -204,7 +204,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Lombardija',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'jak, aromatičan'
     },
@@ -215,7 +215,7 @@ export const sirevi = [
         vrsta_id: 2,
         zrenje_id: 3,
         regija: 'Sardinija',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'slan, pikantan'
     },
@@ -226,7 +226,7 @@ export const sirevi = [
         vrsta_id: 2,
         zrenje_id: 2,
         regija: 'La Mancha',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 3,
         okus: 'orašasto, blago slano'
     },
@@ -237,7 +237,7 @@ export const sirevi = [
         vrsta_id: 4,
         zrenje_id: 1,
         regija: 'Cipar',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 2,
         okus: 'slano'
     },
@@ -248,7 +248,7 @@ export const sirevi = [
         vrsta_id: 2,
         zrenje_id: 3,
         regija: 'Pag',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'slan, aromatičan'
     },
@@ -259,7 +259,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Panonska nizina',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 2,
         okus: 'blago, mliječno'
     },
@@ -270,7 +270,7 @@ export const sirevi = [
         vrsta_id: 2,
         zrenje_id: 2,
         regija: 'Balkan',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 3,
         okus: 'blago pikantan'
     },
@@ -281,7 +281,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Istočna Pruska',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 2,
         okus: 'blago pikantan'
     },
@@ -292,7 +292,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Lika',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 2,
         okus: 'mliječno, blago slano'
     },
@@ -303,7 +303,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Međimurje',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 1,
         okus: 'pikantno, paprika'
     },
@@ -314,7 +314,7 @@ export const sirevi = [
         vrsta_id: 2,
         zrenje_id: 2,
         regija: 'Krk',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'aromatično, biljno'
     },
@@ -325,7 +325,7 @@ export const sirevi = [
         vrsta_id: 4,
         zrenje_id: 2,
         regija: 'Dubrovnik',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'bogato, aromatično'
     },
@@ -336,7 +336,7 @@ export const sirevi = [
         vrsta_id: 2,
         zrenje_id: 3,
         regija: 'Dalmacija',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'intenzivno, pikantno'
     },
@@ -347,7 +347,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Yorkshire',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 2,
         okus: 'svježe, blago kiselo'
     },
@@ -358,7 +358,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Zagorje',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'dimljeno, blago pikantno'
     },
@@ -369,7 +369,7 @@ export const sirevi = [
         vrsta_id: 3,
         zrenje_id: 1,
         regija: 'Zagorje',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 2,
         okus: 'svježe, blago kiselo'
     },
@@ -380,7 +380,7 @@ export const sirevi = [
         vrsta_id: 3,
         zrenje_id: 1,
         regija: 'Loire',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 2,
         okus: 'svježe, blago kiselo'
     },
@@ -391,7 +391,7 @@ export const sirevi = [
         vrsta_id: 3,
         zrenje_id: 2,
         regija: 'Loire',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 2,
         okus: 'kremasto, blago orašasto'
     },
@@ -402,7 +402,7 @@ export const sirevi = [
         vrsta_id: 3,
         zrenje_id: 2,
         regija: 'Katalonija',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 2,
         okus: 'zemljano, orašasto'
     },
@@ -413,7 +413,7 @@ export const sirevi = [
         vrsta_id: 3,
         zrenje_id: 1,
         regija: 'Pijemont',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 2,
         okus: 'svježe, blago kiselo'
     },
@@ -424,7 +424,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Veneto',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 2,
         okus: 'orašasto, blago slatko'
     },
@@ -435,7 +435,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 3,
         regija: 'Južna Italija',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'pikantno, dimljeno'
     },
@@ -446,7 +446,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Apulija',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 2,
         okus: 'mliječno, blago dimljeno'
     },
@@ -457,7 +457,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 2,
         regija: 'Auvergne',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 3,
         okus: 'orašasto, zemljano'
     },
@@ -468,7 +468,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Champagne',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'intenzivno, kremasto'
     },
@@ -479,7 +479,7 @@ export const sirevi = [
         vrsta_id: 3,
         zrenje_id: 1,
         regija: 'Loire',
-        intezitet_id: 2,
+        intenzitet_id: 2,
         masnoca_id: 2,
         okus: 'svježe, blago orašasto'
     },
@@ -490,7 +490,7 @@ export const sirevi = [
         vrsta_id: 2,
         zrenje_id: 2,
         regija: 'Baskija',
-        intezitet_id: 3,
+        intenzitet_id: 3,
         masnoca_id: 3,
         okus: 'dimljeno, orašasto'
     },
@@ -501,7 +501,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Apulija',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 3,
         okus: 'kremasto, mliječno, bogato'
     },
@@ -512,7 +512,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Apulija',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 3,
         okus: 'vrlo kremasto, svježe, mliječno'
     },
@@ -523,7 +523,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Srednja Europa',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 1,
         okus: 'svježe, blago kiselo'
     },
@@ -534,7 +534,7 @@ export const sirevi = [
         vrsta_id: 1,
         zrenje_id: 1,
         regija: 'Srednja Europa',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 1,
         okus: 'blago kiselo, svježe'
     },
@@ -545,7 +545,7 @@ export const sirevi = [
         vrsta_id: 4,
         zrenje_id: 1,
         regija: 'Alpe',
-        intezitet_id: 1,
+        intenzitet_id: 1,
         masnoca_id: 1,
         okus: 'lagano, mliječno, blago'
     }

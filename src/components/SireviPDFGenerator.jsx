@@ -2,7 +2,7 @@ import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 export const generirajSireviPDF = async (sirevi, helperi) => {
-    const { getVrstaNaziv, getTipNaziv, getZrenjeNaziv, getIntezitetNaziv, getMasnocaNaziv } = helperi;
+    const { getVrstaNaziv, getTipNaziv, getZrenjeNaziv, getIntenzitetNaziv, getMasnocaNaziv } = helperi;
 
     const fetchFontAsBase64 = async (url) => {
         try {
@@ -63,7 +63,7 @@ export const generirajSireviPDF = async (sirevi, helperi) => {
         getVrstaNaziv(s.vrsta_id),
         getZrenjeNaziv(s.zrenje_id),
         s.regija,
-        getIntezitetNaziv(s.intezitet_id),
+        getIntenzitetNaziv(s.intenzitet_id),
         getMasnocaNaziv(s.masnoca_id)
     ]);
 

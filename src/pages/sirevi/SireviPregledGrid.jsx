@@ -31,7 +31,7 @@ export default function SireviPregledGrid({ sirevi, navigate, obrisi }) {
         { id: 3, naziv: "dugo zreli" }
     ];
 
-    const INTEZITETI = [
+    const INTENZITETI = [
         { id: 1, naziv: "blagi" },
         { id: 2, naziv: "srednji" },
         { id: 3, naziv: "jaki" }
@@ -53,8 +53,8 @@ export default function SireviPregledGrid({ sirevi, navigate, obrisi }) {
         return ZRENJA.find(z => z.id === id)?.naziv || '';
     }
 
-    function getIntezitetNaziv(id) {
-        return INTEZITETI.find(i => i.id === id)?.naziv || '';
+    function getIntenzitetNaziv(id) {
+        return INTENZITETI.find(i => i.id === id)?.naziv || '';
     }
 
     return (
@@ -93,8 +93,8 @@ export default function SireviPregledGrid({ sirevi, navigate, obrisi }) {
                                 </div>
 
                                 <div className="d-flex justify-content-between mb-2">
-                                    <span className="text-muted">Intezitet:</span>
-                                    <span>{getIntezitetNaziv(sir.intezitet_id)}</span>
+                                    <span className="text-muted">Intenzitet:</span>
+                                    <span>{getIntenzitetNaziv(sir.intenzitet_id)}</span>
                                 </div>
 
                                 <div className="d-flex justify-content-between mb-2">

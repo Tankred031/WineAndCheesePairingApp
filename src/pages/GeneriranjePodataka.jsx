@@ -57,7 +57,7 @@ export default function GeneriranjePodataka() {
 
             const tip_id = faker.number.int({ min: 1, max: 5 });
 
-            const alkoholMin = tip_id === 2 // bijelo
+            const alkoholMin = tip_id === 2 
                 ? faker.number.float({ min: 8, max: 11, multipleOf: 0.1 })
                 : faker.number.float({ min: 11, max: 14, multipleOf: 0.1 });
 
@@ -125,11 +125,11 @@ export default function GeneriranjePodataka() {
             await SireviService.dodaj({
                 naziv: generirajNaziv(i),
 
-                tip: faker.helpers.arrayElement(["mekani", "polutvrdi", "tvrdi", "plavi"]),
+                tip_id: faker.number.int({ min: 1, max: 5 }),
                 vrsta_id: faker.number.int({ min: 1, max: 4 }),
-                zrenje: faker.helpers.arrayElement(["kratko", "srednje", "dugo"]),
+                zrenje_id: faker.number.int({ min: 1, max: 3 }),
                 regija: faker.location.city(),
-                intenzitet: faker.helpers.arrayElement(["blag", "srednji", "jak"]),
+                intenzitet_id: faker.number.int({ min: 1, max: 3 }),
                 masnoca_id: faker.number.int({ min: 1, max: 3 }),
                 okus: faker.helpers.arrayElement(okusi)
             })

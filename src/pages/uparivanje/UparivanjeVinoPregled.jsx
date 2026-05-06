@@ -89,18 +89,18 @@ export default function UparivanjeVinoPregled() {
             if (vino.tip_id === 1 && sir.tip_id === 3) score += 2;
             if (vino.tip_id === 1 && sir.tip_id === 1) score -= 1;
 
-            if (vino.tip_id === 2 && sir.intezitet_id === 1) score += 2;
-            if (vino.tip_id === 2 && sir.intezitet_id === 3) score -= 1;
+            if (vino.tip_id === 2 && sir.intenzitet_id === 1) score += 2;
+            if (vino.tip_id === 2 && sir.intenzitet_id === 3) score -= 1;
 
             if (vino.slatkoca_id === 4 && sir.tip_id === 4) score += 3;
             if (vino.slatkoca_id === 1 && sir.tip_id === 4) score -= 2;
 
-            if (vino.tijelo_id === 3 && sir.intezitet_id === 3) score += 2;
-            if (vino.tijelo_id === 1 && sir.intezitet_id === 3) score -= 2;
+            if (vino.tijelo_id === 3 && sir.intenzitet_id === 3) score += 2;
+            if (vino.tijelo_id === 1 && sir.intenzitet_id === 3) score -= 2;
 
             const alkohol = (vino.alkohol_min + vino.alkohol_max) / 2;
-            if (alkohol > 14 && sir.intezitet_id === 3) score += 1;
-            if (alkohol < 10 && sir.intezitet_id === 3) score -= 1;
+            if (alkohol > 14 && sir.intenzitet_id === 3) score += 1;
+            if (alkohol < 10 && sir.intenzitet_id === 3) score -= 1;
 
             if (vino.tip_id === 3 && sir.tip_id === 1) score += 1;
             if (vino.tip_id === 4 && sir.tip_id !== 4) score -= 1;

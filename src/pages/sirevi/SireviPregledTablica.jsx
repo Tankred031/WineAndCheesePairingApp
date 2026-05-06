@@ -36,7 +36,7 @@ export default function SireviPregledTablica({ sirevi, navigate, obrisi }) {
         { id: 3, naziv: "dugo zreli" }
     ];
 
-    const INTEZITETI = [
+    const INTENZITETI = [
         { id: 1, naziv: "blagi" },
         { id: 2, naziv: "srednji" },
         { id: 3, naziv: "jaki" }
@@ -69,8 +69,8 @@ export default function SireviPregledTablica({ sirevi, navigate, obrisi }) {
                 return ZRENJA.find(z => z.id === sir.zrenje_id)?.naziv;
             case 'masnoca_id':
                 return MASNOCE.find(m => m.id === sir.masnoca_id)?.naziv;
-            case 'intezitet_id':
-                return INTEZITETI.find(i => i.id === sir.intezitet_id)?.naziv;
+            case 'intenzitet_id':
+                return INTENZITETI.find(i => i.id === sir.intenzitet_id)?.naziv;
             default:
                 return sir[key];
         }
@@ -122,8 +122,8 @@ export default function SireviPregledTablica({ sirevi, navigate, obrisi }) {
                         Regija {getSortIcon('regija')}
                     </th>
 
-                    <th onClick={() => handleSort('intezitet_id')} style={{ cursor: 'pointer' }}>
-                        Intezitet {getSortIcon('intezitet_id')}
+                    <th onClick={() => handleSort('intenzitet_id')} style={{ cursor: 'pointer' }}>
+                        Intenzitet {getSortIcon('intenzitet_id')}
                     </th>
 
                     <th onClick={() => handleSort('masnoca_id')} style={{ cursor: 'pointer' }}>
@@ -148,7 +148,7 @@ export default function SireviPregledTablica({ sirevi, navigate, obrisi }) {
                         <td>{VRSTE.find(v => v.id === sir.vrsta_id)?.naziv}</td>
                         <td>{ZRENJA.find(z => z.id === sir.zrenje_id)?.naziv}</td>
                         <td>{sir.regija}</td>
-                        <td>{INTEZITETI.find(i => i.id === sir.intezitet_id)?.naziv}</td>
+                        <td>{INTENZITETI.find(i => i.id === sir.intenzitet_id)?.naziv}</td>
                         <td>{MASNOCE.find(m => m.id === sir.masnoca_id)?.naziv}</td>
                         <td>{sir.okus}</td>
 

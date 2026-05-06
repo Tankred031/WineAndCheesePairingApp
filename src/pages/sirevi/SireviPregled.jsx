@@ -37,7 +37,7 @@ export default function SireviPregled() {
     const ZRENJA = [
         { id: 1, naziv: "mladi" }, { id: 2, naziv: "srednje zreli" }, { id: 3, naziv: "dugo zreli" }
     ]
-    const INTEZITETI = [
+    const INTENZITETI = [
         { id: 1, naziv: "blagi" }, { id: 2, naziv: "srednji" }, { id: 3, naziv: "jaki" }
     ]
 
@@ -46,7 +46,7 @@ export default function SireviPregled() {
     function getMasnocaNaziv(id) { return MASNOCE.find(m => m.id === id)?.naziv || '' }
     function getTipNaziv(id) { return TIPOVI.find(t => t.id === id)?.naziv || '' }
     function getZrenjeNaziv(id) { return ZRENJA.find(z => z.id === id)?.naziv || '' }
-    function getIntezitetNaziv(id) { return INTEZITETI.find(i => i.id === id)?.naziv || '' }
+    function getIntenzitetNaziv(id) { return INTENZITETI.find(i => i.id === id)?.naziv || '' }
 
 
     // --- 1. UCITAVANJE ---
@@ -95,7 +95,7 @@ export default function SireviPregled() {
             getVrstaNaziv(s.vrsta_id)?.toLowerCase().includes(p) ||
             getZrenjeNaziv(s.zrenje_id)?.toLowerCase().includes(p) ||
             s.regija?.toLowerCase().includes(p) ||
-            getIntezitetNaziv(s.intezitet_id)?.toLowerCase().includes(p) ||
+            getIntenzitetNaziv(s.intenzitet_id)?.toLowerCase().includes(p) ||
             getMasnocaNaziv(s.masnoca_id)?.toLowerCase().includes(p) ||
             s.okus?.toLowerCase().includes(p)
         )
@@ -156,7 +156,7 @@ export default function SireviPregled() {
                             getVrstaNaziv,
                             getTipNaziv,
                             getZrenjeNaziv,
-                            getIntezitetNaziv,
+                            getIntenzitetNaziv,
                             getMasnocaNaziv
                         })}
                     >
