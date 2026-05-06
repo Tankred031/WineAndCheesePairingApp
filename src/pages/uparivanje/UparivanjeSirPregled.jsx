@@ -181,14 +181,14 @@ export default function UparivanjeSirPregled() {
 
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <UparivanjeSirPregledGrid
-                    sirevi={paginatedSirevi()}
+                    sirevi={paginatedSirevi}
                     getVina={getVina}
                     navigate={navigate}
                     obrisi={obrisi}
                 />
             ) : (
                 <UparivanjeSirPregledTablica
-                    sirevi={paginatedSirevi()}
+                    sirevi={paginatedSirevi}
                     handleSort={handleSort}
                     getSortIcon={getSortIcon}
                     getVina={getVina}
