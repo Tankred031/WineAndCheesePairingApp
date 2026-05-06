@@ -7,10 +7,9 @@ import { uparivanjeSiraById } from "../../services/uparivanje/UparivanjeSiraPopi
 import UparivanjeCustomService from "../../services/uparivanje/UparivanjeCustomService";
 import { Button, Form } from "react-bootstrap";
 import { generirajUparivanjePDF } from "../../components/UparivanjePDFGenerator";
-
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { ShemaUparivanje } from "../../schemas/ShemaUparivanje";
+
 
 export default function UparivanjeSirPromjena() {
 
@@ -66,29 +65,16 @@ export default function UparivanjeSirPromjena() {
     async function spremi(e) {
     e.preventDefault();
 
-    const sirId = Number(params.id);
+    const sirId = Number(params.id);    
 
-    const payload = {
-        sirId,
-        vina: odabranaVina
-    };
-
-    // ZOD VALIDACIJA
-    const rezultat = ShemaUparivanje.safeParse(payload);
-
-    if (!rezultat.success) {
-        alert(rezultat.error.issues[0].message);
-        return;
-    }
-
-    // postojeća logika
+    
     const svi = (await UparivanjeCustomService.get()).data || [];
     const ostali = svi.filter(u => u.sirId !== sirId);
 
     const novi =
         odabranaVina.length > 0
             ? odabranaVina.map(vinoId => ({
-                id: `${Date.now()}_${vinoId}_${Math.random()}`,
+                id: `${Date.now()}_${vinoId}`,
                 sirId,
                 vinoId
             }))
