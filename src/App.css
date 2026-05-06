@@ -16,13 +16,36 @@
 }
 
 body {
-  background-color: #8ebe5a;
+  background: linear-gradient(135deg,
+    #1f5f3a 0%,   /* tamna loza */
+    #5aa84a 45%,  /* svježa zelena */
+    #f2c94c 75%,  /* zlatno žuta (sir / sunce) */
+    #f4a340 100%  /* topla narančasta (vino / food) */
+  );
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top,
+    rgba(31, 107, 58, 0.18),
+    rgba(79, 191, 74, 0.15),
+    rgba(242, 216, 92, 0.12),
+    transparent 75%
+  );
+  pointer-events: none;
 }
 
 .silver-navbar {
-  background-color: #70a338 !important;
+  background: linear-gradient(135deg,
+    #7ecb6b 0%,   /* zelenkasto (Sauvignon / mlado vino) */
+    #bfe6a8 25%,  /* svjetlo zeleno / fresh */
+    #d66a7a 50%,  /* rosé (sredina balans) */
+    #f2d85c 80%,  /* zlatno / bijelo vino highlight */
+    #fff2c2 100%  /* krem / lagano bijelo vino */
+  ) !important;
 }
-
 
 .home-logo {
   height: 140px;
@@ -85,7 +108,7 @@ body {
 }
 
 .form-range {
-    height: 10px;
+  height: 10px;
 }
 
 .statistikaPanel {
@@ -108,70 +131,71 @@ body {
 }
 
 .sirevi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
 }
 
 .sir-tile {
-    padding: 12px;
-    border-radius: 10px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #fff;
-    border: 2px solid transparent;
-    transition: all 0.2s ease;
-    font-weight: 500;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #fff;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  font-weight: 500;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sir-tile:hover {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
 .sir-tile.selected {
-    background-color: #990012;
-    color: white;
-    border-color: #990012;
-    transform: scale(1.05);
+  background-color: #990012;
+  color: white;
+  border-color: #990012;
+  transform: scale(1.05);
 }
 
 .tooltip-inner {
-    background-color: #1e1e1e !important;
-    color: #f8f9fa;
-    font-size: 12px;
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-weight: 500;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  background-color: #1e1e1e !important;
+  color: #f8f9fa;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .sortable-header {
-    cursor: pointer;
-    text-align: center;
-    white-space: nowrap;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .sort-icon {
-    display: inline-block;
-    width: 14px;        /* fiksna širina = nema skakanja */
-    text-align: center;
-    margin-left: 4px;
+  display: inline-block;
+  width: 14px;
+  /* fiksna širina = nema skakanja */
+  text-align: center;
+  margin-left: 4px;
 }
 
 .color-cell {
-    text-align: center;
-    vertical-align: middle;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .color-dot {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: inline-block;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .section-title {
@@ -180,41 +204,41 @@ body {
 }
 
 .zanimljivosti-form-wrapper {
-    max-width: 750px;
-    margin: 40px auto;
+  max-width: 750px;
+  margin: 40px auto;
 }
 
 .zanimljivosti-form-title {
-    text-align: center;
-    font-weight: 800;
-    color: black;
-    margin-bottom: 20px;
+  text-align: center;
+  font-weight: 800;
+  color: black;
+  margin-bottom: 20px;
 }
 
 .zanimljivosti-form-card {
-    background: #9CAF88;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-    transition: 0.2s ease;
+  background: #9CAF88;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  transition: 0.2s ease;
 }
 
 .zanimljivosti-form-card:hover {
-    transform: translateY(-3px);
+  transform: translateY(-3px);
 }
 
 .zanimljivosti-form-card .form-label {
-    font-weight: 600;
-    color: #333;
+  font-weight: 600;
+  color: #333;
 }
 
 .zanimljivosti-form-card .form-control {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 
 .zanimljivosti-form-card .form-control:focus {
-    border-color: #990012;
-    box-shadow: 0 0 0 0.15rem rgba(153, 0, 18, 0.25);
+  border-color: #990012;
+  box-shadow: 0 0 0 0.15rem rgba(153, 0, 18, 0.25);
 }
 
 h2.section-title.preporuke {
@@ -223,21 +247,23 @@ h2.section-title.preporuke {
 }
 
 .zanimljivosti-nove {
-    margin-top: 60px;
-    padding-top: 30px;
-    border-top: 1px solid #ddd;
-    padding-bottom: 30px;
+  margin-top: 60px;
+  padding-top: 30px;
+  border-top: 1px solid #ddd;
+  padding-bottom: 30px;
 }
 
 .loading-spinner-overlay {
-  position: fixed; /* uvijek fullscreen */
+  position: fixed;
+  /* uvijek fullscreen */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* zatamni pozadinu */
-  backdrop-filter: blur(2px); 
-  -webkit-backdrop-filter: blur(2px); 
+  background-color: rgba(0, 0, 0, 0.4);
+  /* zatamni pozadinu */
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
@@ -252,7 +278,7 @@ h2.section-title.preporuke {
   padding: 30px 40px;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.2s ease-in-out;
 }
 
@@ -277,7 +303,8 @@ h2.section-title.preporuke {
 }
 
 .pagination .page-item.active .page-link {
-  background-color: #198754; /* Bootstrap success */
+  background-color: #198754;
+  /* Bootstrap success */
   border-color: #198754;
   color: white;
 }
@@ -305,7 +332,7 @@ h2.section-title.preporuke {
   max-width: 90%;
   object-fit: contain;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   transition: transform 0.5s ease;
 }
 
