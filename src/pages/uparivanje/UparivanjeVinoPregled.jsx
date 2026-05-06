@@ -10,6 +10,7 @@ import UparivanjeVinoPregledGrid from "./UparivanjeVinoPregledGrid";
 import UparivanjeVinoPregledTablica from "./UparivanjeVinoPregledTablica";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import useLoading from "../../hooks/useLoading";
+import { Pagination } from "react-bootstrap";
 
 
 export default function UparivanjeVinoPregled() {
@@ -23,6 +24,8 @@ export default function UparivanjeVinoPregled() {
     const sirina = useBreakpoint();
 
     const { showLoading, hideLoading } = useLoading();
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 10;
 
     const [sortConfig, setSortConfig] = useState({
         key: "naziv",
@@ -197,6 +200,13 @@ export default function UparivanjeVinoPregled() {
         });
     }, [filtriranaVina, sortConfig]);
 
+    const totalPages = Math.ceil(sortedVina.length / pageSize);
+
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const paginatedVina = sortedVina.slice(startIndex, endIndex);
+
     function getSortIcon(key) {
         if (sortConfig.key !== key || !sortConfig.direction) return <FaSort />;
         return sortConfig.direction === "asc" ? <FaSortUp /> : <FaSortDown />;
@@ -236,13 +246,16 @@ export default function UparivanjeVinoPregled() {
                         border: "2px solid grey"
                     }}
                     value={pojam}
-                    onChange={(e) => setPojam(e.target.value)}
+                    onChange={(e) => {
+                        setPojam(e.target.value)
+                        setCurrentPage(1);
+                    }}
                 />
             </div>
 
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <UparivanjeVinoPregledGrid
-                    vina={sortedVina}
+                    vina={paginatedVina}
                     getBojaVina={getBojaVina}
                     getSirevi={getSirevi}
                     getOcjena={getOcjena}
@@ -252,7 +265,7 @@ export default function UparivanjeVinoPregled() {
                 />
             ) : (
                 <UparivanjeVinoPregledTablica
-                    sortedVina={sortedVina}
+                    sortedVina={paginatedVina}
                     handleSort={handleSort}
                     getSortIcon={getSortIcon}
                     getBojaVina={getBojaVina}
@@ -265,6 +278,63 @@ export default function UparivanjeVinoPregled() {
             )}
 
             <p className="text-muted">{poruka}</p>
+
+            {totalPages > 1 && (
+                <div className="d-flex justify-content-center mt-3">
+                    <Pagination>
+
+                        <Pagination.First
+                            onClick={() => setCurrentPage(1)}
+                            disabled={currentPage === 1}
+                        />
+
+                        <Pagination.Prev
+                            onClick={() => setCurrentPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        />
+
+                        {[...Array(totalPages)].map((_, index) => {
+                            const pageNumber = index + 1;
+
+                            if (
+                                pageNumber === 1 ||
+                                pageNumber === totalPages ||
+                                (pageNumber >= currentPage - 2 && pageNumber <= currentPage + 2)
+                            ) {
+                                return (
+                                    <Pagination.Item
+                                        key={pageNumber}
+                                        active={pageNumber === currentPage}
+                                        onClick={() => setCurrentPage(pageNumber)}
+                                    >
+                                        {pageNumber}
+                                    </Pagination.Item>
+                                );
+                            }
+
+                            if (
+                                pageNumber === currentPage - 3 ||
+                                pageNumber === currentPage + 3
+                            ) {
+                                return <Pagination.Ellipsis key={pageNumber} disabled />;
+                            }
+
+                            return null;
+                        })}
+
+                        <Pagination.Next
+                            onClick={() => setCurrentPage(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                        />
+
+                        <Pagination.Last
+                            onClick={() => setCurrentPage(totalPages)}
+                            disabled={currentPage === totalPages}
+                        />
+
+                    </Pagination>
+                </div>
+            )}
         </div>
     );
 }

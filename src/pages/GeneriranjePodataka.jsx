@@ -49,7 +49,7 @@ export default function GeneriranjePodataka() {
                 return baza;
             }
 
-            return `${baza} ${faker.helpers.arrayElement(oznake)} ${Math.floor(i / sorte.length)}`;
+            return `${baza} ${faker.helpers.arrayElement(oznake)}`;
         };
 
         for (let i = 0; i < broj; i++) {
