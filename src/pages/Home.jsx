@@ -9,9 +9,10 @@ import { uparivanjeVinaById } from "../services/uparivanje/UparivanjeVinaPopis";
 import vinograd1 from "../assets/img/vineyard1.jpg";
 import vinograd2 from "../assets/img/vineyard2.jpg";
 import podrum from "../assets/img/vinecellar.jpg";
-import burad from "../assets/img/cellar-old.jpg";
 import sir from "../assets/img/cheese-storage.jpg";
-import vino from "../assets/img/pouring2.jpg";
+import vino from "../assets/img/pouring2.jpg"
+import wine2 from "../assets/img/wine2.jpg";
+import wine3 from "../assets/img/wine3.jpg";
 
 
 export default function Home() {
@@ -125,6 +126,14 @@ export default function Home() {
                 <Carousel.Item>
                     <div
                         className="carousel-bg"
+                        style={{ backgroundImage: `url(${wine3})` }}
+                    >                        
+                    </div>
+                </Carousel.Item>
+
+                <Carousel.Item>
+                    <div
+                        className="carousel-bg"
                         style={{ backgroundImage: `url(${vinograd2})` }}
                     >                        
                     </div>
@@ -141,7 +150,7 @@ export default function Home() {
                 <Carousel.Item>
                     <div
                         className="carousel-bg"
-                        style={{ backgroundImage: `url(${burad})` }}
+                        style={{ backgroundImage: `url(${wine2})` }}
                     >                        
                     </div>
                 </Carousel.Item>
@@ -161,6 +170,10 @@ export default function Home() {
                     >                        
                     </div>
                 </Carousel.Item>
+
+                
+
+                
 
             </Carousel>
 
