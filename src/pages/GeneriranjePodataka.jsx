@@ -4,6 +4,8 @@ import { useState } from "react";
 import { faker } from '@faker-js/faker'
 faker.locale = 'hr'
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap"
+import { PrefixStorage } from "../constants";
+
 
 export default function GeneriranjePodataka() {
     const [brojVina, setBrojVina] = useState(10);
@@ -165,18 +167,78 @@ export default function GeneriranjePodataka() {
     }
 
     const handleObrisiVina = async () => {
-        const res = await VinaService.get()
+
+    if (!window.confirm(
+        'Obrisati sva vina?'
+    )) return
+
+    setLoading(true)
+
+    try {
+
+        const res =
+            await VinaService.get()
+
         for (const v of res.data) {
-            await VinaService.obrisi(v.id)
+
+            await VinaService
+                .obrisi(v.sifra)
         }
+
+        setPoruka({
+            tip: "success",
+            tekst: "Sva vina obrisana!"
+        })
+
+    } catch {
+
+        setPoruka({
+            tip: "danger",
+            tekst: "Greška kod brisanja vina"
+        })
+
+    } finally {
+
+        setLoading(false)
     }
+}
 
     const handleObrisiSireve = async () => {
-        const res = await SireviService.get()
+
+    if (!window.confirm(
+        'Obrisati sve sireve?'
+    )) return
+
+    setLoading(true)
+
+    try {
+
+        const res =
+            await SireviService.get()
+
         for (const s of res.data) {
-            await SireviService.obrisi(s.id)
+
+            await SireviService
+                .obrisi(s.sifra)
         }
+
+        setPoruka({
+            tip: "success",
+            tekst: "Svi sirevi obrisani!"
+        })
+
+    } catch {
+
+        setPoruka({
+            tip: "danger",
+            tekst: "Greška kod brisanja sireva"
+        })
+
+    } finally {
+
+        setLoading(false)
     }
+}
 
 
     const handleMemorijaULocalStorage = async () => {

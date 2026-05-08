@@ -17,12 +17,12 @@ function spremiUStorage(podaci) {
 async function get() {
     const operateri = dohvatiSveIzStorage()
     // Ne vraćamo lozinke u listi
-    const operateriBezcLozinki = operateri.map(op => ({
+    const operateriBezLozinki = operateri.map(op => ({
         sifra: op.sifra,
         email: op.email,
         uloga: op.uloga
     }))
-    return {success: true, data: [...operateriBezcLozinki]}
+    return {success: true, data: [...operateriBezLozinki]}
 }
 
 // Dohvati jedan po šifri

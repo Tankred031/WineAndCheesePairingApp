@@ -11,7 +11,7 @@ export const ShemaOperater = z.object({
 
   lozinka: z.string()
     .min(8, "Lozinka mora imati najmanje 8 znakova!")
-    .regex(passwordRegex, "Lozinka mora sadržavati: veliko slovo, malo slovo, broj i interpukcijski znak!"),
+    .regex(passwordRegex, "Lozinka mora sadržavati: veliko slovo, malo slovo, broj i interpunkcijski znak!"),
 
   uloga: z.enum(['admin', 'korisnik'], {
     errorMap: () => ({ message: "Uloga mora biti 'admin' ili 'korisnik'!" })
@@ -27,14 +27,14 @@ export const ShemaLogin = z.object({
   
   lozinka: z.string()
     .min(8, "Lozinka mora imati najmanje 8 znakova!")
-    .regex(passwordRegex, "Lozinka mora sadržavati: veliko slovo, malo slovo, broj i interpukcijski znak!")
+    .regex(passwordRegex, "Lozinka mora sadržavati: veliko slovo, malo slovo, broj i interpunkcijski znak!")
 });
 
 // Shema za promjenu lozinke (zahtijeva potvrdu)
 export const ShemaPromjenaLozinke = z.object({
   novaLozinka: z.string()
     .min(8, "Lozinka mora imati najmanje 8 znakova!")
-    .regex(passwordRegex, "Lozinka mora sadržavati: veliko slovo, malo slovo, broj i interpukcijski znak!"),
+    .regex(passwordRegex, "Lozinka mora sadržavati: veliko slovo, malo slovo, broj i interpunkcijski znak!"),
   
   potvrdaLozinke: z.string()
     .min(1, "Potvrda lozinke je obavezna!")

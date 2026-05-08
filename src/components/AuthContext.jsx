@@ -6,42 +6,80 @@ import OperaterService from '../services/operateri/OperaterService';
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authUser, setAuthUser] = useState({});
 
   const navigate = useNavigate();
 
   useEffect(() => {
+
     const operater = localStorage.getItem('operater');
 
     if (operater) {
+
       setAuthUser(JSON.parse(operater));
-      setIsLoggedIn(operater);
+      setIsLoggedIn(true);
+
     } else {
-      navigate(RouteNames.HOME);
+
+      setIsLoggedIn(false);
+
     }
+
   }, []);
 
   async function login(email, lozinka) {
-    const odgovor = await OperaterService.prijava(email, lozinka);
+
+    const odgovor =
+      await OperaterService.prijava(email, lozinka);
+
     if (odgovor.success) {
-      localStorage.setItem('operater', JSON.stringify(odgovor.data));
+
+      localStorage.setItem(
+        'operater',
+        JSON.stringify(odgovor.data)
+      );
+
       setAuthUser(odgovor.data);
+
       setIsLoggedIn(true);
+
+      // BROJAČ PRIJAVA
+      const prijave = JSON.parse(
+        localStorage.getItem('brojPrijava')
+      ) || {};
+
+      prijave[odgovor.data.email] =
+        (prijave[odgovor.data.email] || 0) + 1;
+
+      localStorage.setItem(
+        'brojPrijava',
+        JSON.stringify(prijave)
+      );
+
       navigate(RouteNames.NADZORNA_PLOCA);
+
     } else {
+
       alert(odgovor.message);
-      localStorage.setItem('operater', '');
-      setAuthUser('');
+
+      localStorage.removeItem('operater');
+
+      setAuthUser({});
+
       setIsLoggedIn(false);
     }
   }
 
   function logout() {
-    
+
     localStorage.removeItem('operater');
-    setAuthUser('');
+
+    setAuthUser({});
+
     setIsLoggedIn(false);
+
     navigate(RouteNames.HOME);
   }
 
@@ -52,5 +90,9 @@ export function AuthProvider({ children }) {
     logout,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
