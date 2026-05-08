@@ -36,6 +36,7 @@ export default function Izbornik() {
             {isLoggedIn && (
               <>
 
+                {/* VINA */}
                 <NavDropdown
                   title="🍷 Vina"
                   id="vina-nav-dropdown"
@@ -72,12 +73,12 @@ export default function Izbornik() {
                       >
                         Generiraj podatke
                       </NavDropdown.Item>
-
                     </>
                   )}
 
                 </NavDropdown>
 
+                {/* SIREVI */}
                 <NavDropdown
                   title="🧀 Sirevi"
                   id="sirevi-nav-dropdown"
@@ -91,16 +92,19 @@ export default function Izbornik() {
                     Pregled sireva
                   </NavDropdown.Item>
 
-                  <NavDropdown.Item
-                    onClick={() =>
-                      navigate(RouteNames.SIREVI_NOVI)
-                    }
-                  >
-                    Dodavanje sireva
-                  </NavDropdown.Item>
+                  {authUser.uloga === "admin" && (
+                    <NavDropdown.Item
+                      onClick={() =>
+                        navigate(RouteNames.SIREVI_NOVI)
+                      }
+                    >
+                      Dodavanje sireva
+                    </NavDropdown.Item>
+                  )}
 
                 </NavDropdown>
 
+                {/* UPARIVANJE */}
                 <NavDropdown
                   title="🍷🧀 Uparivanje"
                   id="uparivanje-nav-dropdown"
@@ -128,6 +132,7 @@ export default function Izbornik() {
 
                 </NavDropdown>
 
+                {/* ZANIMLJIVOSTI */}
                 <NavDropdown
                   title="📚 Zanimljivosti"
                   id="zanimljivosti-nav-dropdown"
@@ -151,15 +156,17 @@ export default function Izbornik() {
                     Statistika
                   </NavDropdown.Item>
 
-                  <NavDropdown.Item
-                    onClick={() =>
-                      navigate(
-                        RouteNames.ZANIMLJIVOSTI_NOVI
-                      )
-                    }
-                  >
-                    Dodaj članak/zanimljivost
-                  </NavDropdown.Item>
+                  {authUser.uloga === "admin" && (
+                    <NavDropdown.Item
+                      onClick={() =>
+                        navigate(
+                          RouteNames.ZANIMLJIVOSTI_NOVI
+                        )
+                      }
+                    >
+                      Dodaj članak/zanimljivost
+                    </NavDropdown.Item>
+                  )}
 
                   <NavDropdown.Item
                     onClick={() =>
@@ -173,13 +180,16 @@ export default function Izbornik() {
 
                 </NavDropdown>
 
-                <Nav.Link
-                  onClick={() =>
-                    navigate(RouteNames.NADZORNA_PLOCA)
-                  }
-                >
-                  Nadzorna Ploča
-                </Nav.Link>
+                {/* NADZORNA PLOČA */}
+                {authUser.uloga === "admin" && (
+                  <Nav.Link
+                    onClick={() =>
+                      navigate(RouteNames.NADZORNA_PLOCA)
+                    }
+                  >
+                    Nadzorna Ploča
+                  </Nav.Link>
+                )}
 
               </>
             )}

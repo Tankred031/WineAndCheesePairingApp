@@ -15,15 +15,18 @@ export default function NadzornaPloca() {
 
     }, [])
 
+
+
     return (
 
         <Container className="mt-4">
 
-            <Card className="shadow-sm">
+
+            <Card className="shadow-sm mt-4">
 
                 <Card.Body>
 
-                    <h4 class="section-title">
+                    <h4 className="section-title mb-4">
                         Statistika prijava
                     </h4>
 
@@ -31,8 +34,8 @@ export default function NadzornaPloca() {
 
                         <thead>
                             <tr>
-                                <th>Korisnik</th>
-                                <th>Broj prijava</th>
+                                <th className="text-center">Korisnik</th>
+                                <th className="text-center">Broj prijava</th>
                             </tr>
                         </thead>
 
@@ -53,7 +56,7 @@ export default function NadzornaPloca() {
 
                                         <tr key={email}>
                                             <td>{email}</td>
-                                            <td>{broj}</td>
+                                            <td className="text-center">{broj}</td>
                                         </tr>
 
                                     )
@@ -64,8 +67,11 @@ export default function NadzornaPloca() {
                         </tbody>
 
                     </Table>
+
                 </Card.Body>
+
             </Card>
+
         </Container>
     )
 }

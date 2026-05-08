@@ -906,7 +906,47 @@ export const vina = [
         tijelo: 'srednje',
         alkohol_min: 12,
         alkohol_max: 13.5
-    }
+    },
+    {
+    id: 71,
+    naziv: "Whispering Angel",
+    tip_id: 5,
+    regija: "Provence",
+    temperatura_min: 8,
+    temperatura_max: 10,
+    slatkoca_id: 1,
+    arome: "jagoda, citrusi, cvjetno",
+    tijelo: "lagano",
+    alkohol_min: 12.5,
+    alkohol_max: 13.5
+},
+{
+    id: 72,
+    naziv: "Rose d’Anjou",
+    tip_id: 5,
+    regija: "Loire",
+    temperatura_min: 8,
+    temperatura_max: 10,
+    slatkoca_id: 2,
+    arome: "malina, jagoda",
+    tijelo: "lagano",
+    alkohol_min: 10.5,
+    alkohol_max: 12
+},
+{
+    id: 73,
+    naziv: "White Zinfandel",
+    tip_id: 5,
+    regija: "California",
+    temperatura_min: 8,
+    temperatura_max: 10,
+    slatkoca_id: 3,
+    arome: "trešnja, lubenica",
+    tijelo: "lagano",
+    alkohol_min: 9,
+    alkohol_max: 11
+}
+
 ]
 
 
