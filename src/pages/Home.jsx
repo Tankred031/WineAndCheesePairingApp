@@ -13,16 +13,22 @@ import sir from "../assets/img/cheese-storage.jpg";
 import vino from "../assets/img/pouring2.jpg"
 import wine2 from "../assets/img/wine2.jpg";
 import wine3 from "../assets/img/wine3.jpg";
+import OperaterService from "../services/operateri/OperaterService";
 
 
 export default function Home() {
 
     const [brojVina, setBrojVina] = useState(0);
-    const [brojSireva, setBrojSireva] = useState(0)
+    const [brojSireva, setBrojSireva] = useState(0);
     const [brojUspjesnihUparivanja, setBrojUspjesnihUparivanja] = useState(0);
     const [animatedVina, setAnimatedVina] = useState(0);
     const [animatedSirevi, setAnimatedSirevi] = useState(0);
     const [animatedUspjesnihUparivanja, setAnimatedUspjesnihUparivanja] = useState(0);
+    const [brojOperatera, setBrojOperatera] = useState(0);
+    const [brojAdmina, setBrojAdmina] = useState(0);
+    const [brojKorisnika, setBrojKorisnika] = useState(0);
+
+    const [animatedOperateri, setAnimatedOperateri] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {

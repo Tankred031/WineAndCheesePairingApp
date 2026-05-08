@@ -21,17 +21,29 @@ export const RouteNames = {
     ZANIMLJIVOSTI_NOVI: '/zanimljivosti/novi',
     ZANIMLJIVOSTI_PROMJENA: '/zanimljivosti/:id',
 
-    GENERIRANJE_PODATAKA: '/generiraj-podatke'
+    OPERATERI: '/operateri',
+    OPERATERI_NOVI: '/operateri/novi',
+    OPERATERI_PROMJENA: '/operateri/:sifra',
+    OPERATERI_PROMJENA_LOZINKE: '/operateri/:sifra/lozinka',
+
+    GENERIRANJE_PODATAKA: '/generiraj-podatke',
+    APLIKACIJE_POLAZNIKA: 'aplikacije-polazinika',
+
+    LOGIN: '/login',
+    REGISTRACIJA: '/registracija',
+
+    NADZORNA_PLOCA: '/nadzorna-ploca',    
 
 }
 
 // memorija, localStorage, firebase
-export const DATA_SOURCE = 'localStorage';
+export const DATA_SOURCE = 'memorija';
 
 
 export const PrefixStorage = {
     VINA: 'vina',
     SIREVI: 'sirevi',
     UPARIVANJA: 'uparivanja',
-    CLANCI: 'clanci'
+    CLANCI: 'clanci',
+    OPERATERI: 'operateri'
 }
