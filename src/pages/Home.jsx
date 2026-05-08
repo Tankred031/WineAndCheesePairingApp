@@ -24,6 +24,7 @@ export default function Home() {
     const [animatedVina, setAnimatedVina] = useState(0);
     const [animatedSirevi, setAnimatedSirevi] = useState(0);
     const [animatedUspjesnihUparivanja, setAnimatedUspjesnihUparivanja] = useState(0);
+    
     const [brojOperatera, setBrojOperatera] = useState(0);
     const [brojAdmina, setBrojAdmina] = useState(0);
     const [brojKorisnika, setBrojKorisnika] = useState(0);
@@ -175,11 +176,7 @@ export default function Home() {
                         style={{ backgroundImage: `url(${vino})` }}
                     >                        
                     </div>
-                </Carousel.Item>
-
-                
-
-                
+                </Carousel.Item>                
 
             </Carousel>
 

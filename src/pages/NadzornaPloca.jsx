@@ -3,9 +3,9 @@ import slika from '../assets/edunova.svg'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import { Col, Row, Card, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
-//import SmjerService from "../services/smjerovi/SmjerService";
-//import PolaznikService from "../services/polaznici/PolaznikService";
-//import GrupaService from "../services/grupe/GrupaService";
+import VinaService from "../services/vina/VinaService";
+import SireviService from "../services/sirevi/SireviService";
+import UparivanjeCustomService from "../services/uparivanje/UparivanjeCustomService";
 import OperaterService from "../services/operateri/OperaterService";
 import useLoading from "../hooks/useLoading"
 import Highcharts from 'highcharts';
@@ -192,7 +192,7 @@ return (
                         ...fixedOptions,
                         series: [
                             {
-                                name: 'Polaznici',
+                                name: 'Vina',
                                 colorByPoint: true,
                                 data: podaci,
                             },
