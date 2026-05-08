@@ -100,7 +100,7 @@ export default function OperaterNovi() {
                                             {errors.lozinka}
                                         </Form.Control.Feedback>
                                         <Form.Text className="text-muted">
-                                            Lozinka mora sadržavati: najmanje 8 znakova, veliko slovo, malo slovo, broj i interpukcijski znak (!@#$%^&*...)
+                                            Lozinka mora sadržavati: najmanje 8 znakova, veliko slovo, malo slovo, broj i interpunkcijski znak (!@#$%^&*...)
                                         </Form.Text>
                                     </Form.Group>
                                 </Col>

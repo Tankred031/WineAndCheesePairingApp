@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt.js'
+import bcrypt from 'bcryptjs'
 
 // Inicijalni operateri s hashiranim lozinkama
 // Lozinka za sve: "Edunova123!"

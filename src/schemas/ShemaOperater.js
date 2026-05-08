@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-// Regex za validaciju lozinke: min 8 znakova, velika i mala slova, brojevi i interpukcijski znak
+// Regex za validaciju lozinke: min 8 znakova, velika i mala slova, brojevi i interpunkcijski znak
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/
 
 export const ShemaOperater = z.object({
