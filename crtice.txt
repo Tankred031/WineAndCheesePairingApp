@@ -1,26 +1,174 @@
-Vina - entitet za route
-Sir - sekundarno 
 
-index, instalacija - json(dependencies), browser(dodati), constants, Izbornik, vite aktivacija...
-App route... i tu stop
+Zavisnosti: 
 
-vino i vino pregled poddirektoriji možda statistika meni tu
-provjeriti jel instalirano - doma: react-number-format + react-icons
+npm install react-bootstrap bootstrap
+npm install react-router-dom
 
-isto kao i vina za uparivanje ide: novi/pregled/promjena
+npm install react-number-format
+npm install react-icons
 
-dva nova programa slatkoća i tip i id i naziv
+// lottie animacija
+npm install @lottiefiles/dotlottie-react
 
-konstante, linkovi, rute i importi - korekcija za vina, pa dodati sireve
+// faker za generiranje podataka
+npm install @faker-js/faker
 
+// PDF
+npm install jspdf jspdf-autotable
 
-zanimljivosti - dodati statistiku koja zemlja pije koliko čega, koliko imamo u bazi itd
-
-RWD uparivanja
-naslovi 
-vraćanje 
-
-ikone kod RWD
-
-npm install html2canvas jspdf
+// generiranje xlsxdokumenta
 npm install xlsx
+
+// RIVE animacije
+npm install @rive-app/react-canvas
+
+// za hash lozinki
+npm install bcryptjs
+
+// grafovi
+npm install highcharts highcharts-react-official
+
+// screenshot generator
+npm install html2canvas jspdf
+
+
+.
+├── .gitattributes
+├── .gitignore
+├── README.md
+├── crtice.txt
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── vite.config.js
+├── public
+│   ├── Wine-Olives.png
+│   ├── bottle.lottie
+│   ├── wine_cheese.png
+│   └── fonts
+│       ├── Outfit-Black.ttf
+│       ├── Outfit-Bold.ttf
+│       ├── Outfit-ExtraBold.ttf
+│       ├── Outfit-ExtraLight.ttf
+│       ├── Outfit-Light.ttf
+│       ├── Outfit-Medium.ttf
+│       ├── Outfit-Regular.ttf
+│       ├── Outfit-SemiBold.ttf
+│       ├── Outfit-Thin.ttf
+│       └── Outfit-VariableFont_wght.ttf
+└── src
+    ├── App.css
+    ├── App.jsx
+    ├── constants.js
+    ├── index.css
+    ├── main.jsx
+    ├── assets
+    │   ├── cheese-meat.webp
+    │   ├── drinks.jpg
+    │   ├── wine-day.png
+    │   ├── wines.png
+    │   ├── img
+    │   │   ├── cheese-storage.jpg
+    │   │   ├── pouring2.jpg
+    │   │   ├── vinecellar.jpg
+    │   │   ├── vineyard1.jpg
+    │   │   ├── vineyard2.jpg
+    │   │   ├── wine2.jpg
+    │   │   └── wine3.jpg
+    │   └── statistika
+    │       ├── Spark-wine.jpg
+    │       ├── blue.webp
+    │       ├── fresh-cheese.jpg
+    │       ├── hard-cheese.jpg
+    │       ├── port-blog.jpg
+    │       ├── red-wine-types.jpg
+    │       ├── semi-hard-cheese.jpg
+    │       └── white-wine.webp
+    ├── components
+    │   ├── AuthContext.jsx
+    │   ├── ExcelGenerator.jsx
+    │   ├── Izbornik.jsx
+    │   ├── Kartice.jsx
+    │   ├── LoadingContext.jsx
+    │   ├── LoadingSpinner.jsx
+    │   ├── SireviPDFGenerator.jsx
+    │   ├── UparivanjePDFGenerator.jsx
+    │   └── VinaPDFGenerator.jsx
+    ├── hooks
+    │   ├── useAuth.js
+    │   ├── useBreakpoint.js
+    │   └── useLoading.js
+    ├── pages
+    │   ├── GeneriranjePodataka.jsx
+    │   ├── Home.jsx
+    │   ├── NadzornaPloca.jsx
+    │   ├── login
+    │   │   └── Login.jsx
+    │   ├── operateri
+    │   │   ├── OperaterNovi.jsx
+    │   │   ├── OperaterPregled.jsx
+    │   │   ├── OperaterPromjena.jsx
+    │   │   └── OperaterPromjenaLozinke.jsx
+    │   ├── registracija
+    │   │   └── Registracija.jsx
+    │   ├── sirevi
+    │   │   ├── SireviNovi.jsx
+    │   │   ├── SireviPregled.jsx
+    │   │   ├── SireviPregledGrid.jsx
+    │   │   ├── SireviPregledTablica.jsx
+    │   │   └── SireviPromjena.jsx
+    │   ├── uparivanje
+    │   │   ├── UparivanjeSirPregled.jsx
+    │   │   ├── UparivanjeSirPregledGrid.jsx
+    │   │   ├── UparivanjeSirPregledTablica.jsx
+    │   │   ├── UparivanjeSirPromjena.jsx
+    │   │   ├── UparivanjeVinoPregled.jsx
+    │   │   ├── UparivanjeVinoPregledGrid.jsx
+    │   │   ├── UparivanjeVinoPregledTablica.jsx
+    │   │   └── UparivanjeVinoPromjena.jsx
+    │   ├── vina
+    │   │   ├── VinaNovi.jsx
+    │   │   ├── VinaPregled.jsx
+    │   │   ├── VinaPregledGrid.jsx
+    │   │   ├── VinaPregledTablica.jsx
+    │   │   └── VinaPromjena.jsx
+    │   └── zanimljivosti
+    │       ├── DodajZanimljivost.jsx
+    │       ├── Preporuke.jsx
+    │       ├── Statistika.jsx
+    │       ├── Zanimljivosti.jsx
+    │       ├── ZanimljivostiPromjena.jsx
+    │       └── statistika.css
+    ├── schemas
+    │   ├── ShemaOperater.js
+    │   ├── ShemaSir.js
+    │   ├── ShemaVino.js
+    │   └── ShemaZanimljivost.js
+    └── services
+        ├── operateri
+        │   ├── OperaterPodaci.js
+        │   ├── OperaterService.js
+        │   ├── OperaterServiceLocalStorage.js
+        │   └── OperaterServiceMemorija.js
+        ├── sirevi
+        │   ├── SireviPopis.js
+        │   ├── SireviService.js
+        │   ├── SireviServiceLocalStorage.js
+        │   └── SireviServiceMemorija.js
+        ├── uparivanje
+        │   ├── UparivanjeCustomService.js
+        │   ├── UparivanjeSiraPopis.js
+        │   ├── UparivanjeSiraService.js
+        │   ├── UparivanjeVinaPopis.js
+        │   └── UparivanjeVinaService.js
+        ├── vina
+        │   ├── VinaBoje.js
+        │   ├── VinaPopis.js
+        │   ├── VinaService.js
+        │   ├── VinaServiceLocalStorage.js
+        │   └── VinaServiceMemorija.js
+        └── zanimljivosti
+            ├── ZanimljivostiService.js
+            ├── ZanimljivostiServiceLocalStorage.js
+            └── ZanimljivostiServiceMemorija.js
