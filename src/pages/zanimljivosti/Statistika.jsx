@@ -98,7 +98,14 @@ export default function Statistika() {
 
     const options = {
 
-        title: "Raspored vina po tipu i slatkoći",
+        title: "Pregled vina po tipu i slatkoći",
+
+        titleTextStyle: {
+            fontSize: 22,
+            bold: true,
+        },
+
+        titlePosition: "out",
 
         chartArea: {
             width: "55%",
@@ -120,12 +127,16 @@ export default function Statistika() {
 
         vAxis: {
             title: "Tip vina",
+
+            titleTextStyle: {
+                bold: true
+            }
         },
 
         backgroundColor: "silver",
 
         legend: {
-            position: "top",
+            position: "right",
         },
     };
 
@@ -168,29 +179,31 @@ export default function Statistika() {
 
         chartArea: {
             width: "85%",
-            height: "80%",
+            height: "75%",
+            top: 90,
         },
+    
 
         pieSliceTextStyle: {
             color: "black",
             fontSize: 14,
         },
-    };
+};
 
-    useEffect(() => {
-        ucitaj()
-    }, [])
+useEffect(() => {
+    ucitaj()
+}, [])
 
-    async function ucitaj() {
-        const v = await VinaService.get()
-        const s = await SireviService.get()
+async function ucitaj() {
+    const v = await VinaService.get()
+    const s = await SireviService.get()
 
-         
-        setVina(v.data || [])
-        setSirevi(s.data || [])
-    }
 
-    function brojVinaPoTipu(tipId) {
+    setVina(v.data || [])
+    setSirevi(s.data || [])
+}
+
+function brojVinaPoTipu(tipId) {
 
     if (tipId === '99') {
         return vina.filter(v =>
@@ -216,91 +229,91 @@ function brojSirevaPoTipu(tipId) {
     ).length
 }
 
-    return (
-        <div className="mt-4">
+return (
+    <div className="mt-4">
 
-            <h2 className="section-title mb-4">Statistika vina</h2>
+        <h2 className="section-title mb-4">Statistika vina</h2>
 
-            <Row className="mb-5">
-                {TIPOVI_VINA.map(tip => (
-                    <Col md={3} key={tip.id} className="mb-3">
-                        <Card className="stat-card text-center h-100">
+        <Row className="mb-5">
+            {TIPOVI_VINA.map(tip => (
+                <Col md={3} key={tip.id} className="mb-3">
+                    <Card className="stat-card text-center h-100">
 
-                            <img
-                                src={SLIKE_VINA[tip.id]}
-                                alt={tip.naziv}
-                                className="stat-img"
-                            />
+                        <img
+                            src={SLIKE_VINA[tip.id]}
+                            alt={tip.naziv}
+                            className="stat-img"
+                        />
 
-                            <Card.Body className={`vino-${tip.id}`}>
-                                <h5>{tip.naziv}</h5>
-                                <div className="stat-number">
-                                    {brojVinaPoTipu(tip.id)}
-                                </div>
-                            </Card.Body>
+                        <Card.Body className={`vino-${tip.id}`}>
+                            <h5>{tip.naziv}</h5>
+                            <div className="stat-number">
+                                {brojVinaPoTipu(tip.id)}
+                            </div>
+                        </Card.Body>
 
-                        </Card>
-                    </Col>
-                ))}
+                    </Card>
+                </Col>
+            ))}
 
-            </Row>
+        </Row>
 
-            <div className="my-5">
-
-                <Chart
-                    chartType="BarChart"
-                    width="100%"
-                    height="500px"
-                    data={data}
-                    options={options}
-                />
-
-            </div>
-
-            <h2 className="section-title mb-4">Statistika sireva</h2>
-
-            <Row>
-                {TIPOVI_SIREVA.map(tip => (
-                    <Col md={3} key={tip.id} className="mb-3">
-                        <Card className="stat-card text-center h-100">
-
-                            <img
-                                src={SLIKE_SIREVA[tip.id]}
-                                alt={tip.naziv}
-                                className="stat-img"
-                            />
-
-                            <Card.Body className={`sir-${tip.id}`}>
-                                <h5>{tip.naziv}</h5>
-                                <div className="stat-number">
-                                    {brojSirevaPoTipu(tip.id)}
-                                </div>
-                            </Card.Body>
-
-                        </Card>
-                    </Col>
-                ))}
-            </Row>
+        <div className="my-5">
 
             <Chart
-                chartType="PieChart"
+                chartType="BarChart"
                 width="100%"
-                height="450px"
-                data={cheeseData}
-                options={cheeseOptions}
+                height="500px"
+                data={data}
+                options={options}
             />
 
-            <button
-                className="scroll-top-btn"
-                onClick={() =>
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    })
-                }
-            >
-                ⬆
-            </button>
         </div>
-    )
+
+        <h2 className="section-title mb-4">Statistika sireva</h2>
+
+        <Row>
+            {TIPOVI_SIREVA.map(tip => (
+                <Col md={3} key={tip.id} className="mb-3">
+                    <Card className="stat-card text-center h-100">
+
+                        <img
+                            src={SLIKE_SIREVA[tip.id]}
+                            alt={tip.naziv}
+                            className="stat-img"
+                        />
+
+                        <Card.Body className={`sir-${tip.id}`}>
+                            <h5>{tip.naziv}</h5>
+                            <div className="stat-number">
+                                {brojSirevaPoTipu(tip.id)}
+                            </div>
+                        </Card.Body>
+
+                    </Card>
+                </Col>
+            ))}
+        </Row>
+
+        <Chart
+            chartType="PieChart"
+            width="100%"
+            height="450px"
+            data={cheeseData}
+            options={cheeseOptions}
+        />
+
+        <button
+            className="scroll-top-btn"
+            onClick={() =>
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                })
+            }
+        >
+            ⬆
+        </button>
+    </div>
+)
 }
