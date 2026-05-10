@@ -122,7 +122,7 @@ export default function Statistika() {
             title: "Tip vina",
         },
 
-        backgroundColor: "salmon",
+        backgroundColor: "silver",
 
         legend: {
             position: "top",
@@ -143,7 +143,7 @@ export default function Statistika() {
 
         title: "Sirevi po svježini i tipu",
 
-        backgroundColor: "lightgrey",
+        backgroundColor: "silver",
 
         pieHole: 0.2,
 
@@ -185,14 +185,7 @@ export default function Statistika() {
         const v = await VinaService.get()
         const s = await SireviService.get()
 
-         console.log(
-        v.data.map(vino => ({
-            naziv: vino.naziv,
-            tip_id: vino.tip_id,
-            slatkoca_id: vino.slatkoca_id
-        }))
-    )
-
+         
         setVina(v.data || [])
         setSirevi(s.data || [])
     }

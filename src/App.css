@@ -17,10 +17,10 @@
 
 body {
   background: linear-gradient(135deg,
-    #1f5f3a 0%,   /* tamna loza */
-    #5aa84a 45%,  /* svježa zelena */
+    #2f8352 0%,   /* tamna loza */
+    #62bd50 45%,  /* svježa zelena */
     #f2c94c 75%,  /* zlatno žuta (sir / sunce) */
-    #f4a340 100%  /* topla narančasta (vino / food) */
+    #e9ab5e 100%  /* topla narančasta (vino / food) */
   );
 }
 
