@@ -31,7 +31,7 @@ export default function UparivanjeSirPromjena() {
 
     async function ucitaj() {
 
-        const sirId = Number(params.id);
+        const sirId = (params.id);
 
         const s = await SireviService.getById(sirId);
         const v = await VinaService.get();
@@ -65,7 +65,7 @@ export default function UparivanjeSirPromjena() {
     async function spremi(e) {
     e.preventDefault();
 
-    const sirId = Number(params.id);    
+    const sirId = (params.id);    
 
     
     const svi = (await UparivanjeCustomService.get()).data || [];

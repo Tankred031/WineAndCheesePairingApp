@@ -15,36 +15,36 @@ export default function SireviPromjena() {
     const { showLoading, hideLoading } = useLoading()
 
     const VRSTE = [
-        { id: 1, naziv: "kravlji" },
-        { id: 2, naziv: "ovčji" },
-        { id: 3, naziv: "kozji" },
-        { id: 4, naziv: "miješano" }
+        { id: '1', naziv: 'kravlji' },
+        { id: '2', naziv: 'ovčji' },
+        { id: '3', naziv: 'kozji' },
+        { id: '4', naziv: 'miješano' }
     ];
 
     const MASNOCE = [
-        { id: 1, naziv: "niske" },
-        { id: 2, naziv: "srednje" },
-        { id: 3, naziv: "visoke" }
+        { id: '1', naziv: 'niske' },
+        { id: '2', naziv: 'srednje' },
+        { id: '3', naziv: 'visoke' }
     ];
 
     const TIPOVI = [
-        { id: 1, naziv: "svježi" },
-        { id: 2, naziv: "polutvrdi" },
-        { id: 3, naziv: "tvrdi" },
-        { id: 4, naziv: "plavi" },
-        { id: 5, naziv: "ekstra tvrdi" }
+        { id: '1', naziv: 'svježi' },
+        { id: '2', naziv: 'polutvrdi' },
+        { id: '3', naziv: 'tvrdi' },
+        { id: '4', naziv: 'plavi' },
+        { id: '5', naziv: 'ekstra tvrdi' }
     ];
 
     const ZRENJA = [
-        { id: 1, naziv: "mladi" },
-        { id: 2, naziv: "srednje zreli" },
-        { id: 3, naziv: "dugo zreli" }
+        { id: '1', naziv: 'mladi' },
+        { id: '2', naziv: 'srednje zreli' },
+        { id: '3', naziv: 'dugo zreli' }
     ];
 
     const INTENZITETI = [
-        { id: 1, naziv: "blagi" },
-        { id: 2, naziv: "srednji" },
-        { id: 3, naziv: "jaki" }
+        { id: '1', naziv: 'blagi' },
+        { id: '2', naziv: 'srednji' },
+        { id: '3', naziv: 'jaki' }
     ];
 
     const [errors, setErrors] = useState({});
@@ -86,11 +86,11 @@ export default function SireviPromjena() {
 
         const objekt = {
             naziv: podaci.get('naziv'),
-            vrsta_id: Number(podaci.get('vrsta_id')),
-            tip_id: Number(podaci.get('tip_id')),
-            zrenje_id: Number(podaci.get('zrenje_id')),
-            masnoca_id: Number(podaci.get('masnoca_id')),
-            intenzitet_id: Number(podaci.get('intenzitet_id')),
+            vrsta_id: podaci.get('vrsta_id'),
+            tip_id: podaci.get('tip_id'),
+            zrenje_id: podaci.get('zrenje_id'),
+            masnoca_id: podaci.get('masnoca_id'),
+            intenzitet_id: podaci.get('intenzitet_id'),
             regija: podaci.get('regija'),
             okus: podaci.get('okus')
         };
@@ -147,7 +147,7 @@ export default function SireviPromjena() {
                                 name="vrsta_id"
                                 isInvalid={!!errors.vrsta_id}
                                 value={sir.vrsta_id || ""}
-                                onChange={(e) => setSir({ ...sir, vrsta_id: Number(e.target.value) })}
+                                onChange={(e) => setSir({ ...sir, vrsta_id: e.target.value })}
                             >
                                 <option value="">-- odaberite vrstu --</option>
                                 {VRSTE.map(v => (
@@ -167,7 +167,7 @@ export default function SireviPromjena() {
                                 name="tip_id"
                                 isInvalid={!!errors.tip_id}
                                 value={sir.tip_id || ""}
-                                onChange={(e) => setSir({ ...sir, tip_id: Number(e.target.value) })}
+                                onChange={(e) => setSir({ ...sir, tip_id: e.target.value })}
                             >
                                 <option value="">-- odaberite tip --</option>
                                 {TIPOVI.map(t => (
@@ -190,7 +190,7 @@ export default function SireviPromjena() {
                                 name="zrenje_id"
                                 isInvalid={!!errors.zrenje_id}
                                 value={sir.zrenje_id || ""}
-                                onChange={(e) => setSir({ ...sir, zrenje_id: Number(e.target.value) })}
+                                onChange={(e) => setSir({ ...sir, zrenje_id: e.target.value })}
                             >
                                 <option value="">-- odaberite zrenje --</option>
                                 {ZRENJA.map(z => (
@@ -210,7 +210,7 @@ export default function SireviPromjena() {
                                 name="masnoca_id"
                                 isInvalid={!!errors.masnoca_id}
                                 value={sir.masnoca_id || ""}
-                                onChange={(e) => setSir({ ...sir, masnoca_id: Number(e.target.value) })}
+                                onChange={(e) => setSir({ ...sir, masnoca_id: e.target.value })}
                             >
                                 <option value="">-- odaberite masnoću --</option>
                                 {MASNOCE.map(m => (
@@ -230,7 +230,7 @@ export default function SireviPromjena() {
                                 name="intenzitet_id"
                                 isInvalid={!!errors.intenzitet_id}
                                 value={sir.intenzitet_id || ""}
-                                onChange={(e) => setSir({ ...sir, intenzitet_id: Number(e.target.value) })}
+                                onChange={(e) => setSir({ ...sir, intenzitet_id: e.target.value })}
                             >
                                 <option value="">-- odaberite intenzitet --</option>
                                 {INTENZITETI.map(i => (
@@ -249,7 +249,7 @@ export default function SireviPromjena() {
                             <Form.Control
                                 name="regija"
                                 isInvalid={!!errors.regija}
-                                defaultValue={sir.regija}                                
+                                defaultValue={sir.regija}
                             />
                             <Form.Control.Feedback type="invalid">
                                 {errors.regija}
@@ -266,9 +266,9 @@ export default function SireviPromjena() {
                             <Form.Control
                                 name="okus"
                                 isInvalid={!!errors.okus}
-                                defaultValue={sir.okus}                               
+                                defaultValue={sir.okus}
                             />
-                             <Form.Control.Feedback type="invalid">
+                            <Form.Control.Feedback type="invalid">
                                 {errors.okus}
                             </Form.Control.Feedback>
                         </Form.Group>

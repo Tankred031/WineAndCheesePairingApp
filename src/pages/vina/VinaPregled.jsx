@@ -24,18 +24,18 @@ export default function VinaPregled() {
     const { showLoading, hideLoading } = useLoading()
 
     const TIPOVI_VINA = [
-        { id: 1, naziv: "crveno" },
-        { id: 2, naziv: "bijelo" },
-        { id: 3, naziv: "pjenušavo" },
-        { id: 4, naziv: "desertno" },
-        { id: 5, naziv: "rose" }
+        { id: '1', naziv: 'crveno' },
+        { id: '2', naziv: 'bijelo' },
+        { id: '3', naziv: 'pjenušavo' },
+        { id: '4', naziv: 'desertno' },
+        { id: '5', naziv: 'rose' }
     ]
 
     const SLATKOCE = [
-        { id: 1, naziv: "suho" },
-        { id: 2, naziv: "polusuho" },
-        { id: 3, naziv: "poluslatko" },
-        { id: 4, naziv: "slatko" }
+        { id: '1', naziv: 'suho' },
+        { id: '2', naziv: 'polusuho' },
+        { id: '3', naziv: 'poluslatko' },
+        { id: '4', naziv: 'slatko' }
     ]
 
     const round1 = (num) => Math.round(num * 10) / 10;
@@ -77,7 +77,7 @@ export default function VinaPregled() {
             (jeBroj &&
                 broj >= round1(v.alkohol_min) &&
                 broj <= round1(v.alkohol_max)
-        ))
+            ))
     })
 
     // 🔥 2. PAGINACIJA NA FILTERU
@@ -95,7 +95,7 @@ export default function VinaPregled() {
     async function ucitajVina() {
         showLoading("Učitavam podatke...")
         const odgovor = await VinaService.get()
-        
+
 
         if (!odgovor.success) {
             alert('Nije implementiran servis')

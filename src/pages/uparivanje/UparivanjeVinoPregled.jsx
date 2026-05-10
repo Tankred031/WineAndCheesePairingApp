@@ -85,28 +85,37 @@ export default function UparivanjeVinoPregled() {
     }
 
     function getScore(vino, sirevi) {
-        let score = 0;
 
+        let score = 0;
         sirevi.forEach(sir => {
 
-            if (vino.tip_id === 1 && sir.tip_id === 3) score += 2;
-            if (vino.tip_id === 1 && sir.tip_id === 1) score -= 1;
+            // crvena vina + tvrdi sirevi
+            if (vino.tip_id === '1' && sir.tip_id === '3') score += 2;
+            if (vino.tip_id === '1' && sir.tip_id === '1') score -= 1;
 
-            if (vino.tip_id === 2 && sir.intenzitet_id === 1) score += 2;
-            if (vino.tip_id === 2 && sir.intenzitet_id === 3) score -= 1;
+            // bijela vina + blagi sirevi
+            if (vino.tip_id === '2' && sir.intenzitet_id === '1') score += 2;
+            if (vino.tip_id === '2' && sir.intenzitet_id === '3') score -= 1;
 
-            if (vino.slatkoca_id === 4 && sir.tip_id === 4) score += 3;
-            if (vino.slatkoca_id === 1 && sir.tip_id === 4) score -= 2;
+            // slatka vina + plavi sirevi
+            if (vino.slatkoca_id === '4' && sir.tip_id === '4') score += 3;
+            if (vino.slatkoca_id === '1' && sir.tip_id === '4') score -= 2;
 
-            if (vino.tijelo_id === 3 && sir.intenzitet_id === 3) score += 2;
-            if (vino.tijelo_id === 1 && sir.intenzitet_id === 3) score -= 2;
+            if (vino.tijelo === 'puno' && sir.intenzitet_id === '3') score += 2;
+            if (vino.tijelo === 'lagano' && sir.intenzitet_id === '3') score -= 2;
 
-            const alkohol = (vino.alkohol_min + vino.alkohol_max) / 2;
-            if (alkohol > 14 && sir.intenzitet_id === 3) score += 1;
-            if (alkohol < 10 && sir.intenzitet_id === 3) score -= 1;
+            // alkohol vs intenzitet
+            const alkohol =
+                (vino.alkohol_min + vino.alkohol_max) / 2;
 
-            if (vino.tip_id === 3 && sir.tip_id === 1) score += 1;
-            if (vino.tip_id === 4 && sir.tip_id !== 4) score -= 1;
+            if (alkohol > 14 && sir.intenzitet_id === '3') score += 1;
+            if (alkohol < 10 && sir.intenzitet_id === '3') score -= 1;
+
+            // pjenušavo + svježi sirevi
+            if (vino.tip_id === '3' && sir.tip_id === '1') score += 1;
+
+            // desertna vina
+            if (vino.tip_id === '4' && sir.tip_id !== '4') score -= 1;
         });
 
         return score;

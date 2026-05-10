@@ -5,18 +5,18 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 export default function VinaPregledGrid({ vina, navigate, obrisi }) {
 
     const TIPOVI_VINA = [
-        { id: 1, naziv: "crveno" },
-        { id: 2, naziv: "bijelo" },
-        { id: 3, naziv: "pjenušavo" },
-        { id: 4, naziv: "desertno" },
-        { id: 5, naziv: "rose" }
+        { id: '1', naziv: 'crveno' },
+        { id: '2', naziv: 'bijelo' },
+        { id: '3', naziv: 'pjenušavo' },
+        { id: '4', naziv: 'desertno' },
+        { id: '5', naziv: 'rose' }
     ];
 
     const SLATKOCE = [
-        { id: 1, naziv: "suho" },
-        { id: 2, naziv: "polusuho" },
-        { id: 3, naziv: "poluslatko" },
-        { id: 4, naziv: "slatko" }
+        { id: '1', naziv: 'suho' },
+        { id: '2', naziv: 'polusuho' },
+        { id: '3', naziv: 'poluslatko' },
+        { id: '4', naziv: 'slatko' }
     ];
 
     function getTipNaziv(id) {

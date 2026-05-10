@@ -24,23 +24,37 @@ export default function SireviPregled() {
 
     // --- Konstante ---
     const VRSTE = [
-        { id: 1, naziv: "kravlji" }, { id: 2, naziv: "ovčji" },
-        { id: 3, naziv: "kozji" }, { id: 4, naziv: "miješano" }
-    ]
-    const MASNOCE = [
-        { id: 1, naziv: "niske" }, { id: 2, naziv: "srednje" }, { id: 3, naziv: "visoke" }
-    ]
-    const TIPOVI = [
-        { id: 1, naziv: "svježi" }, { id: 2, naziv: "polutvrdi" },
-        { id: 3, naziv: "tvrdi" }, { id: 4, naziv: "plavi" }, { id: 5, naziv: "ekstra tvrdi" }
-    ]
-    const ZRENJA = [
-        { id: 1, naziv: "mladi" }, { id: 2, naziv: "srednje zreli" }, { id: 3, naziv: "dugo zreli" }
-    ]
-    const INTENZITETI = [
-        { id: 1, naziv: "blagi" }, { id: 2, naziv: "srednji" }, { id: 3, naziv: "jaki" }
-    ]
+        { id: '1', naziv: 'kravlji' },
+        { id: '2', naziv: 'ovčji' },
+        { id: '3', naziv: 'kozji' },
+        { id: '4', naziv: 'miješano' }
+    ];
 
+    const MASNOCE = [
+        { id: '1', naziv: 'niske' },
+        { id: '2', naziv: 'srednje' },
+        { id: '3', naziv: 'visoke' }
+    ];
+
+    const TIPOVI = [
+        { id: '1', naziv: 'svježi' },
+        { id: '2', naziv: 'polutvrdi' },
+        { id: '3', naziv: 'tvrdi' },
+        { id: '4', naziv: 'plavi' },
+        { id: '5', naziv: 'ekstra tvrdi' }
+    ];
+
+    const ZRENJA = [
+        { id: '1', naziv: 'mladi' },
+        { id: '2', naziv: 'srednje zreli' },
+        { id: '3', naziv: 'dugo zreli' }
+    ];
+
+    const INTENZITETI = [
+        { id: '1', naziv: 'blagi' },
+        { id: '2', naziv: 'srednji' },
+        { id: '3', naziv: 'jaki' }
+    ];
     // --- Helper funkcije ---
     function getVrstaNaziv(id) { return VRSTE.find(v => v.id === id)?.naziv || '' }
     function getMasnocaNaziv(id) { return MASNOCE.find(m => m.id === id)?.naziv || '' }
@@ -61,7 +75,7 @@ export default function SireviPregled() {
     async function ucitajSirevi() {
         showLoading("Učitavam podatke...")
         const odgovor = await SireviService.get()
-        
+
 
         if (!odgovor.success) {
             alert('Nije implementiran servis')
@@ -75,7 +89,7 @@ export default function SireviPregled() {
     // --- 2. BRISANJE ---
     async function obrisi(id) {
         if (!confirm('Sigurno obrisati?')) return
-        
+
         showLoading("Brišem podatke...")
 
         await SireviService.obrisi(id)

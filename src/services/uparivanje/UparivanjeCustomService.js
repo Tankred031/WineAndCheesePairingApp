@@ -1,54 +1,103 @@
 let lista = []
+
 let obrisani = []
 
 export default {
 
     get: async () => ({
+
         success: true,
+
         data: lista
     }),
 
     dodaj: async (uparivanje) => {
-        uparivanje.id = Date.now()
+
+        uparivanje.id = String(Date.now())
+
         lista.push(uparivanje)
-        return { success: true }
+
+        return {
+            success: true
+        }
     },
 
     getById: async (id) => ({
+
         success: true,
-        data: lista.find(u => u.id == id)
+
+        data: lista.find(
+            u => u.id === id
+        )
     }),
 
     promjeni: async (id, novo) => {
-        let index = lista.findIndex(u => u.id == id)
-        if (index !== -1){
-        lista[index] = { ...novo, id }}
-        return { success: true }
+
+        let index = lista.findIndex(
+            u => u.id === id
+        )
+
+        if (index !== -1) {
+
+            lista[index] = {
+                ...novo,
+                id
+            }
+        }
+
+        return {
+            success: true
+        }
     },
 
-
     obrisi: async (id) => {
-        lista = lista.filter(u => u.id != id)
-        return { success: true }
+
+        lista = lista.filter(
+            u => u.id !== id
+        )
+
+        return {
+            success: true
+        }
     },
 
     postavi: async (novaLista) => {
+
         lista = novaLista
-        return { success: true }
-    }, 
+
+        return {
+            success: true
+        }
+    },
 
     getObrisani: async () => ({
+
         success: true,
+
         data: obrisani
     }),
 
-    dodajObrisani: async (vinoId, sirId) => {
-        obrisani.push({ vinoId, sirId });
-        return { success: true };
+    dodajObrisani: async (
+        vinoId,
+        sirId
+    ) => {
+
+        obrisani.push({
+            vinoId,
+            sirId
+        })
+
+        return {
+            success: true
+        }
     },
 
     resetObrisani: async () => {
-        obrisani = [];
-        return { success: true}
+
+        obrisani = []
+
+        return {
+            success: true
+        }
     }
 }

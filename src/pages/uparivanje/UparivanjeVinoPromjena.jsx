@@ -29,25 +29,31 @@ export default function UparivanjeVinoPromjena() {
     }, []);
 
     async function ucitaj() {
-        const vinoId = Number(params.id);
 
+        const vinoId = params.id;
         const v = await VinaService.getById(vinoId);
         const s = await SireviService.get();
 
         setVino(v.data);
         setSirevi(s.data || []);
 
-        const statickaIds = uparivanjeVinaById[vinoId] || [];
+        const statickaIds =
+            uparivanjeVinaById[vinoId] || [];
 
-        const customResponse = await UparivanjeCustomService.get();
-        const custom = customResponse.data || [];
+        const customResponse =
+            await UparivanjeCustomService.get();
+
+        const custom =
+            customResponse.data || [];
 
         const customIds = custom
             .filter(u => u.vinoId === vinoId)
             .map(u => u.sirId);
 
         const finalIds =
-            customIds.length > 0 ? customIds : statickaIds;
+            customIds.length > 0
+                ? customIds
+                : statickaIds;
 
         setOdabraniSirevi(finalIds);
     }
@@ -63,11 +69,10 @@ export default function UparivanjeVinoPromjena() {
     async function spremi(e) {
         e.preventDefault();
 
-        const vinoId = Number(params.id);
-        
+        const vinoId = params.id;
         const svi = (await UparivanjeCustomService.get()).data || [];
         const ostali = svi.filter(u => u.vinoId !== vinoId);
-        
+
         const novi =
             odabraniSirevi.length > 0
                 ? odabraniSirevi.map(sirId => ({
@@ -82,14 +87,18 @@ export default function UparivanjeVinoPromjena() {
                     empty: true
                 }];
 
-        
+        await UparivanjeCustomService.postavi([
+            ...ostali,
+            ...novi
+        ]);
 
-        await UparivanjeCustomService.postavi([...ostali, ...novi]);
-
-        if (from === "vina") navigate(RouteNames.VINA_PREGLED);
-        else navigate(RouteNames.UPARIVANJE_VINO_PREGLED);
+        if (from === "vina") {
+            navigate(RouteNames.VINA_PREGLED);
+        } else {
+            navigate(RouteNames.UPARIVANJE_VINO_PREGLED);
+        }
     }
-
+    
     // SCREENSHOT PDF (WYSIWYG)
     async function printScreenPDF() {
         const element = printRef.current;

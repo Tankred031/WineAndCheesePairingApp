@@ -13,19 +13,19 @@ export default function VinaNovi() {
     const [alkoholMax, setAlkoholMax] = useState(15)
 
     const TIPOVI_VINA = [
-        { id: 1, naziv: "crveno" },
-        { id: 2, naziv: "bijelo" },
-        { id: 3, naziv: "pjenušavo" },
-        { id: 4, naziv: "desertno" },
-        { id: 5, naziv: "rose" }
-    ]
+        { id: '1', naziv: 'crveno' },
+        { id: '2', naziv: 'bijelo' },
+        { id: '3', naziv: 'pjenušavo' },
+        { id: '4', naziv: 'desertno' },
+        { id: '5', naziv: 'rose' }
+    ];
 
     const SLATKOCE = [
-        { id: 1, naziv: "suho" },
-        { id: 2, naziv: "polusuho" },
-        { id: 3, naziv: "poluslatko" },
-        { id: 4, naziv: "slatko" }
-    ]
+        { id: '1', naziv: 'suho' },
+        { id: '2', naziv: 'polusuho' },
+        { id: '3', naziv: 'poluslatko' },
+        { id: '4', naziv: 'slatko' }
+    ];
 
     const [errors, setErrors] = useState({});
 
@@ -43,11 +43,11 @@ export default function VinaNovi() {
 
         const objekt = {
             naziv: podaci.get('naziv'),
-            tip_id: Number(podaci.get('tip_id')),
+            tip_id: podaci.get('tip_id'),
             regija: podaci.get('regija'),
             temperatura_min: Number(podaci.get('temperatura_min')),
             temperatura_max: Number(podaci.get('temperatura_max')),
-            slatkoca_id: Number(podaci.get('slatkoca_id')),
+            slatkoca_id: podaci.get('slatkoca_id'),
             arome: podaci.get('arome'),
             tijelo: podaci.get('tijelo'),
             alkohol_min: alkoholMin,

@@ -1,4 +1,4 @@
-import { Card, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function UparivanjeVinoPregledGrid({
@@ -13,9 +13,14 @@ export default function UparivanjeVinoPregledGrid({
 
     return (
         <div className="d-flex flex-column gap-3">
-            {vina.map(vino => {
+            {vina.map((vino) => {
 
-                const ocjena = getOcjena(vino, getSireviObjekti(vino.id));
+                const sireviObjekti = getSireviObjekti(vino.id);
+
+                const ocjena = getOcjena(
+                    vino,
+                    sireviObjekti
+                );
 
                 return (
                     <Card key={vino.id}>
@@ -29,20 +34,25 @@ export default function UparivanjeVinoPregledGrid({
 
                             <div className="mb-2">
                                 <strong>Boja:</strong>
+
                                 <span
                                     className="color-dot ms-2"
-                                    style={{ backgroundColor: getBojaVina(vino.id) }}
+                                    style={{
+                                        backgroundColor: getBojaVina(vino.id)
+                                    }}
                                 />
                             </div>
 
                             <div className="mb-2">
-                                <strong>Sirevi:</strong> {getSirevi(vino.id)}
+                                <strong>Sirevi:</strong>{" "}
+                                {getSirevi(vino.id)}
                             </div>
 
                             <div className="mb-2">
                                 <strong>Ocjena:</strong>{" "}
+
                                 <span className="badge bg-primary">
-                                    {getOcjena(vino, getSireviObjekti(vino.id))}
+                                    {ocjena}
                                 </span>
                             </div>
 
@@ -58,7 +68,9 @@ export default function UparivanjeVinoPregledGrid({
                                         <FaEdit
                                             className="icon-btn text-warning"
                                             size={20}
-                                            onClick={() => navigate(`/uparivanje/vino/${vino.id}`)}
+                                            onClick={() =>
+                                                navigate(`/uparivanje/vino/${vino.id}`)
+                                            }
                                         />
                                     </span>
                                 </OverlayTrigger>

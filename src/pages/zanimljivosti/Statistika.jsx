@@ -22,31 +22,31 @@ export default function Statistika() {
 
 
     const TIPOVI_VINA = [
-        { id: 1, naziv: "Crveno 🍷" },
-        { id: 2, naziv: "Bijelo 🥂" },
-        { id: 3, naziv: "Pjenušavo 🍾" },
-        { id: 99, naziv: "Ostala 🍇" }
+        { id: '1', naziv: "Crveno 🍷" },
+        { id: '2', naziv: "Bijelo 🥂" },
+        { id: '3', naziv: "Pjenušavo 🍾" },
+        { id: '99', naziv: "Ostala 🍇" }
     ]
 
     const SLIKE_VINA = {
-        1: redWine,
-        2: whiteWine,
-        3: sparkWines,
-        99: otherWine
+        '1': redWine,
+        '2': whiteWine,
+        '3': sparkWines,
+        '99': otherWine
     }
 
     const TIPOVI_SIREVA = [
-        { id: 1, naziv: "Svježi 🥛" },
-        { id: 2, naziv: "Polutvrdi 🟨" },
-        { id: 3, naziv: "Tvrdi 🧀" },
-        { id: 99, naziv: "Ostali 🫕" }
+        { id: '1', naziv: "Svježi 🥛" },
+        { id: '2', naziv: "Polutvrdi 🟨" },
+        { id: '3', naziv: "Tvrdi 🧀" },
+        { id: '99', naziv: "Ostali 🫕" }
     ]
 
     const SLIKE_SIREVA = {
-        1: freshCheese,
-        2: semiHard,
-        3: hardCheese,
-        99: otherCheese
+        '1': freshCheese,
+        '2': semiHard,
+        '3': hardCheese,
+        '99': otherCheese
     }
 
     const data = [
@@ -60,30 +60,30 @@ export default function Statistika() {
         ],
 
         ...[
-            { naziv: "Crveno", tipovi: [1] },
-            { naziv: "Bijelo", tipovi: [2] },
-            { naziv: "Pjenušava i ostala", tipovi: [3, 4, 5] },
+            { naziv: "Crveno", tipovi: ["1"] },
+            { naziv: "Bijelo", tipovi: ["2"] },
+            { naziv: "Pjenušava i ostala", tipovi: ["3", "4", "5"] },
         ].map(grupa => {
 
             const suha = vina.filter(v =>
-                grupa.tipovi.includes(v.tip_id) &&
-                v.slatkoca_id === 1
-            ).length
+                grupa.tipovi.includes(String(v.tip_id)) &&
+                String(v.slatkoca_id) === '1'
+            ).length;
 
             const polusuha = vina.filter(v =>
-                grupa.tipovi.includes(v.tip_id) &&
-                v.slatkoca_id === 2
-            ).length
+                grupa.tipovi.includes(String(v.tip_id)) &&
+                String(v.slatkoca_id) === '2'
+            ).length;
 
             const poluslatka = vina.filter(v =>
-                grupa.tipovi.includes(v.tip_id) &&
-                v.slatkoca_id === 3
-            ).length
+                grupa.tipovi.includes(String(v.tip_id)) &&
+                String(v.slatkoca_id) === '3'
+            ).length;
 
             const slatka = vina.filter(v =>
-                grupa.tipovi.includes(v.tip_id) &&
-                v.slatkoca_id === 4
-            ).length
+                grupa.tipovi.includes(String(v.tip_id)) &&
+                String(v.slatkoca_id) === '4'
+            ).length;
 
             return [
                 grupa.naziv,
@@ -185,31 +185,43 @@ export default function Statistika() {
         const v = await VinaService.get()
         const s = await SireviService.get()
 
+         console.log(
+        v.data.map(vino => ({
+            naziv: vino.naziv,
+            tip_id: vino.tip_id,
+            slatkoca_id: vino.slatkoca_id
+        }))
+    )
+
         setVina(v.data || [])
         setSirevi(s.data || [])
     }
 
     function brojVinaPoTipu(tipId) {
 
-        if (tipId === 99) {
-            return vina.filter(v =>
-                ![1, 2, 3].includes(v.tip_id)
-            ).length
-        }
-
-        return vina.filter(v => v.tip_id === tipId).length
+    if (tipId === '99') {
+        return vina.filter(v =>
+            !['1', '2', '3'].includes(String(v.tip_id))
+        ).length
     }
 
-    function brojSirevaPoTipu(tipId) {
+    return vina.filter(v =>
+        String(v.tip_id) === String(tipId)
+    ).length
+}
 
-        if (tipId === 99) {
-            return sirevi.filter(s =>
-                ![1, 2, 3].includes(s.tip_id)
-            ).length
-        }
+function brojSirevaPoTipu(tipId) {
 
-        return sirevi.filter(s => s.tip_id === tipId).length
+    if (tipId === '99') {
+        return sirevi.filter(s =>
+            !['1', '2', '3'].includes(String(s.tip_id))
+        ).length
     }
+
+    return sirevi.filter(s =>
+        String(s.tip_id) === String(tipId)
+    ).length
+}
 
     return (
         <div className="mt-4">

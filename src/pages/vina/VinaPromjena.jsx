@@ -16,20 +16,20 @@ export default function VinaPromjena() {
     const [alkoholMax, setAlkoholMax] = useState(15);
 
     const { showLoading, hideLoading } = useLoading();
-    
+
     const TIPOVI_VINA = [
-        { id: 1, naziv: "crveno" },
-        { id: 2, naziv: "bijelo" },
-        { id: 3, naziv: "pjenušavo" },
-        { id: 4, naziv: "desertno" },
-        { id: 5, naziv: "rose" }
+        { id: '1', naziv: 'crveno' },
+        { id: '2', naziv: 'bijelo' },
+        { id: '3', naziv: 'pjenušavo' },
+        { id: '4', naziv: 'desertno' },
+        { id: '5', naziv: 'rose' }
     ];
 
     const SLATKOCE = [
-        { id: 1, naziv: "suho" },
-        { id: 2, naziv: "polusuho" },
-        { id: 3, naziv: "poluslatko" },
-        { id: 4, naziv: "slatko" }
+        { id: '1', naziv: 'suho' },
+        { id: '2', naziv: 'polusuho' },
+        { id: '3', naziv: 'poluslatko' },
+        { id: '4', naziv: 'slatko' }
     ];
 
     const [errors, setErrors] = useState({});
@@ -74,11 +74,11 @@ export default function VinaPromjena() {
 
         const objekt = {
             naziv: podaci.get('naziv'),
-            tip_id: Number(podaci.get('tip_id')),
+            tip_id: podaci.get('tip_id'),
             regija: podaci.get('regija'),
             temperatura_min: Number(podaci.get('temperatura_min')),
             temperatura_max: Number(podaci.get('temperatura_max')),
-            slatkoca_id: Number(podaci.get('slatkoca_id')),
+            slatkoca_id: podaci.get('slatkoca_id'),
             arome: podaci.get('arome'),
             tijelo: podaci.get('tijelo'),
             alkohol_min: alkoholMin,
@@ -158,7 +158,7 @@ export default function VinaPromjena() {
                                 name="tip_id"
                                 value={vino.tip_id || ""}
                                 isInvalid={!!errors.tip_id}
-                                onChange={(e) => setVino({ ...vino, tip_id: Number(e.target.value) })}
+                                onChange={(e) => setVino({ ...vino, tip_id: e.target.value })}
                             >
                                 <option value="">--odaberite tip --</option>
                                 {TIPOVI_VINA.map(t => (
@@ -178,7 +178,7 @@ export default function VinaPromjena() {
                                 name="slatkoca_id"
                                 value={vino.slatkoca_id || ""}
                                 isInvalid={!!errors.slatkoca_id}
-                                onChange={(e) => setVino({ ...vino, slatkoca_id: Number(e.target.value) })}
+                                onChange={(e) => setVino({ ...vino, slatkoca_id: e.target.value })}
                             >
                                 <option value="">--odaberite slatkoću --</option>
                                 {SLATKOCE.map(s => (

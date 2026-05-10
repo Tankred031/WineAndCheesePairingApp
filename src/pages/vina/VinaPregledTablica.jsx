@@ -7,18 +7,18 @@ export default function VinaPregledTablica({ vina, navigate, obrisi }) {
     const [sortConfig, setSortConfig] = useState({ key: 'naziv', direction: 'asc' });
 
     const TIPOVI_VINA = [
-        { id: 1, naziv: "crveno" },
-        { id: 2, naziv: "bijelo" },
-        { id: 3, naziv: "pjenušavo" },
-        { id: 4, naziv: "desertno" },
-        { id: 5, naziv: "rose" }
+        { id: '1', naziv: 'crveno' },
+        { id: '2', naziv: 'bijelo' },
+        { id: '3', naziv: 'pjenušavo' },
+        { id: '4', naziv: 'desertno' },
+        { id: '5', naziv: 'rose' }
     ];
 
     const SLATKOCE = [
-        { id: 1, naziv: "suho" },
-        { id: 2, naziv: "polusuho" },
-        { id: 3, naziv: "poluslatko" },
-        { id: 4, naziv: "slatko" }
+        { id: '1', naziv: 'suho' },
+        { id: '2', naziv: 'polusuho' },
+        { id: '3', naziv: 'poluslatko' },
+        { id: '4', naziv: 'slatko' }
     ];
 
     const round1 = (num) => Math.round(num * 10) / 10;

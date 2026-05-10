@@ -11,36 +11,36 @@ export default function SireviNovi() {
     const [errors, setErrors] = useState({});
 
     const VRSTE = [
-        { id: 1, naziv: "kravlji" },
-        { id: 2, naziv: "ovčji" },
-        { id: 3, naziv: "kozji" },
-        { id: 4, naziv: "miješano" }
+        { id: '1', naziv: 'kravlji' },
+        { id: '2', naziv: 'ovčji' },
+        { id: '3', naziv: 'kozji' },
+        { id: '4', naziv: 'miješano' }
     ];
 
     const MASNOCE = [
-        { id: 1, naziv: "niske" },
-        { id: 2, naziv: "srednje" },
-        { id: 3, naziv: "visoke" }
+        { id: '1', naziv: 'niske' },
+        { id: '2', naziv: 'srednje' },
+        { id: '3', naziv: 'visoke' }
     ];
 
     const TIPOVI = [
-        { id: 1, naziv: "svježi" },
-        { id: 2, naziv: "polutvrdi" },
-        { id: 3, naziv: "tvrdi" },
-        { id: 4, naziv: "plavi" },
-        { id: 5, naziv: "ekstra tvrdi" }
+        { id: '1', naziv: 'svježi' },
+        { id: '2', naziv: 'polutvrdi' },
+        { id: '3', naziv: 'tvrdi' },
+        { id: '4', naziv: 'plavi' },
+        { id: '5', naziv: 'ekstra tvrdi' }
     ];
 
     const ZRENJA = [
-        { id: 1, naziv: "mladi" },
-        { id: 2, naziv: "srednje zreli" },
-        { id: 3, naziv: "dugo zreli" }
+        { id: '1', naziv: 'mladi' },
+        { id: '2', naziv: 'srednje zreli' },
+        { id: '3', naziv: 'dugo zreli' }
     ];
 
     const INTENZITETI = [
-        { id: 1, naziv: "blagi" },
-        { id: 2, naziv: "srednji" },
-        { id: 3, naziv: "jaki" }
+        { id: '1', naziv: 'blagi' },
+        { id: '2', naziv: 'srednji' },
+        { id: '3', naziv: 'jaki' }
     ];
 
     async function dodaj(sir) {
@@ -56,11 +56,11 @@ export default function SireviNovi() {
 
         const objekt = {
             naziv: podaci.get('naziv'),
-            vrsta_id: Number(podaci.get('vrsta_id')),
-            tip_id: Number(podaci.get('tip_id')),
-            zrenje_id: Number(podaci.get('zrenje_id')),
-            masnoca_id: Number(podaci.get('masnoca_id')),
-            intenzitet_id: Number(podaci.get('intenzitet_id')),
+            vrsta_id: podaci.get('vrsta_id'),
+            ttip_id: podaci.get('tip_id'),
+            zrenje_id: podaci.get('zrenje_id'),
+            masnoca_id: podaci.get('masnoca_id'),
+            intenzitet_id: podaci.get('intenzitet_id'),
             regija: podaci.get('regija'),
             okus: podaci.get('okus')
         };
@@ -119,7 +119,7 @@ export default function SireviNovi() {
                             <Form.Label>Vrsta</Form.Label>
                             <Form.Select
                                 name="vrsta_id"
-                                isInvalid={!!errors.vrsta_id}                                
+                                isInvalid={!!errors.vrsta_id}
                             >
                                 <option value="">-- odaberite vrstu --</option>
                                 {VRSTE.map(v => (
@@ -137,7 +137,7 @@ export default function SireviNovi() {
                             <Form.Label>Tip</Form.Label>
                             <Form.Select
                                 name="tip_id"
-                                isInvalid={!!errors.tip_id}                                
+                                isInvalid={!!errors.tip_id}
                             >
                                 <option value="">-- odaberite tip --</option>
                                 {TIPOVI.map(t => (
@@ -158,7 +158,7 @@ export default function SireviNovi() {
                             <Form.Label>Zrenje</Form.Label>
                             <Form.Select
                                 name="zrenje_id"
-                                isInvalid={!!errors.zrenje_id}                                
+                                isInvalid={!!errors.zrenje_id}
                             >
                                 <option value="">-- odaberite zrenje --</option>
                                 {ZRENJA.map(z => (
@@ -176,7 +176,7 @@ export default function SireviNovi() {
                             <Form.Label>Masnoća</Form.Label>
                             <Form.Select
                                 name="masnoca_id"
-                                isInvalid={!!errors.masnoca_id}                                
+                                isInvalid={!!errors.masnoca_id}
                             >
                                 <option value="">-- odaberite masnoću --</option>
                                 {MASNOCE.map(m => (
@@ -194,7 +194,7 @@ export default function SireviNovi() {
                             <Form.Label>Intenzitet</Form.Label>
                             <Form.Select
                                 name="intenzitet_id"
-                                isInvalid={!!errors.intenzitet_id}                                
+                                isInvalid={!!errors.intenzitet_id}
                             >
                                 <option value="">-- odaberite intenzitet --</option>
                                 {INTENZITETI.map(i => (
@@ -212,7 +212,7 @@ export default function SireviNovi() {
                             <Form.Label>Regija</Form.Label>
                             <Form.Control
                                 name="regija"
-                                isInvalid={!!errors.regija}                                
+                                isInvalid={!!errors.regija}
                             />
                             <Form.Control.Feedback type="invalid">
                                 {errors.regija}
@@ -228,7 +228,7 @@ export default function SireviNovi() {
                             <Form.Label>Okus</Form.Label>
                             <Form.Control
                                 name="okus"
-                                isInvalid={!!errors.okus}                                
+                                isInvalid={!!errors.okus}
                             />
                             <Form.Control.Feedback type="invalid">
                                 {errors.okus}

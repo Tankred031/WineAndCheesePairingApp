@@ -5,36 +5,36 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 export default function SireviPregledGrid({ sirevi, navigate, obrisi }) {
 
     const VRSTE = [
-        { id: 1, naziv: "kravlji" },
-        { id: 2, naziv: "ovčji" },
-        { id: 3, naziv: "kozji" },
-        { id: 4, naziv: "miješano" }
+        { id: '1', naziv: 'kravlji' },
+        { id: '2', naziv: 'ovčji' },
+        { id: '3', naziv: 'kozji' },
+        { id: '4', naziv: 'miješano' }
     ];
 
     const MASNOCE = [
-        { id: 1, naziv: "niske" },
-        { id: 2, naziv: "srednje" },
-        { id: 3, naziv: "visoke" }
+        { id: '1', naziv: 'niske' },
+        { id: '2', naziv: 'srednje' },
+        { id: '3', naziv: 'visoke' }
     ];
 
     const TIPOVI = [
-        { id: 1, naziv: "svježi" },
-        { id: 2, naziv: "polutvrdi" },
-        { id: 3, naziv: "tvrdi" },
-        { id: 4, naziv: "plavi" },
-        { id: 5, naziv: "ekstra tvrdi" }
+        { id: '1', naziv: 'svježi' },
+        { id: '2', naziv: 'polutvrdi' },
+        { id: '3', naziv: 'tvrdi' },
+        { id: '4', naziv: 'plavi' },
+        { id: '5', naziv: 'ekstra tvrdi' }
     ];
 
     const ZRENJA = [
-        { id: 1, naziv: "mladi" },
-        { id: 2, naziv: "srednje zreli" },
-        { id: 3, naziv: "dugo zreli" }
+        { id: '1', naziv: 'mladi' },
+        { id: '2', naziv: 'srednje zreli' },
+        { id: '3', naziv: 'dugo zreli' }
     ];
 
     const INTENZITETI = [
-        { id: 1, naziv: "blagi" },
-        { id: 2, naziv: "srednji" },
-        { id: 3, naziv: "jaki" }
+        { id: '1', naziv: 'blagi' },
+        { id: '2', naziv: 'srednji' },
+        { id: '3', naziv: 'jaki' }
     ];
 
     function getVrstaNaziv(id) {
