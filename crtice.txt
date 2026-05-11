@@ -31,6 +31,8 @@ npm install highcharts highcharts-react-official
 // screenshot generator
 npm install html2canvas jspdf
 
+// rad s firebase
+npm install firebase
 
 .
 ├── .gitattributes

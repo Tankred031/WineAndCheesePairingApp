@@ -1,0 +1,227 @@
+import {
+    collection,
+    getDocs,
+    getDoc,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    doc
+} from "firebase/firestore";
+
+import getFirebaseDB from "../../firebase";
+import { PrefixStorage } from "../../constants";
+
+// GET ALL
+async function get() {
+
+    try {
+
+        const querySnapshot = await getDocs(
+            collection(getFirebaseDB(), PrefixStorage.VINA)
+        );
+
+        const vina = querySnapshot.docs.map(docItem => ({
+            id: docItem.id,
+            ...docItem.data()
+        }));
+
+        return {
+            success: true,
+            data: vina
+        };
+
+    } catch (e) {
+
+        console.error("Greška kod dohvaćanja vina:", e);
+
+        return {
+            success: false,
+            message: e.message,
+            data: []
+        };
+    }
+}
+
+// GET BY ID
+async function getById(id) {
+
+    try {
+
+        const docRef = doc(
+            getFirebaseDB(),
+            PrefixStorage.VINA,
+            id
+        );
+
+        const docSnap = await getDoc(docRef);
+
+        if (!docSnap.exists()) {
+
+            return {
+                success: false,
+                message: "Vino nije pronađeno"
+            };
+        }
+
+        return {
+            success: true,
+            data: {
+                id: docSnap.id,
+                ...docSnap.data()
+            }
+        };
+
+    } catch (e) {
+
+        console.error("Greška kod dohvaćanja vina:", e);
+
+        return {
+            success: false,
+            message: e.message
+        };
+    }
+}
+
+// DODAJ
+async function dodaj(vino) {
+
+    try {
+
+        const vinoBezId = { ...vino };
+        delete vinoBezId.id;
+
+        const docRef = await addDoc(
+            collection(getFirebaseDB(), PrefixStorage.VINA),
+            vinoBezId
+        );
+
+        return {
+            success: true,
+            data: {
+                id: docRef.id,
+                ...vinoBezId
+            }
+        };
+
+    } catch (e) {
+
+        console.error("Greška kod dodavanja vina:", e);
+
+        return {
+            success: false,
+            message: e.message
+        };
+    }
+}
+
+// PROMJENI
+async function promjeni(id, vino) {
+
+    try {
+
+        const vinoBezId = { ...vino };
+        delete vinoBezId.id;
+
+        const docRef = doc(
+            getFirebaseDB(),
+            PrefixStorage.VINA,
+            id
+        );
+
+        await updateDoc(docRef, vinoBezId);
+
+        return {
+            success: true
+        };
+
+    } catch (e) {
+
+        console.error("Greška kod promjene vina:", e);
+
+        return {
+            success: false,
+            message: e.message
+        };
+    }
+}
+
+// OBRIŠI
+async function obrisi(id) {
+
+    try {
+
+        const docRef = doc(
+            getFirebaseDB(),
+            PrefixStorage.VINA,
+            id
+        );
+
+        await deleteDoc(docRef);
+
+        return {
+            success: true,
+            message: "Uspješno obrisano"
+        };
+
+    } catch (e) {
+
+        console.error("Greška kod brisanja vina:", e);
+
+        return {
+            success: false,
+            message: e.message
+        };
+    }
+}
+
+// PAGINATION
+async function getPage(page = 1, pageSize = 8) {
+
+    try {
+
+        const rezultat = await get();
+
+        if (!rezultat.success) {
+            return rezultat;
+        }
+        const vina = rezultat.data;
+        const startIndex =
+            (page - 1) * pageSize;
+        const endIndex =
+            startIndex + pageSize;
+        const paginatedData =
+            vina.slice(startIndex, endIndex);
+        const totalItems = vina.length;
+        const totalPages =
+            Math.ceil(totalItems / pageSize);
+
+        return {
+
+            success: true,
+            data: paginatedData,
+            currentPage: page,
+            pageSize: pageSize,
+            totalPages: totalPages,
+            totalItems: totalItems
+        };
+
+    } catch (e) {
+
+        console.error("Greška kod straničenja:", e);
+
+        return {
+            success: false,
+            message: e.message,
+            data: []
+        };
+    }
+}
+
+export default {
+    get,
+    getById,
+    dodaj,
+    promjeni,
+    obrisi,
+    getPage
+};

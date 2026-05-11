@@ -1,5 +1,5 @@
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { RouteNames } from "../constants";
+import { RouteNames, DATA_SOURCE } from "../constants";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
@@ -197,6 +197,15 @@ export default function Izbornik() {
             {/* DESNA STRANA */}
             <Nav className="ms-auto align-items-center">
 
+              <div className="btn-group me-2">
+                <Button
+                  variant="warning"
+                  size="sm"
+                >
+                  {DATA_SOURCE}
+                </Button>
+
+              </div>
               {isLoggedIn ? (
 
                 <Button

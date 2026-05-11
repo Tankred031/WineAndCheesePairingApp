@@ -13,8 +13,10 @@ import sir from "../assets/img/cheese-storage.jpg";
 import vino from "../assets/img/pouring2.jpg"
 import wine2 from "../assets/img/wine2.jpg";
 import wine3 from "../assets/img/wine3.jpg";
-import OperaterService from "../services/operateri/OperaterService";
-
+import { DATA_SOURCE } from "../constants";
+import useAuth from "../hooks/useAuth";
+import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLocalStorage";
+import OperaterServiceFireBase from "../services/operateri/OperaterServiceFireBase";
 
 export default function Home() {
 
@@ -23,13 +25,37 @@ export default function Home() {
     const [brojUspjesnihUparivanja, setBrojUspjesnihUparivanja] = useState(0);
     const [animatedVina, setAnimatedVina] = useState(0);
     const [animatedSirevi, setAnimatedSirevi] = useState(0);
-    const [animatedUspjesnihUparivanja, setAnimatedUspjesnihUparivanja] = useState(0);
-    
-    const [brojOperatera, setBrojOperatera] = useState(0);
-    const [brojAdmina, setBrojAdmina] = useState(0);
-    const [brojKorisnika, setBrojKorisnika] = useState(0);
+    const [animatedUspjesnihUparivanja, setAnimatedUspjesnihUparivanja] = useState(0);    
+    const { isLoggedIn, logout } = useAuth();
 
-    const [animatedOperateri, setAnimatedOperateri] = useState(0);
+    const promijeniIzvor = async (noviIzvor) => {
+
+        let izvor = 'memorija';
+
+        if (noviIzvor === 'localStorage') {
+
+            const servis =
+                await OperaterServiceLocalStorage.get();
+            if (servis.data.length > 0) {
+                izvor = noviIzvor;
+            }
+        }
+
+        if (noviIzvor === 'firebase') {
+            const servis =
+                await OperaterServiceFireBase.get();
+
+            if (servis.data.length > 0) {
+                izvor = noviIzvor;
+            }
+        }
+
+        localStorage.setItem('dataSource', izvor);
+
+        logout();
+
+        window.location.reload();
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -104,128 +130,181 @@ export default function Home() {
     }, []);
 
     return (
-    <>
+        <>
 
-        {isMobile ? (
+            {isMobile ? (
 
-            // MOBILNI HERO
-            <div className="mobile-hero mt-5">
-                <img
-                    src="/Wine-Olives.png"
-                    alt="Wine_Olives"
-                    className="home-logo"
+                // MOBILNI HERO
+                <div className="mobile-hero mt-5">
+                    <img
+                        src="/Wine-Olives.png"
+                        alt="Wine_Olives"
+                        className="home-logo"
+                    />
+                </div>
+
+            ) : (
+
+                // DESKTOP CAROUSEL
+                <Carousel className="mt-5" interval={3000} controls={false}>
+
+                    <Carousel.Item>
+                        <div
+                            className="carousel-bg"
+                            style={{ backgroundImage: `url(${vinograd1})` }}
+                        >
+                        </div>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <div
+                            className="carousel-bg"
+                            style={{ backgroundImage: `url(${wine3})` }}
+                        >
+                        </div>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <div
+                            className="carousel-bg"
+                            style={{ backgroundImage: `url(${vinograd2})` }}
+                        >
+                        </div>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <div
+                            className="carousel-bg"
+                            style={{ backgroundImage: `url(${podrum})` }}
+                        >
+                        </div>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <div
+                            className="carousel-bg"
+                            style={{ backgroundImage: `url(${wine2})` }}
+                        >
+                        </div>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <div
+                            className="carousel-bg"
+                            style={{ backgroundImage: `url(${sir})` }}
+                        >
+                        </div>
+                    </Carousel.Item>
+
+                    <Carousel.Item>
+                        <div
+                            className="carousel-bg"
+                            style={{ backgroundImage: `url(${vino})` }}
+                        >
+                        </div>
+                    </Carousel.Item>
+
+                </Carousel>
+
+            )}
+
+            <div style={{ textAlign: "center", marginTop: "80px" }}>
+                <h1 className="h1">Dobrodošli na {IME_APLIKACIJE}</h1>
+                <p style={{ fontSize: "18px", color: "#7B0323" }}>
+                    Pronađite savršenu kombinaciju vina i sira
+                </p>
+            </div>
+
+            <div style={{ maxWidth: '300px', margin: 'auto' }}>
+                <DotLottieReact
+                    src="/bottle.lottie"
+                    loop
+                    autoplay
                 />
             </div>
 
-        ) : (
+            <Row className="mt-4 justify-content-center">
+                <Col md={4}>
+                    <Card className="mb-3 shadow-lg border-0 statistikaPanel">
+                        <Card.Body className="text-center">
+                            <p className="text-white">Vina</p>
+                            <div className="statistikaTekst">{animatedVina}</div>
+                        </Card.Body>
+                    </Card>
+                </Col>
 
-            // DESKTOP CAROUSEL
-            <Carousel className="mt-5" interval={3000} controls={false}>
+                <Col md={4}>
+                    <Card className="mb-3 shadow-lg border-0 statistikaPanel">
+                        <Card.Body className="text-center">
+                            <p className="text-white">Sireva</p>
+                            <div className="statistikaTekst">{animatedSirevi}</div>
+                        </Card.Body>
+                    </Card>
+                </Col>
 
-                <Carousel.Item>
-                    <div
-                        className="carousel-bg"
-                        style={{ backgroundImage: `url(${vinograd1})` }}
-                    >                        
-                    </div>
-                </Carousel.Item>
+                <Col md={4}>
+                    <Card className="shadow-lg border-0 statistikaPanel">
+                        <Card.Body className="text-center">
+                            <p className="text-white">Uparivanja</p>
+                            <div className="statistikaTekst">{animatedUspjesnihUparivanja}</div>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
 
-                <Carousel.Item>
-                    <div
-                        className="carousel-bg"
-                        style={{ backgroundImage: `url(${wine3})` }}
-                    >                        
-                    </div>
-                </Carousel.Item>
+            {isLoggedIn && (
+                <>
+                    <hr className="mt-5" />
 
-                <Carousel.Item>
-                    <div
-                        className="carousel-bg"
-                        style={{ backgroundImage: `url(${vinograd2})` }}
-                    >                        
-                    </div>
-                </Carousel.Item>
+                    <Row className="mb-5">
+                        <Col className="text-center">
 
-                <Carousel.Item>
-                    <div
-                        className="carousel-bg"
-                        style={{ backgroundImage: `url(${podrum})` }}
-                    >                        
-                    </div>
-                </Carousel.Item>
+                            <h5>Izvor podataka:</h5>
 
-                <Carousel.Item>
-                    <div
-                        className="carousel-bg"
-                        style={{ backgroundImage: `url(${wine2})` }}
-                    >                        
-                    </div>
-                </Carousel.Item>
+                            <div className="btn-group">
 
-                <Carousel.Item>
-                    <div
-                        className="carousel-bg"
-                        style={{ backgroundImage: `url(${sir})` }}
-                    >                        
-                    </div>
-                </Carousel.Item>
+                                <button
+                                    onClick={() =>
+                                        promijeniIzvor('memorija')
+                                    }
+                                    className={`btn ${DATA_SOURCE === 'memorija'
+                                            ? 'btn-success'
+                                            : 'btn-danger'
+                                        }`}
+                                >
+                                    Memorija
+                                </button>
 
-                <Carousel.Item>
-                    <div
-                        className="carousel-bg"
-                        style={{ backgroundImage: `url(${vino})` }}
-                    >                        
-                    </div>
-                </Carousel.Item>                
+                                <button
+                                    onClick={() =>
+                                        promijeniIzvor('localStorage')
+                                    }
+                                    className={`btn ${DATA_SOURCE === 'localStorage'
+                                            ? 'btn-success'
+                                            : 'btn-danger'
+                                        }`}
+                                >
+                                    Local Storage
+                                </button>
 
-            </Carousel>
+                                <button
+                                    onClick={() =>
+                                        promijeniIzvor('firebase')
+                                    }
+                                    className={`btn ${DATA_SOURCE === 'firebase'
+                                            ? 'btn-success'
+                                            : 'btn-danger'
+                                        }`}
+                                >
+                                    Firebase
+                                </button>
+                            </div>
 
-        )}
+                        </Col>
+                    </Row>
+                </>
+            )}
 
-        <div style={{ textAlign: "center", marginTop: "80px" }}>
-            <h1 className="h1">Dobrodošli na {IME_APLIKACIJE}</h1>
-            <p style={{ fontSize: "18px", color: "#7B0323" }}>
-                Pronađite savršenu kombinaciju vina i sira
-            </p>
-        </div>
-
-        <div style={{ maxWidth: '300px', margin: 'auto' }}>
-            <DotLottieReact
-                src="/bottle.lottie"
-                loop
-                autoplay
-            />
-        </div>
-
-        <Row className="mt-4 justify-content-center">
-            <Col md={4}>
-                <Card className="mb-3 shadow-lg border-0 statistikaPanel">
-                    <Card.Body className="text-center">
-                        <p className="text-white">Vina</p>
-                        <div className="statistikaTekst">{animatedVina}</div>
-                    </Card.Body>
-                </Card>
-            </Col>
-
-            <Col md={4}>
-                <Card className="mb-3 shadow-lg border-0 statistikaPanel">
-                    <Card.Body className="text-center">
-                        <p className="text-white">Sireva</p>
-                        <div className="statistikaTekst">{animatedSirevi}</div>
-                    </Card.Body>
-                </Card>
-            </Col>
-
-            <Col md={4}>
-                <Card className="shadow-lg border-0 statistikaPanel">
-                    <Card.Body className="text-center">
-                        <p className="text-white">Uparivanja</p>
-                        <div className="statistikaTekst">{animatedUspjesnihUparivanja}</div>
-                    </Card.Body>
-                </Card>
-            </Col>
-        </Row>
-
-    </>
-);
+        </>
+    );
 }
