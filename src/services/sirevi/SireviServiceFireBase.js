@@ -1,13 +1,4 @@
-import {
-    collection,
-    getDocs,
-    getDoc,
-    addDoc,
-    updateDoc,
-    deleteDoc,
-    doc
-} from "firebase/firestore";
-
+import { collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
 import getFirebaseDB from "../../firebase";
 import { PrefixStorage } from "../../constants";
 

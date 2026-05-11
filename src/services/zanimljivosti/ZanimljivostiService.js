@@ -2,7 +2,7 @@ import { DATA_SOURCE } from "../../constants";
 
 import memorija from "./ZanimljivostiServiceMemorija";
 import local from "./ZanimljivostiServiceLocalStorage";
-import firebase from "./ZanimljivostiServiceFireBase"
+import firebase from "./ZanimljivostiServiceFireBase";
 
 let service;
 
