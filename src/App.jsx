@@ -32,7 +32,7 @@ import OperaterPregled from './pages/operateri/OperaterPregled'
 import OperaterNovi from './pages/operateri/OperaterNovi'
 import OperaterPromjena from './pages/operateri/OperaterPromjena'
 import OperaterPromjenaLozinke from './pages/operateri/OperaterPromjenaLozinke'
-
+import "./accessibility/accessibility.css";
 
 
 

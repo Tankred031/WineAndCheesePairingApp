@@ -1,0 +1,210 @@
+/* =========================================
+   RESPONSIVE TABLES
+========================================= */
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+
+/* =========================================
+   LARGE TEXT
+========================================= */
+
+.large-text .wine-card-title {
+    font-size: 1.3rem;
+}
+
+.large-text h1 {
+    font-size: 3rem !important;
+}
+
+.large-text h2 {
+    font-size: 2.5rem !important;
+}
+
+.large-text h3 {
+    font-size: 2rem !important;
+}
+
+.large-text p,
+.large-text span,
+.large-text td,
+.large-text th,
+.large-text li,
+.large-text button,
+.large-text input,
+.large-text select,
+.large-text textarea,
+.large-text label {
+    font-size: 1.15rem !important;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   GRAYSCALE
+========================================= */
+
+.grayscale {
+    filter: grayscale(100%);
+}
+
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+.high-contrast {
+    background-color: black !important;
+    color: white !important;
+}
+
+.high-contrast .card,
+.high-contrast .table,
+.high-contrast .modal-content,
+.high-contrast .offcanvas,
+.high-contrast .dropdown-menu,
+.high-contrast .list-group-item,
+.high-contrast .navbar {
+    background-color: #111 !important;
+    color: white !important;
+    border-color: white !important;
+}
+
+.high-contrast a {
+    color: #00ffff !important;
+}
+
+.high-contrast button {
+    border-color: white !important;
+}
+
+
+/* =========================================
+   NEGATIVE CONTRAST
+========================================= */
+
+.negative-contrast {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+
+/* =========================================
+   LIGHT BACKGROUND
+========================================= */
+
+.light-background {
+    background-color: #f8f9fa !important;
+    color: #111 !important;
+}
+
+.light-background .card,
+.light-background .table,
+.light-background .modal-content,
+.light-background .offcanvas {
+    background-color: white !important;
+    color: black !important;
+}
+
+
+/* =========================================
+   UNDERLINE LINKS
+========================================= */
+
+.underline-links a {
+    text-decoration: underline !important;
+}
+
+
+/* =========================================
+   READABLE FONT
+========================================= */
+
+.readable-font {
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.readable-font * {
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+
+/* =========================================
+   ACCESSIBILITY MENU
+========================================= */
+
+.accessibility-offcanvas {
+    max-width: 320px;
+}
+
+.accessibility-offcanvas .list-group-item {
+    font-size: 1.1rem;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.accessibility-offcanvas .list-group-item:hover {
+    background-color: #f1f1f1;
+}
+
+
+/* =========================================
+   MOBILE FIXES
+========================================= */
+
+@media (max-width: 768px) {
+
+    .large-text h1 {
+        font-size: 2.3rem !important;
+    }
+
+    .large-text h2 {
+        font-size: 2rem !important;
+    }
+
+    .large-text h3 {
+        font-size: 1.7rem !important;
+    }
+
+    .accessibility-offcanvas {
+        width: 85% !important;
+    }
+
+    .large-text .btn {
+        padding: 0.8rem 1rem;
+    }
+
+    .large-text .table td,
+    .large-text .table th {
+        white-space: nowrap;
+    }
+}
+
+
+/* =========================================
+   HIGHCHARTS SUPPORT
+========================================= */
+
+.high-contrast .highcharts-container {
+    filter: contrast(120%);
+}
+
+.grayscale .highcharts-container {
+    filter: grayscale(100%);
+}
+
+.accessibility-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2000;
+
+    width: 60px;
+    height: 60px;
+
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
