@@ -34,6 +34,10 @@ npm install html2canvas jspdf
 // rad s firebase
 npm install firebase
 
+// biblioteka ikonica
+npm install lucide-react
+
+
 .
 ├── .gitattributes
 ├── .gitignore
