@@ -5,6 +5,8 @@ import { faker } from '@faker-js/faker'
 faker.locale = 'hr'
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap"
 import { PrefixStorage } from "../constants";
+import VinaServiceFireBase from "../services/vina/VinaServiceFireBase";
+import SireviServiceFireBase from "../services/sirevi/SireviServiceFireBase";
 
 
 export default function GeneriranjePodataka() {
@@ -332,6 +334,92 @@ export default function GeneriranjePodataka() {
         }
     };
 
+    const handleMemorijaUFirebase = async () => {
+
+        if (!window.confirm(
+            'Jesi siguran da želiš pretočiti podatke u Firebase?'
+        )) return;
+
+        setLoading(true);
+        setPoruka(null);
+
+        try {
+
+            // VINA
+            const vina =
+                await VinaServiceMemorija.get();
+
+            for (const vino of vina.data) {
+
+                const vinoBezId = { ...vino };
+                delete vinoBezId.id;
+
+                await VinaServiceFireBase.dodaj(
+                    vinoBezId
+                );
+            }
+
+            // SIREVI
+            const sirevi =
+                await SireviServiceMemorija.get();
+
+            for (const sir of sirevi.data) {
+
+                const sirBezId = { ...sir };
+                delete sirBezId.id;
+
+                await SireviServiceFireBase.dodaj(
+                    sirBezId
+                );
+            }
+
+            // ZANIMLJIVOSTI
+            const clanci =
+                await ZanimljivostiServiceMemorija.get();
+
+            for (const clanak of clanci.data) {
+
+                const clanakBezId = { ...clanak };
+                delete clanakBezId.id;
+
+                await ZanimljivostiServiceFireBase.dodaj(
+                    clanakBezId
+                );
+            }
+
+            // OPERATERI
+            const operateri =
+                await OperaterServiceMemorija.get();
+
+            for (const operater of operateri.data) {
+
+                await OperaterServiceFireBase.dodajBezHash({
+                    email: operater.email,
+                    uloga: operater.uloga,
+                    lozinka: operater.lozinka || "test123"
+                });
+            }
+
+            setPoruka({
+                tip: "success",
+                tekst: "Podaci uspješno prebačeni u Firebase!"
+            });
+
+        } catch (e) {
+
+            console.error(e);
+
+            setPoruka({
+                tip: "danger",
+                tekst: "Greška kod pretakanja u Firebase"
+            });
+
+        } finally {
+
+            setLoading(false);
+        }
+    };
+
     return (
         <Container className="mt-4">
             <h1>Generiranje podataka</h1>
@@ -445,6 +533,17 @@ export default function GeneriranjePodataka() {
                         className="w-100 mb-2"
                     >
                         Pretoći u localStorage
+                    </Button>
+                </Col>
+
+                <Col md={4}>
+                    <Button
+                        variant="success"
+                        onClick={handleMemorijaUFirebase}
+                        disabled={loading}
+                        className="w-100 mb-2"
+                    >
+                        Pretoći u Firebase
                     </Button>
                 </Col>
             </Row>
