@@ -8,7 +8,7 @@ import {
     doc
 } from "firebase/firestore";
 
-import getFirebaseDB from "../../firebase";
+import getFirebaseDB from "../Firebase";
 import { PrefixStorage } from "../../constants";
 
 // GET ALL

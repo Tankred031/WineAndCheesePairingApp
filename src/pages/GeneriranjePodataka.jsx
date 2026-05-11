@@ -349,54 +349,76 @@ export default function GeneriranjePodataka() {
             const vina =
                 await VinaServiceMemorija.get();
 
+            let sifreVina = [];
+
             for (const vino of vina.data) {
 
                 const vinoBezId = { ...vino };
                 delete vinoBezId.id;
 
-                await VinaServiceFireBase.dodaj(
+                const fb = await VinaServiceFireBase.dodaj(
                     vinoBezId
                 );
+                console.log(fb.data.id)
+                sifreVina.push({ sifram: vino.id, sifraf: fb.data.id })
             }
 
             // SIREVI
             const sirevi =
                 await SireviServiceMemorija.get();
 
+            let sifreSirevi = [];
+
             for (const sir of sirevi.data) {
 
                 const sirBezId = { ...sir };
                 delete sirBezId.id;
 
-                await SireviServiceFireBase.dodaj(
+                const fb = await SireviServiceFireBase.dodaj(
                     sirBezId
                 );
+                console.log(fb.data.id)
+                sifraSirevi.push({ sifram: sir.id, sifraf: fb.data.id })
             }
 
             // ZANIMLJIVOSTI
-            const clanci =
-                await ZanimljivostiServiceMemorija.get();
+            const clanci = await ZanimljivostiServiceMemorija.get();
+
+            let sifreClanci = [];
 
             for (const clanak of clanci.data) {
 
                 const clanakBezId = { ...clanak };
                 delete clanakBezId.id;
 
-                await ZanimljivostiServiceFireBase.dodaj(
-                    clanakBezId
-                );
+                const fb = await ZanimljivostiServiceFireBase.dodaj(clanakBezId);
+
+                console.log(fb.data.id);
+
+                sifreClanci.push({
+                    sifram: clanak.id,
+                    sifraf: fb.data.id
+                });
             }
 
             // OPERATERI
-            const operateri =
-                await OperaterServiceMemorija.get();
+            const operateri = await OperaterServiceMemorija.get();
+
+            let sifreOperateri = [];
 
             for (const operater of operateri.data) {
 
-                await OperaterServiceFireBase.dodajBezHash({
+                const fb = await OperaterServiceFireBase.dodajBezHash({
                     email: operater.email,
                     uloga: operater.uloga,
                     lozinka: operater.lozinka || "test123"
+                });
+
+                console.log(fb.data.id);
+
+                sifreOperateri.push({
+                    sifram: operater.id,
+                    sifraf: fb.data.id
                 });
             }
 
@@ -503,7 +525,7 @@ export default function GeneriranjePodataka() {
                 Brisanje svih vina, sireva i uparivanja iz baze.
             </p>
 
-            <Row className="mt-3">
+            <Row className="mt-3 justify-content-end">
                 <Col md={4}>
                     <Button
                         variant="danger"

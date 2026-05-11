@@ -1,5 +1,5 @@
 import { collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
-import getFirebaseDB from "../../firebase";
+import getFirebaseDB from "../Firebase";
 import { PrefixStorage } from "../../constants";
 
 // GET ALL
@@ -18,7 +18,7 @@ async function get() {
 
         return {
             success: true,
-            data: sirevi
+            data: sirevi            
         };
 
     } catch (e) {
