@@ -29,7 +29,7 @@ export default function Home() {
     const { isLoggedIn, logout } = useAuth();
 
     const promijeniIzvor = async (noviIzvor) => {
-
+   
         let izvor = 'memorija';
 
         if (noviIzvor === 'localStorage') {
@@ -49,7 +49,7 @@ export default function Home() {
                 izvor = noviIzvor;
             }
         }
-
+       
         localStorage.setItem('dataSource', izvor);
 
         logout();

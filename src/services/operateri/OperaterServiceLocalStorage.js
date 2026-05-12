@@ -112,6 +112,7 @@ async function obrisi(sifra) {
 
 // Funkcija za prijavu
 async function prijava(email, lozinka) {
+    
     const operateri = dohvatiSveIzStorage()
     const operater = operateri.find(o => o.email === email)
     if (!operater) {

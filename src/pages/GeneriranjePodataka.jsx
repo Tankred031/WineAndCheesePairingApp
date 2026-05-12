@@ -7,6 +7,8 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap"
 import { PrefixStorage } from "../constants";
 import VinaServiceFireBase from "../services/vina/VinaServiceFireBase";
 import SireviServiceFireBase from "../services/sirevi/SireviServiceFireBase";
+import OperaterService from "../services/operateri/OperaterService";
+import { operateri} from "../services/operateri/OperaterPodaci";
 
 
 export default function GeneriranjePodataka() {
@@ -15,6 +17,7 @@ export default function GeneriranjePodataka() {
     const [brojUparivanja, setUparivanja] = useState(10);
     const [poruka, setPoruka] = useState(null);
     const [loading, setLoading] = useState(false);
+
 
     /*
     // Faker na hrvatskom jeziku
@@ -314,10 +317,11 @@ export default function GeneriranjePodataka() {
             // DOHVATI IZ MEMORY SERVICE-A
             const vina = await VinaService.get();
             const sirevi = await SireviService.get();
-
+    
             // PRELIJ U LOCAL STORAGE
             localStorage.setItem(PrefixStorage.VINA, JSON.stringify(vina.data));
             localStorage.setItem(PrefixStorage.SIREVI, JSON.stringify(sirevi.data));
+            localStorage.setItem(PrefixStorage.OPERATERI, JSON.stringify(operateri));
 
             setPoruka({
                 tip: "success",
