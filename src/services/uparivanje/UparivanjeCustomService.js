@@ -1,6 +1,44 @@
-let lista = []
+import { PrefixStorage } from "../../constants";
 
-let obrisani = []
+function dohvatiListu() {
+
+    const podaci =
+        localStorage.getItem(
+            PrefixStorage.UPARIVANJA
+        );
+
+    return podaci
+        ? JSON.parse(podaci)
+        : [];
+}
+
+function spremiListu(lista) {
+
+    localStorage.setItem(
+        PrefixStorage.UPARIVANJA,
+        JSON.stringify(lista)
+    );
+}
+
+function dohvatiObrisane() {
+
+    const podaci =
+        localStorage.getItem(
+            "obrisaniUparivanja"
+        );
+
+    return podaci
+        ? JSON.parse(podaci)
+        : [];
+}
+
+function spremiObrisane(obrisani) {
+
+    localStorage.setItem(
+        "obrisaniUparivanja",
+        JSON.stringify(obrisani)
+    );
+}
 
 export default {
 
@@ -8,73 +46,85 @@ export default {
 
         success: true,
 
-        data: lista
+        data: dohvatiListu()
     }),
 
     dodaj: async (uparivanje) => {
 
-        uparivanje.id = String(Date.now())
+        let lista =
+            dohvatiListu();
 
-        lista.push(uparivanje)
+        uparivanje.id =
+            String(Date.now());
+
+        lista.push(uparivanje);
+
+        spremiListu(lista);
 
         return {
             success: true
-        }
+        };
     },
 
     getById: async (id) => ({
 
         success: true,
 
-        data: lista.find(
+        data: dohvatiListu().find(
             u => u.id === id
         )
     }),
 
     promjeni: async (id, novo) => {
 
+        let lista =
+            dohvatiListu();
+
         let index = lista.findIndex(
             u => u.id === id
-        )
+        );
 
         if (index !== -1) {
 
             lista[index] = {
                 ...novo,
                 id
-            }
-        }
+            };
 
+            spremiListu(lista);
+        }
         return {
             success: true
-        }
+        };
     },
 
     obrisi: async (id) => {
 
+        let lista =
+            dohvatiListu();
+
         lista = lista.filter(
             u => u.id !== id
-        )
+        );
 
+        spremiListu(lista);
         return {
             success: true
-        }
+        };
     },
 
     postavi: async (novaLista) => {
 
-        lista = novaLista
-
+        spremiListu(novaLista);
         return {
             success: true
-        }
+        };
     },
 
     getObrisani: async () => ({
 
         success: true,
-
-        data: obrisani
+        data: dohvatiObrisane()
     }),
 
     dodajObrisani: async (
@@ -82,22 +132,24 @@ export default {
         sirId
     ) => {
 
+        let obrisani =
+            dohvatiObrisane();
+
         obrisani.push({
             vinoId,
             sirId
-        })
+        });
 
+        spremiObrisane(obrisani);
         return {
             success: true
-        }
+        };
     },
 
     resetObrisani: async () => {
-
-        obrisani = []
-
+        spremiObrisane([]);
         return {
             success: true
-        }
+        };
     }
 }

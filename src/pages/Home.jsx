@@ -16,7 +16,6 @@ import wine3 from "../assets/img/wine3.jpg";
 import { DATA_SOURCE } from "../constants";
 import useAuth from "../hooks/useAuth";
 import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLocalStorage";
-import OperaterServiceFireBase from "../services/operateri/OperaterServiceFireBase";
 
 export default function Home() {
 
@@ -39,6 +38,7 @@ export default function Home() {
             if (servis.data.length > 0) {
                 izvor = noviIzvor;
             }
+<<<<<<< Updated upstream
         }
 
         if (noviIzvor === 'firebase') {
@@ -50,6 +50,10 @@ export default function Home() {
             }
         }
        
+=======
+        }      
+
+>>>>>>> Stashed changes
         localStorage.setItem('dataSource', izvor);
 
         logout();
@@ -284,20 +288,9 @@ export default function Home() {
                                             : 'btn-danger'
                                         }`}
                                 >
-                                    Local Storage
+                                    LocalStorage
                                 </button>
-
-                                <button
-                                    onClick={() =>
-                                        promijeniIzvor('firebase')
-                                    }
-                                    className={`btn ${DATA_SOURCE === 'firebase'
-                                            ? 'btn-success'
-                                            : 'btn-danger'
-                                        }`}
-                                >
-                                    Firebase
-                                </button>
+                                
                             </div>
 
                         </Col>

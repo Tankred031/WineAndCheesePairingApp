@@ -1,7 +1,6 @@
 import SireviServiceLocalStorage from "./SireviServiceLocalStorage";
 import SireviServiceMemorija from "./SireviServiceMemorija";
 import { DATA_SOURCE } from "../../constants";
-import SireviServiceFireBase from "./SireviServiceFireBase";
 
 let Servis = null;
 
@@ -12,9 +11,7 @@ switch (DATA_SOURCE) {
             break;
         case 'localStorage':
             Servis = SireviServiceLocalStorage;
-            break;
-        case 'firebase':
-            Servis = SireviServiceFireBase;
+            break;        
         default:
             Servis = null;
     }
@@ -23,9 +20,9 @@ switch (DATA_SOURCE) {
 const PrazanServis = {
     get: async () =>({ success: false, data: []}),
     getById: async (id) => ({ success: false, data: {} }),
-    dodaj: async (sir) => {console.error("Servis nije učitan"); },
-    promjeni: async (id, sir) => { console.error("Servise nije učitan"); },
-    obrisi: async (id) => { console.error("Servis nije učitan"); },
+    dodaj: async (sir) => {console.error("Servis nije učitan"); return {success: false, message: "Servis nije učitan"}},
+    promjeni: async (id, sir) => { console.error("Servis nije učitan"); return {success: false, message: "Servis nije učitan"}},
+    obrisi: async (id) => { console.error("Servis nije učitan"); return {success: false, message: "Servis nije učitan"}},
     getPage: async (page, pageSize) => ({ success: false, data: [], totalPages: 0, totalItems: 0 })
 };
 

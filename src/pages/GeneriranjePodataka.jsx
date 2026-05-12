@@ -5,10 +5,13 @@ import { faker } from '@faker-js/faker'
 faker.locale = 'hr'
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap"
 import { PrefixStorage } from "../constants";
+<<<<<<< Updated upstream
 import VinaServiceFireBase from "../services/vina/VinaServiceFireBase";
 import SireviServiceFireBase from "../services/sirevi/SireviServiceFireBase";
 import OperaterService from "../services/operateri/OperaterService";
 import { operateri} from "../services/operateri/OperaterPodaci";
+=======
+>>>>>>> Stashed changes
 
 
 export default function GeneriranjePodataka() {
@@ -284,7 +287,6 @@ export default function GeneriranjePodataka() {
             const res = await SireviService.get();
 
             for (const s of res.data) {
-
                 await SireviService.obrisi(s.id);
             }
 
@@ -315,9 +317,15 @@ export default function GeneriranjePodataka() {
 
         try {
             // DOHVATI IZ MEMORY SERVICE-A
+<<<<<<< Updated upstream
             const vina = await VinaService.get();
             const sirevi = await SireviService.get();
     
+=======
+            const vina = await VinaServiceMemorija.get();
+            const sirevi = await SireviServiceMemorija.get();
+
+>>>>>>> Stashed changes
             // PRELIJ U LOCAL STORAGE
             localStorage.setItem(PrefixStorage.VINA, JSON.stringify(vina.data));
             localStorage.setItem(PrefixStorage.SIREVI, JSON.stringify(sirevi.data));
@@ -338,113 +346,7 @@ export default function GeneriranjePodataka() {
         }
     };
 
-    const handleMemorijaUFirebase = async () => {
-
-        if (!window.confirm(
-            'Jesi siguran da želiš pretočiti podatke u Firebase?'
-        )) return;
-
-        setLoading(true);
-        setPoruka(null);
-
-        try {
-
-            // VINA
-            const vina =
-                await VinaServiceMemorija.get();
-
-            let sifreVina = [];
-
-            for (const vino of vina.data) {
-
-                const vinoBezId = { ...vino };
-                delete vinoBezId.id;
-
-                const fb = await VinaServiceFireBase.dodaj(
-                    vinoBezId
-                );
-                console.log(fb.data.id)
-                sifreVina.push({ sifram: vino.id, sifraf: fb.data.id })
-            }
-
-            // SIREVI
-            const sirevi =
-                await SireviServiceMemorija.get();
-
-            let sifreSirevi = [];
-
-            for (const sir of sirevi.data) {
-
-                const sirBezId = { ...sir };
-                delete sirBezId.id;
-
-                const fb = await SireviServiceFireBase.dodaj(
-                    sirBezId
-                );
-                console.log(fb.data.id)
-                sifraSirevi.push({ sifram: sir.id, sifraf: fb.data.id })
-            }
-
-            // ZANIMLJIVOSTI
-            const clanci = await ZanimljivostiServiceMemorija.get();
-
-            let sifreClanci = [];
-
-            for (const clanak of clanci.data) {
-
-                const clanakBezId = { ...clanak };
-                delete clanakBezId.id;
-
-                const fb = await ZanimljivostiServiceFireBase.dodaj(clanakBezId);
-
-                console.log(fb.data.id);
-
-                sifreClanci.push({
-                    sifram: clanak.id,
-                    sifraf: fb.data.id
-                });
-            }
-
-            // OPERATERI
-            const operateri = await OperaterServiceMemorija.get();
-
-            let sifreOperateri = [];
-
-            for (const operater of operateri.data) {
-
-                const fb = await OperaterServiceFireBase.dodajBezHash({
-                    email: operater.email,
-                    uloga: operater.uloga,
-                    lozinka: operater.lozinka || "test123"
-                });
-
-                console.log(fb.data.id);
-
-                sifreOperateri.push({
-                    sifram: operater.id,
-                    sifraf: fb.data.id
-                });
-            }
-
-            setPoruka({
-                tip: "success",
-                tekst: "Podaci uspješno prebačeni u Firebase!"
-            });
-
-        } catch (e) {
-
-            console.error(e);
-
-            setPoruka({
-                tip: "danger",
-                tekst: "Greška kod pretakanja u Firebase"
-            });
-
-        } finally {
-
-            setLoading(false);
-        }
-    };
+    
 
     return (
         <Container className="mt-4">
@@ -558,20 +460,9 @@ export default function GeneriranjePodataka() {
                         disabled={loading}
                         className="w-100 mb-2"
                     >
-                        Pretoći u localStorage
+                        Pretoči u localStorage
                     </Button>
-                </Col>
-
-                <Col md={4}>
-                    <Button
-                        variant="success"
-                        onClick={handleMemorijaUFirebase}
-                        disabled={loading}
-                        className="w-100 mb-2"
-                    >
-                        Pretoći u Firebase
-                    </Button>
-                </Col>
+                </Col>                
             </Row>
 
             <Alert variant="danger" className="mt-3">

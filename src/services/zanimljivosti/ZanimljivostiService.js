@@ -1,21 +1,19 @@
-import { DATA_SOURCE } from "../../constants";
-
 import memorija from "./ZanimljivostiServiceMemorija";
 import local from "./ZanimljivostiServiceLocalStorage";
-import firebase from "./ZanimljivostiServiceFireBase";
+import { DATA_SOURCE } from "../../constants";
 
 let service;
 
 switch (DATA_SOURCE) {
+
     case 'localStorage':
         service = local;
         break;
-    case 'firebase':
-        service = firebase;
-        break;
+
     case 'memorija':
     default:
         service = memorija;
+        break;
 }
 
 export default service;
