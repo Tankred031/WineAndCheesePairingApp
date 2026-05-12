@@ -38,7 +38,6 @@ export default function Home() {
             if (servis.data.length > 0) {
                 izvor = noviIzvor;
             }
-<<<<<<< Updated upstream
         }
 
         if (noviIzvor === 'firebase') {
@@ -50,10 +49,6 @@ export default function Home() {
             }
         }
        
-=======
-        }      
-
->>>>>>> Stashed changes
         localStorage.setItem('dataSource', izvor);
 
         logout();

@@ -5,13 +5,10 @@ import { faker } from '@faker-js/faker'
 faker.locale = 'hr'
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap"
 import { PrefixStorage } from "../constants";
-<<<<<<< Updated upstream
 import VinaServiceFireBase from "../services/vina/VinaServiceFireBase";
 import SireviServiceFireBase from "../services/sirevi/SireviServiceFireBase";
 import OperaterService from "../services/operateri/OperaterService";
 import { operateri} from "../services/operateri/OperaterPodaci";
-=======
->>>>>>> Stashed changes
 
 
 export default function GeneriranjePodataka() {
@@ -317,15 +314,9 @@ export default function GeneriranjePodataka() {
 
         try {
             // DOHVATI IZ MEMORY SERVICE-A
-<<<<<<< Updated upstream
             const vina = await VinaService.get();
             const sirevi = await SireviService.get();
     
-=======
-            const vina = await VinaServiceMemorija.get();
-            const sirevi = await SireviServiceMemorija.get();
-
->>>>>>> Stashed changes
             // PRELIJ U LOCAL STORAGE
             localStorage.setItem(PrefixStorage.VINA, JSON.stringify(vina.data));
             localStorage.setItem(PrefixStorage.SIREVI, JSON.stringify(sirevi.data));
