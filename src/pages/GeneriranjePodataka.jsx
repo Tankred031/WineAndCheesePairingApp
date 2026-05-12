@@ -5,8 +5,6 @@ import { faker } from '@faker-js/faker'
 faker.locale = 'hr'
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap"
 import { PrefixStorage } from "../constants";
-import VinaServiceFireBase from "../services/vina/VinaServiceFireBase";
-import SireviServiceFireBase from "../services/sirevi/SireviServiceFireBase";
 import OperaterService from "../services/operateri/OperaterService";
 import { operateri} from "../services/operateri/OperaterPodaci";
 
