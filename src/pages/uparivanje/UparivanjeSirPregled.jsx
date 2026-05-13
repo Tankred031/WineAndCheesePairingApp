@@ -175,6 +175,29 @@ export default function UparivanjeSirPregled() {
         return sortConfig.direction === "asc" ? <FaSortUp /> : <FaSortDown />;
     }
 
+    let poruka;
+
+    if (sirevi.length === 0) {
+
+        poruka = "Nema učitanih sireva - stoga nema ni uparivanja.";
+
+    } else {
+
+        const brojUspjesnih = sirevi.filter(s =>
+            getVina(s.id) !== "-nema preporuke-"
+        ).length;
+
+        const opis =
+            brojUspjesnih === sirevi.length
+                ? "svih"
+                : "samo";
+
+        poruka = (
+            <>
+                Učitano ukupno <strong>{sirevi.length}</strong> sireva - i uspješno upareno {opis} <strong>{brojUspjesnih}</strong>.
+            </>
+        );
+    }
 
     return (
         <div className="mt-4">
@@ -215,6 +238,10 @@ export default function UparivanjeSirPregled() {
                     obrisi={obrisi}
                 />
             )}
+
+            <p className="text-muted">
+                {poruka}
+            </p>
 
             {totalPages > 1 && (
                 <div className="d-flex justify-content-center mt-3">

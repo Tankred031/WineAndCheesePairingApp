@@ -6,6 +6,7 @@ import UparivanjaCustomService from "../services/uparivanje/UparivanjeCustomServ
 import { useState, useEffect } from "react";
 import { Card, Carousel, Col, Row } from "react-bootstrap";
 import { uparivanjeVinaById } from "../services/uparivanje/UparivanjeVinaPopis";
+import { uparivanjeSiraById } from "../services/uparivanje/UparivanjeSiraPopis";
 import { DATA_SOURCE } from "../constants";
 import useAuth from "../hooks/useAuth";
 import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLocalStorage";
@@ -23,9 +24,11 @@ export default function Home() {
     const [brojVina, setBrojVina] = useState(0);
     const [brojSireva, setBrojSireva] = useState(0);
     const [brojUspjesnihUparivanja, setBrojUspjesnihUparivanja] = useState(0);
+    const [brojUparenihSireva, setBrojUparenihSireva] = useState(0);
     const [animatedVina, setAnimatedVina] = useState(0);
     const [animatedSirevi, setAnimatedSirevi] = useState(0);
     const [animatedUspjesnihUparivanja, setAnimatedUspjesnihUparivanja] = useState(0);
+    const [animatedUpareniSirevi, setAnimatedUpareniSirevi] = useState(0);
     const { isLoggedIn, logout } = useAuth();
 
     const promijeniIzvor = async (noviIzvor) => {
@@ -56,8 +59,8 @@ export default function Home() {
                 const sirevi = await SireviService.get();
                 const uparivanja = await UparivanjaCustomService.get();
 
-                setBrojVina(vinaRezultat.data.length);
-                setBrojSireva(sirevi.data.length);
+                setBrojVina(vinaRezultat.data.length || 0);
+                setBrojSireva(sirevi.data.length || 0);
                 const custom = uparivanja.data || [];
 
                 const broj = vinaRezultat.data.filter(vino => {
@@ -75,6 +78,23 @@ export default function Home() {
                 }).length;
 
                 setBrojUspjesnihUparivanja(broj);
+
+                const brojSirevaUparenih = sirevi.data.filter(sir => {
+
+                    const customZaSir = custom.filter(u => u.sirId === sir.id);
+
+                    const staticka = uparivanjeSiraById[sir.id] || [];
+
+                    const ima = customZaSir.length > 0
+                        ? customZaSir.some(u => u.vinoId !== null)
+                        : staticka.length > 0;
+
+                    return ima;
+
+                }).length;
+
+                setBrojUparenihSireva(brojSirevaUparenih);
+
             } catch (error) {
                 console.error('Greška pri dohvaćanju podataka:', error);
             }
@@ -104,11 +124,28 @@ export default function Home() {
     useEffect(() => {
         if (animatedUspjesnihUparivanja < brojUspjesnihUparivanja) {
             const timer = setTimeout(() => {
-                setAnimatedUspjesnihUparivanja(prev => Math.min(prev + 1, brojUspjesnihUparivanja));
+                setAnimatedUspjesnihUparivanja(prev =>
+                    Math.min(prev + 1, brojUspjesnihUparivanja));
             }, 150);
             return () => clearTimeout(timer);
         }
     }, [animatedUspjesnihUparivanja, brojUspjesnihUparivanja]);
+
+    useEffect(() => {
+        if (animatedUpareniSirevi < brojUparenihSireva) {
+
+            const timer = setTimeout(() => {
+
+                setAnimatedUpareniSirevi(prev =>
+                    Math.min(prev + 1, brojUparenihSireva)
+                );
+
+            }, 150);
+
+            return () => clearTimeout(timer);
+        }
+
+    }, [animatedUpareniSirevi, brojUparenihSireva]);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -237,8 +274,10 @@ export default function Home() {
                 <Col md={4}>
                     <Card className="shadow-lg border-0 statistikaPanel">
                         <Card.Body className="text-center">
-                            <p className="text-white">Uparivanja</p>
-                            <div className="statistikaTekst">{animatedUspjesnihUparivanja}</div>
+                            <p className="text-white">Uparena vina i sirevi</p>
+                            <div className="statistikaTekst">
+                                {animatedUspjesnihUparivanja} / {animatedUpareniSirevi}
+                            </div>
                         </Card.Body>
                     </Card>
                 </Col>
