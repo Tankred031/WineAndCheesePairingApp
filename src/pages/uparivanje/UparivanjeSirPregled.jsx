@@ -9,7 +9,7 @@ import UparivanjeSirPregledGrid from "./UparivanjeSirPregledGrid";
 import UparivanjeSirPregledTablica from "./UparivanjeSirPregledTablica";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import useLoading from "../../hooks/useLoading";
-import { Pagination } from "react-bootstrap";
+import { Button, Modal, Pagination } from "react-bootstrap";
 
 export default function UparivanjeSirPregled() {
 
@@ -24,6 +24,9 @@ export default function UparivanjeSirPregled() {
     const { showLoading, hideLoading } = useLoading();
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 10;
+
+    const [showDelete, setShowDelete] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
 
     const [sortConfig, setSortConfig] = useState({
         key: 'naziv',
@@ -82,8 +85,12 @@ export default function UparivanjeSirPregled() {
         return vina.filter(v => ids.includes(v.id));
     }
 
-    async function obrisi(sirId) {
-        if (!confirm("Sigurno obrisati?")) return;
+    function obrisi(sirId) {
+        setDeleteId(sirId);
+        setShowDelete(true);
+    }
+
+    async function potvrdiBrisanje() {
 
         showLoading("Brišem uparivanje...");
 
@@ -91,10 +98,22 @@ export default function UparivanjeSirPregled() {
 
             await delay(500);
 
-            setSirevi(prev => prev.filter(s => s.id !== sirId));
+            setSirevi(prev =>
+                prev.filter(s => s.id !== deleteId)
+            );
+
+            setShowDelete(false);
+            setDeleteId(null);
+
         } catch (err) {
-            console.error("Greška kod brisanja:", err);
+
+            console.error(
+                "Greška kod brisanja:",
+                err
+            );
+
         } finally {
+
             hideLoading();
         }
     }
@@ -143,7 +162,7 @@ export default function UparivanjeSirPregled() {
         });
     }, [filtriraniSirevi, sortConfig]);
 
-   
+
     const totalPages = Math.ceil(sortedSirevi.length / pageSize);
 
     const startIndex = (currentPage - 1) * pageSize;
@@ -253,6 +272,43 @@ export default function UparivanjeSirPregled() {
                     </Pagination>
                 </div>
             )}
+            <Modal
+                show={showDelete}
+                onHide={() => setShowDelete(false)}
+                centered
+            >
+
+                <Modal.Header closeButton>
+
+                    <Modal.Title>
+                        Potvrda brisanja
+                    </Modal.Title>
+
+                </Modal.Header>
+
+                <Modal.Body>
+                    Želite li trajno obrisati ovo uparivanje?
+                </Modal.Body>
+
+                <Modal.Footer>
+
+                    <Button
+                        variant="secondary"
+                        onClick={() => setShowDelete(false)}
+                    >
+                        Odustani
+                    </Button>
+
+                    <Button
+                        variant="danger"
+                        onClick={potvrdiBrisanje}
+                    >
+                        Obriši
+                    </Button>
+
+                </Modal.Footer>
+
+            </Modal>
         </div>
 
     );

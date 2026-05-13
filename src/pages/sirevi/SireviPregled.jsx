@@ -5,7 +5,7 @@ import useBreakpoint from "../../hooks/useBreakpoint"
 import SireviPregledGrid from "./SireviPregledGrid"
 import SireviPregledTablica from "./SireviPregledTablica"
 import { generirajSireviPDF } from "../../components/SireviPDFGenerator"
-import { Button, Pagination } from "react-bootstrap"
+import { Button, Pagination, Modal } from "react-bootstrap"
 import { generirajExcel } from "../../components/ExcelGenerator"
 import useLoading from "../../hooks/useLoading"
 
@@ -21,6 +21,9 @@ export default function SireviPregled() {
     const pageSize = 10
 
     const { showLoading, hideLoading } = useLoading();
+
+    const [showDelete, setShowDelete] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
 
     // --- Konstante ---
     const VRSTE = [
@@ -86,17 +89,27 @@ export default function SireviPregled() {
         hideLoading()
     }
 
+
+
     // --- 2. BRISANJE ---
-    async function obrisi(id) {
-        if (!confirm('Sigurno obrisati?')) return
 
-        showLoading("Brišem podatke...")
+    function obrisi(id) {
+        setDeleteId(id);
+        setShowDelete(true);
+    }
 
-        await SireviService.obrisi(id)
-        await delay(800) // produži trajanje loadera 
-        await ucitajSirevi()
+    async function potvrdiBrisanje() {
 
-        hideLoading()
+        showLoading("Brišem podatke...");
+
+        await SireviService.obrisi(deleteId);
+
+        setShowDelete(false);
+        setDeleteId(null);
+
+        await ucitajSirevi();
+
+        hideLoading();
     }
 
     // --- 3. FILTRIRANJE (SVI PODACI) ---
@@ -276,6 +289,40 @@ export default function SireviPregled() {
                     </div>
                 )
             }
+
+            <Modal
+                show={showDelete}
+                onHide={() => setShowDelete(false)}
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        Potvrda brisanja
+                    </Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    Želite li trajno obrisati ovaj zapis?
+                </Modal.Body>
+
+                <Modal.Footer>
+
+                    <Button
+                        variant="secondary"
+                        onClick={() => setShowDelete(false)}
+                    >
+                        Odustani
+                    </Button>
+
+                    <Button
+                        variant="danger"
+                        onClick={potvrdiBrisanje}
+                    >
+                        Obriši
+                    </Button>
+
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }

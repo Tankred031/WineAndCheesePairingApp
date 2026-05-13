@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import VinaService from "../../services/vina/VinaService"
-import { Button, Pagination } from "react-bootstrap"
+import { Button, Modal, Pagination } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { RouteNames } from "../../constants"
 import useBreakpoint from "../../hooks/useBreakpoint"
@@ -22,6 +22,10 @@ export default function VinaPregled() {
     const pageSize = 10
 
     const { showLoading, hideLoading } = useLoading()
+
+    const [showDelete, setShowDelete] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
+
 
     const TIPOVI_VINA = [
         { id: '1', naziv: 'crveno' },
@@ -111,16 +115,25 @@ export default function VinaPregled() {
         setCurrentPage(page)
     }
 
-    async function obrisi(id) {
-        if (!confirm('Sigurno obrisati?')) return
+    // --- BRISANJE ---
 
-        showLoading("Brišem podatke...")
+    function obrisi(id) {
+        setDeleteId(id);
+        setShowDelete(true);
+    }
+    async function potvrdiBrisanje() {
 
-        await VinaService.obrisi(id)
-        await delay(800) // produži trajanje loadera 
-        await ucitajVina()
+        showLoading("Brišem podatke...");
 
-        hideLoading()
+        await VinaService.obrisi(deleteId);
+        await delay(800);
+
+        setShowDelete(false);
+        setDeleteId(null);
+
+        await ucitajVina();
+
+        hideLoading();
     }
 
     return (
@@ -263,6 +276,39 @@ export default function VinaPregled() {
                 </div>
             )}
 
+            <Modal
+                show={showDelete}
+                onHide={() => setShowDelete(false)}
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        Potvrda brisanja
+                    </Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    Želite li trajno obrisati ovaj zapis?
+                </Modal.Body>
+
+                <Modal.Footer>
+
+                    <Button
+                        variant="secondary"
+                        onClick={() => setShowDelete(false)}
+                    >
+                        Odustani
+                    </Button>
+
+                    <Button
+                        variant="danger"
+                        onClick={potvrdiBrisanje}
+                    >
+                        Obriši
+                    </Button>
+
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }

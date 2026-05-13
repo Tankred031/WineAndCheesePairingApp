@@ -57,7 +57,7 @@ export default function SireviNovi() {
         const objekt = {
             naziv: podaci.get('naziv'),
             vrsta_id: podaci.get('vrsta_id'),
-            ttip_id: podaci.get('tip_id'),
+            tip_id: podaci.get('tip_id'),
             zrenje_id: podaci.get('zrenje_id'),
             masnoca_id: podaci.get('masnoca_id'),
             intenzitet_id: podaci.get('intenzitet_id'),

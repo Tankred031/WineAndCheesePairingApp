@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import ZanimljivostiService from '../../services/zanimljivosti/ZanimljivostiService'
 import { useNavigate } from "react-router-dom"
-import { Card, OverlayTrigger, Tooltip } from "react-bootstrap"
+import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap"
+import Card from "../../components/Kartice"
 import { FaEdit, FaTrash } from "react-icons/fa"
 
 export default function Zanimljivosti() {
@@ -9,6 +10,10 @@ export default function Zanimljivosti() {
     const [cards, setCards] = useState([])
     const [reload, setReload] = useState(false)
     const navigate = useNavigate()
+
+    const [showDelete, setShowDelete] = useState(false)
+    const [deleteId, setDeleteId] = useState(null)
+    const [deleteStatic, setDeleteStatic] = useState(false)
 
     useEffect(() => {
         const load = async () => {
@@ -19,15 +24,24 @@ export default function Zanimljivosti() {
         load()
     }, [reload]);
 
-    async function obrisi(id, isStatic) {
-        if (!window.confirm("Sigurno želiš obrisati?")) return
+    function obrisi(id, isStatic = false) {
+        setDeleteId(id)
+        setDeleteStatic(isStatic)
+        setShowDelete(true)
+    }
 
-        if (isStatic) {
+    async function potvrdiBrisanje() {
+
+        if (deleteStatic) {
             alert("Ovaj članak je statički i ne može se obrisati.")
+
+            setShowDelete(false)
             return
         }
 
-        await ZanimljivostiService.obrisi(id)
+        await ZanimljivostiService.obrisi(deleteId)
+
+        setShowDelete(false)
         setReload(!reload)
     }
 
@@ -43,7 +57,7 @@ export default function Zanimljivosti() {
                         <Card
                             id="static-1"
                             staticCard={true}
-                            img="/wine-day.png"
+                            img="/img/wine-day.png"
                             alt="vino-sir"
                             title="Nacionalni dan vina i sira 🍷🧀"
                             text="Jeste li znali da vino i sir imaju svoj dan? Imaju, i to na 25. srpnja..."
@@ -82,7 +96,7 @@ export default function Zanimljivosti() {
                         <Card
                             id="static-2"
                             staticCard={true}
-                            img="/drinks.jpg"
+                            img="/img/drinks.jpg"
                             alt="vino-alkohol"
                             title="Vino u usporedbi s drugim pićima 🍺🍸🍹"
                             text="Vino ne samo da nije štetno..."
@@ -121,7 +135,7 @@ export default function Zanimljivosti() {
                         <Card
                             id="static-3"
                             staticCard={true}
-                            img="/cheese.meat.webp"
+                            img="/img/cheese-meat.webp"
                             alt="vino-meso"
                             title="Sir (i druge stvari) - 👌 za vaše ❤️"
                             text="A da ne ispadne da je samo vino zdravo..."
@@ -204,6 +218,51 @@ export default function Zanimljivosti() {
                     )}
                 </div>
             </div>
+
+            <Modal
+                show={showDelete}
+                onHide={() => setShowDelete(false)}
+                centered
+            >
+
+                <Modal.Header closeButton>
+
+                    <Modal.Title>
+                        Potvrda brisanja
+                    </Modal.Title>
+
+                </Modal.Header>
+
+                <Modal.Body>
+
+                    {deleteStatic
+                        ? "Ovaj članak je statički i ne može se obrisati."
+                        : "Želite li trajno obrisati ovaj članak?"
+                    }
+
+                </Modal.Body>
+
+                <Modal.Footer>
+
+                    <Button
+                        variant="secondary"
+                        onClick={() => setShowDelete(false)}
+                    >
+                        Odustani
+                    </Button>
+
+                    {!deleteStatic && (
+                        <Button
+                            variant="danger"
+                            onClick={potvrdiBrisanje}
+                        >
+                            Obriši
+                        </Button>
+                    )}
+
+                </Modal.Footer>
+
+            </Modal>
         </>
     )
 }

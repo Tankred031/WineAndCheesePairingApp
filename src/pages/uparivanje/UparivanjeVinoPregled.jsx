@@ -10,7 +10,7 @@ import UparivanjeVinoPregledGrid from "./UparivanjeVinoPregledGrid";
 import UparivanjeVinoPregledTablica from "./UparivanjeVinoPregledTablica";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import useLoading from "../../hooks/useLoading";
-import { Pagination } from "react-bootstrap";
+import { Button, Modal, Pagination } from "react-bootstrap";
 
 
 export default function UparivanjeVinoPregled() {
@@ -26,6 +26,9 @@ export default function UparivanjeVinoPregled() {
     const { showLoading, hideLoading } = useLoading();
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 10;
+
+    const [showDelete, setShowDelete] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
 
     const [sortConfig, setSortConfig] = useState({
         key: "naziv",
@@ -133,18 +136,35 @@ export default function UparivanjeVinoPregled() {
         return VinaBoje[vinoId]?.hex || "#ccc";
     }
 
-    async function obrisi(vinoId) {
-        if (!confirm("Sigurno obrisati?")) return;
+    function obrisi(vinoId) {
+        setDeleteId(vinoId);
+        setShowDelete(true);
+    }
+
+    async function potvrdiBrisanje() {
 
         showLoading("Brišem uparivanje...");
 
         try {
+
             await delay(500);
 
-            setVina(prev => prev.filter(v => v.id !== vinoId));
+            setVina(prev =>
+                prev.filter(v => v.id !== deleteId)
+            );
+
+            setShowDelete(false);
+            setDeleteId(null);
+
         } catch (err) {
-            console.error("Greška kod brisanja:", err);
+
+            console.error(
+                "Greška kod brisanja:",
+                err
+            );
+
         } finally {
+
             hideLoading();
         }
     }
@@ -344,6 +364,43 @@ export default function UparivanjeVinoPregled() {
                     </Pagination>
                 </div>
             )}
+            <Modal
+                show={showDelete}
+                onHide={() => setShowDelete(false)}
+                centered
+            >
+
+                <Modal.Header closeButton>
+
+                    <Modal.Title>
+                        Potvrda brisanja
+                    </Modal.Title>
+
+                </Modal.Header>
+
+                <Modal.Body>
+                    Želite li trajno obrisati ovo uparivanje?
+                </Modal.Body>
+
+                <Modal.Footer>
+
+                    <Button
+                        variant="secondary"
+                        onClick={() => setShowDelete(false)}
+                    >
+                        Odustani
+                    </Button>
+
+                    <Button
+                        variant="danger"
+                        onClick={potvrdiBrisanje}
+                    >
+                        Obriši
+                    </Button>
+
+                </Modal.Footer>
+
+            </Modal>
         </div>
     );
 }
