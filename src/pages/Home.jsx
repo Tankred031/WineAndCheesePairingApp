@@ -12,10 +12,10 @@ import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLo
 
 export default function Home() {
 
-    const vinograd1 = "/img/vineyard1.jpg";
-    const vinograd2 = "/img/vineyard2.jpg";
-    const podrum = "/img/vinecellar.jpg";
-    const sir = "/img/cheese-storage.jpg";
+    const vinograd1 = "/img/vineyard1.webp";
+    const vinograd2 = "/img/vineyard2.webp";
+    const podrum = "/img/vinecellar.webp";
+    const sir = "/img/cheese-storage.webp";
     const vino = "/img/pouring2.jpg";
     const wine2 = "/img/wine2.jpg";
     const wine3 = "/img/wine3.jpg";
