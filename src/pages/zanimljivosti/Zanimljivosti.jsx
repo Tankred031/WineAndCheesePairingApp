@@ -1,7 +1,3 @@
-import Card from "../../components/Kartice"
-import vinoDan from "../../assets/wine-day.png"
-import drinks from "../../assets/drinks.jpg"
-import cheeseMeat from "../../assets/cheese-meat.webp"
 import { useEffect, useState } from "react"
 import ZanimljivostiService from '../../services/zanimljivosti/ZanimljivostiService'
 import { useNavigate } from "react-router-dom"
@@ -47,7 +43,7 @@ export default function Zanimljivosti() {
                         <Card
                             id="static-1"
                             staticCard={true}
-                            img={vinoDan}
+                            img="/wine-day.png"
                             alt="vino-sir"
                             title="Nacionalni dan vina i sira 🍷🧀"
                             text="Jeste li znali da vino i sir imaju svoj dan? Imaju, i to na 25. srpnja..."
@@ -86,7 +82,7 @@ export default function Zanimljivosti() {
                         <Card
                             id="static-2"
                             staticCard={true}
-                            img={drinks}
+                            img="/drinks.jpg"
                             alt="vino-alkohol"
                             title="Vino u usporedbi s drugim pićima 🍺🍸🍹"
                             text="Vino ne samo da nije štetno..."
@@ -125,7 +121,7 @@ export default function Zanimljivosti() {
                         <Card
                             id="static-3"
                             staticCard={true}
-                            img={cheeseMeat}
+                            img="/cheese.meat.webp"
                             alt="vino-meso"
                             title="Sir (i druge stvari) - 👌 za vaše ❤️"
                             text="A da ne ispadne da je samo vino zdravo..."
