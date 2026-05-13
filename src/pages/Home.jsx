@@ -40,15 +40,7 @@ export default function Home() {
             }
         }
 
-        if (noviIzvor === 'firebase') {
-            const servis =
-                await OperaterServiceFireBase.get();
-
-            if (servis.data.length > 0) {
-                izvor = noviIzvor;
-            }
-        }
-       
+        
         localStorage.setItem('dataSource', izvor);
 
         logout();
@@ -267,8 +259,8 @@ export default function Home() {
                                         promijeniIzvor('memorija')
                                     }
                                     className={`btn ${DATA_SOURCE === 'memorija'
-                                            ? 'btn-success'
-                                            : 'btn-danger'
+                                            ? 'btn-info'
+                                            : 'btn-primary'
                                         }`}
                                 >
                                     Memorija
@@ -279,8 +271,8 @@ export default function Home() {
                                         promijeniIzvor('localStorage')
                                     }
                                     className={`btn ${DATA_SOURCE === 'localStorage'
-                                            ? 'btn-success'
-                                            : 'btn-danger'
+                                            ? 'btn-info'
+                                            : 'btn-primary'
                                         }`}
                                 >
                                     LocalStorage
