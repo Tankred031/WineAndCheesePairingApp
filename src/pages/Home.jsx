@@ -6,29 +6,30 @@ import UparivanjaCustomService from "../services/uparivanje/UparivanjeCustomServ
 import { useState, useEffect } from "react";
 import { Card, Carousel, Col, Row } from "react-bootstrap";
 import { uparivanjeVinaById } from "../services/uparivanje/UparivanjeVinaPopis";
-import vinograd1 from "../assets/img/vineyard1.jpg";
-import vinograd2 from "../assets/img/vineyard2.jpg";
-import podrum from "../assets/img/vinecellar.jpg";
-import sir from "../assets/img/cheese-storage.jpg";
-import vino from "../assets/img/pouring2.jpg"
-import wine2 from "../assets/img/wine2.jpg";
-import wine3 from "../assets/img/wine3.jpg";
 import { DATA_SOURCE } from "../constants";
 import useAuth from "../hooks/useAuth";
 import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLocalStorage";
 
 export default function Home() {
 
+    const vinograd1 = "/img/vineyard1.jpg";
+    const vinograd2 = "/img/vineyard2.jpg";
+    const podrum = "/img/vinecellar.jpg";
+    const sir = "/img/cheese-storage.jpg";
+    const vino = "/img/pouring2.jpg";
+    const wine2 = "/img/wine2.jpg";
+    const wine3 = "/img/wine3.jpg";
+
     const [brojVina, setBrojVina] = useState(0);
     const [brojSireva, setBrojSireva] = useState(0);
     const [brojUspjesnihUparivanja, setBrojUspjesnihUparivanja] = useState(0);
     const [animatedVina, setAnimatedVina] = useState(0);
     const [animatedSirevi, setAnimatedSirevi] = useState(0);
-    const [animatedUspjesnihUparivanja, setAnimatedUspjesnihUparivanja] = useState(0);    
+    const [animatedUspjesnihUparivanja, setAnimatedUspjesnihUparivanja] = useState(0);
     const { isLoggedIn, logout } = useAuth();
 
     const promijeniIzvor = async (noviIzvor) => {
-   
+
         let izvor = 'memorija';
 
         if (noviIzvor === 'localStorage') {
@@ -40,7 +41,7 @@ export default function Home() {
             }
         }
 
-        
+
         localStorage.setItem('dataSource', izvor);
 
         logout();
@@ -259,8 +260,8 @@ export default function Home() {
                                         promijeniIzvor('memorija')
                                     }
                                     className={`btn ${DATA_SOURCE === 'memorija'
-                                            ? 'btn-info'
-                                            : 'btn-primary'
+                                        ? 'btn-info'
+                                        : 'btn-primary'
                                         }`}
                                 >
                                     Memorija
@@ -271,13 +272,13 @@ export default function Home() {
                                         promijeniIzvor('localStorage')
                                     }
                                     className={`btn ${DATA_SOURCE === 'localStorage'
-                                            ? 'btn-info'
-                                            : 'btn-primary'
+                                        ? 'btn-info'
+                                        : 'btn-primary'
                                         }`}
                                 >
                                     LocalStorage
                                 </button>
-                                
+
                             </div>
 
                         </Col>

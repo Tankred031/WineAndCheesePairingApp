@@ -3,22 +3,22 @@ import { Card, Col, Row } from "react-bootstrap"
 import VinaService from "../../services/vina/VinaService"
 import SireviService from "../../services/sirevi/SireviService"
 
-import redWine from "../../assets/statistika/red-wine-types.jpg"
-import whiteWine from "../../assets/statistika/white-wine.webp"
-import sparkWines from "../../assets/statistika/Spark-wine.jpg"
-import otherWine from "../../assets/statistika/port-blog.jpg"
-
-import freshCheese from "../../assets/statistika/fresh-cheese.jpg"
-import semiHard from "../../assets/statistika/semi-hard-cheese.jpg"
-import hardCheese from "../../assets/statistika/hard-cheese.jpg"
-import otherCheese from "../../assets/statistika/blue.webp"
-
 import { Chart } from "react-google-charts"
 
 export default function Statistika() {
 
     const [vina, setVina] = useState([])
     const [sirevi, setSirevi] = useState([])
+
+    const redWine = "/statistika/red-wine-types.jpg"
+    const whiteWine = "/statistika/white-wine.webp"
+    const sparkWines = "/statistika/Spark-wine.jpg"
+    const otherWine = "/statistika/port-blog.jpg"
+
+    const freshCheese = "/statistika/fresh-cheese.jpg"
+    const semiHard = "/statistika/semi-hard-cheese.jpg"
+    const hardCheese = "/statistika/hard-cheese.jpg"
+    const otherCheese = "/statistika/blue.webp"
 
 
     const TIPOVI_VINA = [
@@ -160,7 +160,7 @@ export default function Statistika() {
 
         colors: [
             "#fffdf5", // gotovo bijela
-            "#f7e7a9", // svijetlo žuta
+            "#0b0b0a", // svijetlo žuta
             "#e8c65d", // zlatna
             "#9ecbff"  // svijetlo plava
         ],
@@ -182,138 +182,138 @@ export default function Statistika() {
             height: "75%",
             top: 90,
         },
-    
+
 
         pieSliceTextStyle: {
             color: "black",
             fontSize: 14,
         },
-};
+    };
 
-useEffect(() => {
-    ucitaj()
-}, [])
+    useEffect(() => {
+        ucitaj()
+    }, [])
 
-async function ucitaj() {
-    const v = await VinaService.get()
-    const s = await SireviService.get()
+    async function ucitaj() {
+        const v = await VinaService.get()
+        const s = await SireviService.get()
 
 
-    setVina(v.data || [])
-    setSirevi(s.data || [])
-}
+        setVina(v.data || [])
+        setSirevi(s.data || [])
+    }
 
-function brojVinaPoTipu(tipId) {
+    function brojVinaPoTipu(tipId) {
 
-    if (tipId === '99') {
+        if (tipId === '99') {
+            return vina.filter(v =>
+                !['1', '2', '3'].includes(String(v.tip_id))
+            ).length
+        }
+
         return vina.filter(v =>
-            !['1', '2', '3'].includes(String(v.tip_id))
+            String(v.tip_id) === String(tipId)
         ).length
     }
 
-    return vina.filter(v =>
-        String(v.tip_id) === String(tipId)
-    ).length
-}
+    function brojSirevaPoTipu(tipId) {
 
-function brojSirevaPoTipu(tipId) {
+        if (tipId === '99') {
+            return sirevi.filter(s =>
+                !['1', '2', '3'].includes(String(s.tip_id))
+            ).length
+        }
 
-    if (tipId === '99') {
         return sirevi.filter(s =>
-            !['1', '2', '3'].includes(String(s.tip_id))
+            String(s.tip_id) === String(tipId)
         ).length
     }
 
-    return sirevi.filter(s =>
-        String(s.tip_id) === String(tipId)
-    ).length
-}
+    return (
+        <div className="mt-4">
 
-return (
-    <div className="mt-4">
+            <h2 className="section-title mb-4">Statistika vina</h2>
 
-        <h2 className="section-title mb-4">Statistika vina</h2>
+            <Row className="mb-5">
+                {TIPOVI_VINA.map(tip => (
+                    <Col md={3} key={tip.id} className="mb-3">
+                        <Card className="stat-card text-center h-100">
 
-        <Row className="mb-5">
-            {TIPOVI_VINA.map(tip => (
-                <Col md={3} key={tip.id} className="mb-3">
-                    <Card className="stat-card text-center h-100">
+                            <img
+                                src={SLIKE_VINA[tip.id]}
+                                alt={tip.naziv}
+                                className="stat-img"
+                            />
 
-                        <img
-                            src={SLIKE_VINA[tip.id]}
-                            alt={tip.naziv}
-                            className="stat-img"
-                        />
+                            <Card.Body className={`vino-${tip.id}`}>
+                                <h5>{tip.naziv}</h5>
+                                <div className="stat-number">
+                                    {brojVinaPoTipu(tip.id)}
+                                </div>
+                            </Card.Body>
 
-                        <Card.Body className={`vino-${tip.id}`}>
-                            <h5>{tip.naziv}</h5>
-                            <div className="stat-number">
-                                {brojVinaPoTipu(tip.id)}
-                            </div>
-                        </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
 
-                    </Card>
-                </Col>
-            ))}
+            </Row>
 
-        </Row>
+            <div className="my-5">
 
-        <div className="my-5">
+                <Chart
+                    chartType="BarChart"
+                    width="100%"
+                    height="500px"
+                    data={data}
+                    options={options}
+                />
+
+            </div>
+
+            <h2 className="section-title mb-4">Statistika sireva</h2>
+
+            <Row>
+                {TIPOVI_SIREVA.map(tip => (
+                    <Col md={3} key={tip.id} className="mb-3">
+                        <Card className="stat-card text-center h-100">
+
+                            <img
+                                src={SLIKE_SIREVA[tip.id]}
+                                alt={tip.naziv}
+                                className="stat-img"
+                            />
+
+                            <Card.Body className={`sir-${tip.id}`}>
+                                <h5>{tip.naziv}</h5>
+                                <div className="stat-number">
+                                    {brojSirevaPoTipu(tip.id)}
+                                </div>
+                            </Card.Body>
+
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
 
             <Chart
-                chartType="BarChart"
+                chartType="PieChart"
                 width="100%"
-                height="500px"
-                data={data}
-                options={options}
+                height="450px"
+                data={cheeseData}
+                options={cheeseOptions}
             />
 
+            <button
+                className="scroll-top-btn"
+                onClick={() =>
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    })
+                }
+            >
+                ⬆
+            </button>
         </div>
-
-        <h2 className="section-title mb-4">Statistika sireva</h2>
-
-        <Row>
-            {TIPOVI_SIREVA.map(tip => (
-                <Col md={3} key={tip.id} className="mb-3">
-                    <Card className="stat-card text-center h-100">
-
-                        <img
-                            src={SLIKE_SIREVA[tip.id]}
-                            alt={tip.naziv}
-                            className="stat-img"
-                        />
-
-                        <Card.Body className={`sir-${tip.id}`}>
-                            <h5>{tip.naziv}</h5>
-                            <div className="stat-number">
-                                {brojSirevaPoTipu(tip.id)}
-                            </div>
-                        </Card.Body>
-
-                    </Card>
-                </Col>
-            ))}
-        </Row>
-
-        <Chart
-            chartType="PieChart"
-            width="100%"
-            height="450px"
-            data={cheeseData}
-            options={cheeseOptions}
-        />
-
-        <button
-            className="scroll-top-btn"
-            onClick={() =>
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                })
-            }
-        >
-            ⬆
-        </button>
-    </div>
-)
+    )
 }

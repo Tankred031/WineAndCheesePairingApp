@@ -131,7 +131,7 @@ function App() {
         className={`accessibility-button ${showAccessibility ? "accessibility-button-open" : ""
           }`}
         variant="dark"
-        onClick={() => setShowAccessibility(true)}
+        onClick={() => setShowAccessibility(prev => !prev)}
       >
         ♿
       </Button>
