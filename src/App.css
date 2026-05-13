@@ -15,23 +15,24 @@
   padding: 10px 0;
 }
 
-body {
-  background: #6A0DAD;
+body {  
   background: -moz-linear-gradient(
     45deg,
-    #6A0DAD 0%,
+    salmon 0%,
     #FFFFFF 53%,
     #efbf04 100%
   );
+  
   background: -webkit-linear-gradient(
     45deg,
-    #6A0DAD 0%,
+    salmon 0%,
     #FFFFFF 53%,
     #efbf04 100%
   );
+
   background: linear-gradient(
     45deg,
-    #6A0DAD 0%,
+    salmon 0%,
     #FFFFFF 53%,
     #efbf04 100%
   );
@@ -54,16 +55,14 @@ body::before {
   pointer-events: none;
 }
 
+
 .silver-navbar {
-  background: linear-gradient(135deg,
-    #7ecb6b 0%,   /* zelenkasto (Sauvignon / mlado vino) */
-    #bfe6a8 25%,  /* svjetlo zeleno / fresh */
-    #d66a7a 50%,  /* rosé (sredina balans) */
-    #f2d85c 80%,  /* zlatno / bijelo vino highlight */
-    #fff2c2 100%  /* krem / lagano bijelo vino */
-  ) !important;
+  background-color: #f7e7a9;  
 }
 
+.app-container {
+    background-color: navajowhite;
+}
 .home-logo {
   height: 140px;
   padding: 15px;
