@@ -1,4 +1,17 @@
 /* =========================================
+   GLOBAL
+========================================= */
+
+html,
+body,
+#root {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* =========================================
    RESPONSIVE TABLES
 ========================================= */
 
@@ -36,9 +49,10 @@
 .large-text input,
 .large-text select,
 .large-text textarea,
-.large-text label {
+.large-text label,
+.large-text a {
     font-size: 1.15rem !important;
-    line-height: 1.6;
+    line-height: 1.6 !important;
 }
 
 
@@ -50,13 +64,21 @@
     filter: grayscale(100%);
 }
 
+.grayscale body,
+.grayscale .app-container,
+.grayscale::before,
+.grayscale body::before {
+    filter: grayscale(100%) !important;
+}
 
 /* =========================================
    HIGH CONTRAST
 ========================================= */
 
-.high-contrast {
-    background-color: black !important;
+.high-contrast,
+.high-contrast body,
+.high-contrast .app-container {
+    background: black !important;
     color: white !important;
 }
 
@@ -66,7 +88,10 @@
 .high-contrast .offcanvas,
 .high-contrast .dropdown-menu,
 .high-contrast .list-group-item,
-.high-contrast .navbar {
+.high-contrast .navbar,
+.high-contrast .form-control,
+.high-contrast .form-select,
+.high-contrast .accordion-item {
     background-color: #111 !important;
     color: white !important;
     border-color: white !important;
@@ -76,8 +101,14 @@
     color: #00ffff !important;
 }
 
-.high-contrast button {
+.high-contrast button,
+.high-contrast .btn {
     border-color: white !important;
+}
+
+.high-contrast input::placeholder,
+.high-contrast textarea::placeholder {
+    color: #cccccc !important;
 }
 
 
@@ -94,15 +125,20 @@
    LIGHT BACKGROUND
 ========================================= */
 
-.light-background {
-    background-color: #f8f9fa !important;
+.light-background,
+.light-background body,
+.light-background .app-container {
+    background: #f8f9fa !important;
     color: #111 !important;
 }
 
 .light-background .card,
 .light-background .table,
 .light-background .modal-content,
-.light-background .offcanvas {
+.light-background .offcanvas,
+.light-background .dropdown-menu,
+.light-background .list-group-item,
+.light-background .navbar {
     background-color: white !important;
     color: black !important;
 }
@@ -121,10 +157,7 @@
    READABLE FONT
 ========================================= */
 
-.readable-font {
-    font-family: Arial, Helvetica, sans-serif !important;
-}
-
+.readable-font,
 .readable-font * {
     font-family: Arial, Helvetica, sans-serif !important;
 }
@@ -149,54 +182,8 @@
     background-color: #f1f1f1;
 }
 
-
 /* =========================================
-   MOBILE FIXES
-========================================= */
-
-@media (max-width: 768px) {
-
-    .large-text h1 {
-        font-size: 2.3rem !important;
-    }
-
-    .large-text h2 {
-        font-size: 2rem !important;
-    }
-
-    .large-text h3 {
-        font-size: 1.7rem !important;
-    }
-
-    .accessibility-offcanvas {
-        width: 85% !important;
-    }
-
-    .large-text .btn {
-        padding: 0.8rem 1rem;
-    }
-
-    .large-text .table td,
-    .large-text .table th {
-        white-space: nowrap;
-    }
-}
-
-
-/* =========================================
-   HIGHCHARTS SUPPORT
-========================================= */
-
-.high-contrast .highcharts-container {
-    filter: contrast(120%);
-}
-
-.grayscale .highcharts-container {
-    filter: grayscale(100%);
-}
-
-/* =========================================
-   BUTTON
+   ACCESSIBILITY BUTTON
 ========================================= */
 
 .accessibility-button {
@@ -219,7 +206,7 @@
     align-items: center;
     justify-content: center;
 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 
     transition: all 0.3s ease;
 }
@@ -229,4 +216,41 @@
 
 .accessibility-button-open {
     left: 340px;
+}
+
+
+/* =========================================
+   MOBILE FIXES
+========================================= */
+
+@media (max-width: 768px) {
+
+    .large-text h1 {
+        font-size: 2.3rem !important;
+    }
+
+    .large-text h2 {
+        font-size: 2rem !important;
+    }
+
+    .large-text h3 {
+        font-size: 1.7rem !important;
+    }
+
+    .large-text .btn {
+        padding: 0.8rem 1rem;
+    }
+
+    .large-text .table td,
+    .large-text .table th {
+        white-space: nowrap;
+    }
+
+    .accessibility-offcanvas {
+        width: 85% !important;
+    }
+
+    .accessibility-button-open {
+        left: 20px;
+    }
 }

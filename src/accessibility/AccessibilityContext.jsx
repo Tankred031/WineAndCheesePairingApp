@@ -40,7 +40,7 @@ export const AccessibilityProvider = ({ children }) => {
 
     // GRAYSCALE
     useEffect(() => {
-        document.body.classList.toggle("grayscale", grayscale);
+        document.documentElement.classList.toggle("grayscale", grayscale);
         localStorage.setItem("grayscale", grayscale);
     }, [grayscale]);
 

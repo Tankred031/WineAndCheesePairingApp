@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import ZanimljivostiService from '../../services/zanimljivosti/ZanimljivostiService'
 import { useNavigate } from "react-router-dom"
-import { OverlayTrigger, Tooltip } from "react-bootstrap"
+import { Card, OverlayTrigger, Tooltip } from "react-bootstrap"
 import { FaEdit, FaTrash } from "react-icons/fa"
 
 export default function Zanimljivosti() {
