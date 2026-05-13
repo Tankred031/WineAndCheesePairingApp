@@ -16,22 +16,39 @@
 }
 
 body {
-  background: linear-gradient(135deg,
-    #2f8352 0%,   /* tamna loza */
-    #62bd50 45%,  /* svježa zelena */
-    #f2c94c 75%,  /* zlatno žuta (sir / sunce) */
-    #e9ab5e 100%  /* topla narančasta (vino / food) */
+  background: #6A0DAD;
+  background: -moz-linear-gradient(
+    45deg,
+    #6A0DAD 0%,
+    #FFFFFF 53%,
+    #efbf04 100%
   );
+  background: -webkit-linear-gradient(
+    45deg,
+    #6A0DAD 0%,
+    #FFFFFF 53%,
+    #efbf04 100%
+  );
+  background: linear-gradient(
+    45deg,
+    #6A0DAD 0%,
+    #FFFFFF 53%,
+    #efbf04 100%
+  );
+
+  min-height: 100vh;
+  background-attachment: fixed;
 }
 
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at top,
-    rgba(31, 107, 58, 0.18),
-    rgba(79, 191, 74, 0.15),
-    rgba(242, 216, 92, 0.12),
+  background: radial-gradient(
+    circle at top,
+    rgba(106, 13, 173, 0.18),
+    rgba(255, 255, 255, 0.10),
+    rgba(239, 191, 4, 0.12),
     transparent 75%
   );
   pointer-events: none;
