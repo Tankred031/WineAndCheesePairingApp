@@ -1,16 +1,15 @@
 import { Form, Button, Row, Col, Container, Card } from "react-bootstrap"
-import { RouteNames } from "../../constants"
 import { useNavigate } from "react-router-dom"
 import { ShemaLogin } from "../../schemas/ShemaOperater"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import useAuth from "../../hooks/useAuth"
 
 export default function Login() {
 
-    const navigate = useNavigate()
     const [errors, setErrors] = useState({})
 
     const { login } = useAuth();
+    const formaRef = useRef(null)
 
     function odradiSubmit(e) {
         e.preventDefault()
@@ -31,6 +30,16 @@ export default function Login() {
         login(podaci.get('email'), podaci.get('lozinka'))
     }
 
+    function popuniPodatke(email, lozinka) {
+        const forma = formaRef.current
+
+        if (!forma) return
+        forma.email.value = email
+        forma.lozinka.value = lozinka
+
+        setErrors({})
+    }
+
     const ocistiGresku = (nazivPolja) => {
         if (errors[nazivPolja]) {
             const noveGreske = { ...errors }
@@ -41,13 +50,113 @@ export default function Login() {
 
     return (
         <>
-            <Form onSubmit={odradiSubmit}>
-                <Container className="mt-4">
+
+            <Container className="mt-4">
+
+                <Row className="mb-3">
+
+                    {/* ADMIN */}
+
+                    <Col md={6}>
+                        <Card
+                            className="shadow-sm border-0 h-100"
+                            style={{
+                                cursor: "pointer",
+                                background:
+                                    "linear-gradient(135deg, #fff3cd, #ffe69c)",
+                                transition: "all 0.2s ease"
+                            }}
+
+                            onMouseEnter={(e) =>
+                                e.currentTarget.style.transform = "scale(1.02)"
+                            }
+
+                            onMouseLeave={(e) =>
+                                e.currentTarget.style.transform = "scale(1)"
+                            }
+
+                            onClick={() =>
+                                popuniPodatke(
+                                    "admin@edunova.hr",
+                                    "Edunova123!"
+                                )
+                            }
+                        >
+                            <Card.Body className="text-center">
+
+                                <small className="text-muted">
+                                    Klik za admin prijavu
+                                </small>
+
+                                <h6 className="mt-2 mb-1">
+                                    Admin
+                                </h6>
+
+                                <div className="fw-bold">
+                                    admin@edunova.hr
+                                </div>
+
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+
+
+                    {/* OPERATER */}
+
+                    <Col md={6}>
+                        <Card
+                            className="shadow-sm border-0 h-100"
+                            style={{
+                                cursor: "pointer",
+                                background:
+                                    "linear-gradient(135deg, #fff3cd, #ffe69c)",
+                                transition: "all 0.2s ease"
+                            }}
+
+                            onMouseEnter={(e) =>
+                                e.currentTarget.style.transform = "scale(1.02)"
+                            }
+
+                            onMouseLeave={(e) =>
+                                e.currentTarget.style.transform = "scale(1)"
+                            }
+
+                            onClick={() =>
+                                popuniPodatke(
+                                    "operater@edunova.hr",
+                                    "Edunova123!"
+                                )
+                            }
+                        >
+
+                            <Card.Body className="text-center">
+
+                                <small className="text-muted">
+                                    Klik za operater prijavu
+                                </small>
+
+                                <h6 className="mt-2 mb-1">
+                                    Operater
+                                </h6>
+
+                                <div className="fw-bold">
+                                    operater@edunova.hr
+                                </div>
+
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                </Row>
+
+                <Form onSubmit={odradiSubmit} ref={formaRef}>
+
+
                     <Card className="shadow-sm">
                         <Card.Body>
                             <Card.Title className="mb-4">Podaci za prijavu</Card.Title>
-                            admin@edunova.hr <br />
-                            Edunova123!
+
                             {errors.opce && (
                                 <div className="alert alert-danger" role="alert">
                                     {errors.opce}
@@ -93,8 +202,8 @@ export default function Login() {
                             <hr />
 
                             <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                <Button 
-                                    type="submit" 
+                                <Button
+                                    type="submit"
                                     variant="success"
                                     className="px-4"
                                 >
@@ -103,8 +212,8 @@ export default function Login() {
                             </div>
                         </Card.Body>
                     </Card>
-                </Container>
-            </Form>
+                </Form>
+            </Container>
         </>
     )
 }
