@@ -38,143 +38,159 @@ npm install firebase
 npm install lucide-react
 
 
-.
-├── .gitattributes
-├── .gitignore
-├── README.md
-├── crtice.txt
-├── eslint.config.js
-├── index.html
-├── package-lock.json
-├── package.json
-├── vite.config.js
-├── public
-│   ├── Wine-Olives.png
-│   ├── bottle.lottie
-│   ├── wine_cheese.png
-│   └── fonts
-│       ├── Outfit-Black.ttf
-│       ├── Outfit-Bold.ttf
-│       ├── Outfit-ExtraBold.ttf
-│       ├── Outfit-ExtraLight.ttf
-│       ├── Outfit-Light.ttf
-│       ├── Outfit-Medium.ttf
-│       ├── Outfit-Regular.ttf
-│       ├── Outfit-SemiBold.ttf
-│       ├── Outfit-Thin.ttf
-│       └── Outfit-VariableFont_wght.ttf
-└── src
-    ├── App.css
-    ├── App.jsx
-    ├── constants.js
-    ├── index.css
-    ├── main.jsx
-    ├── assets
-    │   ├── cheese-meat.webp
-    │   ├── drinks.jpg
-    │   ├── wine-day.png
-    │   ├── wines.png
-    │   ├── img
-    │   │   ├── cheese-storage.jpg
-    │   │   ├── pouring2.jpg
-    │   │   ├── vinecellar.jpg
-    │   │   ├── vineyard1.jpg
-    │   │   ├── vineyard2.jpg
-    │   │   ├── wine2.jpg
-    │   │   └── wine3.jpg
-    │   └── statistika
-    │       ├── Spark-wine.jpg
-    │       ├── blue.webp
-    │       ├── fresh-cheese.jpg
-    │       ├── hard-cheese.jpg
-    │       ├── port-blog.jpg
-    │       ├── red-wine-types.jpg
-    │       ├── semi-hard-cheese.jpg
-    │       └── white-wine.webp
-    ├── components
-    │   ├── AuthContext.jsx
-    │   ├── ExcelGenerator.jsx
-    │   ├── Izbornik.jsx
-    │   ├── Kartice.jsx
-    │   ├── LoadingContext.jsx
-    │   ├── LoadingSpinner.jsx
-    │   ├── SireviPDFGenerator.jsx
-    │   ├── UparivanjePDFGenerator.jsx
-    │   └── VinaPDFGenerator.jsx
-    ├── hooks
-    │   ├── useAuth.js
-    │   ├── useBreakpoint.js
-    │   └── useLoading.js
-    ├── pages
-    │   ├── GeneriranjePodataka.jsx
-    │   ├── Home.jsx
-    │   ├── NadzornaPloca.jsx
-    │   ├── login
-    │   │   └── Login.jsx
-    │   ├── operateri
-    │   │   ├── OperaterNovi.jsx
-    │   │   ├── OperaterPregled.jsx
-    │   │   ├── OperaterPromjena.jsx
-    │   │   └── OperaterPromjenaLozinke.jsx
-    │   ├── registracija
-    │   │   └── Registracija.jsx
-    │   ├── sirevi
-    │   │   ├── SireviNovi.jsx
-    │   │   ├── SireviPregled.jsx
-    │   │   ├── SireviPregledGrid.jsx
-    │   │   ├── SireviPregledTablica.jsx
-    │   │   └── SireviPromjena.jsx
-    │   ├── uparivanje
-    │   │   ├── UparivanjeSirPregled.jsx
-    │   │   ├── UparivanjeSirPregledGrid.jsx
-    │   │   ├── UparivanjeSirPregledTablica.jsx
-    │   │   ├── UparivanjeSirPromjena.jsx
-    │   │   ├── UparivanjeVinoPregled.jsx
-    │   │   ├── UparivanjeVinoPregledGrid.jsx
-    │   │   ├── UparivanjeVinoPregledTablica.jsx
-    │   │   └── UparivanjeVinoPromjena.jsx
-    │   ├── vina
-    │   │   ├── VinaNovi.jsx
-    │   │   ├── VinaPregled.jsx
-    │   │   ├── VinaPregledGrid.jsx
-    │   │   ├── VinaPregledTablica.jsx
-    │   │   └── VinaPromjena.jsx
-    │   └── zanimljivosti
-    │       ├── DodajZanimljivost.jsx
-    │       ├── Preporuke.jsx
-    │       ├── Statistika.jsx
-    │       ├── Zanimljivosti.jsx
-    │       ├── ZanimljivostiPromjena.jsx
-    │       └── statistika.css
-    ├── schemas
-    │   ├── ShemaOperater.js
-    │   ├── ShemaSir.js
-    │   ├── ShemaVino.js
-    │   └── ShemaZanimljivost.js
-    └── services
-        ├── operateri
-        │   ├── OperaterPodaci.js
-        │   ├── OperaterService.js
-        │   ├── OperaterServiceLocalStorage.js
-        │   └── OperaterServiceMemorija.js
-        ├── sirevi
-        │   ├── SireviPopis.js
-        │   ├── SireviService.js
-        │   ├── SireviServiceLocalStorage.js
-        │   └── SireviServiceMemorija.js
-        ├── uparivanje
-        │   ├── UparivanjeCustomService.js
-        │   ├── UparivanjeSiraPopis.js
-        │   ├── UparivanjeSiraService.js
-        │   ├── UparivanjeVinaPopis.js
-        │   └── UparivanjeVinaService.js
-        ├── vina
-        │   ├── VinaBoje.js
-        │   ├── VinaPopis.js
-        │   ├── VinaService.js
-        │   ├── VinaServiceLocalStorage.js
-        │   └── VinaServiceMemorija.js
-        └── zanimljivosti
-            ├── ZanimljivostiService.js
-            ├── ZanimljivostiServiceLocalStorage.js
-            └── ZanimljivostiServiceMemorija.js
+|               
++---public
+|   |   bottle.lottie
+|   |   Wine-Olives.png
+|   |   wine_cheese.png
+|   |   
+|   +---fonts
+|   |       Outfit-Black.ttf
+|   |       Outfit-Bold.ttf
+|   |       Outfit-ExtraBold.ttf
+|   |       Outfit-ExtraLight.ttf
+|   |       Outfit-Light.ttf
+|   |       Outfit-Medium.ttf
+|   |       Outfit-Regular.ttf
+|   |       Outfit-SemiBold.ttf
+|   |       Outfit-Thin.ttf
+|   |       Outfit-VariableFont_wght.ttf
+|   |       
+|   +---img
+|   |       cheese-meat.webp
+|   |       cheese-storage.webp
+|   |       drinks.jpg
+|   |       pouring2.jpg
+|   |       vinecellar.webp
+|   |       vineyard1.webp
+|   |       vineyard2.webp
+|   |       wine-day.png
+|   |       wine2.jpg
+|   |       wine3.jpg
+|   |       wines.png
+|   |       
+|   \---statistika
+|           blue.webp
+|           fresh-cheese.jpg
+|           hard-cheese.jpg
+|           port-blog.jpg
+|           red-wine-types.jpg
+|           semi-hard-cheese.jpg
+|           Spark-wine.jpg
+|           white-wine.webp
+|           
+\---src
+    |   App.css
+    |   App.jsx
+    |   constants.js
+    |   index.css
+    |   main.jsx
+    |   
+    +---accessibility
+    |       accessibility.css
+    |       AccessibilityContext.jsx
+    |       AccessibilityMenu.jsx
+    |       
+    +---components
+    |       AuthContext.jsx
+    |       ExcelGenerator.jsx
+    |       Izbornik.jsx
+    |       Kartice.jsx
+    |       LoadingContext.jsx
+    |       LoadingSpinner.jsx
+    |       SireviPDFGenerator.jsx
+    |       UparivanjePDFGenerator.jsx
+    |       VinaPDFGenerator.jsx
+    |       
+    +---hooks
+    |       useAuth.js
+    |       useBreakpoint.js
+    |       useLoading.js
+    |       
+    +---pages
+    |   |   GeneriranjePodataka.jsx
+    |   |   Home.jsx
+    |   |   NadzornaPloca.jsx
+    |   |   
+    |   +---login
+    |   |       Login.jsx
+    |   |       
+    |   +---operateri
+    |   |       OperaterNovi.jsx
+    |   |       OperaterPregled.jsx
+    |   |       OperaterPromjena.jsx
+    |   |       OperaterPromjenaLozinke.jsx
+    |   |       
+    |   +---registracija
+    |   |       Registracija.jsx
+    |   |       
+    |   +---sirevi
+    |   |       SireviNovi.jsx
+    |   |       SireviPregled.jsx
+    |   |       SireviPregledGrid.jsx
+    |   |       SireviPregledTablica.jsx
+    |   |       SireviPromjena.jsx
+    |   |       
+    |   +---uparivanje
+    |   |       UparivanjeSirPregled.jsx
+    |   |       UparivanjeSirPregledGrid.jsx
+    |   |       UparivanjeSirPregledTablica.jsx
+    |   |       UparivanjeSirPromjena.jsx
+    |   |       UparivanjeVinoPregled.jsx
+    |   |       UparivanjeVinoPregledGrid.jsx
+    |   |       UparivanjeVinoPregledTablica.jsx
+    |   |       UparivanjeVinoPromjena.jsx
+    |   |       
+    |   +---vina
+    |   |       VinaNovi.jsx
+    |   |       VinaPregled.jsx
+    |   |       VinaPregledGrid.jsx
+    |   |       VinaPregledTablica.jsx
+    |   |       VinaPromjena.jsx
+    |   |       
+    |   \---zanimljivosti
+    |           DodajZanimljivost.jsx
+    |           Preporuke.jsx
+    |           statistika.css
+    |           Statistika.jsx
+    |           Zanimljivosti.jsx
+    |           ZanimljivostiPromjena.jsx
+    |           
+    +---schemas
+    |       ShemaOperater.js
+    |       ShemaSir.js
+    |       ShemaVino.js
+    |       ShemaZanimljivost.js
+    |       
+    \---services
+        +---operateri
+        |       OperaterPodaci.js
+        |       OperaterService.js
+        |       OperaterServiceLocalStorage.js
+        |       OperaterServiceMemorija.js
+        |       
+        +---sirevi
+        |       SireviPopis.js
+        |       SireviService.js
+        |       SireviServiceLocalStorage.js
+        |       SireviServiceMemorija.js
+        |       
+        +---uparivanje
+        |       UparivanjeCustomService.js
+        |       UparivanjeSiraPopis.js
+        |       UparivanjeSiraService.js
+        |       UparivanjeVinaPopis.js
+        |       UparivanjeVinaService.js
+        |       
+        +---vina
+        |       VinaBoje.js
+        |       VinaPopis.js
+        |       VinaService.js
+        |       VinaServiceLocalStorage.js
+        |       VinaServiceMemorija.js
+        |       
+        \---zanimljivosti
+                ZanimljivostiService.js
+                ZanimljivostiServiceLocalStorage.js
+                ZanimljivostiServiceMemorija.js
+
