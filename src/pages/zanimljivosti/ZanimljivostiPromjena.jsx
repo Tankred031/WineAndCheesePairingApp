@@ -19,6 +19,7 @@ export default function ZanimljivostPromjena() {
 
     const [errors, setErrors] = useState({});
 
+
     useEffect(() => {
         ucitaj();
     }, []);
@@ -26,6 +27,13 @@ export default function ZanimljivostPromjena() {
     async function ucitaj() {
         try {
             const res = await ZanimljivostiService.getById(params.id);
+
+            if (!res.success) {
+                alert(res.message);
+                navigate(RouteNames.ZANIMLJIVOSTI);
+                return;
+            }
+
             setForm(res.data);
         } catch (e) {
             alert("Greška kod učitavanja");
@@ -73,6 +81,8 @@ export default function ZanimljivostPromjena() {
             alert("Greška kod spremanja");
         }
     }
+
+
 
     return (
         <div className="zanimljivosti-form-wrapper">

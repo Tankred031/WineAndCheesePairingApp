@@ -20,6 +20,26 @@ async function get() {
     return { success: true, data: cards };
 }
 
+async function getById(id) {
+    const cards =
+        dohvatiSveIzStorage();
+    const card =
+        cards.find(
+            c => c.id === parseInt(id, 10)
+        );
+    if (!card) {
+        return {
+            success: false,
+            message: "Članak nije pronađen"
+        };
+    }
+    return {
+        success: true,
+        data: card
+    };
+}
+
+
 // ADD
 async function dodaj(card) {
     if (!card.title || !card.text) {
@@ -40,7 +60,39 @@ async function dodaj(card) {
     return { success: true, data: novi };
 }
 
-// DELETE (bonus — dobro imati)
+// UPDATE
+
+async function promjeni(id, noviPodaci) {
+    const existing =
+        dohvatiSveIzStorage();
+
+    const index =
+        existing.findIndex(
+            c => c.id === parseInt(id, 10)
+        );
+
+    if (index === -1) {
+        return {
+            success: false,
+            message:
+                "Članak nije pronađen"
+        };
+    }
+
+    existing[index] = {
+        ...existing[index],
+        ...noviPodaci,
+        id: existing[index].id
+    };
+
+    spremiULocalStorage(existing);
+    return {
+        success: true,
+        data: existing[index]
+    };
+}
+
+// DELETE 
 async function obrisi(id) {
     const existing = dohvatiSveIzStorage();
     const nova = existing.filter(c => c.id !== parseInt(id, 10));
@@ -52,6 +104,8 @@ async function obrisi(id) {
 
 export default {
     get,
+    getById,
     dodaj,
-    obrisi
+    obrisi,
+    promjeni
 };
