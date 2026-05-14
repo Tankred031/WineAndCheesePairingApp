@@ -1,3 +1,20 @@
+/* =========================================================
+   GLOBAL / BODY
+========================================================= */
+
+body {
+  background-color: whitesmoke;
+}
+
+.app-container {
+  background-color: salmon;
+}
+
+
+/* =========================================================
+   TYPOGRAPHY / HEADINGS
+========================================================= */
+
 .bg-wines {
   background-color: #990012;
   color: whitesmoke;
@@ -10,32 +27,40 @@
   margin-top: 10px;
 }
 
+.section-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.naslov-statistika {
+  font-weight: 700;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: #1f2d2d;
+}
+
+h2.section-title.preporuke {
+  color: #7b0323;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
 .footer {
   text-align: center;
   padding: 10px 0;
 }
 
 
-body {  
-  background-color: rgb(222, 247, 202);
-}
+/* =========================================================
+   NAVBAR
+========================================================= */
 
 .silver-navbar {
-  background-color: #b7ffb7;  
-}
-
-.app-container {
-    background-color: salmon;
-}
-.home-logo {
-  height: 140px;
-  padding: 15px;
-  margin: 25px 0;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  transform: scale(1.2);
-  overflow: hidden;
+  background-color: #b7ffb7;
 }
 
 .navbar {
@@ -64,6 +89,11 @@ body {
   color: black;
 }
 
+
+/* =========================================================
+   DROPDOWN
+========================================================= */
+
 .dropdown-menu {
   background-color: white;
   border-radius: 10px;
@@ -79,9 +109,60 @@ body {
   color: black;
 }
 
+
+/* =========================================================
+   HOME / HERO / LOGO
+========================================================= */
+
+.home-logo {
+  height: 140px;
+  padding: 15px;
+  margin: 25px 0;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transform: scale(1.2);
+  overflow: hidden;
+}
+
+.mobile-hero {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.mobile-hero img {
+  width: 80%;
+  max-width: 280px;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* =========================================================
+   TABLES
+========================================================= */
+
 .table td {
   font-style: italic;
 }
+
+.sortable-header {
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.sort-icon {
+  display: inline-block;
+  width: 14px;
+  text-align: center;
+  margin-left: 4px;
+}
+
+
+/* =========================================================
+   FORMS
+========================================================= */
 
 .form-group-custom {
   margin-bottom: 10px;
@@ -91,8 +172,24 @@ body {
   height: 10px;
 }
 
+.invalid-feedback {
+  color: #7B1E3A !important;
+  font-weight: bold !important;
+}
+
+
+/* =========================================================
+   STATISTIKA PANELI
+========================================================= */
+
 .statistikaPanel {
-  background: linear-gradient(135deg, #7B0323 0%, #b11226 50%, #3a0d0d 100%);
+  background: linear-gradient(
+    135deg,
+    #7B0323 0%,
+    #b11226 50%,
+    #3a0d0d 100%
+  );
+
   border-radius: 16px;
   transform: translateY(0);
   transition: all 0.3s ease;
@@ -100,6 +197,7 @@ body {
 
 .statistikaPanel:hover {
   transform: translateY(-5px) scale(1.02);
+
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
@@ -109,6 +207,11 @@ body {
   color: #fff;
   letter-spacing: 1px;
 }
+
+
+/* =========================================================
+   SIREVI GRID
+========================================================= */
 
 .sirevi-grid {
   display: grid;
@@ -121,8 +224,10 @@ body {
   border-radius: 10px;
   text-align: center;
   cursor: pointer;
+
   background-color: #fff;
   border: 2px solid transparent;
+
   transition: all 0.2s ease;
   font-weight: 500;
 
@@ -142,29 +247,28 @@ body {
   transform: scale(1.05);
 }
 
+
+/* =========================================================
+   TOOLTIP
+========================================================= */
+
 .tooltip-inner {
   background-color: #1e1e1e !important;
   color: #f8f9fa;
+
   font-size: 12px;
+  font-weight: 500;
+
   padding: 6px 10px;
   border-radius: 8px;
-  font-weight: 500;
+
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
-.sortable-header {
-  cursor: pointer;
-  text-align: center;
-  white-space: nowrap;
-}
 
-.sort-icon {
-  display: inline-block;
-  width: 14px;
-  /* fiksna širina = nema skakanja */
-  text-align: center;
-  margin-left: 4px;
-}
+/* =========================================================
+   COLOR DOTS
+========================================================= */
 
 .color-cell {
   text-align: center;
@@ -178,10 +282,10 @@ body {
   display: inline-block;
 }
 
-.section-title {
-  font-weight: 700;
-  font-size: 1.6rem;
-}
+
+/* =========================================================
+   ZANIMLJIVOSTI FORMA
+========================================================= */
 
 .zanimljivosti-form-wrapper {
   max-width: 750px;
@@ -197,8 +301,10 @@ body {
 
 .zanimljivosti-form-card {
   background: #9CAF88;
+
   padding: 25px;
   border-radius: 14px;
+
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
   transition: 0.2s ease;
 }
@@ -218,55 +324,22 @@ body {
 
 .zanimljivosti-form-card .form-control:focus {
   border-color: #990012;
-  box-shadow: 0 0 0 0.15rem rgba(153, 0, 18, 0.25);
-}
 
-h2.section-title.preporuke {
-  color: #7b0323;
-  font-weight: bold;
+  box-shadow: 0 0 0 0.15rem rgba(153, 0, 18, 0.25);
 }
 
 .zanimljivosti-nove {
   margin-top: 60px;
   padding-top: 30px;
-  border-top: 1px solid #ddd;
   padding-bottom: 30px;
+
+  border-top: 1px solid #ddd;
 }
 
-.loading-spinner-overlay {
-  position: fixed;
-  /* uvijek fullscreen */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  /* zatamni pozadinu */
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-  padding: 2rem;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
 
-.loading-content {
-  background: pink;
-  padding: 30px 40px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.2s ease-in-out;
-}
-
-.loading-text {
-  margin-top: 15px;
-  font-weight: 500;
-  color: #333;
-}
+/* =========================================================
+   ICON BUTTONS
+========================================================= */
 
 .icon-btn {
   cursor: pointer;
@@ -282,78 +355,130 @@ h2.section-title.preporuke {
   opacity: 0.6;
 }
 
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
 .pagination .page-item.active .page-link {
   background-color: #198754;
-  /* Bootstrap success */
   border-color: #198754;
   color: white;
 }
 
-.invalid-feedback {
-  color: #7B1E3A !important;
-  font-weight: bold !important;
+
+/* =========================================================
+   LOADING SPINNER
+========================================================= */
+
+.loading-spinner-overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 1rem;
+  padding: 2rem;
+
+  z-index: 9999;
 }
+
+.loading-content {
+  background: pink;
+
+  padding: 30px 40px;
+  border-radius: 12px;
+
+  text-align: center;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.loading-text {
+  margin-top: 15px;
+  font-weight: 500;
+  color: #333;
+}
+
+
+/* =========================================================
+   CAROUSEL
+========================================================= */
 
 .carousel-bg {
   height: 500px;
   width: 100%;
+
   background-size: cover;
   background-position: center;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   position: relative;
 }
 
 .carousel-img {
   position: relative;
   z-index: 1;
+
   max-height: 90%;
   max-width: 90%;
+
   object-fit: contain;
+
   border-radius: 12px;
+
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
   transition: transform 0.5s ease;
 }
 
 
-.mobile-hero {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.mobile-hero img {
-  width: 80%;
-  max-width: 280px;
-  height: auto;
-  object-fit: contain;
-}
-
-.naslov-statistika {
-  font-weight: 700;
-  font-size: 2.2rem;
-  margin-bottom: 20px;
-  color: #1f2d2d;
-}
+/* =========================================================
+   MOBILE - SCROLL TO TOP BUTTON
+========================================================= */
 
 .scroll-top-btn {
   position: fixed;
+
   bottom: 20px;
   right: 20px;
+
   width: 50px;
   height: 50px;
 
   border: none;
   border-radius: 50%;
+
   background: #ff6b57;
   color: white;
 
   font-size: 22px;
   font-weight: bold;
+
   cursor: pointer;
 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
   z-index: 999;
+
   transition: all 0.2s ease;
 }
 
@@ -361,6 +486,11 @@ h2.section-title.preporuke {
   transform: scale(1.08);
   background: #8dfa7f;
 }
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media (min-width: 768px) {
   .scroll-top-btn {
