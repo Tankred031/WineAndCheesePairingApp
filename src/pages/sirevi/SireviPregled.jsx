@@ -58,6 +58,7 @@ export default function SireviPregled() {
         { id: '2', naziv: 'srednji' },
         { id: '3', naziv: 'jaki' }
     ];
+    
     // --- Helper funkcije ---
     function getVrstaNaziv(id) { return VRSTE.find(v => v.id === id)?.naziv || '' }
     function getMasnocaNaziv(id) { return MASNOCE.find(m => m.id === id)?.naziv || '' }
@@ -113,6 +114,7 @@ export default function SireviPregled() {
     }
 
     // --- 3. FILTRIRANJE (SVI PODACI) ---
+    
     const filtriraniSirevi = sirevi.filter(s => {
         const p = pojam.toLowerCase()
 
@@ -140,6 +142,7 @@ export default function SireviPregled() {
     }
 
     // --- 4. PAGINACIJA ---
+
     const totalPages = Math.ceil(filtriraniSirevi.length / pageSize)
 
     const startIndex = (currentPage - 1) * pageSize
@@ -148,6 +151,7 @@ export default function SireviPregled() {
     const paginatedSirevi = filtriraniSirevi.slice(startIndex, endIndex)
 
     // --- RENDER ---
+
     return (
         <>
             <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
@@ -156,43 +160,53 @@ export default function SireviPregled() {
 
                 <div className="d-flex gap-2 w-50 justify-content-end">
 
-                    <Button
-                        variant="light"
-                        style={{ color: 'darkgreen', fontWeight: 'bold', border: '1px solid lightgrey' }}
-                        onClick={() =>
-                            generirajExcel(
-                                filtriraniSirevi.map(s => ({
-                                    Naziv: s.naziv,
-                                    Vrsta: getVrstaNaziv(s.vrsta_id),
-                                    Tip: getTipNaziv(s.tip_id),
-                                    Regija: s.regija,
-                                    Okus: s.okus
-                                })),
-                                "sirevi",
-                                "Sirevi"
-                            )
-                        }
-                    >
-                        Excel export
-                    </Button>
+                    {!['xs', 'sm', 'md'].includes(sirina) && (
+                        <>
 
-                    <Button
-                        variant="light"
-                        style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey' }}
-                        onClick={() => generirajSireviPDF(filtriraniSirevi, {
-                            getVrstaNaziv,
-                            getTipNaziv,
-                            getZrenjeNaziv,
-                            getIntenzitetNaziv,
-                            getMasnocaNaziv
-                        })}
-                    >
-                        Generiraj PDF
-                    </Button>
+                            <Button
+                                variant="light"
+                                style={{ color: 'darkgreen', fontWeight: 'bold', border: '1px solid lightgrey' }}
+                                onClick={() =>
+                                    generirajExcel(
+                                        filtriraniSirevi.map(s => ({
+                                            Naziv: s.naziv,
+                                            Vrsta: getVrstaNaziv(s.vrsta_id),
+                                            Tip: getTipNaziv(s.tip_id),
+                                            Regija: s.regija,
+                                            Okus: s.okus
+                                        })),
+                                        "sirevi",
+                                        "Sirevi"
+                                    )
+                                }
+                            >
+                                Excel export
+                            </Button>
+
+                            <Button
+                                variant="light"
+                                style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey' }}
+                                onClick={() => generirajSireviPDF(filtriraniSirevi, {
+                                    getVrstaNaziv,
+                                    getTipNaziv,
+                                    getZrenjeNaziv,
+                                    getIntenzitetNaziv,
+                                    getMasnocaNaziv
+                                })}
+                            >
+                                Generiraj PDF
+                            </Button>
+
+                        </>
+                    )}
 
                     <input
                         type="text"
-                        placeholder="Traži sir..."
+                        placeholder={
+                            ['xs', 'sm', 'md'].includes(sirina)
+                                ? "Traži..."
+                                : "Traži sir..."
+                        }
                         className="form-control w-25"
                         style={{
                             backgroundColor: "lightgrey",
@@ -209,7 +223,7 @@ export default function SireviPregled() {
             {
                 ['xs', 'sm', 'md'].includes(sirina) ? (
                     <SireviPregledGrid
-                        sirevi={paginatedSirevi}
+                        sirevi={filtriraniSirevi}
                         navigate={navigate}
                         obrisi={obrisi}
                     />
@@ -229,8 +243,8 @@ export default function SireviPregled() {
             </p>
 
             {/* PAGINATION */}
-            {
-                totalPages > 1 && (
+            
+            {totalPages > 1 && !['xs', 'sm', 'md'].includes(sirina) && (
                     <div className="d-flex justify-content-center mt-3">
 
                         <Pagination>
@@ -287,6 +301,7 @@ export default function SireviPregled() {
                         </Pagination>
 
                     </div>
+            
                 )
             }
 

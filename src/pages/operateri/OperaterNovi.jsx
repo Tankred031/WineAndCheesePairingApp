@@ -60,7 +60,7 @@ export default function OperaterNovi() {
 
     return (
         <>
-            <h3>Unos novog operatera</h3>
+            <h3 className="naslov">Unos novog operatera</h3>
             <Form onSubmit={odradiSubmit}>
                 <Container className="mt-4">
                     <Card className="shadow-sm">

@@ -4,6 +4,7 @@ import { Table, Button, Modal } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { IME_APLIKACIJE, RouteNames } from "../../constants"
 import { FaEdit, FaTrash, FaKey } from "react-icons/fa"
+import useBreakpoint from "../../hooks/useBreakpoint"
 
 export default function OperaterPregled() {
 
@@ -12,6 +13,8 @@ export default function OperaterPregled() {
 
     const [showDelete, setShowDelete] = useState(false)
     const [deleteId, setDeleteId] = useState(null)
+
+    const sirina = useBreakpoint()
 
     useEffect(() => { document.title = 'Operateri, ' + IME_APLIKACIJE })
 
@@ -74,30 +77,64 @@ export default function OperaterPregled() {
                             </td>
                             <td className="text-center">
                                 <div className="d-flex gap-2 justify-content-center">
-                                    <Button
-                                        variant="outline-primary"
-                                        size="sm"
-                                        onClick={() => navigate(`/operateri/${operater.sifra}`)}
-                                        title="Promjeni email"
-                                    >
-                                        <FaEdit />
-                                    </Button>
-                                    <Button
-                                        variant="outline-warning"
-                                        size="sm"
-                                        onClick={() => navigate(`/operateri/${operater.sifra}/lozinka`)}
-                                        title="Promjeni lozinku"
-                                    >
-                                        <FaKey />
-                                    </Button>
-                                    <Button
-                                        variant="outline-danger"
-                                        size="sm"
-                                        onClick={() => brisanje(operater.sifra)}
-                                        title="Obriši"
-                                    >
-                                        <FaTrash />
-                                    </Button>
+
+                                    {['xs', 'sm', 'md'].includes(sirina) ? (
+                                        <>
+                                            <Button
+                                                variant="outline-primary"
+                                                size="sm"
+                                                onClick={() => navigate(`/operateri/${operater.sifra}`)}
+                                                title="Promjeni email"
+                                            >
+                                                <FaEdit />
+                                            </Button>
+
+                                            <Button
+                                                variant="outline-warning"
+                                                size="sm"
+                                                onClick={() => navigate(`/operateri/${operater.sifra}/lozinka`)}
+                                                title="Promjeni lozinku"
+                                            >
+                                                <FaKey />
+                                            </Button>
+
+                                            <Button
+                                                variant="outline-danger"
+                                                size="sm"
+                                                onClick={() => brisanje(operater.sifra)}
+                                                title="Obriši"
+                                            >
+                                                <FaTrash />
+                                            </Button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Button
+                                                variant="warning"
+                                                size="sm"
+                                                onClick={() => navigate(`/operateri/${operater.sifra}`)}
+                                            >
+                                                Promjena
+                                            </Button>
+
+                                            <Button
+                                                variant="primary"
+                                                size="sm"
+                                                onClick={() => navigate(`/operateri/${operater.sifra}/lozinka`)}
+                                            >
+                                                Lozinka
+                                            </Button>
+
+                                            <Button
+                                                variant="danger"
+                                                size="sm"
+                                                onClick={() => brisanje(operater.sifra)}
+                                            >
+                                                Obriši
+                                            </Button>
+                                        </>
+                                    )}
+
                                 </div>
                             </td>
                         </tr>

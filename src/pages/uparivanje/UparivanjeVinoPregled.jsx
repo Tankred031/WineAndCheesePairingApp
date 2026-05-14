@@ -268,7 +268,11 @@ export default function UparivanjeVinoPregled() {
 
                 <input
                     type="text"
-                    placeholder="Traži vino ili sir..."
+                    placeholder={
+                        ['xs', 'sm', 'md'].includes(sirina)
+                            ? "Traži..."
+                            : "Traži vino ili sir..."
+                    }
                     className="form-control w-25"
                     style={{
                         backgroundColor: "lightgrey",
@@ -284,7 +288,7 @@ export default function UparivanjeVinoPregled() {
 
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <UparivanjeVinoPregledGrid
-                    vina={paginatedVina}
+                    vina={filtriranaVina}
                     getBojaVina={getBojaVina}
                     getSirevi={getSirevi}
                     getOcjena={getOcjena}
@@ -308,7 +312,7 @@ export default function UparivanjeVinoPregled() {
 
             <p className="text-muted">{poruka}</p>
 
-            {totalPages > 1 && (
+            {totalPages > 1 && !['xs', 'sm', 'md'].includes(sirina) && (
                 <div className="d-flex justify-content-center mt-3">
                     <Pagination>
 

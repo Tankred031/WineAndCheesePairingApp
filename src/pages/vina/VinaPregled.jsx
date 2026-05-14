@@ -148,40 +148,50 @@ export default function VinaPregled() {
 
                 <div className="d-flex gap-2 w-50 justify-content-end">
 
-                    <Button
-                        variant="light"
-                        style={{ color: 'darkgreen', fontWeight: 'bold', border: '1px solid lightgrey' }}
-                        onClick={() =>
-                            generirajExcel(
-                                filtriranaVina.map(v => ({
-                                    Naziv: v.naziv,
-                                    Regija: v.regija,
-                                    Arome: v.arome,
-                                    Tijelo: v.tijelo
-                                })),
-                                "vina",
-                                "Vina"
-                            )
-                        }
-                    >
-                        Excel export
-                    </Button>
+                    {!['xs', 'sm', 'md'].includes(sirina) && (
+                        <>
 
-                    <Button
-                        variant="light"
-                        style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey' }}
-                        onClick={() => generirajVinaPDF(filtriranaVina, {
-                            getTipNaziv,
-                            getSlatkocaNaziv,
-                            format1dec
-                        })}
-                    >
-                        Generiraj PDF
-                    </Button>
+                            <Button
+                                variant="light"
+                                style={{ color: 'darkgreen', fontWeight: 'bold', border: '1px solid lightgrey' }}
+                                onClick={() =>
+                                    generirajExcel(
+                                        filtriranaVina.map(v => ({
+                                            Naziv: v.naziv,
+                                            Regija: v.regija,
+                                            Arome: v.arome,
+                                            Tijelo: v.tijelo
+                                        })),
+                                        "vina",
+                                        "Vina"
+                                    )
+                                }
+                            >
+                                Excel export
+                            </Button>
+
+                            <Button
+                                variant="light"
+                                style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey' }}
+                                onClick={() => generirajVinaPDF(filtriranaVina, {
+                                    getTipNaziv,
+                                    getSlatkocaNaziv,
+                                    format1dec
+                                })}
+                            >
+                                Generiraj PDF
+                            </Button>
+
+                        </>
+                    )}
 
                     <input
                         type="text"
-                        placeholder="Traži vino..."
+                        placeholder={
+                            ['xs', 'sm', 'md'].includes(sirina)
+                                ? "Traži..."
+                                : "Traži vino..."
+                        }
                         className="form-control w-25"
                         style={{
                             backgroundColor: "lightgrey",
@@ -200,7 +210,7 @@ export default function VinaPregled() {
             {/* GRID / TABLICA */}
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <VinaPregledGrid
-                    vina={paginatedVina}
+                    vina={filtriranaVina}
                     navigate={navigate}
                     obrisi={obrisi}
                 />
@@ -219,7 +229,9 @@ export default function VinaPregled() {
             </p>
 
             {/* PAGINATION */}
-            {totalPages > 1 && (
+
+            {totalPages > 1 && !['xs', 'sm', 'md'].includes(sirina) && (
+
                 <div className="d-flex justify-content-center">
                     <Pagination>
 

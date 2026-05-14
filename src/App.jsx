@@ -35,6 +35,7 @@ import "./accessibility/accessibility.css";
 import { useState } from 'react'
 import AccessibilityMenu from './accessibility/AccessibilityMenu'
 import { useAccessibility } from './accessibility/AccessibilityContext'
+import ScrollToTopButton from './components/ScrollToTopButton'
 
 
 function App() {
@@ -128,7 +129,8 @@ function App() {
 
 
       <Button
-        className={`accessibility-button ${showAccessibility ? "accessibility-button-open" : ""
+        className={`accessibility-button ${
+          showAccessibility ? "accessibility-button-open" : ""
           }`}
         variant="dark"
         onClick={() => setShowAccessibility(prev => !prev)}
@@ -151,8 +153,10 @@ function App() {
         resetAccessibility={resetAccessibility}
       />
 
+      <ScrollToTopButton />
     </>
   )
 }
+
 
 export default App
