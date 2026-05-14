@@ -15,53 +15,17 @@
   padding: 10px 0;
 }
 
+
 body {  
-  background: -moz-linear-gradient(
-    45deg,
-    salmon 0%,
-    #FFFFFF 53%,
-    #efbf04 100%
-  );
-  
-  background: -webkit-linear-gradient(
-    45deg,
-    salmon 0%,
-    #FFFFFF 53%,
-    #efbf04 100%
-  );
-
-  background: linear-gradient(
-    45deg,
-    salmon 0%,
-    #FFFFFF 53%,
-    #efbf04 100%
-  );
-
-  min-height: 100vh;
-  background-attachment: fixed;
+  background-color: rgb(224, 222, 222);
 }
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(
-    circle at top,
-    rgba(106, 13, 173, 0.18),
-    rgba(255, 255, 255, 0.10),
-    rgba(239, 191, 4, 0.12),
-    transparent 75%
-  );
-  pointer-events: none;
-}
-
 
 .silver-navbar {
-  background-color: #f7e7a9;  
+  background-color: #f5dece;  
 }
 
 .app-container {
-    background-color: navajowhite;
+    background-color: salmon;
 }
 .home-logo {
   height: 140px;
@@ -370,4 +334,36 @@ h2.section-title.preporuke {
   font-size: 2.2rem;
   margin-bottom: 20px;
   color: #1f2d2d;
+}
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+
+  border: none;
+  border-radius: 50%;
+  background: #ff6b57;
+  color: white;
+
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 999;
+  transition: all 0.2s ease;
+}
+
+.scroll-top-btn:hover {
+  transform: scale(1.08);
+  background: #8dfa7f;
+}
+
+@media (min-width: 768px) {
+  .scroll-top-btn {
+    display: none;
+  }
 }

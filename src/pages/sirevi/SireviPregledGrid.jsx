@@ -192,6 +192,20 @@ export default function SireviPregledGrid({ sirevi, navigate, obrisi }) {
                     </Col>
                 ))}
             </Row>
+            
+            {/* SCROLL TO TOP BUTTON */}
+            <button
+                className="scroll-top-btn"
+                onClick={() =>
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    })
+                }
+            >
+                ⬆
+            </button>
+
         </Container>
     );
 }

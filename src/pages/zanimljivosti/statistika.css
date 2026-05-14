@@ -75,7 +75,7 @@
 
 .scroll-top-btn:hover {
   transform: scale(1.08);
-  background: #fa907f;
+  background: #89fa7f;
 }
 
 @media (min-width: 768px) {
