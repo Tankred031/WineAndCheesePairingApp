@@ -160,7 +160,7 @@ export default function Statistika() {
 
         colors: [
             "#fffdf5", // gotovo bijela
-            "#0b0b0a", // svijetlo žuta
+            "#ebeb9a", // svijetlo žuta
             "#e8c65d", // zlatna
             "#9ecbff"  // svijetlo plava
         ],
