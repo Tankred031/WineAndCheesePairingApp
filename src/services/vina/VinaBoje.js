@@ -69,5 +69,8 @@ export const VinaBoje = {
     '67': { naziv: 'Deep Ruby', hex: '#6E0F1A' },
     '68': { naziv: 'Pale Straw', hex: '#F5E6A1' },
     '69': { naziv: 'Deep Brown', hex: '#3B1F0B' },
-    '70': { naziv: 'Pale Yellow', hex: '#F7F3B1' }
+    '70': { naziv: 'Pale Yellow', hex: '#F7F3B1' },
+    '71': { naziv: 'Pale Salmon', hex: '#F4A6A6' },
+    '72': { naziv: 'Rose Pink', hex: '#E78CA8' },
+    '73': { naziv: 'Light Pink', hex: '#F7B7C3' }
 }
