@@ -199,7 +199,11 @@ export default function Izbornik() {
 
               <div className="btn-group me-2">
                 <Button
-                  variant="info"
+                  variant={
+                    DATA_SOURCE === 'memorija'
+                      ? 'info'
+                      : 'primary'
+                  }
                   size="sm"
                 >
                   {DATA_SOURCE}

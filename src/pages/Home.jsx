@@ -296,34 +296,27 @@ export default function Home() {
 
                                 <button
                                     onClick={() =>
-                                        promijeniIzvor('memorija')
-                                    }
-                                    className={`btn ${DATA_SOURCE === 'memorija'
-                                        ? 'btn-info'
-                                        : 'btn-primary'
-                                        }`}
+                                        promijeniIzvor('memorija')}
+                                    className='btn btn-info'
+
                                 >
                                     Memorija
                                 </button>
 
                                 <button
                                     onClick={() =>
-                                        promijeniIzvor('localStorage')
-                                    }
-                                    className={`btn ${DATA_SOURCE === 'localStorage'
-                                        ? 'btn-info'
-                                        : 'btn-primary'
-                                        }`}
+                                        promijeniIzvor('localStorage')}
+                                    className='btn btn-primary'        
                                 >
                                     LocalStorage
-                                </button>
+                            </button>
 
-                            </div>
-
-                        </Col>
-                    </Row>
-                </>
-            )}
+                        </div>
+                    </Col>
+                </Row>
+        </>
+    )
+}
 
         </>
     );
