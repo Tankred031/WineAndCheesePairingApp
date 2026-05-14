@@ -11,6 +11,9 @@ export default function Zanimljivosti() {
     const [reload, setReload] = useState(false)
     const navigate = useNavigate()
 
+    const [editStatic, setEditStatic] = useState(false)
+    const [showEdit, setShowEdit] = useState(false)
+
     const [showDelete, setShowDelete] = useState(false)
     const [deleteId, setDeleteId] = useState(null)
     const [deleteStatic, setDeleteStatic] = useState(false)
@@ -23,6 +26,17 @@ export default function Zanimljivosti() {
 
         load()
     }, [reload]);
+
+    function uredi(id, isStatic = false) {
+
+        if (isStatic) {
+            setEditStatic(true)
+            setShowEdit(true)
+            return
+        }
+
+        navigate(`/zanimljivosti/${id}`)
+    }
 
     function obrisi(id, isStatic = false) {
         setDeleteId(id)
@@ -72,7 +86,7 @@ export default function Zanimljivosti() {
                                             <FaEdit
                                                 className="icon-btn text-warning"
                                                 size={20}
-                                                onClick={() => alert("Ovaj članak se ne može uređivati")}
+                                                onClick={() => uredi("static-1", true)}
                                             />
                                         </span>
                                     </OverlayTrigger>
@@ -111,7 +125,7 @@ export default function Zanimljivosti() {
                                             <FaEdit
                                                 className="icon-btn text-warning"
                                                 size={20}
-                                                onClick={() => alert("Ovaj članak se ne može uređivati")}
+                                                onClick={() => uredi("static-2", true)}
                                             />
                                         </span>
                                     </OverlayTrigger>
@@ -150,7 +164,7 @@ export default function Zanimljivosti() {
                                             <FaEdit
                                                 className="icon-btn text-warning"
                                                 size={20}
-                                                onClick={() => alert("Ovaj članak se ne može uređivati")}
+                                                onClick={() => uredi("static-3", true)}
                                             />
                                         </span>
                                     </OverlayTrigger>
@@ -191,7 +205,7 @@ export default function Zanimljivosti() {
                                                         <FaEdit
                                                             className="icon-btn text-warning"
                                                             size={20}
-                                                            onClick={() => navigate(`/zanimljivosti/${card.id}`)}
+                                                            onClick={() => uredi(card.id)}
                                                         />
                                                     </span>
                                                 </OverlayTrigger>
@@ -218,6 +232,36 @@ export default function Zanimljivosti() {
                     )}
                 </div>
             </div>
+            <Modal
+                show={showEdit}
+                onHide={() => setShowEdit(false)}
+                centered
+            >
+
+                <Modal.Header closeButton>
+
+                    <Modal.Title>
+                        Uređivanje nije moguće
+                    </Modal.Title>
+
+                </Modal.Header>
+
+                <Modal.Body>
+                    Ovaj članak je statički i ne može se uređivati.
+                </Modal.Body>
+
+                <Modal.Footer>
+
+                    <Button
+                        variant="secondary"
+                        onClick={() => setShowEdit(false)}
+                    >
+                        U redu
+                    </Button>
+
+                </Modal.Footer>
+
+            </Modal>
 
             <Modal
                 show={showDelete}
