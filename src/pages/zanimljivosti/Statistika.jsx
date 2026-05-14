@@ -303,17 +303,7 @@ export default function Statistika() {
                 options={cheeseOptions}
             />
 
-            <button
-                className="scroll-top-btn"
-                onClick={() =>
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    })
-                }
-            >
-                ⬆
-            </button>
+            
         </div>
     )
 }

@@ -329,7 +329,7 @@ export default function GeneriranjePodataka() {
                 // ČISTI I PREDVIDLJIVI EMAILOVI
                 email: `korisnik${i + 1}@test.hr`,
                 lozinka: "Edunova123!",
-                uloga: "oper"
+                uloga: "operater"
             });
         }
     };
