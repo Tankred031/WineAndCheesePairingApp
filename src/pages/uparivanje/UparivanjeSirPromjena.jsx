@@ -63,33 +63,33 @@ export default function UparivanjeSirPromjena() {
     }
 
     async function spremi(e) {
-    e.preventDefault();
+        e.preventDefault();
 
-    const sirId = (params.id);    
+        const sirId = (params.id);
 
-    
-    const svi = (await UparivanjeCustomService.get()).data || [];
-    const ostali = svi.filter(u => u.sirId !== sirId);
 
-    const novi =
-        odabranaVina.length > 0
-            ? odabranaVina.map(vinoId => ({
-                id: `${Date.now()}_${vinoId}`,
-                sirId,
-                vinoId
-            }))
-            : [{
-                id: `${Date.now()}_empty`,
-                sirId,
-                vinoId: null,
-                empty: true
-            }];
+        const svi = (await UparivanjeCustomService.get()).data || [];
+        const ostali = svi.filter(u => u.sirId !== sirId);
 
-    await UparivanjeCustomService.postavi([...ostali, ...novi]);
+        const novi =
+            odabranaVina.length > 0
+                ? odabranaVina.map(vinoId => ({
+                    id: `${Date.now()}_${vinoId}`,
+                    sirId,
+                    vinoId
+                }))
+                : [{
+                    id: `${Date.now()}_empty`,
+                    sirId,
+                    vinoId: null,
+                    empty: true
+                }];
 
-    if (from === "sirevi") navigate(RouteNames.SIREVI_PREGLED);
-    else navigate(RouteNames.UPARIVANJE_SIR_PREGLED);
-}
+        await UparivanjeCustomService.postavi([...ostali, ...novi]);
+
+        if (from === "sirevi") navigate(RouteNames.SIREVI_PREGLED);
+        else navigate(RouteNames.UPARIVANJE_SIR_PREGLED);
+    }
 
     // SCREENSHOT PDF (WYSIWYG)
     async function printScreenPDF() {
@@ -98,13 +98,13 @@ export default function UparivanjeSirPromjena() {
 
         const canvas = await html2canvas(element, {
             scale: 2,
-            useCORS: true
+            useCORS: true,
+            // Traži sve elemente s klasom 'no-screenshot' i preskače ih pri slikanju
+            ignoreElements: (el) => el.classList.contains("no-screenshot")
         });
 
         const imgData = canvas.toDataURL("image/png");
-
         const pdf = new jsPDF("l", "mm", "a4");
-
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
@@ -129,9 +129,10 @@ export default function UparivanjeSirPromjena() {
                         {/* SCREENSHOT PDF */}
                         <Button
                             variant="primary"
+                            className="no-screenshot"
                             style={{
                                 fontWeight: "bold",
-                                border: "1px solid black"                                
+                                border: "1px solid black"
                             }}
                             onClick={printScreenPDF}
                         >
@@ -141,6 +142,7 @@ export default function UparivanjeSirPromjena() {
                         {/* STANDARD PDF */}
                         <Button
                             variant="light"
+                            className="no-screenshot"
                             style={{
                                 color: '#7B0323',
                                 fontWeight: 'bold',
@@ -160,6 +162,7 @@ export default function UparivanjeSirPromjena() {
                         <Form.Control
                             type="text"
                             placeholder="Pretraži vina..."
+                            className="no-screenshot"
                             value={filter}
                             onChange={(e) => setFilter(e.target.value)}
                             style={{

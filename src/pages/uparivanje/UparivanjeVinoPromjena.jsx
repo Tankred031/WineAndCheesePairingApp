@@ -106,7 +106,9 @@ export default function UparivanjeVinoPromjena() {
 
         const canvas = await html2canvas(element, {
             scale: 2,
-            useCORS: true
+            useCORS: true,
+            // Traži sve elemente s klasom 'no-screenshot' i preskače ih pri slikanju
+            ignoreElements: (el) => el.classList.contains("no-screenshot")
         });
 
         const imgData = canvas.toDataURL("image/png");
@@ -136,6 +138,7 @@ export default function UparivanjeVinoPromjena() {
                         {/* SCREENSHOT PDF */}
                         <Button
                             variant="primary"
+                            className="no-screenshot"
                             style={{
                                 fontWeight: "bold",
                                 border: "1px solid black"
@@ -148,6 +151,7 @@ export default function UparivanjeVinoPromjena() {
                         {/* 📄 STANDARD PDF */}
                         <Button
                             variant="light"
+                            className="no-screenshot"
                             style={{
                                 color: "#7B0323",
                                 fontWeight: "bold",
@@ -167,6 +171,7 @@ export default function UparivanjeVinoPromjena() {
                         <Form.Control
                             type="text"
                             placeholder="Pretraži sireve..."
+                            className="no-screenshot"
                             value={filter}
                             onChange={(e) => setFilter(e.target.value)}
                             style={{

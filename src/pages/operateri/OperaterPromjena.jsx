@@ -129,7 +129,7 @@ export default function OperaterPromjena() {
 
     return (
         <>
-            <h3>Promjena operatera</h3>
+            <h3 className="naslov">Promjena operatera</h3>
 
             <Form onSubmit={odradiSubmit}>
 

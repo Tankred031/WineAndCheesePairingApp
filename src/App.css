@@ -498,3 +498,13 @@ h2.section-title.preporuke {
     display: none;
   }
 }
+
+
+/* Skriva gumbe i tražilicu prilikom printanja */
+@media print {  
+  .d-print-none,
+  button, 
+  input[type="text"] {
+    display: none !important;
+  }
+}
