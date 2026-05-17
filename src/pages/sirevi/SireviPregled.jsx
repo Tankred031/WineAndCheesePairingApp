@@ -11,33 +11,52 @@ import useLoading from "../../hooks/useLoading"
 
 export default function SireviPregled() {
 
-    const navigate = useNavigate();
-    const sirina = useBreakpoint();
+    const navigate = useNavigate()
+    const sirina = useBreakpoint()
 
-    const [sirevi, setSirevi] = useState([]);
-    const [pojam, setPojam] = useState('');
+    const [sirevi, setSirevi] = useState([])
+    const [pojam, setPojam] = useState('')
 
-    const [currentPage, setCurrentPage] = useState(1);
+    // =====================================================
+    // SORT
+    // =====================================================
+
+    const [sortKolona, setSortKolona] = useState("naziv")
+    const [sortSmjer, setSortSmjer] = useState("asc")
+
+    // =====================================================
+    // PAGINATION
+    // =====================================================
+
+    const [currentPage, setCurrentPage] = useState(1)
+
     const pageSize = 10
 
-    const { showLoading, hideLoading } = useLoading();
+    const { showLoading, hideLoading } = useLoading()
 
-    const [showDelete, setShowDelete] = useState(false);
-    const [deleteId, setDeleteId] = useState(null);
+    // =====================================================
+    // DELETE MODAL
+    // =====================================================
 
-    // --- Konstante ---
+    const [showDelete, setShowDelete] = useState(false)
+    const [deleteId, setDeleteId] = useState(null)
+
+    // =====================================================
+    // KONSTANTE
+    // =====================================================
+
     const VRSTE = [
         { id: '1', naziv: 'kravlji' },
         { id: '2', naziv: 'ovčji' },
         { id: '3', naziv: 'kozji' },
         { id: '4', naziv: 'miješano' }
-    ];
+    ]
 
     const MASNOCE = [
         { id: '1', naziv: 'niske' },
         { id: '2', naziv: 'srednje' },
         { id: '3', naziv: 'visoke' }
-    ];
+    ]
 
     const TIPOVI = [
         { id: '1', naziv: 'svježi' },
@@ -45,41 +64,57 @@ export default function SireviPregled() {
         { id: '3', naziv: 'tvrdi' },
         { id: '4', naziv: 'plavi' },
         { id: '5', naziv: 'ekstra tvrdi' }
-    ];
+    ]
 
     const ZRENJA = [
         { id: '1', naziv: 'mladi' },
         { id: '2', naziv: 'srednje zreli' },
         { id: '3', naziv: 'dugo zreli' }
-    ];
+    ]
 
     const INTENZITETI = [
         { id: '1', naziv: 'blagi' },
         { id: '2', naziv: 'srednji' },
         { id: '3', naziv: 'jaki' }
-    ];
-    
-    // --- Helper funkcije ---
-    function getVrstaNaziv(id) { return VRSTE.find(v => v.id === id)?.naziv || '' }
-    function getMasnocaNaziv(id) { return MASNOCE.find(m => m.id === id)?.naziv || '' }
-    function getTipNaziv(id) { return TIPOVI.find(t => t.id === id)?.naziv || '' }
-    function getZrenjeNaziv(id) { return ZRENJA.find(z => z.id === id)?.naziv || '' }
-    function getIntenzitetNaziv(id) { return INTENZITETI.find(i => i.id === id)?.naziv || '' }
+    ]
 
+    // =====================================================
+    // HELPERI
+    // =====================================================
 
-    // --- 1. UCITAVANJE ---
+    function getVrstaNaziv(id) {
+        return VRSTE.find(v => v.id === id)?.naziv || ''
+    }
+
+    function getMasnocaNaziv(id) {
+        return MASNOCE.find(m => m.id === id)?.naziv || ''
+    }
+
+    function getTipNaziv(id) {
+        return TIPOVI.find(t => t.id === id)?.naziv || ''
+    }
+
+    function getZrenjeNaziv(id) {
+        return ZRENJA.find(z => z.id === id)?.naziv || ''
+    }
+
+    function getIntenzitetNaziv(id) {
+        return INTENZITETI.find(i => i.id === id)?.naziv || ''
+    }
+
+    // =====================================================
+    // UCITAVANJE
+    // =====================================================
+
     useEffect(() => {
         ucitajSirevi()
     }, [])
 
-    function delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms))
-    }
-
     async function ucitajSirevi() {
-        showLoading("Učitavam podatke...")
-        const odgovor = await SireviService.get()
 
+        showLoading("Učitavam podatke...")
+
+        const odgovor = await SireviService.get()
 
         if (!odgovor.success) {
             alert('Nije implementiran servis')
@@ -87,35 +122,40 @@ export default function SireviPregled() {
         }
 
         setSirevi(odgovor.data)
+
         hideLoading()
     }
 
-
-
-    // --- 2. BRISANJE ---
+    // =====================================================
+    // DELETE
+    // =====================================================
 
     function obrisi(id) {
-        setDeleteId(id);
-        setShowDelete(true);
+
+        setDeleteId(id)
+        setShowDelete(true)
     }
 
     async function potvrdiBrisanje() {
 
-        showLoading("Brišem podatke...");
+        showLoading("Brišem podatke...")
 
-        await SireviService.obrisi(deleteId);
+        await SireviService.obrisi(deleteId)
 
-        setShowDelete(false);
-        setDeleteId(null);
+        setShowDelete(false)
+        setDeleteId(null)
 
-        await ucitajSirevi();
+        await ucitajSirevi()
 
-        hideLoading();
+        hideLoading()
     }
 
-    // --- 3. FILTRIRANJE (SVI PODACI) ---
-    
+    // =====================================================
+    // FILTRIRANJE
+    // =====================================================
+
     const filtriraniSirevi = sirevi.filter(s => {
+
         const p = pojam.toLowerCase()
 
         return (
@@ -130,42 +170,120 @@ export default function SireviPregled() {
         )
     })
 
-    // reset page kad se traži
+    // =====================================================
+    // SORTIRANJE CIJELOG POPISA
+    // =====================================================
+
+    const sortiraniSirevi = [...filtriraniSirevi].sort((a, b) => {
+
+        let vrijednostA
+        let vrijednostB
+
+        switch (sortKolona) {
+
+            case "tip_id":
+                vrijednostA = getTipNaziv(a.tip_id)
+                vrijednostB = getTipNaziv(b.tip_id)
+                break
+
+            case "vrsta_id":
+                vrijednostA = getVrstaNaziv(a.vrsta_id)
+                vrijednostB = getVrstaNaziv(b.vrsta_id)
+                break
+
+            case "zrenje_id":
+                vrijednostA = getZrenjeNaziv(a.zrenje_id)
+                vrijednostB = getZrenjeNaziv(b.zrenje_id)
+                break
+
+            case "masnoca_id":
+                vrijednostA = getMasnocaNaziv(a.masnoca_id)
+                vrijednostB = getMasnocaNaziv(b.masnoca_id)
+                break
+
+            case "intenzitet_id":
+                vrijednostA = getIntenzitetNaziv(a.intenzitet_id)
+                vrijednostB = getIntenzitetNaziv(b.intenzitet_id)
+                break
+
+            default:
+                vrijednostA = a[sortKolona]
+                vrijednostB = b[sortKolona]
+        }
+
+        if (vrijednostA == null) vrijednostA = ''
+        if (vrijednostB == null) vrijednostB = ''
+
+        if (typeof vrijednostA === "string") {
+
+            return sortSmjer === "asc"
+                ? vrijednostA.localeCompare(vrijednostB, "hr")
+                : vrijednostB.localeCompare(vrijednostA, "hr")
+        }
+
+        return sortSmjer === "asc"
+            ? vrijednostA - vrijednostB
+            : vrijednostB - vrijednostA
+    })
+
+    // =====================================================
+    // SEARCH
+    // =====================================================
+
     function handleSearch(e) {
+
         setPojam(e.target.value)
+
+        // reset pagination
         setCurrentPage(1)
     }
 
+    // =====================================================
+    // PAGINATION
+    // =====================================================
+
+    const totalPages =
+        Math.ceil(sortiraniSirevi.length / pageSize)
+
+    const startIndex =
+        (currentPage - 1) * pageSize
+
+    const endIndex =
+        startIndex + pageSize
+
+    const paginatedSirevi =
+        sortiraniSirevi.slice(startIndex, endIndex)
+
     function handlePageChange(page) {
+
         if (page < 1 || page > totalPages) return
+
         setCurrentPage(page)
     }
 
-    // --- 4. PAGINACIJA ---
-
-    const totalPages = Math.ceil(filtriraniSirevi.length / pageSize)
-
-    const startIndex = (currentPage - 1) * pageSize
-    const endIndex = startIndex + pageSize
-
-    const paginatedSirevi = filtriraniSirevi.slice(startIndex, endIndex)
-
-    // --- RENDER ---
+    // =====================================================
+    // RENDER
+    // =====================================================
 
     return (
         <>
             <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
 
-                <h4 className="section-title">Popis sireva</h4>
+                <h4 className="section-title">
+                    Popis sireva
+                </h4>
 
                 <div className="d-flex gap-2 w-50 justify-content-end">
 
                     {!['xs', 'sm', 'md'].includes(sirina) && (
                         <>
-
                             <Button
                                 variant="light"
-                                style={{ color: 'darkgreen', fontWeight: 'bold', border: '1px solid lightgrey' }}
+                                style={{
+                                    color: 'darkgreen',
+                                    fontWeight: 'bold',
+                                    border: '1px solid lightgrey'
+                                }}
                                 onClick={() =>
                                     generirajExcel(
                                         filtriraniSirevi.map(s => ({
@@ -185,18 +303,26 @@ export default function SireviPregled() {
 
                             <Button
                                 variant="light"
-                                style={{ color: 'crimson', fontWeight: 'bold', border: '1px solid lightgrey' }}
-                                onClick={() => generirajSireviPDF(filtriraniSirevi, {
-                                    getVrstaNaziv,
-                                    getTipNaziv,
-                                    getZrenjeNaziv,
-                                    getIntenzitetNaziv,
-                                    getMasnocaNaziv
-                                })}
+                                style={{
+                                    color: 'crimson',
+                                    fontWeight: 'bold',
+                                    border: '1px solid lightgrey'
+                                }}
+                                onClick={() =>
+                                    generirajSireviPDF(
+                                        filtriraniSirevi,
+                                        {
+                                            getVrstaNaziv,
+                                            getTipNaziv,
+                                            getZrenjeNaziv,
+                                            getIntenzitetNaziv,
+                                            getMasnocaNaziv
+                                        }
+                                    )
+                                }
                             >
                                 Generiraj PDF
                             </Button>
-
                         </>
                     )}
 
@@ -217,34 +343,51 @@ export default function SireviPregled() {
                     />
 
                 </div>
-            </div >
+
+            </div>
 
             {/* GRID / TABLICA */}
+
             {
                 ['xs', 'sm', 'md'].includes(sirina) ? (
+
                     <SireviPregledGrid
                         sirevi={filtriraniSirevi}
                         navigate={navigate}
                         obrisi={obrisi}
                     />
+
                 ) : (
+
                     <SireviPregledTablica
                         sirevi={paginatedSirevi}
                         navigate={navigate}
                         obrisi={obrisi}
+                        sortKolona={sortKolona}
+                        sortSmjer={sortSmjer}
+                        setSortKolona={setSortKolona}
+                        setSortSmjer={setSortSmjer}
+                        setCurrentPage={setCurrentPage}
                     />
+
                 )
             }
 
             <p className="mt-2">
+
                 {sirevi.length === 0
                     ? "Nema učitanih sireva"
-                    : <>Učitano ukupno <strong>{sirevi.length}</strong> sireva</>}
+                    : <>Učitano ukupno <strong>{sirevi.length}</strong> sireva</>
+                }
+
             </p>
 
             {/* PAGINATION */}
-            
-            {totalPages > 1 && !['xs', 'sm', 'md'].includes(sirina) && (
+
+            {
+                totalPages > 1 &&
+                !['xs', 'sm', 'md'].includes(sirina) && (
+
                     <div className="d-flex justify-content-center mt-3">
 
                         <Pagination>
@@ -255,23 +398,31 @@ export default function SireviPregled() {
                             />
 
                             <Pagination.Prev
-                                onClick={() => handlePageChange(currentPage - 1)}
+                                onClick={() =>
+                                    handlePageChange(currentPage - 1)
+                                }
                                 disabled={currentPage === 1}
                             />
 
                             {[...Array(totalPages)].map((_, index) => {
+
                                 const pageNumber = index + 1
 
                                 if (
                                     pageNumber === 1 ||
                                     pageNumber === totalPages ||
-                                    (pageNumber >= currentPage - 2 && pageNumber <= currentPage + 2)
+                                    (
+                                        pageNumber >= currentPage - 2 &&
+                                        pageNumber <= currentPage + 2
+                                    )
                                 ) {
                                     return (
                                         <Pagination.Item
                                             key={pageNumber}
                                             active={pageNumber === currentPage}
-                                            onClick={() => handlePageChange(pageNumber)}
+                                            onClick={() =>
+                                                handlePageChange(pageNumber)
+                                            }
                                         >
                                             {pageNumber}
                                         </Pagination.Item>
@@ -282,38 +433,51 @@ export default function SireviPregled() {
                                     pageNumber === currentPage - 3 ||
                                     pageNumber === currentPage + 3
                                 ) {
-                                    return <Pagination.Ellipsis key={pageNumber} disabled />
+                                    return (
+                                        <Pagination.Ellipsis
+                                            key={pageNumber}
+                                            disabled
+                                        />
+                                    )
                                 }
 
                                 return null
                             })}
 
                             <Pagination.Next
-                                onClick={() => handlePageChange(currentPage + 1)}
+                                onClick={() =>
+                                    handlePageChange(currentPage + 1)
+                                }
                                 disabled={currentPage === totalPages}
                             />
 
                             <Pagination.Last
-                                onClick={() => handlePageChange(totalPages)}
+                                onClick={() =>
+                                    handlePageChange(totalPages)
+                                }
                                 disabled={currentPage === totalPages}
                             />
 
                         </Pagination>
 
                     </div>
-            
                 )
             }
+
+            {/* DELETE MODAL */}
 
             <Modal
                 show={showDelete}
                 onHide={() => setShowDelete(false)}
                 centered
             >
+
                 <Modal.Header closeButton>
+
                     <Modal.Title>
                         Potvrda brisanja
                     </Modal.Title>
+
                 </Modal.Header>
 
                 <Modal.Body>
@@ -337,6 +501,7 @@ export default function SireviPregled() {
                     </Button>
 
                 </Modal.Footer>
+
             </Modal>
         </>
     )

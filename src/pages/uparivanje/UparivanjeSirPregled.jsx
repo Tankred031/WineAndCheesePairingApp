@@ -90,33 +90,46 @@ export default function UparivanjeSirPregled() {
         setShowDelete(true);
     }
 
-    async function potvrdiBrisanje() {
+ async function potvrdiBrisanje() {
+    showLoading("Brišem uparivanje...");
+    try {
 
-        showLoading("Brišem uparivanje...");
+        // pronađi sva custom uparivanja za sir
+        const zaBrisanje =
+            custom.filter(u => u.sirId === deleteId);
 
-        try {
+        // obriši samo veze
+        for (const uparivanje of zaBrisanje) {
 
-            await delay(500);
-
-            setSirevi(prev =>
-                prev.filter(s => s.id !== deleteId)
+            await UparivanjeCustomService.obrisi(
+                uparivanje.id
             );
-
-            setShowDelete(false);
-            setDeleteId(null);
-
-        } catch (err) {
-
-            console.error(
-                "Greška kod brisanja:",
-                err
-            );
-
-        } finally {
-
-            hideLoading();
         }
+
+        await delay(500);
+
+        // ponovno učitaj podatke
+        await ucitaj();
+
+        setShowDelete(false);
+        setDeleteId(null);
+
+    } catch (err) {
+
+        console.error(
+            "Greška kod brisanja:",
+            err
+        );
+
+        alert(
+            "Greška kod brisanja uparivanja"
+        );
+
+    } finally {
+
+        hideLoading();
     }
+}
 
     const filtriraniSirevi = sirevi.filter(s => {
         const p = pojam.toLowerCase();
@@ -127,15 +140,23 @@ export default function UparivanjeSirPregled() {
     });
 
     function handleSort(key) {
+
         let direction = 'asc';
 
-        if (sortConfig.key === key && sortConfig.direction === 'asc') {
+        if (
+            sortConfig.key === key &&
+            sortConfig.direction === 'asc'
+        ) {
             direction = 'desc';
-        } else if (sortConfig.key === key && sortConfig.direction === 'desc') {
-            direction = null;
         }
 
-        setSortConfig({ key, direction });
+        setSortConfig({
+            key,
+            direction
+        });
+
+        // reset pagination
+        setCurrentPage(1);
     }
 
     function getSortValue(sir, key) {
@@ -171,10 +192,15 @@ export default function UparivanjeSirPregled() {
     const paginatedSirevi = sortedSirevi.slice(startIndex, endIndex);
 
     function getSortIcon(key) {
-        if (sortConfig.key !== key || !sortConfig.direction) return <FaSort />;
-        return sortConfig.direction === "asc" ? <FaSortUp /> : <FaSortDown />;
-    }
 
+        if (sortConfig.key !== key) {
+            return <FaSort />;
+        }
+
+        return sortConfig.direction === "asc"
+            ? <FaSortUp />
+            : <FaSortDown />;
+    }
     let poruka;
 
     if (sirevi.length === 0) {
@@ -227,7 +253,7 @@ export default function UparivanjeSirPregled() {
 
             {['xs', 'sm', 'md'].includes(sirina) ? (
                 <UparivanjeSirPregledGrid
-                    sirevi={filtriraniSirevi}
+                    sirevi={sortedSirevi}
                     getVina={getVina}
                     navigate={navigate}
                     obrisi={obrisi}

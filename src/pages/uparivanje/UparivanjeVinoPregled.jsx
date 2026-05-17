@@ -143,31 +143,41 @@ export default function UparivanjeVinoPregled() {
 
     async function potvrdiBrisanje() {
 
-        showLoading("Brišem uparivanje...");
+    showLoading("Brišem uparivanje...");
 
-        try {
+    try {
 
-            await delay(500);
+        await delay(500);
 
-            setVina(prev =>
-                prev.filter(v => v.id !== deleteId)
-            );
+        // ukloni custom uparivanja za vino
+        const novaCustom = custom.filter(
+            u => u.vinoId !== deleteId
+        );
 
-            setShowDelete(false);
-            setDeleteId(null);
+        // spremi u state
+        setCustom(novaCustom);
 
-        } catch (err) {
+        // spremi u localStorage
+        localStorage.setItem(
+            "uparivanja",
+            JSON.stringify(novaCustom)
+        );
 
-            console.error(
-                "Greška kod brisanja:",
-                err
-            );
+        setShowDelete(false);
+        setDeleteId(null);
 
-        } finally {
+    } catch (err) {
 
-            hideLoading();
-        }
+        console.error(
+            "Greška kod brisanja:",
+            err
+        );
+
+    } finally {
+
+        hideLoading();
     }
+}
 
     const filtriranaVina = useMemo(() => {
         const p = pojam.toLowerCase();
@@ -192,6 +202,7 @@ export default function UparivanjeVinoPregled() {
         }
 
         setSortConfig({ key, direction });
+        setCurrentPage(1);
     }
 
     function getSortValue(vino, key) {

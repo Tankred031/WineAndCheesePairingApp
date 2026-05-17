@@ -1,10 +1,16 @@
 import { Button, Table } from "react-bootstrap";
-import { useState } from "react";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 
-export default function VinaPregledTablica({ vina, navigate, obrisi }) {
-
-    const [sortConfig, setSortConfig] = useState({ key: 'naziv', direction: 'asc' });
+export default function VinaPregledTablica({
+    vina,
+    navigate,
+    obrisi,
+    sortKolona,
+    sortSmjer,
+    setSortKolona,
+    setSortSmjer,
+    setCurrentPage
+}) {
 
     const TIPOVI_VINA = [
         { id: '1', naziv: 'crveno' },
@@ -20,6 +26,10 @@ export default function VinaPregledTablica({ vina, navigate, obrisi }) {
         { id: '3', naziv: 'poluslatko' },
         { id: '4', naziv: 'slatko' }
     ];
+
+    // =====================================================
+    // HELPERS
+    // =====================================================
 
     const round1 = (num) => Math.round(num * 10) / 10;
 
@@ -38,125 +48,201 @@ export default function VinaPregledTablica({ vina, navigate, obrisi }) {
         });
     }
 
-    const handleSort = (key) => {
-        let direction = 'asc';
+    // =====================================================
+    // SORT
+    // =====================================================
 
-        if (sortConfig.key === key && sortConfig.direction === 'asc') {
-            direction = 'desc';
-        } else if (sortConfig.key === key && sortConfig.direction === 'desc') {
-            direction = 'asc';
+    function handleSort(kolona) {
+
+        if (sortKolona === kolona) {
+
+            setSortSmjer(
+                sortSmjer === "asc"
+                    ? "desc"
+                    : "asc"
+            );
+
+        } else {
+
+            setSortKolona(kolona);
+            setSortSmjer("asc");
         }
 
-        setSortConfig({ key, direction });
-    };
+        // reset pagination na prvu stranicu
+        setCurrentPage(1);
+    }
 
-    const getSortIcon = (key) => {
-        if (sortConfig.key !== key) return <FaSort />;
-        return sortConfig.direction === 'asc' ? <FaSortUp /> : <FaSortDown />;
-    };
+    function getSortIcon(kolona) {
 
-    const sortedVina = () => {
-        if (!vina) return [];
+        if (sortKolona !== kolona) {
+            return <FaSort />;
+        }
 
-        const { key, direction } = sortConfig;
-        if (!direction) return vina;
+        return sortSmjer === "asc"
+            ? <FaSortUp />
+            : <FaSortDown />;
+    }
 
-        return [...vina].sort((a, b) => {
-
-            let aValue;
-            let bValue;
-
-            if (key === "alkohol") {
-                aValue = round1((a.alkohol_min + a.alkohol_max) / 2);
-                bValue = round1((b.alkohol_min + b.alkohol_max) / 2);
-            }
-            else if (key === "temperatura") {
-                aValue = round1((a.temperatura_min + a.temperatura_max) / 2);
-                bValue = round1((b.temperatura_min + b.temperatura_max) / 2);
-            }
-            else {
-                aValue = a[key];
-                bValue = b[key];
-            }
-
-            if (aValue == null) return 1;
-            if (bValue == null) return -1;
-
-            if (typeof aValue === "string") {
-                return direction === "asc"
-                    ? aValue.localeCompare(bValue, "hr")
-                    : bValue.localeCompare(aValue, "hr");
-            }
-
-            return direction === "asc"
-                ? aValue - bValue
-                : bValue - aValue;
-        });
-    };
+    // =====================================================
+    // RENDER
+    // =====================================================
 
     return (
-        <Table striped bordered hover responsive className="align-middle">
+
+        <Table
+            striped
+            bordered
+            hover
+            responsive
+            className="align-middle"
+        >
 
             <thead>
+
                 <tr>
-                    <th onClick={() => handleSort("naziv")} className="sortable-header">
-                        Naziv <span className="sort-icon">{getSortIcon("naziv")}</span>
+
+                    <th
+                        onClick={() => handleSort("naziv")}
+                        className="sortable-header"
+                    >
+                        Naziv
+                        <span className="sort-icon">
+                            {getSortIcon("naziv")}
+                        </span>
                     </th>
 
-                    <th onClick={() => handleSort("tip_id")} className="sortable-header">
-                        Tip <span className="sort-icon">{getSortIcon("tip_id")}</span>
+                    <th
+                        onClick={() => handleSort("tip_id")}
+                        className="sortable-header"
+                    >
+                        Tip
+                        <span className="sort-icon">
+                            {getSortIcon("tip_id")}
+                        </span>
                     </th>
 
-                    <th onClick={() => handleSort("regija")} className="sortable-header">
-                        Regija <span className="sort-icon">{getSortIcon("regija")}</span>
+                    <th
+                        onClick={() => handleSort("regija")}
+                        className="sortable-header"
+                    >
+                        Regija
+                        <span className="sort-icon">
+                            {getSortIcon("regija")}
+                        </span>
                     </th>
 
-                    <th onClick={() => handleSort("temperatura")} className="sortable-header">
-                        Temperatura <span className="sort-icon">{getSortIcon("temperatura")}</span>
+                    <th
+                        onClick={() => handleSort("temperatura")}
+                        className="sortable-header"
+                    >
+                        Temperatura
+                        <span className="sort-icon">
+                            {getSortIcon("temperatura")}
+                        </span>
                     </th>
 
-                    <th onClick={() => handleSort("slatkoca_id")} className="sortable-header">
-                        Slatkoća <span className="sort-icon">{getSortIcon("slatkoca_id")}</span>
+                    <th
+                        onClick={() => handleSort("slatkoca_id")}
+                        className="sortable-header"
+                    >
+                        Slatkoća
+                        <span className="sort-icon">
+                            {getSortIcon("slatkoca_id")}
+                        </span>
                     </th>
 
-                    <th onClick={() => handleSort("arome")} className="sortable-header">
-                        Arome <span className="sort-icon">{getSortIcon("arome")}</span>
+                    <th
+                        onClick={() => handleSort("arome")}
+                        className="sortable-header"
+                    >
+                        Arome
+                        <span className="sort-icon">
+                            {getSortIcon("arome")}
+                        </span>
                     </th>
 
-                    <th onClick={() => handleSort("tijelo")} className="sortable-header">
-                        Tijelo <span className="sort-icon">{getSortIcon("tijelo")}</span>
+                    <th
+                        onClick={() => handleSort("tijelo")}
+                        className="sortable-header"
+                    >
+                        Tijelo
+                        <span className="sort-icon">
+                            {getSortIcon("tijelo")}
+                        </span>
                     </th>
 
-                    <th onClick={() => handleSort("alkohol")} className="sortable-header">
-                        Alkohol <span className="sort-icon">{getSortIcon("alkohol")}</span>
+                    <th
+                        onClick={() => handleSort("alkohol")}
+                        className="sortable-header"
+                    >
+                        Alkohol
+                        <span className="sort-icon">
+                            {getSortIcon("alkohol")}
+                        </span>
                     </th>
 
-                    <th className="text-center">Akcija</th>
+                    <th className="text-center">
+                        Akcija
+                    </th>
+
                 </tr>
+
             </thead>
 
             <tbody>
-                {sortedVina()?.map((vino) => (
+
+                {vina?.map((vino) => (
+
                     <tr key={vino.id}>
-                        <td>{vino.naziv}</td>
-                        <td>{getTipNaziv(vino.tip_id)}</td>
-                        <td>{vino.regija}</td>
+
                         <td>
-                            {format1dec(vino.temperatura_min)} - {format1dec(vino.temperatura_max)} °C
-                        </td>
-                        <td>{getSlatkocaNaziv(vino.slatkoca_id)}</td>
-                        <td>{vino.arome}</td>
-                        <td>{vino.tijelo}</td>
-                        <td>
-                            {format1dec(vino.alkohol_min)} - {format1dec(vino.alkohol_max)} %
+                            {vino.naziv}
                         </td>
 
                         <td>
+                            {getTipNaziv(vino.tip_id)}
+                        </td>
+
+                        <td>
+                            {vino.regija}
+                        </td>
+
+                        <td>
+                            {format1dec(vino.temperatura_min)}
+                            {" - "}
+                            {format1dec(vino.temperatura_max)}
+                            {" °C"}
+                        </td>
+
+                        <td>
+                            {getSlatkocaNaziv(vino.slatkoca_id)}
+                        </td>
+
+                        <td>
+                            {vino.arome}
+                        </td>
+
+                        <td>
+                            {vino.tijelo}
+                        </td>
+
+                        <td>
+                            {format1dec(vino.alkohol_min)}
+                            {" - "}
+                            {format1dec(vino.alkohol_max)}
+                            {" %"}
+                        </td>
+
+                        <td>
+
                             <div className="d-flex gap-1">
+
                                 <Button
                                     variant="warning"
                                     size="sm"
-                                    onClick={() => navigate(`/vina/${vino.id}`)}
+                                    onClick={() =>
+                                        navigate(`/vina/${vino.id}`)
+                                    }
                                 >
                                     Promjena
                                 </Button>
@@ -164,7 +250,9 @@ export default function VinaPregledTablica({ vina, navigate, obrisi }) {
                                 <Button
                                     variant="danger"
                                     size="sm"
-                                    onClick={() => obrisi(vino.id)}
+                                    onClick={() =>
+                                        obrisi(vino.id)
+                                    }
                                 >
                                     Obriši
                                 </Button>
@@ -172,17 +260,30 @@ export default function VinaPregledTablica({ vina, navigate, obrisi }) {
                                 <Button
                                     variant="info"
                                     size="sm"
-                                    onClick={() => navigate(`/uparivanje/vino/${vino.id}`, {
-                                        state: { from: "vina" }
-                                    })}
+                                    onClick={() =>
+                                        navigate(
+                                            `/uparivanje/vino/${vino.id}`,
+                                            {
+                                                state: {
+                                                    from: "vina"
+                                                }
+                                            }
+                                        )
+                                    }
                                 >
                                     Uparivanje
                                 </Button>
+
                             </div>
+
                         </td>
+
                     </tr>
+
                 ))}
+
             </tbody>
+
         </Table>
     );
 }

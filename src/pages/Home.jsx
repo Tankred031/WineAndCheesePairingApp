@@ -8,8 +8,6 @@ import { Card, Carousel, Col, Row } from "react-bootstrap";
 import { uparivanjeVinaById } from "../services/uparivanje/UparivanjeVinaPopis";
 import { uparivanjeSiraById } from "../services/uparivanje/UparivanjeSiraPopis";
 import { DATA_SOURCE } from "../constants";
-import useAuth from "../hooks/useAuth";
-import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLocalStorage";
 
 export default function Home() {
 
@@ -28,8 +26,7 @@ export default function Home() {
     const [animatedVina, setAnimatedVina] = useState(0);
     const [animatedSirevi, setAnimatedSirevi] = useState(0);
     const [animatedUspjesnihUparivanja, setAnimatedUspjesnihUparivanja] = useState(0);
-    const [animatedUpareniSirevi, setAnimatedUpareniSirevi] = useState(0);
-    const { isLoggedIn, logout } = useAuth();
+    const [animatedUpareniSirevi, setAnimatedUpareniSirevi] = useState(0);    
 
     const promijeniIzvor = async (noviIzvor) => {
 
@@ -282,42 +279,6 @@ export default function Home() {
                     </Card>
                 </Col>
             </Row>
-
-            {isLoggedIn && (
-                <>
-                    <hr className="mt-5" />
-
-                    <Row className="mb-5">
-                        <Col className="text-center">
-
-                            <h5>Izvor podataka:</h5>
-
-                            <div className="btn-group">
-
-                                <button
-                                    onClick={() =>
-                                        promijeniIzvor('memorija')}
-                                    className='btn btn-info'
-
-                                >
-                                    Memorija
-                                </button>
-
-                                <button
-                                    onClick={() =>
-                                        promijeniIzvor('localStorage')}
-                                    className='btn btn-primary'        
-                                >
-                                    LocalStorage
-                            </button>
-
-                        </div>
-                    </Col>
-                </Row>
-        </>
-    )
-}
-
         </>
     );
 }
