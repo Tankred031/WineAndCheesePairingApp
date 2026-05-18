@@ -2,7 +2,7 @@ import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 export const generirajVinaPDF = async (vina, helperi) => {
-    const { getTipNaziv, getSlatkocaNaziv, format1dec } = helperi;
+    const { getTipNaziv, getSlatkocaNaziv, getTijeloNaziv, format1dec } = helperi;
 
     const fetchFontAsBase64 = async (url) => {
         try {
@@ -63,7 +63,7 @@ export const generirajVinaPDF = async (vina, helperi) => {
         `${format1dec(v.temperatura_min)} - ${format1dec(v.temperatura_max)} °C`,
         getSlatkocaNaziv(v.slatkoca_id),
         v.arome,
-        v.tijelo,
+        getTijeloNaziv(v.tijelo_id),
         `${format1dec(v.alkohol_min)} - ${format1dec(v.alkohol_max)} %`
     ]);
 
