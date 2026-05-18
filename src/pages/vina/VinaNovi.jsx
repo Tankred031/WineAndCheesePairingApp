@@ -27,7 +27,14 @@ export default function VinaNovi() {
         { id: '4', naziv: 'slatko' }
     ];
 
+    const TIJELA = [
+        { id: '1', naziv: 'lagano' },
+        { id: '2', naziv: 'srednje' },
+        { id: '3', naziv: 'puno' }
+    ];
+
     const [errors, setErrors] = useState({});
+    const round1 = (num) => Math.round(num * 10) / 10;
 
     async function dodaj(vino) {
         await VinaService.dodaj(vino).then(() => {
@@ -49,7 +56,7 @@ export default function VinaNovi() {
             temperatura_max: Number(podaci.get('temperatura_max')),
             slatkoca_id: podaci.get('slatkoca_id'),
             arome: podaci.get('arome'),
-            tijelo: podaci.get('tijelo'),
+            tijelo_id: podaci.get('tijelo_id'),
             alkohol_min: alkoholMin,
             alkohol_max: alkoholMax,
         };
@@ -216,12 +223,27 @@ export default function VinaNovi() {
                     <Col md={4}>
                         <Form.Group>
                             <Form.Label>Tijelo</Form.Label>
-                            <Form.Control
-                                name="tijelo"
-                                isInvalid={!!errors.tijelo}
-                            />
+
+                            <Form.Select
+                                name="tijelo_id"
+                                isInvalid={!!errors.tijelo_id}
+                            >
+                                <option value="">
+                                    --odaberite tijelo--
+                                </option>
+
+                                {TIJELA.map(t => (
+                                    <option
+                                        key={t.id}
+                                        value={t.id}
+                                    >
+                                        {t.naziv}
+                                    </option>
+                                ))}
+                            </Form.Select>
+
                             <Form.Control.Feedback type="invalid">
-                                {errors.tijelo}
+                                {errors.tijelo_id}
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Col>
@@ -243,7 +265,7 @@ export default function VinaNovi() {
                         step="0.1"
                         value={alkoholMin}
                         onChange={(e) => {
-                            const value = parseFloat(e.target.value)
+                            const value = round1(parseFloat(e.target.value))
                             if (value <= alkoholMax) setAlkoholMin(value)
                         }}
                         style={{
@@ -262,7 +284,7 @@ export default function VinaNovi() {
                         step="0.1"
                         value={alkoholMax}
                         onChange={(e) => {
-                            const value = parseFloat(e.target.value)
+                            const value = round1(parseFloat(e.target.value))
                             if (value >= alkoholMin) setAlkoholMax(value)
                         }}
                         style={{
@@ -294,7 +316,7 @@ export default function VinaNovi() {
                         </Link>
                     </Col>
                     <Col>
-                        <Button type="submit" variant="success w-100">
+                        <Button type="submit" variant="success" className="w-100">
                             Dodaj novo vino
                         </Button>
                     </Col>

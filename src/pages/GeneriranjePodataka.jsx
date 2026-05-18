@@ -1,23 +1,15 @@
 import VinaService from "../services/vina/VinaService";
 import SireviService from "../services/sirevi/SireviService";
 import OperaterService from "../services/operateri/OperaterService";
-
 import { useState } from "react";
-
 import { faker } from "@faker-js/faker";
 faker.locale = "hr";
-
-import {
-    Container,
-    Row,
-    Col,
-    Form,
-    Button,
-    Alert
-} from "react-bootstrap";
-
-import { PrefixStorage } from "../constants";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import { PrefixStorage, DATA_SOURCE } from "../constants";
 import { operateri } from "../services/operateri/OperaterPodaci";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+
+
 
 export default function GeneriranjePodataka() {
 
@@ -28,6 +20,7 @@ export default function GeneriranjePodataka() {
     const [poruka, setPoruka] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    const koristiLocalStorage = DATA_SOURCE === "localStorage"
 
 
     // =========================================
@@ -131,38 +124,30 @@ export default function GeneriranjePodataka() {
             await VinaService.dodaj({
 
                 naziv: generirajNaziv(i),
-
                 tip_id: tip_id,
-
                 regija: faker.helpers.arrayElement(regije),
-
                 temperatura_min: faker.number.int({
                     min: 6,
                     max: 12
                 }),
-
                 temperatura_max: faker.number.int({
                     min: 13,
                     max: 18
                 }),
-
                 slatkoca_id: String(
                     faker.number.int({
                         min: 1,
                         max: 4
                     })
                 ),
-
                 arome: faker.word.words(3),
-
-                tijelo: faker.helpers.arrayElement([
-                    "lagano",
-                    "srednje",
-                    "puno"
-                ]),
+                tijelo_id: String(faker.number.int({
+                    min: 1,
+                    max: 3                    
+            })
+            ),
 
                 alkohol_min: alkoholMin,
-
                 alkohol_max: alkoholMax
             });
         }
@@ -783,14 +768,38 @@ export default function GeneriranjePodataka() {
 
 
                 <Col md={4}>
-                    <Button
-                        variant="success"
+                    <OverlayTrigger
+                        placement="top"
+                        overlay={koristiLocalStorage ? (
+                            <Tooltip>
+                                Pretakanje nije moguće jer ste već u localStorage modu
+                            </Tooltip>
+                        ) : (
+                            <Tooltip id="tooltip-disabled"></Tooltip>
+                        
+                        )}
+                        >
+                            <span className="d-block">
+
+                        <Button
+                        variant={
+                            koristiLocalStorage
+                            ? "secondary"
+                            : "success"
+                        }
                         onClick={handleMemorijaULocalStorage}
-                        disabled={loading}
+                        disabled={loading || koristiLocalStorage}
                         className="w-100 mb-2"
                     >
-                        Pretoči u localStorage
+                        {
+                            koristiLocalStorage
+                                ? "Već koristite localStorage"
+                                : "Pretoči u localStorage"
+                        }
+                        
                     </Button>
+                    </span>
+                    </OverlayTrigger>
                 </Col>
             </Row>
 

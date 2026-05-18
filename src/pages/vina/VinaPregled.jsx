@@ -48,6 +48,12 @@ export default function VinaPregled() {
         { id: '4', naziv: 'slatko' }
     ]
 
+    const TIJELA = [
+        { id: '1', naziv: 'lagano' },
+        { id: '2', naziv: 'srednje' },
+        { id: '3', naziv: 'puno' }
+    ]
+
     useEffect(() => {
         ucitajVina()
     }, [])
@@ -85,6 +91,12 @@ export default function VinaPregled() {
         })
     }
 
+    function getTijeloNaziv(id) {
+        return TIJELA.find(
+            t => t.id === id
+        )?.naziv || ''
+    }
+
     function delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms))
     }
@@ -106,7 +118,7 @@ export default function VinaPregled() {
             v.regija?.toLowerCase().includes(pojamLower) ||
             getSlatkocaNaziv(v.slatkoca_id)?.toLowerCase().includes(pojamLower) ||
             v.arome?.toLowerCase().includes(pojamLower) ||
-            v.tijelo?.toLowerCase().includes(pojamLower) ||
+            getTijeloNaziv(v.tijelo_id)?.toLowerCase().includes(pojamLower) ||
 
             (
                 jeBroj &&
@@ -137,6 +149,15 @@ export default function VinaPregled() {
 
             vrijednostA = getSlatkocaNaziv(a.slatkoca_id)
             vrijednostB = getSlatkocaNaziv(b.slatkoca_id)
+        }
+
+        // TIJELO
+        else if (sortKolona === "tijelo_id") {
+
+            vrijednostA =
+                getTijeloNaziv(a.tijelo_id)
+            vrijednostB =
+                getTijeloNaziv(b.tijelo_id)
         }
 
         // ALKOHOL
@@ -240,250 +261,251 @@ export default function VinaPregled() {
         }
     }
 
-        return (
-            <>
-                <Link
-                    to={RouteNames.VINA_NOVI}
-                    className="btn btn-success w-100 mb-3 mt-3"
-                >
-                    Dodavanje novog vina
-                </Link>
+    return (
+        <>
+            <Link
+                to={RouteNames.VINA_NOVI}
+                className="btn btn-success w-100 mb-3 mt-3"
+            >
+                Dodavanje novog vina
+            </Link>
 
-                <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
+            <div className="d-flex justify-content-between align-items-center mb-3 mt-3 w-100">
 
-                    <h4 className="section-title">
-                        Popis vina
-                    </h4>
+                <h4 className="section-title">
+                    Popis vina
+                </h4>
 
-                    <div className="d-flex gap-2 w-50 justify-content-end">
+                <div className="d-flex gap-2 w-50 justify-content-end">
 
-                        {!['xs', 'sm', 'md'].includes(sirina) && (
-                            <>
-                                <Button
-                                    variant="light"
-                                    style={{
-                                        color: 'darkgreen',
-                                        fontWeight: 'bold',
-                                        border: '1px solid lightgrey'
-                                    }}
-                                    onClick={() =>
-                                        generirajExcel(
-                                            sortiranaVina.map(v => ({
-                                                Naziv: v.naziv,
-                                                Regija: v.regija,
-                                                Arome: v.arome,
-                                                Tijelo: v.tijelo
-                                            })),
-                                            "vina",
-                                            "Vina"
-                                        )
-                                    }
-                                >
-                                    Excel export
-                                </Button>
+                    {!['xs', 'sm', 'md'].includes(sirina) && (
+                        <>
+                            <Button
+                                variant="light"
+                                style={{
+                                    color: 'darkgreen',
+                                    fontWeight: 'bold',
+                                    border: '1px solid lightgrey'
+                                }}
+                                onClick={() =>
+                                    generirajExcel(
+                                        sortiranaVina.map(v => ({
+                                            Naziv: v.naziv,
+                                            Regija: v.regija,
+                                            Arome: v.arome,
+                                            Tijelo: getTijeloNaziv(v.tijelo_id)
+                                        })),
+                                        "vina",
+                                        "Vina"
+                                    )
+                                }
+                            >
+                                Excel export
+                            </Button>
 
-                                <Button
-                                    variant="light"
-                                    style={{
-                                        color: 'crimson',
-                                        fontWeight: 'bold',
-                                        border: '1px solid lightgrey'
-                                    }}
-                                    onClick={() =>
-                                        generirajVinaPDF(
-                                            sortiranaVina,
-                                            {
-                                                getTipNaziv,
-                                                getSlatkocaNaziv,
-                                                format1dec
-                                            }
-                                        )
-                                    }
-                                >
-                                    Generiraj PDF
-                                </Button>
-                            </>
-                        )}
+                            <Button
+                                variant="light"
+                                style={{
+                                    color: 'crimson',
+                                    fontWeight: 'bold',
+                                    border: '1px solid lightgrey'
+                                }}
+                                onClick={() =>
+                                    generirajVinaPDF(
+                                        sortiranaVina,
+                                        {
+                                            getTipNaziv,
+                                            getSlatkocaNaziv,
+                                            getTijeloNaziv,
+                                            format1dec
+                                        }
+                                    )
+                                }
+                            >
+                                Generiraj PDF
+                            </Button>
+                        </>
+                    )}
 
-                        <input
-                            type="text"
-                            placeholder={
-                                ['xs', 'sm', 'md'].includes(sirina)
-                                    ? "Traži..."
-                                    : "Traži vino..."
-                            }
-                            className="form-control w-25"
-                            style={{
-                                backgroundColor: "lightgrey",
-                                border: "2px solid grey"
-                            }}
-                            value={pojam}
-                            onChange={(e) => {
+                    <input
+                        type="text"
+                        placeholder={
+                            ['xs', 'sm', 'md'].includes(sirina)
+                                ? "Traži..."
+                                : "Traži vino..."
+                        }
+                        className="form-control w-25"
+                        style={{
+                            backgroundColor: "lightgrey",
+                            border: "2px solid grey"
+                        }}
+                        value={pojam}
+                        onChange={(e) => {
 
-                                setPojam(e.target.value)
+                            setPojam(e.target.value)
 
-                                // reset na prvu stranicu kod searcha
-                                setCurrentPage(1)
-                            }}
-                        />
+                            // reset na prvu stranicu kod searcha
+                            setCurrentPage(1)
+                        }}
+                    />
 
-                    </div>
                 </div>
+            </div>
 
-                {/* GRID / TABLICA */}
+            {/* GRID / TABLICA */}
 
-                {['xs', 'sm', 'md'].includes(sirina) ? (
+            {['xs', 'sm', 'md'].includes(sirina) ? (
 
-                    <VinaPregledGrid
-                        vina={sortiranaVina}
-                        navigate={navigate}
-                        obrisi={obrisi}
-                    />
+                <VinaPregledGrid
+                    vina={sortiranaVina}
+                    navigate={navigate}
+                    obrisi={obrisi}
+                />
 
-                ) : (
+            ) : (
 
-                    <VinaPregledTablica
-                        vina={paginatedVina}
-                        navigate={navigate}
-                        obrisi={obrisi}
-                        sortKolona={sortKolona}
-                        sortSmjer={sortSmjer}
-                        setSortKolona={setSortKolona}
-                        setSortSmjer={setSortSmjer}
-                        setCurrentPage={setCurrentPage}
-                    />
+                <VinaPregledTablica
+                    vina={paginatedVina}
+                    navigate={navigate}
+                    obrisi={obrisi}
+                    sortKolona={sortKolona}
+                    sortSmjer={sortSmjer}
+                    setSortKolona={setSortKolona}
+                    setSortSmjer={setSortSmjer}
+                    setCurrentPage={setCurrentPage}
+                />
 
-                )}
+            )}
 
-                <p className="mt-2">
+            <p className="mt-2">
 
-                    {vina.length === 0
-                        ? "Nema učitanih vina"
-                        : <>Učitano ukupno <strong>{vina.length}</strong> vina</>
-                    }
-
-                </p>
-
-                {/* PAGINATION */}
-
-                {totalPages > 1 &&
-                    !['xs', 'sm', 'md'].includes(sirina) && (
-
-                        <div className="d-flex justify-content-center">
-
-                            <Pagination>
-
-                                <Pagination.First
-                                    onClick={() => handlePageChange(1)}
-                                    disabled={currentPage === 1}
-                                />
-
-                                <Pagination.Prev
-                                    onClick={() =>
-                                        handlePageChange(currentPage - 1)
-                                    }
-                                    disabled={currentPage === 1}
-                                />
-
-                                {[...Array(totalPages)].map((_, index) => {
-
-                                    const pageNumber = index + 1
-
-                                    if (
-                                        pageNumber === 1 ||
-                                        pageNumber === totalPages ||
-                                        (
-                                            pageNumber >= currentPage - 2 &&
-                                            pageNumber <= currentPage + 2
-                                        )
-                                    ) {
-                                        return (
-                                            <Pagination.Item
-                                                key={pageNumber}
-                                                active={pageNumber === currentPage}
-                                                onClick={() =>
-                                                    handlePageChange(pageNumber)
-                                                }
-                                            >
-                                                {pageNumber}
-                                            </Pagination.Item>
-                                        )
-                                    }
-
-                                    if (
-                                        pageNumber === currentPage - 3 ||
-                                        pageNumber === currentPage + 3
-                                    ) {
-                                        return (
-                                            <Pagination.Ellipsis
-                                                key={pageNumber}
-                                                disabled
-                                            />
-                                        )
-                                    }
-
-                                    return null
-                                })}
-
-                                <Pagination.Next
-                                    onClick={() =>
-                                        handlePageChange(currentPage + 1)
-                                    }
-                                    disabled={currentPage === totalPages}
-                                />
-
-                                <Pagination.Last
-                                    onClick={() =>
-                                        handlePageChange(totalPages)
-                                    }
-                                    disabled={currentPage === totalPages}
-                                />
-
-                            </Pagination>
-
-                        </div>
-                    )
+                {vina.length === 0
+                    ? "Nema učitanih vina"
+                    : <>Učitano ukupno <strong>{vina.length}</strong> vina</>
                 }
 
-                {/* DELETE MODAL */}
+            </p>
 
-                <Modal
-                    show={showDelete}
-                    onHide={() => setShowDelete(false)}
-                    centered
-                >
+            {/* PAGINATION */}
 
-                    <Modal.Header closeButton>
+            {totalPages > 1 &&
+                !['xs', 'sm', 'md'].includes(sirina) && (
 
-                        <Modal.Title>
-                            Potvrda brisanja
-                        </Modal.Title>
+                    <div className="d-flex justify-content-center">
 
-                    </Modal.Header>
+                        <Pagination>
 
-                    <Modal.Body>
-                        Želite li trajno obrisati ovaj zapis?
-                    </Modal.Body>
+                            <Pagination.First
+                                onClick={() => handlePageChange(1)}
+                                disabled={currentPage === 1}
+                            />
 
-                    <Modal.Footer>
+                            <Pagination.Prev
+                                onClick={() =>
+                                    handlePageChange(currentPage - 1)
+                                }
+                                disabled={currentPage === 1}
+                            />
 
-                        <Button
-                            variant="secondary"
-                            onClick={() => setShowDelete(false)}
-                        >
-                            Odustani
-                        </Button>
+                            {[...Array(totalPages)].map((_, index) => {
 
-                        <Button
-                            variant="danger"
-                            onClick={potvrdiBrisanje}
-                        >
-                            Obriši
-                        </Button>
+                                const pageNumber = index + 1
 
-                    </Modal.Footer>
+                                if (
+                                    pageNumber === 1 ||
+                                    pageNumber === totalPages ||
+                                    (
+                                        pageNumber >= currentPage - 2 &&
+                                        pageNumber <= currentPage + 2
+                                    )
+                                ) {
+                                    return (
+                                        <Pagination.Item
+                                            key={pageNumber}
+                                            active={pageNumber === currentPage}
+                                            onClick={() =>
+                                                handlePageChange(pageNumber)
+                                            }
+                                        >
+                                            {pageNumber}
+                                        </Pagination.Item>
+                                    )
+                                }
 
-                </Modal>
-            </>
-        )
-    }
+                                if (
+                                    pageNumber === currentPage - 3 ||
+                                    pageNumber === currentPage + 3
+                                ) {
+                                    return (
+                                        <Pagination.Ellipsis
+                                            key={pageNumber}
+                                            disabled
+                                        />
+                                    )
+                                }
+
+                                return null
+                            })}
+
+                            <Pagination.Next
+                                onClick={() =>
+                                    handlePageChange(currentPage + 1)
+                                }
+                                disabled={currentPage === totalPages}
+                            />
+
+                            <Pagination.Last
+                                onClick={() =>
+                                    handlePageChange(totalPages)
+                                }
+                                disabled={currentPage === totalPages}
+                            />
+
+                        </Pagination>
+
+                    </div>
+                )
+            }
+
+            {/* DELETE MODAL */}
+
+            <Modal
+                show={showDelete}
+                onHide={() => setShowDelete(false)}
+                centered
+            >
+
+                <Modal.Header closeButton>
+
+                    <Modal.Title>
+                        Potvrda brisanja
+                    </Modal.Title>
+
+                </Modal.Header>
+
+                <Modal.Body>
+                    Želite li trajno obrisati ovaj zapis?
+                </Modal.Body>
+
+                <Modal.Footer>
+
+                    <Button
+                        variant="secondary"
+                        onClick={() => setShowDelete(false)}
+                    >
+                        Odustani
+                    </Button>
+
+                    <Button
+                        variant="danger"
+                        onClick={potvrdiBrisanje}
+                    >
+                        Obriši
+                    </Button>
+
+                </Modal.Footer>
+
+            </Modal>
+        </>
+    )
+}

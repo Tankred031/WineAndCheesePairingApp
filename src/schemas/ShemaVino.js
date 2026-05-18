@@ -7,7 +7,7 @@ export const ShemaVino = z.object({
   })
     .trim()
     .min(1, 'Naziv je obavezan')
-    .max(26, 'Naziv je predug')
+    .max(36, 'Naziv je predug')
     .regex(
       /^[^\d]+$/,
       'Naziv ne može sadržavati brojeve'
@@ -32,8 +32,7 @@ export const ShemaVino = z.object({
   arome: z.string()
     .optional(),
 
-  tijelo: z.string()
-    .optional(),
+  tijelo_id: z.string().min(1, 'odaberite tijelo'),
 
   alkohol_min: z.coerce.number()
     .min(8, 'Minimalni alkohol je 8%')

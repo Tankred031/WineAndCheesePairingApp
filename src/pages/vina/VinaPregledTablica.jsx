@@ -27,6 +27,12 @@ export default function VinaPregledTablica({
         { id: '4', naziv: 'slatko' }
     ];
 
+    const TIJELA = [
+        { id: '1', naziv: 'lagano' },
+        { id: '2', naziv: 'srednje' },
+        { id: '3', naziv: 'puno' }
+    ];
+
     // =====================================================
     // HELPERS
     // =====================================================
@@ -39,6 +45,12 @@ export default function VinaPregledTablica({
 
     function getSlatkocaNaziv(id) {
         return SLATKOCE.find(s => s.id === id)?.naziv || '';
+    }
+
+    function getTijeloNaziv(id) {
+        return TIJELA.find(
+            t => t.id === id
+        )?.naziv || '';
     }
 
     function format1dec(broj) {
@@ -162,12 +174,12 @@ export default function VinaPregledTablica({
                     </th>
 
                     <th
-                        onClick={() => handleSort("tijelo")}
+                        onClick={() => handleSort("tijelo_id")}
                         className="sortable-header"
                     >
                         Tijelo
                         <span className="sort-icon">
-                            {getSortIcon("tijelo")}
+                            {getSortIcon("tijelo_id")}
                         </span>
                     </th>
 
@@ -223,7 +235,7 @@ export default function VinaPregledTablica({
                         </td>
 
                         <td>
-                            {vino.tijelo}
+                            {getTijeloNaziv(vino.tijelo_id)}
                         </td>
 
                         <td>

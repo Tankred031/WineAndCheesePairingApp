@@ -32,6 +32,12 @@ export default function VinaPromjena() {
         { id: '4', naziv: 'slatko' }
     ];
 
+    const TIJELA = [
+        { id: '1', naziv: 'lagano' },
+        { id: '2', naziv: 'srednje' },
+        { id: '3', naziv: 'puno' }
+    ];
+
     const [errors, setErrors] = useState({});
     const round1 = (num) => Math.round(num * 10) / 10;
 
@@ -44,6 +50,7 @@ export default function VinaPromjena() {
         const odgovor = await VinaService.getById(params.id);
 
         if (!odgovor.success) {
+            hideLoading();
             alert("Greška kod učitavanja");
             return;
         }
@@ -80,7 +87,7 @@ export default function VinaPromjena() {
             temperatura_max: Number(podaci.get('temperatura_max')),
             slatkoca_id: podaci.get('slatkoca_id'),
             arome: podaci.get('arome'),
-            tijelo: podaci.get('tijelo'),
+            tijelo_id: podaci.get('tijelo_id'),
             alkohol_min: alkoholMin,
             alkohol_max: alkoholMax
         };
@@ -258,13 +265,34 @@ export default function VinaPromjena() {
                     <Col md={4}>
                         <Form.Group>
                             <Form.Label>Tijelo</Form.Label>
-                            <Form.Control
-                                name="tijelo"
-                                defaultValue={vino.tijelo}
-                                isInvalid={!!errors.tijelo}
-                            />
+
+                            <Form.Select
+                                name="tijelo_id"
+                                value={vino.tijelo_id || ""}
+                                isInvalid={!!errors.tijelo_id}
+                                onChange={(e) =>
+                                    setVino({
+                                        ...vino,
+                                        tijelo_id: e.target.value
+                                    })
+                                }
+                            >
+                                <option value="">
+                                    --odaberite tijelo--
+                                </option>
+
+                                {TIJELA.map(t => (
+                                    <option
+                                        key={t.id}
+                                        value={t.id}
+                                    >
+                                        {t.naziv}
+                                    </option>
+                                ))}
+                            </Form.Select>
+
                             <Form.Control.Feedback type="invalid">
-                                {errors.tijelo}
+                                {errors.tijelo_id}
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Col>

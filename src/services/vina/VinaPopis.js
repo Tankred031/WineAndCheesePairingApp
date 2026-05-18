@@ -1,6 +1,5 @@
 export const vina = [
     {
-
         id: '1',
         naziv: 'Cabernet Sauvignon',
         tip_id: '1',
@@ -9,7 +8,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'crno voće, ribiz, šljiva, cedar, duhan',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 13.5,
         alkohol_max: 15
     },
@@ -22,7 +21,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'crveno voće, trešnja, začini, zemljano',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 13,
         alkohol_max: 14
     },
@@ -35,7 +34,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'šljiva, čokolada, biljno',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 13,
         alkohol_max: 14
     },
@@ -48,7 +47,7 @@ export const vina = [
         temperatura_max: 16,
         slatkoca_id: '1',
         arome: 'jagoda, trešnja, zemljano',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 12,
         alkohol_max: 13.5
     },
@@ -61,7 +60,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'crno voće, papar, dim',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 13.5,
         alkohol_max: 15
     },
@@ -74,7 +73,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'šljiva, čokolada, dim',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 13.5,
         alkohol_max: 15
     },
@@ -87,7 +86,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '2',
         arome: 'kupina, papar, džemasto',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 14,
         alkohol_max: 16
     },
@@ -100,7 +99,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'trešnja, duhan, vanilija',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 13,
         alkohol_max: 14.5
     },
@@ -113,7 +112,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'malina, začini',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 13.5,
         alkohol_max: 15
     },
@@ -126,7 +125,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'ruža, katran, trešnja',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 13.5,
         alkohol_max: 15
     },
@@ -139,7 +138,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'trešnja, začini',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12.5,
         alkohol_max: 14
     },
@@ -152,7 +151,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'trešnja, biljno',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12.5,
         alkohol_max: 13.5
     },
@@ -165,7 +164,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '4',
         arome: 'citrusi, jabuka, cvjetno',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 8,
         alkohol_max: 12
     },
@@ -178,7 +177,7 @@ export const vina = [
         temperatura_max: 12,
         slatkoca_id: '1',
         arome: 'jabuka, maslac, vanilija',
-        tijelo: 'srednje do puno',
+        tijelo_id: '3',
         alkohol_min: 13,
         alkohol_max: 14.5
     },
@@ -191,7 +190,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'citrusi, trava',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 11,
         alkohol_max: 13
     },
@@ -204,7 +203,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'kruška, limun',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 11,
         alkohol_max: 12.5
     },
@@ -217,7 +216,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '3',
         arome: 'lišće ruže, liči',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 13,
         alkohol_max: 14
     },
@@ -230,7 +229,7 @@ export const vina = [
         temperatura_max: 12,
         slatkoca_id: '1',
         arome: 'breskva, cvjetno',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 13,
         alkohol_max: 14
     },
@@ -243,7 +242,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'citrusi, more',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 11,
         alkohol_max: 13
     },
@@ -256,7 +255,7 @@ export const vina = [
         temperatura_max: 8,
         slatkoca_id: '4',
         arome: 'grožđe, cvjetno',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 5,
         alkohol_max: 8
     },
@@ -269,7 +268,7 @@ export const vina = [
         temperatura_max: 8,
         slatkoca_id: '1',
         arome: 'jabuka, kruška, cvjetno',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 10.5,
         alkohol_max: 11.5
     },
@@ -282,7 +281,7 @@ export const vina = [
         temperatura_max: 8,
         slatkoca_id: '1',
         arome: 'citrusi, tost, kvasac',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12,
         alkohol_max: 12.5
     },
@@ -295,7 +294,7 @@ export const vina = [
         temperatura_max: 8,
         slatkoca_id: '1',
         arome: 'citrusi, badem',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 11.5,
         alkohol_max: 12.5
     },
@@ -308,7 +307,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'kupina, papar, čokolada',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 14,
         alkohol_max: 15.5
     },
@@ -321,7 +320,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'borovnica, papar, tamno voće',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 13.5,
         alkohol_max: 15
     },
@@ -334,7 +333,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'paprika, šljiva, začini',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 13,
         alkohol_max: 14.5
     },
@@ -347,7 +346,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '2',
         arome: 'šljiva, džem, začini',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 14,
         alkohol_max: 16
     },
@@ -360,7 +359,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'trešnja, začini',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12.5,
         alkohol_max: 14
     },
@@ -373,7 +372,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'jabuka, cvjetno',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 11,
         alkohol_max: 12.5
     },
@@ -386,7 +385,7 @@ export const vina = [
         temperatura_max: 12,
         slatkoca_id: '1',
         arome: 'kruška, mineralno',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12,
         alkohol_max: 13.5
     },
@@ -399,7 +398,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '3',
         arome: 'jabuka, med, cvjetno',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 11,
         alkohol_max: 13.5
     },
@@ -412,7 +411,7 @@ export const vina = [
         temperatura_max: 12,
         slatkoca_id: '1',
         arome: 'limun, vosak, med',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 11.5,
         alkohol_max: 13.5
     },
@@ -425,7 +424,7 @@ export const vina = [
         temperatura_max: 12,
         slatkoca_id: '4',
         arome: 'med, marelica, cvjetno',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 11,
         alkohol_max: 13
     },
@@ -438,7 +437,7 @@ export const vina = [
         temperatura_max: 16,
         slatkoca_id: '4',
         arome: 'sušeno voće, čokolada',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 19,
         alkohol_max: 22
     },
@@ -451,7 +450,7 @@ export const vina = [
         temperatura_max: 14,
         slatkoca_id: '1',
         arome: 'orah, sol, oksidativno',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 15,
         alkohol_max: 20
     },
@@ -464,7 +463,7 @@ export const vina = [
         temperatura_max: 16,
         slatkoca_id: '4',
         arome: 'karamela, orašasto',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 17,
         alkohol_max: 20
     },
@@ -477,7 +476,7 @@ export const vina = [
         temperatura_max: 12,
         slatkoca_id: '1',
         arome: 'papar, jabuka',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 11.5,
         alkohol_max: 13
     },
@@ -490,7 +489,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'citrusi, mediteransko bilje',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 11.5,
         alkohol_max: 13
     },
@@ -503,7 +502,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'limun, mineralno, slano',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12.5,
         alkohol_max: 13.5
     },
@@ -516,7 +515,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'crno voće, začini',
-        tijelo: 'srednje do puno',
+        tijelo_id: '3',
         alkohol_min: 13.5,
         alkohol_max: 15
     },
@@ -529,7 +528,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'tamno voće, dim, zemljano',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 13.5,
         alkohol_max: 15
     },
@@ -542,7 +541,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'trešnja, badem',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12,
         alkohol_max: 13.5
     },
@@ -555,7 +554,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '2',
         arome: 'trešnja, cvjetno',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 10.5,
         alkohol_max: 12
     },
@@ -568,7 +567,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'tamno voće, ljubičica, začini, zemljano',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 13.5,
         alkohol_max: 15
     },
@@ -581,7 +580,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'citrusi, zelena jabuka',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 10.5,
         alkohol_max: 12
     },
@@ -594,7 +593,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'tamno voće, dim, zemljano',
-        tijelo: 'srednje do puno',
+        tijelo_id: '3',
         alkohol_min: 13,
         alkohol_max: 14.5
     },
@@ -607,7 +606,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'jabuka, cvjetno, citrus',
-        tijelo: 'lagano do srednje',
+        tijelo_id: '2',
         alkohol_min: 11,
         alkohol_max: 12.5
     },
@@ -620,7 +619,7 @@ export const vina = [
         temperatura_max: 12,
         slatkoca_id: '1',
         arome: 'marelica, cvjetno, badem',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12,
         alkohol_max: 13.5
     },
@@ -633,7 +632,7 @@ export const vina = [
         temperatura_max: 16,
         slatkoca_id: '1',
         arome: 'višnja, zemljano, svježe',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 11.5,
         alkohol_max: 13
     },
@@ -646,7 +645,7 @@ export const vina = [
         temperatura_max: 18,
         slatkoca_id: '1',
         arome: 'sušeno voće, smokva, začini',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 14,
         alkohol_max: 16
     },
@@ -659,7 +658,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'biljno, jabuka, zemljano',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 11,
         alkohol_max: 12.5
     },
@@ -672,7 +671,7 @@ export const vina = [
         temperatura_max: 16,
         slatkoca_id: '1',
         arome: 'višnja, papar, začini',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12,
         alkohol_max: 13.5
     },
@@ -685,7 +684,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '3',
         arome: 'citrusi, petrol, jabuka',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 9,
         alkohol_max: 12
     },
@@ -698,7 +697,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'citrusi, zelena jabuka, blago mineralno',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 10,
         alkohol_max: 12
     },
@@ -711,7 +710,7 @@ export const vina = [
         temperatura_max: 12,
         slatkoca_id: '2',
         arome: 'marelica, med, suho voće',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12,
         alkohol_max: 13.5
     },
@@ -724,7 +723,7 @@ export const vina = [
         temperatura_max: 16,
         slatkoca_id: '1',
         arome: 'višnja, paprika, začini',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12,
         alkohol_max: 13.5
     },
@@ -737,7 +736,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'limun, jabuka, neutralno',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 10.5,
         alkohol_max: 12
     },
@@ -750,7 +749,7 @@ export const vina = [
         temperatura_max: 16,
         slatkoca_id: '1',
         arome: 'crveno voće, papar, zemljano',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 11,
         alkohol_max: 12.5
     },
@@ -763,7 +762,7 @@ export const vina = [
         temperatura_max: 14,
         slatkoca_id: '1',
         arome: 'crveno voće, lagano začinsko',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 10.5,
         alkohol_max: 12
     },
@@ -776,7 +775,7 @@ export const vina = [
         temperatura_max: 14,
         slatkoca_id: '1',
         arome: 'jagoda, višnja, banana',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 11,
         alkohol_max: 13
     },
@@ -789,7 +788,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '2',
         arome: 'muškatno, cvjetno, jabuka',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 10,
         alkohol_max: 12
     },
@@ -880,7 +879,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '2',
         arome: 'muškatno, cvjetno, grožđe',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 10,
         alkohol_max: 11.5
     },
@@ -893,7 +892,7 @@ export const vina = [
         temperatura_max: 14,
         slatkoca_id: '4',
         arome: 'grožđice, smokva, karamela',
-        tijelo: 'puno',
+        tijelo_id: '3',
         alkohol_min: 15,
         alkohol_max: 18
     },
@@ -906,7 +905,7 @@ export const vina = [
         temperatura_max: 12,
         slatkoca_id: '1',
         arome: 'mineralno, limun, jabuka',
-        tijelo: 'srednje',
+        tijelo_id: '2',
         alkohol_min: 12,
         alkohol_max: 13.5
     },
@@ -919,7 +918,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '1',
         arome: 'jagoda, citrusi, cvjetno',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 12.5,
         alkohol_max: 13.5
     },
@@ -932,7 +931,7 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '2',
         arome: 'malina, jagoda',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 10.5,
         alkohol_max: 12
     },
@@ -945,10 +944,10 @@ export const vina = [
         temperatura_max: 10,
         slatkoca_id: '3',
         arome: 'trešnja, lubenica',
-        tijelo: 'lagano',
+        tijelo_id: '1',
         alkohol_min: 9,
         alkohol_max: 11
-    }
+    },
 ]
 
 export default {

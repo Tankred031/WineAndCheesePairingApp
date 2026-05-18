@@ -19,12 +19,24 @@ export default function VinaPregledGrid({ vina, navigate, obrisi }) {
         { id: '4', naziv: 'slatko' }
     ];
 
+    const TIJELA = [
+        { id: '1', naziv: 'lagano' },
+        { id: '2', naziv: 'srednje' },
+        { id: '3', naziv: 'puno' }
+    ];
+
     function getTipNaziv(id) {
         return TIPOVI_VINA.find(t => t.id === id)?.naziv || '';
     }
 
     function getSlatkocaNaziv(id) {
         return SLATKOCE.find(s => s.id === id)?.naziv || '';
+    }
+
+    function getTijeloNaziv(id) {
+        return TIJELA.find(
+            t => t.id === id
+        )?.naziv || '';
     }
 
     function format1dec(broj) {
@@ -85,7 +97,7 @@ export default function VinaPregledGrid({ vina, navigate, obrisi }) {
 
                                 <div className="mt-2">
                                     <span className="text-muted">Tijelo:</span>
-                                    <div>{vino.tijelo}</div>
+                                    <div>{getTijeloNaziv(vino.tijelo_id)}</div>
                                 </div>
 
                             </Card.Body>
