@@ -775,7 +775,7 @@ export default function GeneriranjePodataka() {
                                 Pretakanje nije moguće jer ste već u localStorage modu
                             </Tooltip>
                         ) : (
-                            <Tooltip id="tooltip-disabled"></Tooltip>
+                            <></>
                         
                         )}
                         >
