@@ -6,6 +6,7 @@ import * as XLSX from "xlsx-js-style"
  * @param {string} filename - ime filea
  * @param {string} sheetName - ime sheet-a
  */
+
 export function generirajExcel(data, filename = "export", sheetName = "Sheet1") {
 
     if (!data || data.length === 0) {
