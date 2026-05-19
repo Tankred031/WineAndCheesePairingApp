@@ -148,10 +148,27 @@ export default function ZanimljivostPromjena() {
                         </Form.Control.Feedback>
                     </Form.Group>
 
-                    <Button type="submit" className="w-100" variant="success">
-                        Spremi izmjene
-                    </Button>
+                    
+                    <div className="d-flex gap-2 mt-3">
 
+                        <Button
+                            type="button"
+                            variant="danger"
+                            className="w-100"
+                            onClick={() => navigate(RouteNames.ZANIMLJIVOSTI)}
+                        >
+                            Odustani
+                        </Button>
+
+                        <Button
+                            type="submit"
+                            className="w-100"
+                            variant="success"
+                        >
+                            Spremi izmjene
+                        </Button>
+
+                    </div>
                 </Form>
             </div>
         </div>
