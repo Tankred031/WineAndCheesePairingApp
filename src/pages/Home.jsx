@@ -8,6 +8,9 @@ import { Card, Carousel, Col, Row } from "react-bootstrap";
 import { uparivanjeVinaById } from "../services/uparivanje/UparivanjeVinaPopis";
 import { uparivanjeSiraById } from "../services/uparivanje/UparivanjeSiraPopis";
 import { DATA_SOURCE } from "../constants";
+import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLocalStorage";
+import OperaterServiceFireBase from "../services/operateri/OperaterServiceFireBase";
+import useAuth from "../hooks/useAuth"
 
 export default function Home() {
 
@@ -18,6 +21,8 @@ export default function Home() {
     const vino = "/img/pouring2.jpg";
     const wine2 = "/img/wine2.jpg";
     const wine3 = "/img/wine3.jpg";
+
+    const { logout } = useAuth();
 
     const [brojVina, setBrojVina] = useState(0);
     const [brojSireva, setBrojSireva] = useState(0);
@@ -41,6 +46,14 @@ export default function Home() {
             }
         }
 
+        if (noviIzvor === 'firebase') {
+            const servis =
+                await OperaterServiceFireBase.get();
+
+            if (servis.data.length > 0) {
+                izvor = noviIzvor;
+            }
+        }
 
         localStorage.setItem('dataSource', izvor);
 

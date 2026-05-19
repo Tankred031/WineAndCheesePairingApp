@@ -9,6 +9,15 @@ import { PrefixStorage, DATA_SOURCE } from "../constants";
 import { operateri } from "../services/operateri/OperaterPodaci";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
+import VinaServiceMemorija from "../services/vina/VinaServiceMemorija";
+import SireviServiceMemorija from "../services/sirevi/SireviServiceMemorija";
+import ZanimljivostiServiceMemorija from "../services/zanimljivosti/ZanimljivostiServiceMemorija";
+import OperaterServiceMemorija from "../services/operateri/OperaterServiceMemorija";
+
+import VinaServiceFireBase from "../services/vina/VinaServiceFirebase";
+import SireviServiceFireBase from "../services/sirevi/SireviServiceFirebase";
+import ZanimljivostiServiceFireBase from "../services/zanimljivosti/ZanimljivostiServiceFirebase";
+import OperaterServiceFireBase from "../services/operateri/OperaterServiceFirebase";
 
 
 export default function GeneriranjePodataka() {
@@ -20,8 +29,11 @@ export default function GeneriranjePodataka() {
     const [poruka, setPoruka] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const koristiLocalStorage = DATA_SOURCE === "localStorage"
+    const koristiLocalStorage =
+        localStorage.getItem("dataSource") === "localStorage"
 
+    const koristiFirebase =
+        localStorage.getItem("dataSource") === "firebase"
 
     // =========================================
     // GENERIRANJE VINA
@@ -143,9 +155,9 @@ export default function GeneriranjePodataka() {
                 arome: faker.word.words(3),
                 tijelo_id: String(faker.number.int({
                     min: 1,
-                    max: 3                    
-            })
-            ),
+                    max: 3
+                })
+                ),
 
                 alkohol_min: alkoholMin,
                 alkohol_max: alkoholMax
@@ -491,6 +503,49 @@ export default function GeneriranjePodataka() {
         }
     };
 
+    // =========================================
+    // BRISANJE OPERATERA
+    // =========================================
+
+    const handleObrisiOperatere = async () => {
+
+        if (!window.confirm(
+            "Obrisati sve operatere?"
+        )) return;
+
+        setLoading(true);
+
+        try {
+
+            const res =
+                await OperaterService.get();
+
+            for (const o of res.data) {
+
+                await OperaterService.obrisi(
+                    o.sifra
+                );
+            }
+
+            setPoruka({
+                tip: "success",
+                tekst: "Svi operateri obrisani!"
+            });
+
+        } catch (e) {
+
+            console.error(e);
+
+            setPoruka({
+                tip: "danger",
+                tekst: "Greška kod brisanja operatera"
+            });
+
+        } finally {
+
+            setLoading(false);
+        }
+    };
 
 
     // =========================================
@@ -549,6 +604,133 @@ export default function GeneriranjePodataka() {
     };
 
 
+    const handleMemorijaUFirebase = async () => {
+
+        if (!window.confirm(
+            'Jesi siguran da želiš pretočiti podatke u Firebase?'
+        )) return;
+
+        setLoading(true);
+        setPoruka(null);
+
+        try {
+
+            // =========================================
+            // VINA
+            // =========================================
+
+            const vina =
+                await VinaServiceMemorija.get();
+
+            let sifreVina = [];
+
+            for (const vino of vina.data) {
+
+                const vinoBezId = { ...vino };
+
+                delete vinoBezId.id;
+
+                const fb = await VinaServiceFireBase.dodaj(
+                    vinoBezId
+                );
+                console.log(fb.data.id);
+                sifreVina.push({ sifram: vino.id, sifraf: fb.data.id })
+            }
+
+            // =========================================
+            // SIREVI
+            // =========================================
+
+            const sirevi =
+                await SireviServiceMemorija.get();
+
+            let sifreSirevi = [];
+
+            for (const sir of sirevi.data) {
+
+                const sirBezId = { ...sir };
+
+                delete sirBezId.id;
+
+                const fb = await SireviServiceFireBase.dodaj(
+                    sirBezId
+                );
+                console.log(fb.data.id);
+                sifreSirevi.push({ sifram: sir.id, sifraf: fb.data.id })
+            }
+
+
+            // =========================================
+            // ZANIMLJIVOSTI
+            // =========================================
+
+            const clanci =
+                await ZanimljivostiServiceMemorija.get();
+
+            let sifraClanci = [];
+
+            for (const clanak of clanci.data) {
+
+                const clanakBezId = { ...clanak };
+
+                delete clanakBezId.id;
+
+                const fb = await ZanimljivostiServiceFireBase.dodaj(
+                    clanakBezId
+
+
+
+                );
+                console.log(fb.data.id);
+                sifraClanci.push({
+                    sifram: clanak.id,
+                    sifraf: fb.data.id
+                })
+            }
+
+            // =========================================
+            // OPERATERI
+            // =========================================
+
+            const operateri =
+                await OperaterServiceMemorija.get();
+
+            let sifraOperateri = [];
+
+            for (const operater of operateri.data) {
+
+                const fb = await OperaterServiceFireBase.dodaj({
+
+                    email: operater.email,
+
+                    uloga: operater.uloga,
+
+                    lozinka:
+                        operater.lozinka || "test123"
+                });
+                console.log(fb.data.id);
+                sifraOperateri.push({ sifram: operater.id, sifraf: fb.data.id })
+            }
+
+            setPoruka({
+                tip: "success",
+                tekst: "Podaci uspješno prebačeni u Firebase!"
+            });
+
+        } catch (e) {
+
+            console.error(e);
+
+            setPoruka({
+                tip: "danger",
+                tekst: "Greška kod pretakanja u Firebase"
+            });
+
+        } finally {
+
+            setLoading(false);
+        }
+    };
 
     return (
 
@@ -737,70 +919,134 @@ export default function GeneriranjePodataka() {
 
 
 
-            <Row className="mt-3">
+            <Row className="mt-3 align-items-start">
 
-                <Col md={4}>
-                    <Button
-                        variant="danger"
-                        onClick={handleObrisiVina}
-                        disabled={loading}
-                        className="w-100 mb-2"
-                    >
-                        {loading
-                            ? "Brisanje..."
-                            : "Obriši sva vina"}
-                    </Button>
-                </Col>
+                {/* PRVI RED - BRISANJE */}
 
-                <Col md={4}>
-                    <Button
-                        variant="danger"
-                        onClick={handleObrisiSireve}
-                        disabled={loading}
-                        className="w-100 mb-2"
-                    >
-                        {loading
-                            ? "Brisanje..."
-                            : "Obriši sve sireve"}
-                    </Button>
-                </Col>
+                <Row className="mt-3">
+
+                    <Col md={4}>
+                        <Button
+                            variant="danger"
+                            onClick={handleObrisiVina}
+                            disabled={loading}
+                            className="w-100 mb-2"
+                        >
+                            {loading
+                                ? "Brisanje..."
+                                : "Obriši sva vina"}
+                        </Button>
+                    </Col>
+
+                    <Col md={4}>
+                        <Button
+                            variant="danger"
+                            onClick={handleObrisiSireve}
+                            disabled={loading}
+                            className="w-100 mb-2"
+                        >
+                            {loading
+                                ? "Brisanje..."
+                                : "Obriši sve sireve"}
+                        </Button>
+                    </Col>
+
+                    <Col md={4}>
+                        <Button
+                            variant="danger"
+                            onClick={handleObrisiOperatere}
+                            disabled={loading}
+                            className="w-100 mb-2"
+                        >
+                            {loading
+                                ? "Brisanje..."
+                                : "Obriši sve operatere"}
+                        </Button>
+                    </Col>
+
+                </Row>
 
 
 
-                <Col md={4}>
-                    <OverlayTrigger
-                        placement="top"
-                        overlay={koristiLocalStorage ? (
-                            <Tooltip>
-                                Pretakanje nije moguće jer ste već u localStorage modu
-                            </Tooltip>
-                        ) : (
-                            <></>
-                        
-                        )}
+                {/* DRUGI RED - PRETAKANJE */}
+
+                <Row className="mt-2 justify-content-end">
+
+                    <Col md={6}>
+
+                        <OverlayTrigger
+                            placement="top"
+                            overlay={koristiLocalStorage ? (
+                                <Tooltip>
+                                    Pretakanje nije moguće jer ste već u localStorage modu
+                                </Tooltip>
+                            ) : (
+                                <></>
+                            )}
                         >
                             <span className="d-block">
 
-                        <Button
-                        variant={
-                            koristiLocalStorage
-                            ? "secondary"
-                            : "success"
-                        }
-                        onClick={handleMemorijaULocalStorage}
-                        disabled={loading || koristiLocalStorage}
-                        className="w-100 mb-2"
-                    >
-                        {
-                            koristiLocalStorage
-                                ? "Već koristite localStorage"
-                                : "Pretoči u localStorage"
-                        }
-                        
-                    </Button>
-                    </span>
-                    </OverlayTrigger>
-                </Col>
+                                <Button
+                                    variant={
+                                        koristiLocalStorage
+                                            ? "secondary"
+                                            : "success"
+                                    }
+                                    onClick={handleMemorijaULocalStorage}
+                                    disabled={loading || koristiLocalStorage}
+                                    className="w-100 mb-2"
+                                >
+                                    {
+                                        koristiLocalStorage
+                                            ? "Već koristite localStorage"
+                                            : "Pretoči u localStorage"
+                                    }
+                                </Button>
+
+                            </span>
+                        </OverlayTrigger>
+
+                    </Col>
+
+
+
+                    <Col md={6}>
+
+                        <OverlayTrigger
+                            placement="top"
+                            overlay={koristiFirebase ? (
+                                <Tooltip>
+                                    Pretakanje nije moguće jer ste već u Firebase modu
+                                </Tooltip>
+                            ) : (
+                                <></>
+                            )}
+                        >
+                            <span className="d-block">
+
+                                <Button
+                                    variant={
+                                        koristiFirebase
+                                            ? "secondary"
+                                            : "warning"
+                                    }
+                                    onClick={handleMemorijaUFirebase}
+                                    disabled={loading || koristiFirebase}
+                                    className="w-100 mb-2"
+                                >
+                                    {
+                                        koristiFirebase
+                                            ? "Već koristite Firebase"
+                                            : "Pretoči u Firebase"
+                                    }
+                                </Button>
+
+                            </span>
+                        </OverlayTrigger>
+
+                    </Col>
+
+                </Row>
             </Row>
 
 

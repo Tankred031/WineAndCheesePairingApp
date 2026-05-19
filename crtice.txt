@@ -37,6 +37,9 @@ npm install firebase
 // biblioteka ikonica
 npm install lucide-react
 
+localStorage.setItem("dataSource", "memorija");
+location.reload();
+
 
 |               
 +---public

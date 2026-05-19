@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Container, Table, Card, Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import useAuth from "../hooks/useAuth";
 import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLocalStorage";
+import OperaterServiceFirebase from "../services/operateri/OperaterServiceFirebase";
 
 export default function NadzornaPloca() {
 
@@ -10,20 +11,33 @@ export default function NadzornaPloca() {
     const { logout } = useAuth();
 
     const promijeniIzvor = async (noviIzvor) => {
-        let izvor = 'memorija';
-        if (noviIzvor === 'localStorage') {
-            const servis =
-                await OperaterServiceLocalStorage.get();
-            if (servis.data.length > 0) {
-                izvor = noviIzvor;
-            }
+
+    let izvor = 'memorija';
+
+    if (noviIzvor === 'localStorage') {
+        const servis =
+            await OperaterServiceLocalStorage.get();
+
+        if (servis.data.length > 0) {
+            izvor = noviIzvor;
         }
+    }
 
-        localStorage.setItem('dataSource', izvor);
-        logout();
-        window.location.reload();
-    };
+    if (noviIzvor === 'firebase') {
+        const servis =
+            await OperaterServiceFirebase.get();
 
+        if (servis.data.length > 0) {
+            izvor = noviIzvor;
+        }
+    }
+
+    localStorage.setItem('dataSource', izvor);
+
+    //logout();
+
+    window.location.reload();
+};
     useEffect(() => {
 
         const podaci = JSON.parse(
@@ -115,6 +129,14 @@ export default function NadzornaPloca() {
                             className='btn btn-primary'
                         >
                             LocalStorage
+                        </Button>
+
+                        <Button
+                            onClick={() =>
+                                promijeniIzvor('firebase')}
+                            className='btn btn-warning'
+                        >
+                            Firebase
                         </Button>
 
                     </ButtonGroup>

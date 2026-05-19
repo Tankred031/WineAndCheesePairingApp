@@ -26,12 +26,12 @@ export const RouteNames = {
     OPERATERI_PROMJENA: '/operateri/:sifra',
     OPERATERI_PROMJENA_LOZINKE: '/operateri/:sifra/lozinka',
 
-    GENERIRANJE_PODATAKA: '/generiraj-podatke',    
+    GENERIRANJE_PODATAKA: '/generiraj-podatke',
 
     LOGIN: '/login',
     REGISTRACIJA: '/registracija',
 
-    NADZORNA_PLOCA: '/nadzorna-ploca',    
+    NADZORNA_PLOCA: '/nadzorna-ploca',
 
 }
 
@@ -40,9 +40,10 @@ export const DATA_SOURCE = localStorage.getItem('dataSource') || 'memorija';
 
 
 export const PrefixStorage = {
-    VINA: 'vina',
-    SIREVI: 'sirevi',
-    UPARIVANJA: 'uparivanja',
-    CLANCI: 'clanci',
-    OPERATERI: 'operateri'
+    VINA: 'e4.vina',
+    SIREVI: 'e4.sirevi',
+    UPARIVANJA: 'e4.uparivanja',
+    CLANCI: 'e4.clanci',
+    OPERATERI: 'e4.operateri',
+    AUTH_USER: 'auth_user'
 }

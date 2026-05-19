@@ -1,6 +1,7 @@
 import VinaServiceLocalStorage from "./VinaServiceLocalStorage";
 import VinaServiceMemorija from "./VinaServiceMemorija";
 import { DATA_SOURCE } from "../../constants";
+import VinaServiceFirebase from "./VinaServiceFirebase";
 
 let Servis = null;
 
@@ -11,18 +12,21 @@ switch (DATA_SOURCE) {
         break;
     case 'localStorage':
         Servis = VinaServiceLocalStorage;
-        break;  
+        break;
+    case 'firebase':
+        Servis = VinaServiceFirebase;
+        break;
     default:
         Servis = null;
 }
 
 
 const PrazanServis = {
-    get: async () =>({ success: false, data: []}),
+    get: async () => ({ success: false, data: [] }),
     getById: async (id) => ({ success: false, data: {} }),
-    dodaj: async (vino) => {console.error("Servis nije učitan"); return {success: false, message: "Servis nije učitan"}},
-    promjeni: async (id, vino) => { console.error("Servis nije učitan"); return {success: false, message: "Servis nije učitan"}},
-    obrisi: async (id) => { console.error("Servis nije učitan"); return {success: false, message: "Servis nije učitan"}},
+    dodaj: async (vino) => { console.error("Servis nije učitan"); return { success: false, message: "Servis nije učitan" } },
+    promjeni: async (id, vino) => { console.error("Servis nije učitan"); return { success: false, message: "Servis nije učitan" } },
+    obrisi: async (id) => { console.error("Servis nije učitan"); return { success: false, message: "Servis nije učitan" } },
     getPage: async (page, pageSize) => ({ success: false, data: [], totalPages: 0, totalItems: 0 })
 };
 

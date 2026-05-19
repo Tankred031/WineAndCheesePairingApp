@@ -202,7 +202,9 @@ export default function Izbornik() {
                   variant={
                     DATA_SOURCE === 'memorija'
                       ? 'info'
-                      : 'primary'
+                      : DATA_SOURCE === 'firebase'
+                        ? 'warning'
+                        : 'primary'
                   }
                   size="sm"
                 >
