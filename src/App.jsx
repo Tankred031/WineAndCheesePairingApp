@@ -123,7 +123,9 @@ function App() {
         </Container>
         <hr />
         <p className='footer'>&copy; Wine and Cheese Pairing App <br />
-          Izradio: Tankred Kralj
+          <em>Izrađeno u Reactu uz Bootstrap CSS framework</em> <br />
+          <em>Izradio: Tankred Kralj</em>
+          
         </p>
       </Container>
 
