@@ -24,7 +24,6 @@ The application was designed to simulate a real-world business-oriented system w
 * Vite
 * JavaScript (ES6+)
 * Zod Validation
-* Firebase
 * LocalStorage API
 
 ---
