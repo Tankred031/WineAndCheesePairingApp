@@ -4,21 +4,22 @@ import { DATA_SOURCE } from "../../constants";
 import OperaterServiceFirebase from "./OperaterServiceFirebase";
 
 
-let Servis = null
+let Servis = OperaterServiceMemorija;
 
 // 1. Odabir servisa
 switch (DATA_SOURCE) {
-    case 'memorija':
-        Servis = OperaterServiceMemorija;
-        break
     case 'localStorage':
         Servis = OperaterServiceLocalStorage;
         break;
+
     case 'firebase':
         Servis = OperaterServiceFirebase;
         break;
+
+    case 'memorija':
     default:
-        Servis = null
+        Servis = OperaterServiceMemorija;
+        break;
 }
 
 // 2. Definiranje defaultnog (praznog) ponašanja ako Servis nije pronađen
