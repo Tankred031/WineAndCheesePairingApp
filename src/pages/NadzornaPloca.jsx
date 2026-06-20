@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Container, Table, Card, Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import useAuth from "../hooks/useAuth";
 import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLocalStorage";
-import OperaterServiceFirebase from "../services/operateri/OperaterServiceFirebase";
 
 export default function NadzornaPloca() {
 
@@ -22,16 +21,7 @@ export default function NadzornaPloca() {
             izvor = noviIzvor;
         }
     }
-
-    if (noviIzvor === 'firebase') {
-        const servis =
-            await OperaterServiceFirebase.get();
-
-        if (servis.data.length > 0) {
-            izvor = noviIzvor;
-        }
-    }
-
+    
     localStorage.setItem('dataSource', izvor);
 
     //logout();
@@ -53,10 +43,7 @@ export default function NadzornaPloca() {
     return (
 
         <Container className="mt-4">
-
-
             <Card className="shadow-sm mt-4">
-
                 <Card.Body>
 
                     <h4 className="section-title mb-4">
@@ -106,9 +93,7 @@ export default function NadzornaPloca() {
             </Card>
 
             <Card className="shadow-sm mt-4 mb-5">
-
                 <Card.Body className="text-center">
-
                     <h4 className="section-title mb-4">
                         Izvor podataka
                     </h4>
@@ -129,15 +114,7 @@ export default function NadzornaPloca() {
                             className='btn btn-primary'
                         >
                             LocalStorage
-                        </Button>
-
-                        <Button
-                            onClick={() =>
-                                promijeniIzvor('firebase')}
-                            className='btn btn-warning'
-                        >
-                            Firebase
-                        </Button>
+                        </Button>                      
 
                     </ButtonGroup>
                 </Card.Body>

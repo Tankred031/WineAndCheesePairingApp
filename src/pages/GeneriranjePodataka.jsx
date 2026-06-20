@@ -14,10 +14,7 @@ import SireviServiceMemorija from "../services/sirevi/SireviServiceMemorija";
 import ZanimljivostiServiceMemorija from "../services/zanimljivosti/ZanimljivostiServiceMemorija";
 import OperaterServiceMemorija from "../services/operateri/OperaterServiceMemorija";
 
-import VinaServiceFireBase from "../services/vina/VinaServiceFirebase";
-import SireviServiceFireBase from "../services/sirevi/SireviServiceFirebase";
-import ZanimljivostiServiceFireBase from "../services/zanimljivosti/ZanimljivostiServiceFirebase";
-import OperaterServiceFireBase from "../services/operateri/OperaterServiceFirebase";
+
 
 
 export default function GeneriranjePodataka() {
@@ -32,9 +29,7 @@ export default function GeneriranjePodataka() {
     const koristiLocalStorage =
         localStorage.getItem("dataSource") === "localStorage"
 
-    const koristiFirebase =
-        localStorage.getItem("dataSource") === "firebase"
-
+    
     // =========================================
     // GENERIRANJE VINA
     // =========================================
@@ -603,135 +598,7 @@ export default function GeneriranjePodataka() {
         }
     };
 
-
-    const handleMemorijaUFirebase = async () => {
-
-        if (!window.confirm(
-            'Jesi siguran da želiš pretočiti podatke u Firebase?'
-        )) return;
-
-        setLoading(true);
-        setPoruka(null);
-
-        try {
-
-            // =========================================
-            // VINA
-            // =========================================
-
-            const vina =
-                await VinaServiceMemorija.get();
-
-            let sifreVina = [];
-
-            for (const vino of vina.data) {
-
-                const vinoBezId = { ...vino };
-
-                delete vinoBezId.id;
-
-                const fb = await VinaServiceFireBase.dodaj(
-                    vinoBezId
-                );
-                console.log(fb.data.id);
-                sifreVina.push({ sifram: vino.id, sifraf: fb.data.id })
-            }
-
-            // =========================================
-            // SIREVI
-            // =========================================
-
-            const sirevi =
-                await SireviServiceMemorija.get();
-
-            let sifreSirevi = [];
-
-            for (const sir of sirevi.data) {
-
-                const sirBezId = { ...sir };
-
-                delete sirBezId.id;
-
-                const fb = await SireviServiceFireBase.dodaj(
-                    sirBezId
-                );
-                console.log(fb.data.id);
-                sifreSirevi.push({ sifram: sir.id, sifraf: fb.data.id })
-            }
-
-
-            // =========================================
-            // ZANIMLJIVOSTI
-            // =========================================
-
-            const clanci =
-                await ZanimljivostiServiceMemorija.get();
-
-            let sifraClanci = [];
-
-            for (const clanak of clanci.data) {
-
-                const clanakBezId = { ...clanak };
-
-                delete clanakBezId.id;
-
-                const fb = await ZanimljivostiServiceFireBase.dodaj(
-                    clanakBezId
-
-
-
-                );
-                console.log(fb.data.id);
-                sifraClanci.push({
-                    sifram: clanak.id,
-                    sifraf: fb.data.id
-                })
-            }
-
-            // =========================================
-            // OPERATERI
-            // =========================================
-
-            const operateri =
-                await OperaterServiceMemorija.get();
-
-            let sifraOperateri = [];
-
-            for (const operater of operateri.data) {
-
-                const fb = await OperaterServiceFireBase.dodaj({
-
-                    email: operater.email,
-
-                    uloga: operater.uloga,
-
-                    lozinka:
-                        operater.lozinka || "test123"
-                });
-                console.log(fb.data.id);
-                sifraOperateri.push({ sifram: operater.id, sifraf: fb.data.id })
-            }
-
-            setPoruka({
-                tip: "success",
-                tekst: "Podaci uspješno prebačeni u Firebase!"
-            });
-
-        } catch (e) {
-
-            console.error(e);
-
-            setPoruka({
-                tip: "danger",
-                tekst: "Greška kod pretakanja u Firebase"
-            });
-
-        } finally {
-
-            setLoading(false);
-        }
-    };
-
+   
     return (
 
         <Container className="mt-4">
@@ -1007,45 +874,6 @@ export default function GeneriranjePodataka() {
                         </OverlayTrigger>
 
                     </Col>
-
-
-
-                    <Col md={6}>
-
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={koristiFirebase ? (
-                                <Tooltip>
-                                    Pretakanje nije moguće jer ste već u Firebase modu
-                                </Tooltip>
-                            ) : (
-                                <></>
-                            )}
-                        >
-                            <span className="d-block">
-
-                                <Button
-                                    variant={
-                                        koristiFirebase
-                                            ? "secondary"
-                                            : "warning"
-                                    }
-                                    onClick={handleMemorijaUFirebase}
-                                    disabled={loading || koristiFirebase}
-                                    className="w-100 mb-2"
-                                >
-                                    {
-                                        koristiFirebase
-                                            ? "Već koristite Firebase"
-                                            : "Pretoči u Firebase"
-                                    }
-                                </Button>
-
-                            </span>
-                        </OverlayTrigger>
-
-                    </Col>
-
                 </Row>
             </Row>
 

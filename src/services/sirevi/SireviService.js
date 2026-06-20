@@ -1,7 +1,6 @@
 import SireviServiceLocalStorage from "./SireviServiceLocalStorage";
 import SireviServiceMemorija from "./SireviServiceMemorija";
 import { DATA_SOURCE } from "../../constants";
-import SireviServiceFirebase from "./SireviServiceFirebase";
 
 let Servis = null;
 
@@ -13,11 +12,9 @@ switch (DATA_SOURCE) {
     case 'localStorage':
         Servis = SireviServiceLocalStorage;
         break;
-    case 'firebase':
-        Servis = SireviServiceFirebase;
-        break;
     default:
-        Servis = null;
+        Servis = SireviServiceMemorija;
+        break;
 }
 
 

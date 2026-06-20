@@ -9,7 +9,6 @@ import { uparivanjeVinaById } from "../services/uparivanje/UparivanjeVinaPopis";
 import { uparivanjeSiraById } from "../services/uparivanje/UparivanjeSiraPopis";
 import { DATA_SOURCE } from "../constants";
 import OperaterServiceLocalStorage from "../services/operateri/OperaterServiceLocalStorage";
-import OperaterServiceFireBase from "../services/operateri/OperaterServiceFireBase";
 import useAuth from "../hooks/useAuth"
 
 export default function Home() {
@@ -41,15 +40,6 @@ export default function Home() {
 
             const servis =
                 await OperaterServiceLocalStorage.get();
-            if (servis.data.length > 0) {
-                izvor = noviIzvor;
-            }
-        }
-
-        if (noviIzvor === 'firebase') {
-            const servis =
-                await OperaterServiceFireBase.get();
-
             if (servis.data.length > 0) {
                 izvor = noviIzvor;
             }

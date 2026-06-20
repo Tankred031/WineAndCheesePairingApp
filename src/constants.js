@@ -35,15 +35,15 @@ export const RouteNames = {
 
 }
 
-// memorija, localStorage, firebase
-export const DATA_SOURCE = localStorage.getItem('dataSource') || 'memorija';
+// memorija, localStorage
+export const DATA_SOURCE = localStorage.getItem('dataSource') || 'localStorage';
 
 
 export const PrefixStorage = {
-    VINA: 'e4.vina',
-    SIREVI: 'e4.sirevi',
-    UPARIVANJA: 'e4.uparivanja',
-    CLANCI: 'e4.clanci',
-    OPERATERI: 'e4.operateri',
+    VINA: 'vina',
+    SIREVI: 'sirevi',
+    UPARIVANJA: 'uparivanja',
+    CLANCI: 'clanci',
+    OPERATERI: 'operateri',
     AUTH_USER: 'auth_user'
 }

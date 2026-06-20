@@ -1,7 +1,6 @@
 import VinaServiceLocalStorage from "./VinaServiceLocalStorage";
 import VinaServiceMemorija from "./VinaServiceMemorija";
 import { DATA_SOURCE } from "../../constants";
-import VinaServiceFirebase from "./VinaServiceFirebase";
 
 let Servis = null;
 
@@ -13,11 +12,8 @@ switch (DATA_SOURCE) {
     case 'localStorage':
         Servis = VinaServiceLocalStorage;
         break;
-    case 'firebase':
-        Servis = VinaServiceFirebase;
-        break;
     default:
-        Servis = null;
+        Servis = VinaServiceMemorija;
 }
 
 
