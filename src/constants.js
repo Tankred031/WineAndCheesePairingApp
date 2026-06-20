@@ -40,10 +40,10 @@ export const DATA_SOURCE = localStorage.getItem('dataSource') || 'localStorage';
 
 
 export const PrefixStorage = {
-    VINA: 'vina',
-    SIREVI: 'sirevi',
-    UPARIVANJA: 'uparivanja',
-    CLANCI: 'clanci',
-    OPERATERI: 'operateri',
+    VINA: 'e4.vina',
+    SIREVI: 'e4.sirevi',
+    UPARIVANJA: 'e4.uparivanja',
+    CLANCI: 'e4.clanci',
+    OPERATERI: 'e4.operateri',
     AUTH_USER: 'auth_user'
 }
