@@ -14,7 +14,6 @@
     "@lottiefiles/dotlottie-react": "^0.18.8",
     "bcryptjs": "^3.0.3",
     "bootstrap": "^5.3.8",
-    "firebase": "^12.13.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.7",
